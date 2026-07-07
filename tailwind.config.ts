@@ -4,11 +4,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--brand-primary)",
-        fg: "var(--brand-fg)",
-        bg: "var(--brand-bg)",
-        muted: "var(--brand-muted)",
-        accent: "var(--brand-accent)",
+        "tbb-bg": "var(--tbb-bg)",
+        "tbb-surface": "var(--tbb-surface)",
+        "tbb-card": "var(--tbb-card)",
+        "tbb-text": "var(--tbb-text)",
+        "tbb-text-muted": "var(--tbb-text-muted)",
+        "tbb-blue": "var(--tbb-blue)",
+        "tbb-green": "var(--tbb-green)",
+        "tbb-red": "var(--tbb-red)",
+      },
+      borderColor: {
+        "tbb-card": "var(--tbb-card-border)",
       },
       spacing: {
         "section-y": "5rem",
@@ -16,6 +22,9 @@ const config: Config = {
       },
       maxWidth: {
         content: "72rem",
+      },
+      borderRadius: {
+        card: "12px",
       },
     },
   },

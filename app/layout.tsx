@@ -5,9 +5,9 @@ import { organization, website } from "@/lib/schema";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-// TODO: swap for brand typeface when guidelines arrive
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
@@ -41,7 +41,7 @@ export default function RootLayout({
 }>): React.ReactElement {
   return (
     <html lang="en-GB" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="tbb-grid min-h-full flex flex-col bg-tbb-bg font-sans text-tbb-text">
         <JsonLd data={[organization(), website()]} />
         {children}
       </body>
