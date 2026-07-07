@@ -1,0 +1,30 @@
+---
+description: Accessibility standards for a public brand site (WCAG AA). Apply when building pages, sections, forms, or interactive components.
+globs: app/**/*.tsx,components/**/*.tsx
+---
+
+# Accessibility (target: WCAG 2.2 AA)
+
+Accessibility and SEO reinforce each other: semantic, navigable pages are better for both users and crawlers.
+
+## Structure
+- Use semantic landmarks: `<header>`, `<nav>`, `<main>`, `<footer>`, `<section>`, `<article>`. One `<main>` per page.
+- One `<h1>`, then a logical heading order with no skipped levels. Headings describe structure, not styling.
+- Reach for the correct native element first (`<button>`, `<a>`, `<label>`). Only add ARIA when semantic HTML genuinely cannot express the intent, and never add ARIA that contradicts the element.
+
+## Interaction
+- Everything usable with a mouse must work with a **keyboard**: logical tab order, no traps, `Enter`/`Space` activate controls.
+- **Visible focus states** on all interactive elements. Do not remove focus outlines without replacing them with a clear alternative.
+- Respect `prefers-reduced-motion`: gate non-essential animation behind it.
+
+## Content and forms
+- Descriptive `alt` on meaningful images; empty `alt=""` for purely decorative ones.
+- Every form control has an associated `<label>`. Errors are announced in text, not by colour alone.
+- Never convey information by colour alone (add text, icon, or pattern).
+
+## Colour and text
+- Text contrast at least **4.5:1** (3:1 for large text). Check brand colours against this before using them for text.
+- Do not disable zoom; layouts must survive 200% zoom and reflow.
+
+## Media
+- Video has captions; meaningful audio has a transcript (this also feeds SEO and AI extraction).
