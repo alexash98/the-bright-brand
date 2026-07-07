@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+:root {
+  /* TODO: replace with brand colours when guidelines arrive */
+  --brand-primary: #1c1917;
+  --brand-fg: #1c1917;
+  --brand-bg: #faf8f5;
+  --brand-muted: #78716c;
+  --brand-accent: #b45309;
+}
+
+@theme inline {
+  --color-primary: var(--brand-primary);
+  --color-fg: var(--brand-fg);
+  --color-bg: var(--brand-bg);
+  --color-muted: var(--brand-muted);
+  --color-accent: var(--brand-accent);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: var(--brand-bg);
+  color: var(--brand-fg);
+}
