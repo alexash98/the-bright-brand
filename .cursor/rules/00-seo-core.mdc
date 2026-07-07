@@ -1,0 +1,22 @@
+---
+description: Core SEO principles that apply to every page and component on this site
+alwaysApply: true
+---
+
+# SEO is a first-class requirement, not an afterthought
+
+Every page, component, and route you build must be crawlable, indexable, fast, and semantically clear. Treat these as non-negotiable defaults on every task, even when the prompt does not mention SEO.
+
+## Non-negotiables
+- **Server-render all meaningful content.** Primary content, links, headings, metadata, and JSON-LD must exist in the initial HTML. Never gate indexable content behind client-side `useEffect`/fetch. Google's crawler renders JS unreliably and most AI crawlers do not run JS at all.
+- **One `<h1>` per page**, then a logical `h2`/`h3` hierarchy. Use semantic HTML (`<main>`, `<article>`, `<nav>`, `<header>`, `<footer>`) over `<div>` soup.
+- **Every page has a unique title, a unique meta description, and a self-referencing canonical.** No duplicates across routes.
+- **Every image uses `next/image`** with meaningful `alt` text and explicit dimensions.
+- **Every internal link uses `<Link>`**, never `<a>` for internal routes, never full page reloads.
+- **Answer-first content.** Lead with the direct answer in the opening lines, then expand. This is what wins featured snippets and AI Overview citations.
+
+## The reality check on "AI / AEO / GEO"
+Per Google's May 2026 guidance, optimising for AI Overviews and AI Mode *is still SEO*. Do **not** add llms.txt, content "chunking", AI-specific rewrites, or invented schema types for AI. They give no benefit for Google's generative features. What actually helps: server-rendered HTML, clean extractable structure, genuine authority signals, and valid schema for rich results.
+
+## When unsure
+If a change could affect crawlability, canonicals, rendering strategy, or Core Web Vitals, flag it and propose the SEO-safe option by default. British English throughout. Never use em dashes.

@@ -1,0 +1,31 @@
+---
+description: Core Web Vitals and performance rules for images, fonts, scripts, and layout stability
+globs: app/**/*.tsx,components/**/*.tsx
+---
+
+# Performance and Core Web Vitals
+
+Page experience is a confirmed ranking signal and a real user-experience floor. Target these field thresholds:
+- **LCP < 2.5s** (loading)
+- **INP < 200ms** (responsiveness, replaced FID in 2024 and is the most commonly failed metric)
+- **CLS < 0.1** (visual stability)
+
+## Images
+- Always `next/image`. Set `width`/`height` (or `fill` with a sized container) so space is reserved and CLS stays low.
+- Serve modern formats (AVIF/WebP). Add `priority` to the LCP image (usually the hero) and preload it. Lazy-load everything below the fold.
+- Descriptive `alt` on every meaningful image (accessibility, image search, and CLS all benefit). Empty `alt=""` only for purely decorative images.
+
+## Fonts
+- Use `next/font` to self-host and preload fonts. This removes render-blocking font requests and font-swap layout shift. Never pull fonts from a third-party `<link>`.
+
+## JavaScript and INP
+- Minimise client JS. Keep components as Server Components unless they need interactivity; hydrate the smallest possible client leaves.
+- Load third-party scripts (analytics, chat widgets, pixels) with `next/script` using `strategy="afterInteractive"` or `"lazyOnload"`. Third-party scripts are the top cause of INP failures, so gate non-essential ones behind consent and defer them.
+- Avoid large client-side libraries where a server component or a small utility would do.
+
+## Layout stability
+- Reserve space for anything that loads late: images, embeds, ads, dynamic banners. Never inject content above existing content after load.
+- Use `Suspense` boundaries and proper loading UI so streaming does not cause shifts.
+
+## Before shipping
+Assume every new page will be checked in PageSpeed Insights / Lighthouse against the three thresholds above. If a change is likely to regress LCP or INP (a heavy client component, an unoptimised hero image, a synchronous third-party script), call it out and offer the lighter alternative.

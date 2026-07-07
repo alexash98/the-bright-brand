@@ -1,0 +1,26 @@
+---
+description: Rendering strategy (static/SSG/ISR/SSR), robots, sitemap, and crawlability rules
+globs: app/**/*.tsx,app/**/*.ts,next.config.*,middleware.*
+---
+
+# Rendering and crawlability
+
+## Rendering strategy: prefer static
+Choose the most static option a page allows, in this order:
+1. **Static (SSG)** for anything that only changes on deploy: marketing pages, about, service pages, legal. This is the default. Do not add `'use client'`, `cookies()`, `headers()`, or uncached dynamic fetches to a page that does not need them, as any of these opt the route out of static rendering.
+2. **ISR** (`export const revalidate = <seconds>`) for content that changes on a schedule: blog indexes, pricing, listings.
+3. **SSR** only when content is genuinely per-request (authenticated dashboards). Public marketing/content pages should almost never be SSR.
+
+Keep all indexable content in **Server Components**. Only push interactive leaves (`'use client'`) as far down the tree as possible so the surrounding content stays server-rendered.
+
+## robots.ts and sitemap.ts (file conventions)
+- Generate `app/robots.ts` and `app/sitemap.ts` rather than hand-writing XML. The sitemap must pull from the real content source so it never drifts, and must set an accurate `lastModified` per URL, since freshness is a recrawl signal.
+- `robots.ts` must reference the sitemap URL and must **not** block CSS or JS (Googlebot needs them to compute layout and Core Web Vitals). Only disallow genuinely private paths.
+- Never ship a route with conflicting signals: a URL that is `noindex` must not appear in the sitemap, and a canonical must never point at a `noindex` page. Conflicting `noindex` + canonical is a silent indexation killer.
+
+## URL and architecture hygiene
+- Clean, lowercase, hyphenated, static-looking URLs. No tracking params in canonical URLs.
+- Keep important pages within **3 clicks of the homepage**. Anything deeper gets crawled and linked less.
+- Pick one host convention (non-www or www) and one trailing-slash convention, and keep canonicals consistent with it. If `trailingSlash: true` in `next.config`, canonicals must match.
+- Add a `<BreadcrumbList>`-backed breadcrumb trail on nested pages for both users and crawlers.
+- Every route must be reachable via a real `<Link>`, not only via client-side interaction or search.

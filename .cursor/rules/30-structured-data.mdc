@@ -1,0 +1,31 @@
+---
+description: JSON-LD structured data for rich results, organization identity, and entity clarity. Apply when building layouts, pages, blog posts, product pages, or any page that should be eligible for rich results.
+globs: app/**/page.tsx,app/**/layout.tsx,components/**/*schema*.tsx,components/**/*Schema*.tsx
+---
+
+# Structured data (JSON-LD)
+
+Structured data does not change how a page looks, but it makes your entities unambiguous to search engines and AI systems, and it unlocks rich results. Adoption is still low, which makes it high-leverage. Render it **server-side** so it is in the initial HTML.
+
+## Implementation rules
+- Emit JSON-LD as a `<script type="application/ld+json">` inside a Server Component, via `dangerouslySetInnerHTML`.
+- **Escape `<` to prevent XSS**: `JSON.stringify(data).replace(/</g, '\\u003c')`, especially where any field could contain user or CMS content.
+- Use **absolute URLs** for every `url`, `@id`, `image`, and `logo`. Relative URLs are invalid in JSON-LD.
+- Give entities stable `@id` values (e.g. `https://domain.com/#organization`) and reference them across schemas so Organization, WebSite, Article author, and publisher all resolve to the same nodes. Nested, connected entities beat isolated blobs.
+- Validate every type against Google's Rich Results Test **and** the Schema.org validator before shipping.
+- Only mark up content that is actually visible on the page. Never mark up content that is not present.
+
+## Required site-wide schema (root layout = the "organization details in the header")
+Put these in `app/layout.tsx` so every page carries them:
+- **Organization**: `name`, `url`, `logo` (ImageObject, absolute), `sameAs` (social/authority profiles), `contactPoint`. Use `LocalBusiness` (or a subtype) instead if the business is location-based, adding `address`, `geo`, `openingHours`.
+- **WebSite**: `name`, `url`, and a `potentialAction` SearchAction if the site has internal search (drives the sitelinks search box).
+
+## Per-page-type schema
+- **Blog / article pages**: `BlogPosting` or `Article`, with `headline`, `image`, `datePublished`, `dateModified`, `author` as a linked `Person` entity (not a bare string), `publisher` referencing the Organization node, and `mainEntityOfPage`. Author-as-entity and accurate dates are strong trust signals for both rich results and AI citation.
+- **Product pages**: `Product` with `offers` (price, currency, availability), `brand`, and `aggregateRating`/`review` only if real ratings exist.
+- **Service pages**: `Service` linked to the provider Organization.
+- **FAQ blocks**: `FAQPage`. Note: Google narrowed FAQ *rich results in the SERP* to a small set of sites in late 2025, so do not expect the old star-visual, but the markup still helps machine comprehension and AI answers. Only use it for genuine Q&A actually on the page.
+- **Breadcrumbs**: `BreadcrumbList` on every nested page.
+
+## Do not
+Do not invent AI-specific schema or add schema purely "for AI Overviews". Google has stated no special schema is needed for its generative features. Schema earns its place through rich-result eligibility and entity clarity, nothing more.

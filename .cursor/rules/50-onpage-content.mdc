@@ -1,0 +1,28 @@
+---
+description: On-page content structure, headings, internal linking, E-E-A-T, and answer-first writing for search and AI visibility. Apply when writing or editing page copy, blog posts, landing pages, or content components.
+globs: app/**/page.tsx,content/**/*.md,content/**/*.mdx
+---
+
+# On-page content and structure
+
+## Structure for extraction
+- **One `<h1>`** stating the page's primary topic. Then `h2`/`h3` in a logical outline. Headings should read as a table of contents on their own.
+- **Front-load the answer.** Open each page and each section with the direct answer or key takeaway in the first one or two sentences, then expand. This is what gets pulled into featured snippets and AI Overviews.
+- Write in clear, natural language that mirrors how people actually ask questions. Short, direct answers to real questions support the "query fan-out" AI systems use (they split a question into sub-queries), so cover the obvious follow-up questions on the page too.
+- Use `<table>`, ordered/unordered lists, and definition-style blocks for facts, comparisons, and steps. Structured, scannable formats are extracted more often than dense prose.
+
+## Authority and trust (E-E-A-T)
+- Every content page has a clear **author** with real credentials, bylined and linked to an author page, and mapped to a `Person` schema entity (see structured-data rule).
+- Back claims with **specific data and cite the source** by name. Original stats, benchmarks, and named-expert quotes are the signals that earn citations from both Google and answer engines.
+- Keep `dateModified` accurate and genuinely refresh important pages. Freshness is a recrawl and citation signal; there is a measurable citation decay on stale pages.
+- Do not publish thin, templated, or near-duplicate pages. Two pages competing for the same intent cannibalise each other, consolidate instead.
+
+## Internal linking
+- Link new content to relevant existing pages with **descriptive anchor text** (not "click here"), and link back from established pages so nothing is orphaned.
+- Build topic clusters: a pillar page linking out to supporting pages and back, which reinforces topical authority.
+
+## Metadata copy
+- Title and meta description are marketing copy, not keyword lists. Match the page's primary intent, keep them unique, and write them to earn the click even when the answer appears in an AI summary.
+
+## Guardrails (cautionary, from real de-indexing cases)
+- Do not mass-generate unedited AI content, and keep the XML sitemap accurate and in sync. Bulk thin/AI content plus a messy sitemap is a known route to de-indexing. Every published page should be genuinely useful and reviewed.

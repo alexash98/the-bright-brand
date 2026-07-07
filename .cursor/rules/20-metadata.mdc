@@ -1,0 +1,45 @@
+---
+description: Next.js Metadata API rules for titles, descriptions, canonicals, Open Graph
+globs: app/**/page.tsx,app/**/layout.tsx,app/**/opengraph-image.tsx
+---
+
+# Metadata API
+
+## Root layout (set once)
+The root `app/layout.tsx` must export a base metadata object that sets:
+- `metadataBase: new URL('https://<production-domain>')` so every relative OG/canonical URL resolves correctly. Missing this breaks social previews in production.
+- A **title template**: `title: { default: 'Brand', template: '%s | Brand' }` so child pages get a consistent suffix without repetition.
+- Default `openGraph` and `twitter` blocks (site name, locale, card type `summary_large_image`).
+
+## Every page
+- **Static pages**: export a `metadata` object. Do **not** use `generateMetadata` for static pages, it adds needless overhead.
+- **Dynamic pages** (`[slug]`): use `async generateMetadata({ params })`, fetch the record, and return real title/description/canonical from the data. Never return `undefined` for title or description, provide a sensible fallback so it does not silently inherit the parent.
+- Always set a **self-referencing canonical** via `alternates: { canonical: '/full/path' }`. This is the single most-skipped item on Next.js sites and matters wherever `?ref=`, `?page=`, or slash variants exist.
+- Title ~50-60 chars, description ~140-160 chars, both unique and written for click-through, not keyword-stuffed.
+- `metadata` and `generateMetadata` only work in **Server Components**. If a file has `'use client'`, Next.js silently ignores its metadata, so move metadata to a parent server layout/page.
+
+## Open Graph images
+- Prefer an `opengraph-image.tsx` per route (or a static `opengraph-image.png`) at **1200x630**, under ~1MB. Provide `alt`. This controls how links render on LinkedIn, Slack, X, etc.
+
+## Reference pattern
+```tsx
+// static page
+export const metadata: Metadata = {
+  title: 'Google Ads for Law Firms',
+  description: 'Direct answer first, 140-160 chars, unique per page.',
+  alternates: { canonical: '/services/legal-ppc' },
+};
+
+// dynamic page
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPost(slug);
+  if (!post) return { title: 'Not found' };
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: { type: 'article', publishedTime: post.publishedAt },
+  };
+}
+```

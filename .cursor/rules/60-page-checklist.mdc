@@ -1,0 +1,36 @@
+---
+description: Pre-ship SEO checklist to run against any new or changed page. Invoke manually with @60-page-checklist when creating a page or before merging.
+---
+
+# Per-page SEO checklist
+
+Run this against the page before considering it done. Every box should be a yes.
+
+## Crawl and index
+- [ ] Route is statically rendered (or ISR), main content is in the server HTML, not client-fetched.
+- [ ] Reachable from the homepage within 3 clicks via a real `<Link>`.
+- [ ] Included in `sitemap.ts` with an accurate `lastModified`.
+- [ ] Self-referencing canonical set via `alternates.canonical`, absolute-correct.
+- [ ] No `noindex`/canonical conflict; page is not accidentally blocked in `robots.ts`.
+
+## Metadata
+- [ ] Unique title (~50-60 chars) using the template.
+- [ ] Unique meta description (~140-160 chars), answer-first.
+- [ ] `opengraph-image` present (1200x630) with alt.
+
+## Structure and content
+- [ ] Exactly one `<h1>`; logical `h2`/`h3` outline; semantic landmarks.
+- [ ] Direct answer in the opening lines.
+- [ ] Author + credentials present on content pages; `dateModified` accurate.
+- [ ] Claims backed by named sources; internal links added both ways with descriptive anchors.
+
+## Structured data
+- [ ] Correct JSON-LD type for the page, server-rendered, absolute URLs, `<` escaped.
+- [ ] `BreadcrumbList` on nested pages.
+- [ ] Passes Google Rich Results Test and the Schema.org validator.
+
+## Performance
+- [ ] LCP image uses `next/image` with `priority`; below-fold images lazy-loaded.
+- [ ] Fonts via `next/font`; third-party scripts via `next/script`, deferred/consent-gated.
+- [ ] No obvious CLS source (unsized media, late-injected content).
+- [ ] Spot-checked in Lighthouse against LCP < 2.5s, INP < 200ms, CLS < 0.1.
