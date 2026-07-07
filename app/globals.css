@@ -2,24 +2,69 @@
 @config "../tailwind.config.ts";
 
 :root {
-  /* TODO: replace with brand colours when guidelines arrive */
-  --brand-primary: #1c1917;
-  --brand-fg: #1c1917;
-  --brand-bg: #faf8f5;
-  --brand-muted: #78716c;
-  --brand-accent: #b45309;
+  /* Base and surfaces */
+  --tbb-bg: #060a10;
+  --tbb-surface: #080d16;
+  --tbb-card: rgba(255, 255, 255, 0.04);
+  --tbb-card-border: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --tbb-text: #ffffff;
+  --tbb-text-muted: rgba(255, 255, 255, 0.5);
+
+  /* Accent and status */
+  --tbb-blue: #5b9fff;
+  --tbb-green: #34d399;
+  --tbb-red: #fb7185;
+}
+
+@theme {
+  --color-tbb-bg: var(--tbb-bg);
+  --color-tbb-surface: var(--tbb-surface);
+  --color-tbb-card: var(--tbb-card);
+  --color-tbb-text: var(--tbb-text);
+  --color-tbb-text-muted: var(--tbb-text-muted);
+  --color-tbb-blue: var(--tbb-blue);
+  --color-tbb-green: var(--tbb-green);
+  --color-tbb-red: var(--tbb-red);
+  --font-sans: var(--font-inter);
 }
 
 @theme inline {
-  --color-primary: var(--brand-primary);
-  --color-fg: var(--brand-fg);
-  --color-bg: var(--brand-bg);
-  --color-muted: var(--brand-muted);
-  --color-accent: var(--brand-accent);
+  --color-tbb-bg: var(--tbb-bg);
+  --color-tbb-surface: var(--tbb-surface);
+  --color-tbb-card: var(--tbb-card);
+  --color-tbb-text: var(--tbb-text);
+  --color-tbb-text-muted: var(--tbb-text-muted);
+  --color-tbb-blue: var(--tbb-blue);
+  --color-tbb-green: var(--tbb-green);
+  --color-tbb-red: var(--tbb-red);
   --font-sans: var(--font-inter);
 }
 
 body {
-  background-color: var(--brand-bg);
-  color: var(--brand-fg);
+  background-color: var(--tbb-bg);
+  color: var(--tbb-text);
+}
+
+.tbb-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.tbb-glow {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 600px;
+  height: 500px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 100, 220, 0.28) 0%,
+    rgba(10, 40, 120, 0.12) 50%,
+    transparent 75%
+  );
 }

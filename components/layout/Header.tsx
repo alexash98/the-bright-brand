@@ -12,11 +12,11 @@ interface HeaderProps {
 
 export function Header({ siteName, navLinks }: HeaderProps): React.ReactElement {
   return (
-    <header className="border-b border-primary/10 bg-bg/90 backdrop-blur-sm">
+    <header className="relative z-10 border-b border-tbb-card bg-tbb-bg/90 backdrop-blur-sm">
       <div className="mx-auto flex max-w-content items-center justify-between px-6 py-5 lg:px-8">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-primary"
+          className="text-lg font-semibold tracking-tight text-tbb-text"
         >
           {siteName}
         </Link>
@@ -26,7 +26,7 @@ export function Header({ siteName, navLinks }: HeaderProps): React.ReactElement 
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-muted transition-colors hover:text-primary"
+                  className="text-sm font-normal text-tbb-text-muted transition-colors hover:text-tbb-blue"
                 >
                   {link.label}
                 </Link>
