@@ -1,0 +1,30 @@
+---
+description: Branching, commits, and definition of done for two people sharing this repo. Apply when committing, opening a pull request, or preparing work to merge.
+globs: **/*
+---
+
+# Collaboration workflow
+
+Two people share `main`. These conventions keep it clean and keep previews meaningful.
+
+## Branching
+- Never commit directly to `main`. Branch first.
+- Branch names: `feature/<short-desc>`, `fix/<short-desc>`, `chore/<short-desc>`. Keep them short and hyphenated.
+- Pull `main` before starting a branch, and again before opening the PR, so you rebase on the latest.
+- Keep PRs small and focused. One feature or fix per PR is far easier to review than a mega-branch.
+
+## Commits
+- Imperative present tense: "Add hero section", "Fix canonical on blog index", not "added" or "fixing".
+- One logical change per commit where practical. No secrets, no commented-out debris.
+
+## Definition of done (before opening a PR)
+- [ ] `next build` passes locally.
+- [ ] `next lint` passes with no new warnings.
+- [ ] For any new or changed page, the `@60-page-checklist` has been run.
+- [ ] No secrets or `.env*` files staged.
+- [ ] The branch's Vercel preview URL has been opened and the change verified on the rendered page.
+
+## Review and merge
+- Open a pull request and let the other person glance at it before merging to `main`. For a two-person team a quick review beats none.
+- Merge via the PR, then delete the branch.
+- **Never force-push a shared branch or `main`.** Force-push is only ever acceptable on your own un-shared branch that nobody else has pulled.

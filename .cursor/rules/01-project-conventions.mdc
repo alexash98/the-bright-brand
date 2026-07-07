@@ -1,0 +1,44 @@
+---
+description: Project structure, component patterns, TypeScript strictness, and Tailwind conventions so two people write code that looks like one person wrote it
+globs: **/*.ts,**/*.tsx,tailwind.config.*,tsconfig.json
+---
+
+# Project conventions
+
+Two people work in this repo. Consistency is the point. Match these patterns exactly rather than introducing personal style.
+
+## Folder structure
+```
+app/                      # routes only (App Router)
+  (marketing)/            # route group for public marketing pages
+  layout.tsx  page.tsx
+  robots.ts  sitemap.ts
+components/
+  ui/                     # primitives: Button, Card, Input
+  sections/               # page sections: Hero, FeatureGrid, CTA, FAQ
+  layout/                 # Header, Footer, Nav
+lib/                      # utils, schema builders, data access
+content/                  # local MDX/content if used
+public/                   # static assets (images, logo, og)
+```
+Keep routes thin: a `page.tsx` should mostly compose section components and pass data, not hold layout markup.
+
+## Component patterns
+- **Server Components by default.** Add `'use client'` only to the smallest interactive leaf that needs it (a toggle, a form), never to a whole page or section that could stay server-rendered.
+- One component per file. **Named exports**, not default exports (except where Next.js requires a default, e.g. `page.tsx`, `layout.tsx`).
+- Props typed with an explicit `interface` above the component. No inline untyped props.
+- **Section components take content as props** so they are reusable across landing pages. Do not hardcode copy inside a section.
+- Composition over configuration: prefer small composable pieces over one component with 15 boolean flags.
+- Colocate: a component's helper, types, and test live next to it.
+
+## TypeScript strictness
+- `strict: true` plus `noUncheckedIndexedAccess: true` in `tsconfig`.
+- **No `any`.** Use `unknown` and narrow, or a real type. If you reach for `any`, stop and type it properly.
+- Explicit return types on exported functions.
+- Validate all external data (CMS, API, form input) with **zod** at the boundary, then trust the inferred type inward.
+
+## Tailwind usage
+- Utility-first. Define the design scale (spacing, colours, font sizes, radii) in `tailwind.config` and use those tokens. **Do not** scatter arbitrary values like `mt-[13px]` when a scale step exists.
+- Extract repeated utility clusters into a component, not into `@apply` soup.
+- Mobile-first: base styles for small screens, then `md:`/`lg:` overrides.
+- Keep class lists readable; if a `className` is unmanageably long, that is a signal to extract a component.

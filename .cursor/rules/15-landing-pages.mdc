@@ -1,0 +1,29 @@
+---
+description: How to build landing pages fast and make them look good, using a reusable section library and a clear design bar. Apply when building or editing marketing pages, landing pages, or section components.
+globs: app/**/page.tsx,components/sections/**/*.tsx
+---
+
+# Landing pages: rapid to build, good to look at
+
+Landing pages are assembled, not hand-built each time. Speed comes from a shared section library; quality comes from a consistent design bar.
+
+## Build by composition
+- Maintain a library of **reusable section components** in `components/sections/`: `Hero`, `LogoCloud`, `FeatureGrid`, `Stats`, `Testimonial`, `Steps`, `FAQ`, `CTA`, plus `Header`/`Footer` in `components/layout/`.
+- A new landing page = import sections, pass content via props, order them. Do **not** rebuild bespoke markup per page. If a page needs something the library lacks, add a new reusable section rather than a one-off block.
+- Every section is a Server Component and takes its copy/data as props (keeps it reusable and server-rendered).
+
+## Design bar (what "looks good" means here)
+- **Generous whitespace.** Give sections room; crowding reads as cheap.
+- **Clear type hierarchy.** One obvious H1, a supporting sub-head, readable body. Limit to two typefaces and a defined size scale.
+- **One primary call to action per view.** Secondary actions are visually quieter.
+- **Consistent rhythm.** Use the spacing scale from `tailwind.config` for section padding and gaps, so vertical rhythm is even down the page.
+- **Real content, never lorem.** Design against the actual headline and copy, since length changes the layout.
+- **Distinctive, not templated.** Avoid the default generic-startup look. Make deliberate choices about colour, type, and imagery that read as this brand. Consult the frontend-design skill for direction rather than shipping defaults.
+- Above-the-fold hero image uses `next/image` with `priority`; everything else lazy-loads.
+
+## Responsive and stable
+- Design mobile-first, then scale up. Test the hero and nav at 375px width.
+- Reserve space for media and late-loading content so nothing shifts (protects CLS).
+
+## Guardrail
+Every landing page still passes the SEO and accessibility rules: one H1, semantic sections, unique metadata, alt text, answer-first copy. Fast to build does not mean skipping those.
