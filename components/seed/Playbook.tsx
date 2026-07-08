@@ -11,7 +11,7 @@ interface PlaybookProps {
 
 export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
   return (
-    <section id="playbook" className="relative border-y border-neutral-200 bg-white py-24">
+    <section id="playbook" className="relative border-b border-neutral-200 bg-white py-24">
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-12">
         <div className="text-left lg:col-span-5">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">

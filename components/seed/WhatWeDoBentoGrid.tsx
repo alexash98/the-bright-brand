@@ -1,0 +1,258 @@
+'use client';
+
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { CheckCircle2, TrendingUp, X } from "lucide-react";
+import { CaseStudy } from "@/lib/seed-types";
+
+interface BentoItemConfig {
+  id: string;
+  gridClass: string;
+  tags: string[];
+  stat?: string;
+  label?: string;
+}
+
+const BENTO_LAYOUT: BentoItemConfig[] = [
+  {
+    id: "qualification-check",
+    gridClass: "md:col-start-1 md:row-start-1 md:row-span-2",
+    tags: ["PR"],
+    stat: "From",
+    label: "zero coverage to the Financial Times",
+  },
+  {
+    id: "weavabel",
+    gridClass: "md:col-start-2 md:row-start-1",
+    tags: ["PR", "Organic"],
+  },
+  {
+    id: "ultimate-activity-camps",
+    gridClass: "md:col-start-2 md:row-start-2",
+    tags: ["Paid"],
+    label: "website revenue YoY",
+  },
+  {
+    id: "honest-burgers",
+    gridClass: "md:col-start-1 md:row-start-3",
+    tags: ["Paid"],
+    label: "Increase in store visits from Google Ads",
+  },
+  {
+    id: "world-of-books",
+    gridClass: "md:col-start-1 md:row-start-4",
+    tags: ["Social"],
+    stat: "+490%",
+    label: "app installs",
+  },
+  {
+    id: "liforme",
+    gridClass: "md:col-start-2 md:row-start-3 md:row-span-2",
+    tags: ["Paid", "Social"],
+    label: "net sales YoY",
+  },
+];
+
+function BentoCard({
+  study,
+  config,
+  onClick,
+}: {
+  study: CaseStudy;
+  config: BentoItemConfig;
+  onClick: () => void;
+}): React.ReactElement {
+  const metric = config.stat ?? study.highlightStat;
+  const label = config.label ?? study.highlightLabel;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group relative min-h-[220px] overflow-hidden rounded-2xl border border-white/10 text-left transition-transform duration-300 hover:scale-[1.01] sm:min-h-[240px] ${config.gridClass}`}
+    >
+      <img
+        src={study.imageUrl}
+        alt={study.clientName}
+        referrerPolicy="no-referrer"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#071615]/95 via-[#071615]/55 to-[#071615]/20" />
+
+      <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-6">
+        <div className="inline-flex w-fit max-w-full items-center gap-2 rounded-md border border-white/25 bg-[#071615]/70 px-3 py-1.5 backdrop-blur-sm">
+          <span className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-white sm:text-[11px]">
+            {study.clientName}
+          </span>
+        </div>
+
+        <div>
+          <p className="text-4xl font-semibold tracking-tight text-brand-accent sm:text-5xl">
+            {metric}
+          </p>
+          <p className="mt-2 max-w-[280px] text-sm leading-snug text-white/85 sm:text-[15px]">
+            {label}
+          </p>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {config.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/15 bg-[#1a403d] px-3 py-1 text-[11px] font-semibold text-white/75"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function CaseStudyModal({
+  study,
+  onClose,
+}: {
+  study: CaseStudy;
+  onClose: () => void;
+}): React.ReactElement {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="absolute inset-0 bg-brand-bg-darker/80 backdrop-blur-md"
+      />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ type: "spring", damping: 25, stiffness: 350 }}
+        className="custom-scrollbar relative z-10 max-h-[85vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-neutral-200 bg-white text-left"
+      >
+        <div className="relative h-64 overflow-hidden md:h-80">
+          <img
+            src={study.imageUrl}
+            alt={study.clientName}
+            referrerPolicy="no-referrer"
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/60 to-transparent" />
+          <button
+            onClick={onClose}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-brand-bg-darker/60 text-white transition-colors hover:border-brand-accent/40 hover:text-brand-accent"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="absolute bottom-6 left-6 right-6">
+            <span className="text-sm font-bold uppercase tracking-wider text-brand-accent">
+              Client Case Study
+            </span>
+            <h3 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-5xl">
+              {study.clientName}
+            </h3>
+          </div>
+        </div>
+
+        <div className="space-y-8 p-6 md:p-10">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+            {study.stats.map((statItem, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50 p-5 text-center"
+              >
+                <TrendingUp className="mb-2 h-5 w-5 text-brand-accent" />
+                <span className="block text-3xl font-black tracking-tight text-neutral-900">
+                  {statItem.stat}
+                </span>
+                <span className="mt-1 text-xs text-neutral-500">{statItem.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid gap-8 pt-4 md:grid-cols-12">
+            <div className="space-y-6 md:col-span-8">
+              <div>
+                <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                  The Challenge
+                </h4>
+                <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
+                  {study.challenge}
+                </p>
+              </div>
+              <div>
+                <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                  The Approach
+                </h4>
+                <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
+                  {study.approach}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6 md:col-span-4">
+              <div>
+                <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                  The Deliverables
+                </h4>
+                <ul className="space-y-2.5">
+                  {study.results.map((result, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm text-neutral-600">
+                      <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-accent" />
+                      <span className="leading-snug">{result}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+interface WhatWeDoBentoGridProps {
+  caseStudies: CaseStudy[];
+}
+
+export function WhatWeDoBentoGrid({
+  caseStudies,
+}: WhatWeDoBentoGridProps): React.ReactElement {
+  const [activeStudy, setActiveStudy] = useState<CaseStudy | null>(null);
+
+  const bentoStudies = BENTO_LAYOUT.map((config) => ({
+    config,
+    study: caseStudies.find((item) => item.id === config.id),
+  })).filter(
+    (
+      item,
+    ): item is { config: BentoItemConfig; study: CaseStudy } =>
+      item.study !== undefined,
+  );
+
+  return (
+    <>
+      <div className="mt-16 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:grid-rows-4 md:gap-4">
+        {bentoStudies.map(({ config, study }) => (
+          <BentoCard
+            key={study.id}
+            study={study}
+            config={config}
+            onClick={() => setActiveStudy(study)}
+          />
+        ))}
+      </div>
+
+      <AnimatePresence>
+        {activeStudy && (
+          <CaseStudyModal study={activeStudy} onClose={() => setActiveStudy(null)} />
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

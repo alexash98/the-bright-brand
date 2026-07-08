@@ -1,127 +1,167 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
 
 interface TestimonialsProps {
   testimonials: Testimonial[];
 }
 
-export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
-  const [index, setIndex] = useState(0);
-  const [direction, setIndexDirection] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+const CARD_GAP_PX = 16;
 
-  const startTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      handleNext();
-    }, 7000);
-  };
+function TestimonialCard({
+  testimonial,
+}: {
+  testimonial: Testimonial;
+}): React.ReactElement {
+  return (
+    <article className="flex h-[280px] w-[300px] shrink-0 flex-col rounded-2xl border border-neutral-200/80 bg-[#f7f7f5] p-6 sm:h-[300px] sm:w-[340px] sm:p-7">
+      <p className="flex-1 text-sm leading-relaxed text-neutral-800 sm:text-[15px]">
+        {testimonial.text}
+      </p>
 
-  useEffect(() => {
-    startTimer();
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      <div className="mt-5 border-t border-neutral-900/10 pt-5">
+        <div className="flex items-center gap-3">
+          <img
+            src={`https://picsum.photos/seed/${testimonial.avatarSeed}/80/80`}
+            alt={testimonial.author}
+            referrerPolicy="no-referrer"
+            className="h-10 w-10 shrink-0 rounded-full object-cover"
+          />
+          <div>
+            <p className="text-sm font-semibold text-neutral-900">
+              {testimonial.author}
+            </p>
+            <p className="text-sm text-neutral-600">
+              {testimonial.role}, {testimonial.company}
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function TestimonialSegment({
+  testimonials,
+  segmentRef,
+  segmentKey,
+  ariaHidden = false,
+}: {
+  testimonials: Testimonial[];
+  segmentRef?: React.RefObject<HTMLDivElement | null>;
+  segmentKey: string;
+  ariaHidden?: boolean;
+}): React.ReactElement {
+  return (
+    <div
+      ref={segmentRef}
+      aria-hidden={ariaHidden || undefined}
+      className="flex shrink-0 items-stretch gap-4"
+    >
+      {testimonials.map((testimonial) => (
+        <TestimonialCard
+          key={`${segmentKey}-${testimonial.id}`}
+          testimonial={testimonial}
+        />
+      ))}
+    </div>
+  );
+}
+
+function TestimonialTrack({
+  testimonials,
+}: {
+  testimonials: Testimonial[];
+}): React.ReactElement {
+  const segmentRef = useRef<HTMLDivElement>(null);
+  const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    const measure = (): void => {
+      if (!segmentRef.current?.parentElement) {
+        return;
+      }
+
+      const segmentWidth = segmentRef.current.offsetWidth;
+      const parentStyles = window.getComputedStyle(segmentRef.current.parentElement);
+      const trackGap = Number.parseFloat(parentStyles.columnGap || parentStyles.gap || "0");
+
+      setScrollDistance(segmentWidth + (trackGap || CARD_GAP_PX));
     };
-  }, [index]);
 
-  const handlePrev = () => {
-    setIndexDirection(-1);
-    setIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
-  };
+    measure();
 
-  const handleNext = () => {
-    setIndexDirection(1);
-    setIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
+    const observer = new ResizeObserver(measure);
+    if (segmentRef.current) {
+      observer.observe(segmentRef.current);
+    }
 
-  const handleDotClick = (idx: number) => {
-    setIndexDirection(idx > index ? 1 : -1);
-    setIndex(idx);
-  };
+    return () => observer.disconnect();
+  }, [testimonials]);
 
-  const active = testimonials[index];
+  if (scrollDistance === null) {
+    return (
+      <div className="flex gap-4">
+        <TestimonialSegment
+          testimonials={testimonials}
+          segmentKey="measure"
+          segmentRef={segmentRef}
+        />
+      </div>
+    );
+  }
 
-  if (!active || testimonials.length === 0) {
+  return (
+    <motion.div
+      className="flex gap-4"
+      initial={{ x: 0 }}
+      animate={{ x: [0, -scrollDistance] }}
+      transition={{
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 80,
+          ease: "linear",
+        },
+      }}
+    >
+      <TestimonialSegment
+        testimonials={testimonials}
+        segmentKey="a"
+        segmentRef={segmentRef}
+      />
+      <TestimonialSegment testimonials={testimonials} segmentKey="b" ariaHidden />
+      <TestimonialSegment testimonials={testimonials} segmentKey="c" ariaHidden />
+    </motion.div>
+  );
+}
+
+export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
+  if (testimonials.length === 0) {
     return null;
   }
 
   return (
-    <section id="testimonials" className="relative overflow-hidden border-y border-neutral-200 bg-white py-24">
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-4 md:px-8">
-        <div className="mb-12 text-center">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-            Client Success
-          </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl">
-            Trusted by brands that don't settle.
+    <section id="testimonials" className="relative overflow-hidden bg-white py-20 sm:py-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <div className="max-w-3xl text-left">
+          <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+            Trusted by brands that don&apos;t settle.
           </h2>
+          <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
+            Numbers tell one story. Here&apos;s what our clients say about getting
+            there.
+          </p>
         </div>
+      </div>
 
-        <div className="relative flex min-h-[300px] w-full flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-10 shadow-xl md:px-12">
-          <Quote className="absolute left-8 top-8 h-12 w-12 text-brand-accent/10" />
+      <div className="relative z-10 mt-12 overflow-hidden">
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
 
-          <div className="relative flex min-h-[160px] w-full items-center justify-center overflow-hidden text-center">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={active.id}
-                custom={direction}
-                initial={{ opacity: 0, x: direction * 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -direction * 50 }}
-                transition={{ duration: 0.35 }}
-                className="w-full"
-              >
-                <blockquote className="mx-auto max-w-3xl text-xl font-semibold italic leading-relaxed text-neutral-700 md:text-2xl">
-                  "{active.text}"
-                </blockquote>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="mt-8 flex flex-col items-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-neutral-200 bg-white text-lg font-bold text-brand-accent">
-              {active.author[0]}
-            </div>
-            <div className="mt-3 text-center">
-              <cite className="block text-lg font-bold not-italic text-neutral-900">
-                {active.author}
-              </cite>
-              <span className="mt-0.5 block text-sm font-medium text-neutral-500">
-                {active.role}, <span className="text-brand-accent">{active.company}</span>
-              </span>
-            </div>
-          </div>
-
-          <button
-            onClick={handlePrev}
-            className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 transition-all hover:border-brand-accent/45 hover:text-brand-accent md:left-4"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 transition-all hover:border-brand-accent/45 hover:text-brand-accent md:right-4"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
-
-        <div className="mt-8 flex items-center justify-center gap-2.5">
-          {testimonials.map((testimonial, idx) => (
-            <button
-              key={testimonial.id}
-              onClick={() => handleDotClick(idx)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${idx === index ? "w-8 bg-brand-accent" : "w-2.5 bg-neutral-300 hover:bg-neutral-400"}`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
-        </div>
+        <TestimonialTrack testimonials={testimonials} />
       </div>
     </section>
   );

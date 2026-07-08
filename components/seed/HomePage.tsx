@@ -1,6 +1,5 @@
 "use client";
 
-import { CaseStudies } from "@/components/seed/CaseStudies";
 import { EnquiryForm } from "@/components/seed/EnquiryForm";
 import { Footer } from "@/components/seed/Footer";
 import { GrowthCalculator } from "@/components/seed/GrowthCalculator";
@@ -56,11 +55,10 @@ export function HomePage(): React.ReactElement {
       />
       <div className="bg-white text-neutral-900">
         <Services services={SERVICES} />
-        <StatsSection />
+        <StatsSection caseStudies={CASE_STUDIES} />
         <Testimonials testimonials={TESTIMONIALS} />
-        <CaseStudies items={CASE_STUDIES} />
-        <GrowthCalculator />
         <Playbook rows={PLAYBOOK} />
+        <GrowthCalculator />
         <LogoMarquee
           items={PLATFORM_LOGOS}
           title="We integrate with every channel that matters"

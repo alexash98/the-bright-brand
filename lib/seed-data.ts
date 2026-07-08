@@ -45,6 +45,13 @@ export const SERVICES: ServiceCard[] = [
   }
 ];
 
+export const PRESS_PUBLICATIONS = [
+  { id: "london-daily", name: "London Daily News", logo: "london-daily-news.png" },
+  { id: "business-today", name: "Business Today", logo: "business-today.png" },
+  { id: "business-mondays", name: "Business Mondays", logo: "business-mondays.png" },
+  { id: "medium", name: "Medium", logo: "medium.png" },
+];
+
 export const CLIENT_LOGOS = [
   { name: "Airbox Fulfilment", logo: "airbox.png", seed: "airbox" },
   { name: "Britton & Time", logo: "britton-and-time.png", seed: "britton-and-time" },

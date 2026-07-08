@@ -1,67 +1,67 @@
 'use client';
 
 import React from "react";
-import { TrendingUp, Award, Landmark, Clock } from "lucide-react";
+import { CaseStudy } from "@/lib/seed-types";
+import { WhatWeDoBentoGrid } from "@/components/seed/WhatWeDoBentoGrid";
 
-export const StatsSection: React.FC = () => {
-  const stats = [
-    {
-      value: "£32M+",
-      label: "Managed Ad Spend",
-      subText: "Across global markets",
-      icon: <Landmark className="h-5 w-5 text-brand-accent" />
-    },
-    {
-      value: "80+",
-      label: "Ambitious Brands Served",
-      subText: "E-Commerce & SaaS specialists",
-      icon: <TrendingUp className="h-5 w-5 text-brand-accent" />
-    },
-    {
-      value: "4.9★",
-      label: "Average Google Rating",
-      subText: "From verified client partners",
-      icon: <Award className="h-5 w-5 text-brand-accent" />
-    },
-    {
-      value: "10 yrs",
-      label: "In Active Business",
-      subText: "Founded in Brighton, UK",
-      icon: <Clock className="h-5 w-5 text-brand-accent" />
-    }
-  ];
+const STATS = [
+  { value: "£32M+", label: "Managed Spend" },
+  { value: "80+", label: "Brands Served" },
+  { value: "4.9★", label: "Client Rating" },
+  { value: "10yrs", label: "In Business" },
+];
 
+interface StatsSectionProps {
+  caseStudies: CaseStudy[];
+}
+
+export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
   return (
-    <section className="relative overflow-hidden border-t border-neutral-200 bg-white py-20">
+    <section className="relative overflow-hidden bg-[#f7f7f5] py-20 sm:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(232, 184, 75, 0.06) 0%, transparent 65%), radial-gradient(ellipse 50% 40% at 85% 80%, rgba(0, 0, 0, 0.02) 0%, transparent 70%)",
+        }}
+      />
+
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="relative flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50 p-8 shadow-lg transition-all duration-300 hover:border-brand-accent/30 hover:bg-white"
-            >
-              <div className="absolute left-6 right-6 top-0 h-px bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent" />
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="max-w-xl text-left">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
+              What We Do
+            </p>
+            <h2 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+              Full-funnel{" "}
+              <span className="text-brand-accent">growth</span> for brands that
+              want to win.
+            </h2>
+            <p className="text-base leading-relaxed text-neutral-600 md:text-lg">
+              A performance-driven growth partner, combining data and creativity
+              across every channel that matters — so nothing&apos;s working in
+              isolation.
+            </p>
+          </div>
 
-              <div>
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white">
-                  {stat.icon}
-                </div>
-                <div className="mb-2 text-4xl font-black tracking-tight text-neutral-900 md:text-5xl">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex min-h-[132px] flex-col justify-center rounded-2xl border border-neutral-200 bg-white px-5 py-6 shadow-sm sm:min-h-[148px] sm:px-6 sm:py-7"
+              >
+                <p className="text-3xl font-semibold tracking-tight text-brand-accent sm:text-4xl">
                   {stat.value}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-neutral-900 md:text-base">
+                </p>
+                <p className="mt-2 text-sm font-medium text-neutral-500 sm:text-[15px]">
                   {stat.label}
-                </h3>
-                <p className="mt-1 text-xs text-neutral-500">
-                  {stat.subText}
                 </p>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        <WhatWeDoBentoGrid caseStudies={caseStudies} />
       </div>
     </section>
   );

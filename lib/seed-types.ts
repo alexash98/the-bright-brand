@@ -1,3 +1,9 @@
+export interface PressPublication {
+  id: string;
+  name: string;
+  logo: string;
+}
+
 export interface ClientLogo {
   name: string;
   logo: string;
