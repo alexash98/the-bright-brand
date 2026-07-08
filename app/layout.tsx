@@ -1,36 +1,52 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { organization, website } from "@/lib/schema";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  // TODO: replace with production domain when confirmed
   metadataBase: new URL(SITE_URL),
   title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
+    default: "Seed Performance Marketing",
+    template: "%s | Seed Performance Marketing",
   },
-  description: SITE_DESCRIPTION,
+  description:
+    "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   openGraph: {
     type: "website",
     locale: "en_GB",
-    siteName: SITE_NAME,
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
+    siteName: "Seed Performance Marketing",
+    title: "Seed Performance Marketing",
+    description:
+      "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   },
   twitter: {
     card: "summary_large_image",
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
+    title: "Seed Performance Marketing",
+    description:
+      "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   },
 };
 
@@ -40,8 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): React.ReactElement {
   return (
-    <html lang="en-GB" className={`${inter.variable} h-full antialiased`}>
-      <body className="tbb-grid min-h-full flex flex-col bg-tbb-bg font-sans text-tbb-text">
+    <html
+      lang="en-GB"
+      className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
+    >
+      <body className="brand-grid min-h-full">
         <JsonLd data={[organization(), website()]} />
         {children}
       </body>

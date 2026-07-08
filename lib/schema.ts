@@ -1,6 +1,6 @@
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export interface OrganizationSchema {
@@ -117,5 +117,100 @@ export function article(input: {
       "@type": "WebPage",
       "@id": pageUrl,
     },
+  };
+}
+
+export interface BreadcrumbListSchema {
+  "@context": "https://schema.org";
+  "@type": "BreadcrumbList";
+  itemListElement: {
+    "@type": "ListItem";
+    position: number;
+    name: string;
+    item: string;
+  }[];
+}
+
+export interface ServiceSchema {
+  "@context": "https://schema.org";
+  "@type": "Service";
+  name: string;
+  description: string;
+  url: string;
+  serviceType: string;
+  provider: {
+    "@id": string;
+  };
+  areaServed: {
+    "@type": "Country";
+    name: string;
+  }[];
+}
+
+export interface FaqPageSchema {
+  "@context": "https://schema.org";
+  "@type": "FAQPage";
+  mainEntity: {
+    "@type": "Question";
+    name: string;
+    acceptedAnswer: {
+      "@type": "Answer";
+      text: string;
+    };
+  }[];
+}
+
+export function breadcrumbList(
+  items: { name: string; path: string }[],
+): BreadcrumbListSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+export function serviceSchema(input: {
+  name: string;
+  slug: string;
+  description: string;
+  serviceType: string;
+}): ServiceSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: input.name,
+    description: input.description,
+    url: `${SITE_URL}/services/${input.slug}`,
+    serviceType: input.serviceType,
+    provider: {
+      "@id": ORGANIZATION_ID,
+    },
+    areaServed: [
+      { "@type": "Country", name: "United States" },
+      { "@type": "Country", name: "United Kingdom" },
+    ],
+  };
+}
+
+export function faqPage(
+  faqs: { question: string; answer: string }[],
+): FaqPageSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
   };
 }

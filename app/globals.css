@@ -1,70 +1,62 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
-:root {
-  /* Base and surfaces */
-  --tbb-bg: #060a10;
-  --tbb-surface: #080d16;
-  --tbb-card: rgba(255, 255, 255, 0.04);
-  --tbb-card-border: rgba(255, 255, 255, 0.08);
-
-  /* Text */
-  --tbb-text: #ffffff;
-  --tbb-text-muted: rgba(255, 255, 255, 0.5);
-
-  /* Accent and status */
-  --tbb-blue: #5b9fff;
-  --tbb-green: #34d399;
-  --tbb-red: #fb7185;
-}
-
 @theme {
-  --color-tbb-bg: var(--tbb-bg);
-  --color-tbb-surface: var(--tbb-surface);
-  --color-tbb-card: var(--tbb-card);
-  --color-tbb-text: var(--tbb-text);
-  --color-tbb-text-muted: var(--tbb-text-muted);
-  --color-tbb-blue: var(--tbb-blue);
-  --color-tbb-green: var(--tbb-green);
-  --color-tbb-red: var(--tbb-red);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-bg: #000000;
+  --color-brand-bg-dark: #000000;
+  --color-brand-bg-darker: #000000;
+  --color-brand-bg-card: rgba(255, 255, 255, 0.04);
+  --color-brand-accent: #5b9fff;
+  --color-brand-accent-hover: #4a8fe6;
+  --color-brand-text-pale: #e2eae9;
+  --color-brand-teal-light: #ffffff;
+  --color-brand-teal-border: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-tbb-bg: var(--tbb-bg);
-  --color-tbb-surface: var(--tbb-surface);
-  --color-tbb-card: var(--tbb-card);
-  --color-tbb-text: var(--tbb-text);
-  --color-tbb-text-muted: var(--tbb-text-muted);
-  --color-tbb-blue: var(--tbb-blue);
-  --color-tbb-green: var(--tbb-green);
-  --color-tbb-red: var(--tbb-red);
-  --font-sans: var(--font-inter);
-}
-
-body {
-  background-color: var(--tbb-bg);
-  color: var(--tbb-text);
-}
-
-.tbb-grid {
+.brand-grid {
+  background-color: #000000;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
-.tbb-glow {
-  position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 600px;
-  height: 500px;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(30, 100, 220, 0.28) 0%,
-    rgba(10, 40, 120, 0.12) 50%,
-    transparent 75%
-  );
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(91, 159, 255, 0.4);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #000000;
+  color: #e2eae9;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
 }

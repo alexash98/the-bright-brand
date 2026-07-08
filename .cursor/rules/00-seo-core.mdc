@@ -19,4 +19,4 @@ Every page, component, and route you build must be crawlable, indexable, fast, a
 Per Google's May 2026 guidance, optimising for AI Overviews and AI Mode *is still SEO*. Do **not** add llms.txt, content "chunking", AI-specific rewrites, or invented schema types for AI. They give no benefit for Google's generative features. What actually helps: server-rendered HTML, clean extractable structure, genuine authority signals, and valid schema for rich results.
 
 ## When unsure
-If a change could affect crawlability, canonicals, rendering strategy, or Core Web Vitals, flag it and propose the SEO-safe option by default. British English throughout. Never use em dashes.
+If a change could affect crawlability, canonicals, rendering strategy, or Core Web Vitals, flag it and propose the SEO-safe option by default.
