@@ -15,6 +15,7 @@ import { TeamSection } from "@/components/seed/TeamSection";
 import { Testimonials } from "@/components/seed/Testimonials";
 import {
   CASE_STUDIES,
+  CLIENT_LOGOS,
   HOW_WE_WORK,
   PLATFORM_LOGOS,
   PLAYBOOK,
@@ -50,22 +51,26 @@ export function HomePage(): React.ReactElement {
       <Hero
         rotatingWords={ROTATING_WORDS}
         description="Powered by our progressive model, we deliver exceptional growth by giving you the most proactive, growth-minded marketing team you'll ever work with."
+        caseStudies={CASE_STUDIES}
+        clientLogos={CLIENT_LOGOS}
       />
-      <Services services={SERVICES} />
-      <StatsSection />
-      <Testimonials testimonials={TESTIMONIALS} />
-      <CaseStudies items={CASE_STUDIES} />
-      <GrowthCalculator />
-      <Playbook rows={PLAYBOOK} />
-      <LogoMarquee
-        items={PLATFORM_LOGOS}
-        title="We integrate with every channel that matters"
-        reverse
-      />
-      <TeamSection members={TEAM} />
-      <HowWeWork items={HOW_WE_WORK} />
-      <EnquiryForm />
-      <Footer />
+      <div className="bg-white text-neutral-900">
+        <Services services={SERVICES} />
+        <StatsSection />
+        <Testimonials testimonials={TESTIMONIALS} />
+        <CaseStudies items={CASE_STUDIES} />
+        <GrowthCalculator />
+        <Playbook rows={PLAYBOOK} />
+        <LogoMarquee
+          items={PLATFORM_LOGOS}
+          title="We integrate with every channel that matters"
+          reverse
+        />
+        <TeamSection members={TEAM} />
+        <HowWeWork items={HOW_WE_WORK} />
+        <EnquiryForm />
+        <Footer />
+      </div>
     </div>
   );
 }

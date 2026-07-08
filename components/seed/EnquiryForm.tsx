@@ -49,24 +49,22 @@ export const EnquiryForm: React.FC = () => {
   };
 
   return (
-    <section id="enquire" className="py-24 bg-brand-bg-darker border-t border-brand-teal-light/10 relative">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-accent/5 blur-[120px] pointer-events-none rounded-full" />
-
-      <div className="max-w-4xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <p className="text-xs uppercase tracking-[0.2em] text-brand-accent font-bold mb-3">
+    <section id="enquire" className="relative border-t border-neutral-200 bg-white py-24">
+      <div className="relative z-10 mx-auto max-w-4xl px-4 md:px-8">
+        <div className="mb-12 text-center">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
             Get In Touch
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="mb-4 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             Let's build something that <span className="text-brand-accent">performs</span>.
           </h2>
-          <p className="text-brand-text-pale/80 text-base md:text-lg max-w-xl mx-auto font-medium">
+          <p className="mx-auto max-w-xl text-base font-normal text-neutral-600 md:text-lg">
             Whether you are scaling or restructuring, we'd love to chat about your business goals. No aggressive pitches — just numbers and metrics.
           </p>
         </div>
 
         {/* Content Onboarding Box */}
-        <div className="bg-brand-bg border border-brand-teal-light/10 p-8 md:p-12 rounded-2xl shadow-2xl">
+        <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-8 shadow-2xl md:p-12">
           <AnimatePresence mode="wait">
             {!success ? (
               <motion.form
@@ -78,16 +76,16 @@ export const EnquiryForm: React.FC = () => {
                 className="space-y-6 text-left"
               >
                 {error && (
-                  <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl flex items-center gap-3 text-sm font-semibold">
+                  <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-600">
                     <AlertCircle className="h-5 w-5 shrink-0" />
                     <span>{error}</span>
                   </div>
                 )}
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-6 md:grid-cols-2">
                   {/* Your name */}
                   <div className="flex flex-col space-y-2">
-                    <label className="text-sm font-bold text-brand-text-pale/85" htmlFor="form-name">
+                    <label className="text-sm font-bold text-neutral-600" htmlFor="form-name">
                       Your name *
                     </label>
                     <input
@@ -99,13 +97,13 @@ export const EnquiryForm: React.FC = () => {
                       placeholder="e.g. Robin Hawker"
                       maxLength={100}
                       disabled={loading}
-                      className="bg-brand-bg-darker border border-brand-teal-light/20 rounded-xl h-12 px-4 text-white text-sm focus:border-brand-accent focus:outline-none transition-all duration-200"
+                      className="h-12 rounded-xl border border-neutral-200 bg-white px-4 text-sm text-neutral-900 transition-all duration-200 focus:border-brand-accent focus:outline-none"
                     />
                   </div>
 
                   {/* Work email */}
                   <div className="flex flex-col space-y-2">
-                    <label className="text-sm font-bold text-brand-text-pale/85" htmlFor="form-email">
+                    <label className="text-sm font-bold text-neutral-600" htmlFor="form-email">
                       Work email *
                     </label>
                     <input
@@ -117,14 +115,14 @@ export const EnquiryForm: React.FC = () => {
                       placeholder="you@company.com"
                       maxLength={100}
                       disabled={loading}
-                      className="bg-brand-bg-darker border border-brand-teal-light/20 rounded-xl h-12 px-4 text-white text-sm focus:border-brand-accent focus:outline-none transition-all duration-200"
+                      className="h-12 rounded-xl border border-neutral-200 bg-white px-4 text-sm text-neutral-900 transition-all duration-200 focus:border-brand-accent focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* Company website */}
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-bold text-brand-text-pale/85" htmlFor="form-website">
+                  <label className="text-sm font-bold text-neutral-600" htmlFor="form-website">
                     Company website *
                   </label>
                   <input
@@ -136,13 +134,13 @@ export const EnquiryForm: React.FC = () => {
                     placeholder="yourcompany.com"
                     maxLength={100}
                     disabled={loading}
-                    className="bg-brand-bg-darker border border-brand-teal-light/20 rounded-xl h-12 px-4 text-white text-sm focus:border-brand-accent focus:outline-none transition-all duration-200"
+                    className="h-12 rounded-xl border border-neutral-200 bg-white px-4 text-sm text-neutral-900 transition-all duration-200 focus:border-brand-accent focus:outline-none"
                   />
                 </div>
 
                 {/* Optional Message */}
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-bold text-brand-text-pale/85" htmlFor="form-message">
+                  <label className="text-sm font-bold text-neutral-600" htmlFor="form-message">
                     What are you looking to optimize? (optional)
                   </label>
                   <textarea
@@ -154,18 +152,18 @@ export const EnquiryForm: React.FC = () => {
                     placeholder="Briefly tell us about your goals, timelines, what's currently working, or what's not..."
                     maxLength={1000}
                     disabled={loading}
-                    className="bg-brand-bg-darker border border-brand-teal-light/20 rounded-xl p-4 text-white text-sm focus:border-brand-accent focus:outline-none transition-all duration-200 resize-none"
+                    className="resize-none rounded-xl border border-neutral-200 bg-white p-4 text-sm text-neutral-900 transition-all duration-200 focus:border-brand-accent focus:outline-none"
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-brand-teal-light/10">
-                  <span className="text-xs text-brand-text-pale/40 font-bold uppercase tracking-wide">
+                <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-200 pt-4 sm:flex-row sm:items-center">
+                  <span className="text-xs font-bold uppercase tracking-wide text-neutral-400">
                     We will audit your website completely on us.
                   </span>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-hover disabled:bg-brand-bg-darker disabled:text-brand-text-pale/30 text-brand-bg-darker font-extrabold h-12 px-8 rounded-full transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-brand-accent/15 w-full sm:w-auto"
+                    className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-accent px-8 font-extrabold text-brand-bg-darker shadow-lg shadow-brand-accent/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0 disabled:bg-neutral-200 disabled:text-neutral-400 sm:w-auto"
                   >
                     {loading ? (
                       <>
@@ -186,17 +184,17 @@ export const EnquiryForm: React.FC = () => {
                 key="enquiry-success"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-12 flex flex-col items-center justify-center text-center space-y-6"
+                className="flex flex-col items-center justify-center space-y-6 py-12 text-center"
               >
-                <div className="h-16 w-16 bg-brand-accent/10 border border-brand-accent/25 rounded-full flex items-center justify-center text-brand-accent shadow-inner">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-brand-accent/25 bg-brand-accent/10 text-brand-accent shadow-inner">
                   <CheckCircle2 className="h-10 w-10 animate-bounce" />
                 </div>
-                <div className="space-y-2 max-w-md">
-                  <h3 className="text-2xl font-black text-white">
+                <div className="max-w-md space-y-2">
+                  <h3 className="text-2xl font-semibold text-neutral-900">
                     Proposal audit request received!
                   </h3>
-                  <p className="text-brand-text-pale/85 text-sm leading-relaxed font-medium">
-                    Thanks <span className="text-brand-accent font-bold">{formData.name}</span>. Our Client Partner, <span className="text-brand-accent font-bold">Beth</span>, will audit <span className="text-brand-accent underline font-bold">{formData.website}</span> and email you directly at <span className="text-white font-bold">{formData.email}</span> within 24 hours.
+                  <p className="text-sm font-normal leading-relaxed text-neutral-600">
+                    Thanks <span className="font-bold text-brand-accent">{formData.name}</span>. Our Client Partner, <span className="font-bold text-brand-accent">Beth</span>, will audit <span className="font-bold text-brand-accent underline">{formData.website}</span> and email you directly at <span className="font-bold text-neutral-900">{formData.email}</span> within 24 hours.
                   </p>
                 </div>
                 <button
@@ -204,7 +202,7 @@ export const EnquiryForm: React.FC = () => {
                     setSuccess(false);
                     setFormData({ name: "", email: "", website: "", message: "" });
                   }}
-                  className="bg-brand-bg-darker hover:bg-brand-bg-card text-brand-text-pale border border-brand-teal-light/20 px-6 py-2.5 rounded-full text-xs font-bold transition-all"
+                  className="rounded-full border border-neutral-200 bg-white px-6 py-2.5 text-xs font-bold text-neutral-600 transition-all hover:border-brand-accent/30 hover:text-neutral-900"
                 >
                   Send another inquiry
                 </button>

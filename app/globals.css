@@ -1,28 +1,25 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
+@import "lenis/dist/lenis.css";
 
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-outfit), sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
 
-  --color-brand-bg: #000000;
-  --color-brand-bg-dark: #000000;
-  --color-brand-bg-darker: #000000;
+  --color-brand-bg: #1b1b1f;
+  --color-brand-bg-dark: #1b1b1f;
+  --color-brand-bg-darker: #1b1b1f;
   --color-brand-bg-card: rgba(255, 255, 255, 0.04);
-  --color-brand-accent: #5b9fff;
-  --color-brand-accent-hover: #4a8fe6;
+  --color-brand-accent: #e8b84b;
+  --color-brand-accent-hover: #d4a843;
   --color-brand-text-pale: #e2eae9;
   --color-brand-teal-light: #ffffff;
   --color-brand-teal-border: rgba(255, 255, 255, 0.08);
 }
 
 .brand-grid {
-  background-color: #000000;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-color: #1b1b1f;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -40,16 +37,38 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(91, 159, 255, 0.4);
+  background: rgba(232, 184, 75, 0.4);
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #000000;
+  font-weight: 400;
+  background-color: #1b1b1f;
   color: #e2eae9;
   overflow-x: hidden;
 }
@@ -57,6 +76,14 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
+  font-weight: 600;
+}
+
+p {
+  font-family: var(--font-sans);
+  font-weight: 400;
 }

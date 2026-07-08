@@ -11,28 +11,24 @@ interface PlaybookProps {
 
 export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
   return (
-    <section id="playbook" className="py-24 bg-brand-bg-darker border-y border-brand-teal-light/10 relative">
-      <div className="absolute top-0 right-10 w-80 h-80 rounded-full bg-brand-accent/5 blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 grid lg:grid-cols-12 gap-12 items-center">
-        {/* Left Column Text */}
-        <div className="lg:col-span-5 text-left">
-          <p className="text-xs uppercase tracking-[0.2em] text-brand-accent font-bold mb-4">
+    <section id="playbook" className="relative border-y border-neutral-200 bg-white py-24">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-12">
+        <div className="text-left lg:col-span-5">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
             How We Differ
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+          <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             Out with the old agency playbook.
           </h2>
-          <p className="text-brand-text-pale/80 text-lg leading-relaxed mb-8 font-medium">
+          <p className="mb-8 text-lg font-normal leading-relaxed text-neutral-600">
             We believe traditional agencies are structured to protect themselves, not grow their clients. Retainers tied strictly to hours incentivize slowness. We believe progressive is simply better.
           </p>
-          <div className="inline-flex items-center gap-2 text-brand-accent font-bold text-sm bg-brand-accent/10 border border-brand-accent/25 rounded-full px-4 py-1.5 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand-accent/25 bg-brand-accent/10 px-4 py-1.5 text-sm font-bold text-brand-accent shadow-sm">
             <span>Result-Tied Partnerships Only</span>
           </div>
         </div>
 
-        {/* Right Column Grid Rows */}
-        <div className="lg:col-span-7 space-y-4">
+        <div className="space-y-4 lg:col-span-7">
           {rows.map((row, idx) => (
             <motion.div
               key={idx}
@@ -40,25 +36,22 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="grid grid-cols-1 md:grid-cols-11 gap-3 items-center"
+              className="grid grid-cols-1 items-center gap-3 md:grid-cols-11"
             >
-              {/* Old agency way */}
-              <div className="md:col-span-5 flex items-center gap-3 bg-brand-bg border border-brand-teal-light/10 rounded-xl px-5 py-4 text-brand-text-pale/40">
-                <ThumbsDown className="h-4.5 w-4.5 text-brand-text-pale/30 shrink-0" />
-                <span className="line-through text-sm md:text-base text-brand-text-pale/40 font-semibold">
+              <div className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-5 py-4 text-neutral-400 md:col-span-5">
+                <ThumbsDown className="h-4.5 w-4.5 shrink-0 text-neutral-300" />
+                <span className="text-sm font-semibold line-through text-neutral-400 md:text-base">
                   {row.from}
                 </span>
               </div>
 
-              {/* Transition arrow separator */}
-              <div className="md:col-span-1 flex justify-center text-brand-teal-light/45">
+              <div className="flex justify-center text-neutral-300 md:col-span-1">
                 <ArrowRight className="h-4 w-4 rotate-90 md:rotate-0" />
               </div>
 
-              {/* Seed's way */}
-              <div className="md:col-span-5 flex items-center gap-3 bg-brand-accent/10 border border-brand-accent/30 rounded-xl px-5 py-4 text-brand-accent font-extrabold shadow-md">
+              <div className="flex items-center gap-3 rounded-xl border border-brand-accent/30 bg-brand-accent/10 px-5 py-4 font-extrabold text-brand-accent shadow-md md:col-span-5">
                 <ThumbsUp className="h-4.5 w-4.5 shrink-0 text-brand-accent" />
-                <span className="text-sm md:text-base text-white">
+                <span className="text-sm text-neutral-900 md:text-base">
                   {row.to}
                 </span>
               </div>

@@ -1,3 +1,9 @@
+export interface ClientLogo {
+  name: string;
+  logo: string;
+  seed: string;
+}
+
 export interface NavItem {
   label: string;
   url: string;

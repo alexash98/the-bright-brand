@@ -2,8 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { Sliders, Zap, Percent, BarChart3 } from "lucide-react";
+import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
 
 export const GrowthCalculator: React.FC = () => {
+  const scrollToSection = useScrollToSection();
   const [budget, setBudget] = useState<number>(15000); // Monthly spend slider
   const [currentRoas, setCurrentRoas] = useState<number>(2.5); // Current ROAS slider
   const [channelWeight, setChannelWeight] = useState<"revenue" | "efficiency" | "omnichannel">("revenue");
@@ -15,7 +17,7 @@ export const GrowthCalculator: React.FC = () => {
     // efficiency focus: -28% spend waste reduction
     // omnichannel focus: +51% impressions YoY
     const rateOfImprovement = channelWeight === "revenue" ? 0.46 : channelWeight === "efficiency" ? 0.28 : 0.35;
-    
+
     const currentRevenue = budget * currentRoas;
     const projectedRevenue = currentRevenue * (1 + rateOfImprovement);
     const estimatedExtraRevenue = projectedRevenue - currentRevenue;
@@ -30,36 +32,34 @@ export const GrowthCalculator: React.FC = () => {
   }, [budget, currentRoas, channelWeight]);
 
   return (
-    <section id="calculator" className="py-24 bg-brand-bg relative border-t border-brand-teal-light/10">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-brand-accent),transparent_60%)] opacity-[0.02] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-brand-accent font-bold mb-3">
+    <section id="calculator" className="relative border-t border-neutral-200 bg-white py-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
             Interactive Tool
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+          <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             Estimate your growth potential.
           </h2>
-          <p className="text-brand-text-pale/80 text-lg font-medium">
+          <p className="text-lg font-normal text-neutral-600">
             Drag the sliders below to estimate the incremental revenue we can unlock by consolidating your campaigns into focused performance pods.
           </p>
         </div>
 
         {/* Calculator Grid */}
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch max-w-5xl mx-auto">
+        <div className="mx-auto grid max-w-5xl items-stretch gap-8 lg:grid-cols-12">
           {/* Controls Card */}
-          <div className="lg:col-span-7 bg-brand-bg-card border border-brand-teal-light/10 rounded-2xl p-6 md:p-8 flex flex-col justify-between shadow-lg">
+          <div className="flex flex-col justify-between rounded-2xl border border-neutral-200 bg-neutral-50 p-6 shadow-lg md:p-8 lg:col-span-7">
             <div className="space-y-8 text-left">
-              <div className="flex items-center gap-3 pb-4 border-b border-brand-teal-light/10">
+              <div className="flex items-center gap-3 border-b border-neutral-200 pb-4">
                 <Sliders className="h-5 w-5 text-brand-accent" />
-                <h3 className="text-lg font-bold text-white">Campaign Metrics</h3>
+                <h3 className="text-lg font-semibold text-neutral-900">Campaign Metrics</h3>
               </div>
 
               {/* Monthly Budget Slider */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="budget-slider" className="text-sm font-bold text-brand-text-pale/80">
+                <div className="flex items-center justify-between">
+                  <label htmlFor="budget-slider" className="text-sm font-bold text-neutral-600">
                     Monthly Ad Spend Budget
                   </label>
                   <span className="text-xl font-black text-brand-accent">
@@ -74,9 +74,9 @@ export const GrowthCalculator: React.FC = () => {
                   step="2000"
                   value={budget}
                   onChange={(e) => setBudget(Number(e.target.value))}
-                  className="w-full h-2 bg-brand-bg-darker rounded-lg appearance-none cursor-pointer accent-brand-accent"
+                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-brand-accent"
                 />
-                <div className="flex justify-between text-[10px] text-brand-text-pale/40 font-bold">
+                <div className="flex justify-between text-[10px] font-bold text-neutral-400">
                   <span>£2,000</span>
                   <span>£50,000</span>
                   <span>£100,000</span>
@@ -85,8 +85,8 @@ export const GrowthCalculator: React.FC = () => {
 
               {/* Current ROAS Slider */}
               <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="roas-slider" className="text-sm font-bold text-brand-text-pale/80">
+                <div className="flex items-center justify-between">
+                  <label htmlFor="roas-slider" className="text-sm font-bold text-neutral-600">
                     Current Return on Ad Spend (ROAS)
                   </label>
                   <span className="text-xl font-black text-brand-accent">
@@ -101,9 +101,9 @@ export const GrowthCalculator: React.FC = () => {
                   step="0.1"
                   value={currentRoas}
                   onChange={(e) => setCurrentRoas(Number(e.target.value))}
-                  className="w-full h-2 bg-brand-bg-darker rounded-lg appearance-none cursor-pointer accent-brand-accent"
+                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-brand-accent"
                 />
-                <div className="flex justify-between text-[10px] text-brand-text-pale/40 font-bold">
+                <div className="flex justify-between text-[10px] font-bold text-neutral-400">
                   <span>0.5x</span>
                   <span>4.0x</span>
                   <span>8.0x</span>
@@ -112,16 +112,16 @@ export const GrowthCalculator: React.FC = () => {
 
               {/* Strategy Focus Selector */}
               <div className="space-y-4">
-                <span className="text-sm font-bold text-brand-text-pale/80 block">
+                <span className="block text-sm font-bold text-neutral-600">
                   Target Optimization Objective
                 </span>
                 <div className="grid grid-cols-3 gap-3">
                   <button
                     onClick={() => setChannelWeight("revenue")}
-                    className={`py-3 px-2 rounded-xl border text-xs font-bold transition-all text-center flex flex-col items-center gap-1.5 ${
+                    className={`flex flex-col items-center gap-1.5 rounded-xl border py-3 px-2 text-center text-xs font-bold transition-all ${
                       channelWeight === "revenue"
-                        ? "bg-brand-accent/10 border-brand-accent text-brand-accent font-black"
-                        : "bg-brand-bg-darker border-brand-teal-light/10 text-brand-text-pale/60 hover:text-white"
+                        ? "border-brand-accent bg-brand-accent/10 font-black text-brand-accent"
+                        : "border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900"
                     }`}
                   >
                     <Zap className="h-4 w-4 shrink-0" />
@@ -129,10 +129,10 @@ export const GrowthCalculator: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setChannelWeight("efficiency")}
-                    className={`py-3 px-2 rounded-xl border text-xs font-bold transition-all text-center flex flex-col items-center gap-1.5 ${
+                    className={`flex flex-col items-center gap-1.5 rounded-xl border py-3 px-2 text-center text-xs font-bold transition-all ${
                       channelWeight === "efficiency"
-                        ? "bg-brand-accent/10 border-brand-accent text-brand-accent font-black"
-                        : "bg-brand-bg-darker border-brand-teal-light/10 text-brand-text-pale/60 hover:text-white"
+                        ? "border-brand-accent bg-brand-accent/10 font-black text-brand-accent"
+                        : "border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900"
                     }`}
                   >
                     <Percent className="h-4 w-4 shrink-0" />
@@ -140,10 +140,10 @@ export const GrowthCalculator: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setChannelWeight("omnichannel")}
-                    className={`py-3 px-2 rounded-xl border text-xs font-bold transition-all text-center flex flex-col items-center gap-1.5 ${
+                    className={`flex flex-col items-center gap-1.5 rounded-xl border py-3 px-2 text-center text-xs font-bold transition-all ${
                       channelWeight === "omnichannel"
-                        ? "bg-brand-accent/10 border-brand-accent text-brand-accent font-black"
-                        : "bg-brand-bg-darker border-brand-teal-light/10 text-brand-text-pale/60 hover:text-white"
+                        ? "border-brand-accent bg-brand-accent/10 font-black text-brand-accent"
+                        : "border-neutral-200 bg-white text-neutral-600 hover:text-neutral-900"
                     }`}
                   >
                     <BarChart3 className="h-4 w-4 shrink-0" />
@@ -154,44 +154,41 @@ export const GrowthCalculator: React.FC = () => {
             </div>
 
             {/* Quick explanatory footer */}
-            <p className="text-brand-text-pale/40 text-[11px] mt-8 italic text-left font-semibold">
+            <p className="mt-8 text-left text-[11px] font-semibold italic text-neutral-400">
               *Calculations are based on Seed's average client outcomes from our 2025/2026 audits. Exact metrics depend on account maturity and seasonality.
             </p>
           </div>
 
           {/* Results Display Panel */}
-          <div className="lg:col-span-5 bg-brand-bg border border-brand-teal-light/15 rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden shadow-xl">
-            {/* Ambient background light */}
-            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-brand-accent/10 blur-2xl pointer-events-none" />
-
-            <div className="space-y-6 text-left relative z-10">
-              <span className="text-xs uppercase font-bold tracking-widest text-brand-text-pale/50 block">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 shadow-xl lg:col-span-5">
+            <div className="relative z-10 space-y-6 text-left">
+              <span className="block text-xs font-bold uppercase tracking-widest text-neutral-500">
                 Projected Growth Outlook
               </span>
 
               <div>
-                <p className="text-brand-text-pale/60 text-xs font-bold uppercase tracking-wide">Estimated Extra Monthly Revenue</p>
-                <div className="text-4xl md:text-5xl font-black text-brand-accent tracking-tight mt-2 drop-shadow-[0_2px_8px_rgba(91,159,255,0.2)]">
+                <p className="text-xs font-bold uppercase tracking-wide text-neutral-600">Estimated Extra Monthly Revenue</p>
+                <div className="mt-2 text-4xl font-black tracking-tight text-brand-accent drop-shadow-[0_2px_8px_rgba(232,184,75,0.2)] md:text-5xl">
                   +£{estimates.extraRevenue.toLocaleString()}
                 </div>
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-brand-teal-light/10 font-medium">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-brand-text-pale/70">Target ROAS Improvement</span>
-                  <span className="font-extrabold text-white">
+              <div className="space-y-4 border-t border-neutral-200 pt-4 font-medium">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-neutral-600">Target ROAS Improvement</span>
+                  <span className="font-extrabold text-neutral-900">
                     {currentRoas.toFixed(1)}x → {estimates.newRoas.toFixed(1)}x
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-brand-text-pale/70">Waste Spend Trimming</span>
-                  <span className="font-extrabold text-white">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-neutral-600">Waste Spend Trimming</span>
+                  <span className="font-extrabold text-neutral-900">
                     +£{estimates.savings.toLocaleString()} / mo
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-brand-text-pale/70">Pod Squadding Impact</span>
-                  <span className="text-brand-accent font-bold uppercase text-xs">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-neutral-600">Pod Squadding Impact</span>
+                  <span className="text-xs font-bold uppercase text-brand-accent">
                     Outcome-Guaranteed
                   </span>
                 </div>
@@ -199,16 +196,13 @@ export const GrowthCalculator: React.FC = () => {
             </div>
 
             {/* CTA action */}
-            <div className="mt-8 pt-6 border-t border-brand-teal-light/10 relative z-10">
-              <p className="text-xs text-brand-text-pale/70 leading-relaxed mb-4 text-left font-medium">
-                Ready to review our proposed strategy for your <span className="text-white font-extrabold">£{budget.toLocaleString()}</span> budget? We provide a bespoke custom audit completely on us.
+            <div className="relative z-10 mt-8 border-t border-neutral-200 pt-6">
+              <p className="mb-4 text-left text-xs font-normal leading-relaxed text-neutral-600">
+                Ready to review our proposed strategy for your <span className="font-extrabold text-neutral-900">£{budget.toLocaleString()}</span> budget? We provide a bespoke custom audit completely on us.
               </p>
               <button
-                onClick={() => {
-                  const element = document.getElementById("enquire");
-                  if (element) element.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full bg-brand-accent hover:bg-brand-accent-hover text-brand-bg-darker font-bold py-3.5 rounded-full text-sm transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg shadow-brand-accent/10"
+                onClick={() => scrollToSection("enquire")}
+                className="w-full rounded-full bg-brand-accent py-3.5 text-sm font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover"
               >
                 Claim your custom audit →
               </button>

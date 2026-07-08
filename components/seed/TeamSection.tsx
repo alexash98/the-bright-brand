@@ -13,52 +13,50 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ members }) => {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
   return (
-    <section id="about" className="py-24 bg-brand-bg relative border-t border-brand-teal-light/10">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,var(--color-brand-accent),transparent_70%)] opacity-[0.03] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="max-w-3xl mb-16 text-left">
-          <p className="text-xs uppercase tracking-[0.2em] text-brand-accent font-bold mb-4">
+    <section id="about" className="relative border-t border-neutral-200 bg-white py-24">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <div className="mb-16 max-w-3xl text-left">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
             Our People
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+          <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             Built by people that <span className="text-brand-accent">care</span>.
           </h2>
-          <p className="text-brand-text-pale/80 text-lg leading-relaxed font-medium">
+          <p className="text-lg font-normal leading-relaxed text-neutral-600">
             Seed runs on high-agency, trust, and structural pods. We are fully transitioning to an Employee Ownership Trust (EOT) because we believe the people who build results should co-own the business.
           </p>
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {members.map((member) => (
             <motion.div
               layoutId={`member-card-${member.id}`}
               key={member.id}
               onClick={() => setSelectedMember(member)}
-              className="group bg-brand-bg-card hover:bg-brand-bg-darker/80 border border-brand-teal-light/10 hover:border-brand-accent/25 rounded-xl p-6 transition-all duration-300 cursor-pointer flex gap-5 items-center relative shadow-lg"
+              className="group relative flex cursor-pointer items-center gap-5 rounded-xl border border-neutral-200 bg-neutral-50 p-6 shadow-lg transition-all duration-300 hover:border-brand-accent/25 hover:bg-white"
             >
               {/* Profile Avatar Initials */}
-              <div className="h-16 w-16 shrink-0 rounded-full bg-brand-bg-darker border border-brand-teal-light/20 flex items-center justify-center font-extrabold text-xl text-brand-accent group-hover:bg-brand-accent/15 transition-all duration-300">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-white text-xl font-extrabold text-brand-accent transition-all duration-300 group-hover:bg-brand-accent/15">
                 {member.name.split(" ").map(n => n[0]).join("")}
               </div>
 
               {/* Bio Core */}
               <div className="text-left">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-brand-text-pale/50 block mb-0.5">
+                <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-wider text-neutral-500">
                   {member.role}
                 </span>
-                <h3 className="text-lg font-bold text-white group-hover:text-brand-accent transition-colors">
+                <h3 className="text-lg font-semibold text-neutral-900 transition-colors group-hover:text-brand-accent">
                   {member.name}
                 </h3>
-                <span className="text-brand-text-pale/40 text-xs flex items-center gap-1 mt-1.5 font-medium">
+                <span className="mt-1.5 flex items-center gap-1 text-xs font-medium text-neutral-500">
                   <Calendar className="h-3 w-3 text-brand-accent" />
                   Started {member.startDate.split(" ")[1]}
                 </span>
               </div>
 
               {/* Tiny Expand indicator */}
-              <div className="absolute bottom-4 right-4 text-xs font-semibold text-brand-text-pale/45 group-hover:text-brand-accent transition-colors">
+              <div className="absolute bottom-4 right-4 text-xs font-semibold text-neutral-400 transition-colors group-hover:text-brand-accent">
                 View Bio →
               </div>
             </motion.div>
@@ -81,59 +79,59 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ members }) => {
               {/* Box Dialog */}
               <motion.div
                 layoutId={`member-card-${selectedMember.id}`}
-                className="relative bg-brand-bg border border-brand-teal-light/20 rounded-2xl max-w-md w-full p-8 overflow-hidden z-10 text-left shadow-2xl"
+                className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-neutral-200 bg-white p-8 text-left shadow-2xl"
               >
                 <button
                   onClick={() => setSelectedMember(null)}
-                  className="absolute top-4 right-4 h-8 w-8 rounded-full bg-brand-bg-darker/60 border border-brand-teal-light/15 flex items-center justify-center text-white hover:text-brand-accent hover:border-brand-accent/35 transition-colors"
+                  className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-neutral-600 transition-colors hover:border-brand-accent/35 hover:text-brand-accent"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
 
-                <div className="flex gap-5 items-center pb-6 border-b border-brand-teal-light/10">
-                  <div className="h-20 w-20 rounded-full bg-brand-bg-darker border border-brand-teal-light/20 flex items-center justify-center font-extrabold text-3xl text-brand-accent shadow-inner">
+                <div className="flex items-center gap-5 border-b border-neutral-200 pb-6">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-neutral-200 bg-neutral-50 text-3xl font-extrabold text-brand-accent shadow-inner">
                     {selectedMember.name.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div>
-                    <span className="text-xs uppercase font-bold tracking-wider text-brand-accent">
+                    <span className="text-xs font-bold uppercase tracking-wider text-brand-accent">
                       {selectedMember.role}
                     </span>
-                    <h3 className="text-2xl font-extrabold text-white">
+                    <h3 className="text-2xl font-semibold text-neutral-900">
                       {selectedMember.name}
                     </h3>
-                    <p className="text-xs text-brand-text-pale/50 mt-1 font-medium">
+                    <p className="mt-1 text-xs font-medium text-neutral-500">
                       Seniority: {selectedMember.seniority}
                     </p>
                   </div>
                 </div>
 
-                <div className="py-6 space-y-4">
-                  <p className="text-brand-text-pale/85 text-sm leading-relaxed font-medium">
+                <div className="space-y-4 py-6">
+                  <p className="text-sm font-normal leading-relaxed text-neutral-600">
                     {selectedMember.bio}
                   </p>
 
-                  <div className="space-y-2.5 text-xs text-brand-text-pale/60 pt-2">
+                  <div className="space-y-2.5 pt-2 text-xs text-neutral-600">
                     <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-brand-accent shrink-0" />
-                      <a href={`mailto:${selectedMember.email}`} className="hover:text-brand-accent hover:underline font-semibold">
+                      <Mail className="h-4 w-4 shrink-0 text-brand-accent" />
+                      <a href={`mailto:${selectedMember.email}`} className="font-semibold hover:text-brand-accent hover:underline">
                         {selectedMember.email}
                       </a>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-brand-accent shrink-0" />
+                      <Calendar className="h-4 w-4 shrink-0 text-brand-accent" />
                       <span className="font-semibold">On the team since {selectedMember.startDate}</span>
                     </div>
                   </div>
 
                   {/* Core Hobbies section */}
-                  <div className="pt-4 border-t border-brand-teal-light/10">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-brand-text-pale/50 mb-2.5 flex items-center gap-1.5">
-                      <Heart className="h-3.5 w-3.5 text-brand-accent fill-brand-accent/10" />
+                  <div className="border-t border-neutral-200 pt-4">
+                    <h4 className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+                      <Heart className="h-3.5 w-3.5 fill-brand-accent/10 text-brand-accent" />
                       Interests & Hobbies
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedMember.hobbies.map((hobby, idx) => (
-                        <span key={idx} className="bg-brand-bg-darker border border-brand-teal-light/10 px-2.5 py-1 rounded text-xs text-brand-text-pale font-semibold">
+                        <span key={idx} className="rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-xs font-semibold text-neutral-600">
                           {hobby}
                         </span>
                       ))}
@@ -141,10 +139,10 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ members }) => {
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-brand-teal-light/10">
+                <div className="flex justify-end border-t border-neutral-200 pt-4">
                   <button
                     onClick={() => setSelectedMember(null)}
-                    className="bg-brand-accent hover:bg-brand-accent-hover text-brand-bg-darker font-bold text-sm px-6 py-2.5 rounded-full transition-colors duration-200"
+                    className="rounded-full bg-brand-accent px-6 py-2.5 text-sm font-bold text-brand-bg-darker transition-colors duration-200 hover:bg-brand-accent-hover"
                   >
                     Close Profile
                   </button>

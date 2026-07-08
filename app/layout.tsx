@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
+import { SmoothScrollProvider } from "@/components/seed/SmoothScrollProvider";
 import { organization, website } from "@/lib/schema";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -62,7 +63,7 @@ export default function RootLayout({
     >
       <body className="brand-grid min-h-full">
         <JsonLd data={[organization(), website()]} />
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>
   );

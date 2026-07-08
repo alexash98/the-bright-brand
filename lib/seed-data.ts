@@ -46,18 +46,19 @@ export const SERVICES: ServiceCard[] = [
 ];
 
 export const CLIENT_LOGOS = [
-  { name: "Zinc", logo: "zinc.png", seed: "zinc" },
-  { name: "Young's Pubs", logo: "youngs-pubs.png", seed: "youngs" },
-  { name: "World of Books", logo: "world-of-books.png", seed: "wob" },
-  { name: "Sovereign", logo: "sovereign.png", seed: "sovereign" },
-  { name: "Smartest Energy", logo: "smartest-energy.png", seed: "smart" },
-  { name: "School of Wok", logo: "school-of-wok-1.png", seed: "wok" },
-  { name: "Oxford University", logo: "oxford-1.svg", seed: "oxford" },
-  { name: "Protyre", logo: "protyre.png", seed: "protyre" },
-  { name: "Oto", logo: "oto.png", seed: "oto" },
-  { name: "Newspaper Club", logo: "newspaper-club.png", seed: "news" },
-  { name: "Liforme", logo: "liforme-1.png", seed: "liforme" },
-  { name: "Let's Do This", logo: "lets-do-this.png", seed: "lets" }
+  { name: "Airbox Fulfilment", logo: "airbox.png", seed: "airbox" },
+  { name: "Britton & Time", logo: "britton-and-time.png", seed: "britton-and-time" },
+  { name: "Bremembered.io", logo: "bremembered.png", seed: "bremembered" },
+  { name: "Anywhere.com", logo: "anywhere.png", seed: "anywhere" },
+  { name: "Releaf", logo: "releaf.png", seed: "releaf" },
+  { name: "Canopy", logo: "canopy.png", seed: "canopy" },
+  { name: "Direct2Compensation", logo: "direct2-compensation.png", seed: "direct2" },
+  { name: "Enexus", logo: "enexus.png", seed: "enexus" },
+  { name: "FormX", logo: "formx.png", seed: "formx" },
+  { name: "Rowe Co Solicitors", logo: "rowe-co-solicitors.png", seed: "rowe-co" },
+  { name: "Menzies Law", logo: "menzies-law.png", seed: "menzies" },
+  { name: "Freedom Travel Insurance", logo: "freedom-travel-insurance.png", seed: "freedom" },
+  { name: "Northwest Solicitors", logo: "northwest-solicitors.png", seed: "northwest" },
 ];
 
 export const PLATFORM_LOGOS = [
@@ -163,8 +164,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "qualification-check",
     category: "PR",
     tagline: "Taking Qualification Check from no history to a Financial Times placement",
-    highlightStat: "Financial Times",
-    highlightLabel: "placement from zero initial coverage",
+    highlightStat: "+47%",
+    highlightLabel: "brand search click growth after Financial Times feature",
     logoText: "QC",
     description: "How we took an unknown verification company to the front page of the Financial Times and established them as the leading AI fraud voice on admissions.",
     challenge: "Qualification Check was completely unknown to national publications. They had no brand authority in the press and zero existing media relations, with a highly constrained £1,200/month PR retainer.",
@@ -193,8 +194,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "weavabel",
     category: "Organic",
     tagline: "High-authority PR placements and search ranking recovery inside 30 days",
-    highlightStat: "5 placements",
-    highlightLabel: "high-authority links inside a single month",
+    highlightStat: "5",
+    highlightLabel: "high-authority placements inside a single month",
     logoText: "Weavabel",
     description: "Reversing a year-long organic search decline by linking high-intent keyword optimization with high-authority retail press placements.",
     challenge: "Weavabel's domain authority had been in a continuous decline for over 12 months, limiting their ability to compete on key retail labeling terms.",

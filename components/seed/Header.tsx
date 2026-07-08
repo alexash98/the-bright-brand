@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NavItem } from "@/lib/seed-types";
+import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
 
 interface HeaderProps {
   navItems: NavItem[];
@@ -11,36 +12,28 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ navItems }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const scrollToSection = useScrollToSection();
 
   const handleScrollTo = (id: string) => {
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection(id);
   };
 
   return (
     <>
-      <nav id="navbar" className="fixed w-full top-0 z-50 bg-brand-bg-darker/90 backdrop-blur-md border-b border-brand-teal-light/20 transition-all duration-300">
+      <nav id="navbar" className="fixed top-0 z-50 w-full bg-[#1f1f22]/95 backdrop-blur-md transition-all duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4 md:px-8">
-          <div className="flex gap-6 items-center">
+          <div className="flex items-center">
             {/* Seed Brand logo */}
             <div 
               onClick={() => handleScrollTo("hero")} 
-              className="flex items-center gap-2 cursor-pointer group"
+              className="group flex cursor-pointer items-center"
             >
-              <span className="text-2xl font-bold tracking-tight text-white group-hover:text-brand-accent transition-colors">
-                Seed<span className="text-brand-accent font-extrabold">™</span>
-              </span>
-            </div>
-
-            {/* B-Corp Badge */}
-            <div className="flex items-center gap-1.5 bg-brand-bg-card border border-brand-accent/20 px-2.5 py-1 rounded-sm">
-              <span className="text-[10px] font-bold text-white tracking-widest uppercase">
-                B Corp
-              </span>
-              <span className="h-2 w-2 rounded-full bg-brand-accent animate-pulse"></span>
+              <img
+                src="/seed-logo.png"
+                alt="Seed"
+                className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
+              />
             </div>
           </div>
 
@@ -51,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
                 <button
                   key={item.label}
                   onClick={() => handleScrollTo(item.url.replace("/", ""))}
-                  className="font-semibold text-sm text-brand-text-pale/80 hover:text-brand-accent transition-colors duration-200"
+                  className="text-[13px] font-semibold text-brand-text-pale/80 transition-colors duration-200 hover:text-brand-accent"
                 >
                   {item.label}
                 </button>
@@ -62,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
             <div className="hidden md:block">
               <button 
                 onClick={() => handleScrollTo("enquire")}
-                className="inline-flex items-center gap-2 bg-brand-accent hover:bg-brand-accent-hover text-brand-bg-darker text-sm font-bold rounded-full h-11 px-6 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-brand-accent/10"
+                className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[13px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
               >
                 Enquire Now
                 <ArrowUpRight className="h-4.5 w-4.5" />
@@ -89,14 +82,14 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 top-20 bg-brand-bg-darker/98 backdrop-blur-lg border-b border-brand-teal-light/20 md:hidden flex flex-col px-6 py-10 gap-8"
+            className="fixed inset-0 top-20 z-40 flex flex-col gap-8 bg-[#1f1f22]/98 px-6 py-10 backdrop-blur-lg md:hidden"
           >
             <div className="flex flex-col gap-6">
               {navItems.map((item) => (
                 <button
                   key={item.label}
                   onClick={() => handleScrollTo(item.url.replace("/", ""))}
-                  className="text-left text-xl font-bold text-brand-text-pale/80 hover:text-brand-accent transition-colors py-2 border-b border-brand-teal-light/10"
+                  className="border-b border-brand-teal-light/10 py-2 text-left text-lg font-bold text-brand-text-pale/80 transition-colors hover:text-brand-accent"
                 >
                   {item.label}
                 </button>
@@ -105,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
 
             <button
               onClick={() => handleScrollTo("enquire")}
-              className="w-full text-center bg-brand-accent text-brand-bg-darker font-bold py-3.5 rounded-full text-base active:scale-[0.98] transition-all"
+              className="w-full rounded-full bg-brand-accent py-3 text-center text-sm font-bold text-brand-bg-darker transition-all active:scale-[0.98]"
             >
               Enquire Now
             </button>

@@ -2,15 +2,27 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Sparkles, CheckCircle2, TrendingUp } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { HeroCaseStudyTicker } from "@/components/seed/HeroCaseStudyTicker";
+import { HeroLogoTicker } from "@/components/seed/HeroLogoTicker";
+import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
+import { CaseStudy, ClientLogo } from "@/lib/seed-types";
 
 interface HeroProps {
   rotatingWords: string[];
   description: string;
+  caseStudies: CaseStudy[];
+  clientLogos: ClientLogo[];
 }
 
-export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
+export const Hero: React.FC<HeroProps> = ({
+  rotatingWords,
+  description,
+  caseStudies,
+  clientLogos,
+}) => {
   const [index, setIndex] = useState(0);
+  const scrollToSection = useScrollToSection();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -20,44 +32,31 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
   }, [rotatingWords]);
 
   const handleScrollTo = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection(id);
   };
 
   return (
     <section
       id="hero"
-      className="relative flex min-h-0 flex-col overflow-hidden bg-brand-bg-darker pt-28 md:pt-32 lg:min-h-dvh"
+      className="relative flex h-auto flex-col overflow-hidden bg-brand-bg-darker pt-20 lg:h-dvh lg:max-h-dvh"
     >
-      {/* Abstract background accents */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--color-brand-accent),transparent_35%)] opacity-[0.07] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,var(--color-brand-accent),transparent_40%)] opacity-[0.04] pointer-events-none" />
-      
-      {/* Subtle background radial blob */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-brand-accent/5 blur-[130px] pointer-events-none rounded-full" />
-
-      {/* Atmospheric Brand Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:4.5rem_4.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
-
-      <div className="relative z-10 flex w-full flex-1 flex-col justify-center">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-4 py-8 md:px-8 md:py-12 lg:grid-cols-12 lg:py-0">
+      <div className="relative flex min-h-0 flex-1 overflow-hidden">
+        <div className="relative z-10 mx-auto grid h-full min-h-0 w-full max-w-7xl grid-cols-1 gap-12 overflow-hidden px-4 py-8 md:px-8 lg:grid-cols-12 lg:items-stretch lg:gap-0 lg:py-0">
         {/* Main Text Copy Column */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left">
+        <div className="flex min-h-0 flex-col items-start justify-center py-4 text-left lg:col-span-6 lg:py-6">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-brand-bg border border-brand-accent/20 text-brand-accent px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm"
+            className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-accent/20 bg-brand-bg px-4 py-2 text-xs font-semibold uppercase tracking-wider text-brand-accent shadow-sm lg:mb-6"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-accent animate-pulse" />
             Performance Marketing Agency
           </motion.div>
 
-          <h1 className="text-[32px] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.15] mb-6">
-            Your Most <br />
-            <span className="relative inline-block h-[1.15em] min-w-[200px] sm:min-w-[320px] md:min-w-[420px] text-brand-accent">
+          <h1 className="mb-6 text-[32px] font-semibold leading-[1.2] tracking-tight text-white sm:text-5xl md:text-6xl lg:mb-7 lg:text-[3.25rem] lg:leading-[1.22] xl:text-6xl">
+            <span className="block">Your Most</span>
+            <span className="relative block h-[1.2em] text-brand-accent">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={rotatingWords[index]}
@@ -65,21 +64,26 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -24, opacity: 0 }}
                   transition={{ type: "spring", stiffness: 120, damping: 16 }}
-                  className="absolute left-0 top-0 inline-block font-black tracking-tight drop-shadow-[0_2px_10px_rgba(91,159,255,0.2)] whitespace-nowrap"
+                  className="absolute left-0 top-0 block font-semibold tracking-tight drop-shadow-[0_2px_10px_rgba(232,184,75,0.2)] whitespace-nowrap"
                 >
                   {rotatingWords[index]}
                 </motion.span>
               </AnimatePresence>
+              <span
+                className="invisible block font-semibold tracking-tight whitespace-nowrap"
+                aria-hidden="true"
+              >
+                Growth-Obsessed
+              </span>
             </span>
-            <br />
-            Growth Partner.
+            <span className="block">Growth Partner.</span>
           </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-brand-text-pale/85 text-lg md:text-xl max-w-xl leading-relaxed mb-8"
+            className="mb-7 max-w-xl text-lg leading-relaxed text-brand-text-pale/85 md:text-xl lg:mb-8 xl:text-lg"
           >
             {description}
           </motion.p>
@@ -88,18 +92,18 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+            className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4 lg:gap-3"
           >
             <button
               onClick={() => handleScrollTo("enquire")}
-              className="inline-flex items-center justify-center gap-2 bg-brand-accent hover:bg-brand-accent-hover text-brand-bg-darker font-bold rounded-full h-12 px-8 transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-brand-accent/15 group"
+              className="group inline-flex h-11 items-center justify-center gap-2 rounded-full bg-brand-accent px-7 text-sm font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/15 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0 lg:h-10 lg:px-6"
             >
               Arrange a 15-minute intro
               <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={() => handleScrollTo("services")}
-              className="inline-flex items-center justify-center gap-2 bg-brand-bg hover:bg-brand-bg-card text-white font-bold border border-brand-accent/20 hover:border-brand-accent/40 rounded-full h-12 px-8 transition-all"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-brand-accent/20 bg-brand-bg px-7 text-sm font-bold text-white transition-all hover:border-brand-accent/40 hover:bg-brand-bg-card lg:h-10 lg:px-6"
             >
               See what we do
             </button>
@@ -110,7 +114,7 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25 }}
-            className="mt-8 flex w-full flex-wrap gap-3"
+            className="mt-7 flex w-full flex-wrap gap-2 lg:mt-8 lg:gap-3"
           >
             {[
               {
@@ -172,7 +176,7 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
             ].map((partner) => (
               <div
                 key={partner.name}
-                className="flex h-14 w-40 items-center gap-2.5 rounded-xl border border-white/10 bg-brand-bg-dark/45 px-4 shadow-lg backdrop-blur-sm transition-colors hover:bg-brand-bg-dark/65"
+                className="flex h-12 w-36 items-center gap-2.5 rounded-xl border border-white/10 bg-[#232327] px-3.5 shadow-lg transition-colors hover:bg-[#2a2a2e] lg:h-11 lg:w-32"
               >
                 {partner.icon}
                 <div className="flex min-w-0 flex-col justify-center">
@@ -186,292 +190,23 @@ export const Hero: React.FC<HeroProps> = ({ rotatingWords, description }) => {
               </div>
             ))}
           </motion.div>
-
-          {/* Quick Credibility Bullet Items */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap gap-x-6 gap-y-3 mt-10 text-brand-text-pale/80 text-sm border-t border-brand-teal-light/10 pt-6 w-full"
-          >
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-brand-accent" />
-              <span>Certified B Corp™</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-brand-accent" />
-              <span>Outcome-focused pricing</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-brand-accent" />
-              <span>No lock-in, flexible contracts</span>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Visual Sidebar Graphic - Live Dashboard Design */}
-        <div className="lg:col-span-5 hidden lg:block relative">
+        {/* Case study scroller — full height to bottom ticker */}
+        <div className="relative hidden min-h-0 lg:col-span-6 lg:flex lg:pl-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative bg-brand-bg border border-brand-accent/15 rounded-2xl p-6 backdrop-blur-md shadow-2xl overflow-hidden"
+            className="h-full min-h-0 w-full"
           >
-            {/* Glossy shine */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none" />
-
-            <div className="flex items-center justify-between mb-6 pb-4 border-b border-brand-teal-light/10">
-              <div className="flex gap-1.5">
-                <div className="h-3 w-3 rounded-full bg-red-500/80" />
-                <div className="h-3 w-3 rounded-full bg-brand-accent/80" />
-                <div className="h-3 w-3 rounded-full bg-brand-teal-light/80" />
-              </div>
-              <div className="flex items-center gap-1.5 font-mono text-[10px] text-brand-text-pale/50 uppercase tracking-widest">
-                <TrendingUp className="h-3 w-3 text-brand-accent animate-pulse" />
-                Engine Live Status
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="bg-brand-bg-darker/60 p-4 border border-brand-teal-light/15 rounded-xl flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-brand-text-pale/60 font-semibold uppercase tracking-wide">Overall ROAS Increase</p>
-                  <p className="text-2xl font-black text-white mt-1">+62%</p>
-                </div>
-                <div className="h-10 px-3 bg-brand-accent/10 border border-brand-accent/20 rounded-lg flex items-center justify-center font-extrabold text-brand-accent text-xs">
-                  Gusbourne DTC
-                </div>
-              </div>
-
-              <div className="bg-brand-bg-darker/60 p-4 border border-brand-teal-light/15 rounded-xl flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-brand-text-pale/60 font-semibold uppercase tracking-wide">Monthly App Installs</p>
-                  <p className="text-2xl font-black text-white mt-1">+490%</p>
-                </div>
-                <div className="h-10 px-3 bg-brand-teal-light/10 border border-brand-teal-light/20 rounded-lg flex items-center justify-center font-extrabold text-brand-teal-light text-xs">
-                  World of Books
-                </div>
-              </div>
-
-              <div className="bg-brand-bg-darker/60 p-4 border border-brand-teal-light/15 rounded-xl flex items-center justify-between">
-                <div>
-                  <p className="text-xs text-brand-text-pale/60 font-semibold uppercase tracking-wide">Organic Revenue Growth</p>
-                  <p className="text-2xl font-black text-white mt-1">+87%</p>
-                </div>
-                <div className="h-10 px-3 bg-brand-accent/10 border border-brand-accent/20 rounded-lg flex items-center justify-center font-extrabold text-brand-accent text-xs">
-                  Ski Beat SEO
-                </div>
-              </div>
-            </div>
-
-            {/* Glowing active state circle */}
-            <div className="absolute -bottom-6 -right-6 h-28 w-28 rounded-full bg-brand-accent/10 blur-2xl pointer-events-none" />
+            <HeroCaseStudyTicker items={caseStudies} />
           </motion.div>
         </div>
       </div>
       </div>
 
-      {/* Full-width bottom logo bar ticker from image */}
-      <div className="relative z-20 mt-8 w-full shrink-0 overflow-hidden border-t border-brand-teal-light/20 bg-black/95 py-6 select-none lg:mt-0">
-        {/* Left and Right Fade overlays for elegant mask styling */}
-        <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
-
-        <motion.div
-          animate={{
-            x: ["0%", "-100%"]
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 35,
-              ease: "linear"
-            }
-          }}
-          className="flex whitespace-nowrap"
-        >
-          {/* Logo Set A */}
-          <div className="flex gap-16 items-center shrink-0 min-w-full justify-around pr-16">
-            {/* 1. Zinc */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-white font-black text-lg tracking-tight uppercase">Zinc</span>
-            </div>
-
-            {/* 2. Young's Pubs */}
-            <div className="flex flex-col items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-4 w-5 text-white/80" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 10c0-2.21-1.79-4-4-4h-.5c-.32-1.39-1.57-2.5-3.1-2.5s-2.78 1.11-3.1 2.5H7.8c-2.21 0-4 1.79-4 4s1.79 4 4 4h11.2c2.21 0 4-1.79 4-4zm-11 7h1v3H8v-3zm7 0h1v3h-1v-3z" />
-              </svg>
-              <span className="text-[8px] font-black tracking-widest text-white/80 uppercase -mt-0.5">Young's</span>
-            </div>
-
-            {/* 3. World of Books */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                <path d="M2 12h20" />
-              </svg>
-              <span className="text-[10px] font-extrabold text-white/80 tracking-tight whitespace-nowrap">World of Books</span>
-            </div>
-
-            {/* 4. Sovereign */}
-            <div className="flex flex-col items-center leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-white/90 uppercase font-serif">Sovereign</span>
-              <span className="text-[5px] font-semibold tracking-[0.15em] text-white/50 uppercase">Luxury Travel</span>
-            </div>
-
-            {/* 5. Smartest Energy */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-xs font-semibold tracking-tight text-white/80">smartest<span className="font-light">energy</span></span>
-            </div>
-
-            {/* 6. School of Wok */}
-            <div className="border border-white/30 px-2 py-0.5 rounded-sm flex items-center justify-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[8px] font-extrabold tracking-[0.1em] text-white/85 uppercase">School of Wok</span>
-            </div>
-
-            {/* 7. University of Oxford */}
-            <div className="flex flex-col items-center leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[5px] tracking-widest text-white/50 uppercase font-serif">University of</span>
-              <span className="text-[11px] font-black tracking-widest text-white/85 uppercase font-serif mt-0.5">Oxford</span>
-            </div>
-
-            {/* 8. Protyre */}
-            <div className="flex flex-col items-start leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <div className="flex items-center gap-0.5">
-                <span className="text-xs font-black tracking-tighter text-white/85">pro</span>
-                <span className="text-xs font-light tracking-tighter text-white/70">tyre</span>
-              </div>
-              <span className="text-[5px] font-bold tracking-[0.1em] text-white/40 uppercase">autocare</span>
-            </div>
-
-            {/* 9. OTTO */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-sm font-black tracking-[0.15em] text-white/85">OTTO</span>
-            </div>
-
-            {/* 10. Newspaper Club */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 22h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v16H4c-1.1 0-2-.9-2-2V6" />
-                <path d="M10 6h8" />
-                <path d="M10 10h8" />
-                <path d="M10 14h8" />
-              </svg>
-              <span className="text-[10px] font-semibold text-white/80 whitespace-nowrap">Newspaper Club</span>
-            </div>
-
-            {/* 11. Liforme */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 8v8" />
-                <path d="M8 12h8" />
-              </svg>
-              <span className="text-[10px] font-black tracking-widest text-white/80 uppercase">Liforme</span>
-            </div>
-
-            {/* 12. Let's Do This */}
-            <div className="flex items-center gap-0.5 text-white/80 font-black text-[10px] tracking-tight hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span>LET'S</span>
-              <span className="bg-white/10 px-0.5 py-0.2 rounded text-[8px] border border-white/20">DO</span>
-              <span>THIS</span>
-            </div>
-          </div>
-
-          {/* Logo Set B */}
-          <div className="flex gap-16 items-center shrink-0 min-w-full justify-around pr-16">
-            {/* 1. Zinc */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-white font-black text-lg tracking-tight uppercase">Zinc</span>
-            </div>
-
-            {/* 2. Young's Pubs */}
-            <div className="flex flex-col items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-4 w-5 text-white/80" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 10c0-2.21-1.79-4-4-4h-.5c-.32-1.39-1.57-2.5-3.1-2.5s-2.78 1.11-3.1 2.5H7.8c-2.21 0-4 1.79-4 4s1.79 4 4 4h11.2c2.21 0 4-1.79 4-4zm-11 7h1v3H8v-3zm7 0h1v3h-1v-3z" />
-              </svg>
-              <span className="text-[8px] font-black tracking-widest text-white/80 uppercase -mt-0.5">Young's</span>
-            </div>
-
-            {/* 3. World of Books */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                <path d="M2 12h20" />
-              </svg>
-              <span className="text-[10px] font-extrabold text-white/80 tracking-tight whitespace-nowrap">World of Books</span>
-            </div>
-
-            {/* 4. Sovereign */}
-            <div className="flex flex-col items-center leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-white/90 uppercase font-serif">Sovereign</span>
-              <span className="text-[5px] font-semibold tracking-[0.15em] text-white/50 uppercase">Luxury Travel</span>
-            </div>
-
-            {/* 5. Smartest Energy */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-xs font-semibold tracking-tight text-white/80">smartest<span className="font-light">energy</span></span>
-            </div>
-
-            {/* 6. School of Wok */}
-            <div className="border border-white/30 px-2 py-0.5 rounded-sm flex items-center justify-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[8px] font-extrabold tracking-[0.1em] text-white/85 uppercase">School of Wok</span>
-            </div>
-
-            {/* 7. University of Oxford */}
-            <div className="flex flex-col items-center leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-[5px] tracking-widest text-white/50 uppercase font-serif">University of</span>
-              <span className="text-[11px] font-black tracking-widest text-white/85 uppercase font-serif mt-0.5">Oxford</span>
-            </div>
-
-            {/* 8. Protyre */}
-            <div className="flex flex-col items-start leading-none hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <div className="flex items-center gap-0.5">
-                <span className="text-xs font-black tracking-tighter text-white/85">pro</span>
-                <span className="text-xs font-light tracking-tighter text-white/70">tyre</span>
-              </div>
-              <span className="text-[5px] font-bold tracking-[0.1em] text-white/40 uppercase">autocare</span>
-            </div>
-
-            {/* 9. OTTO */}
-            <div className="flex items-center hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span className="text-sm font-black tracking-[0.15em] text-white/85">OTTO</span>
-            </div>
-
-            {/* 10. Newspaper Club */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 22h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v16H4c-1.1 0-2-.9-2-2V6" />
-                <path d="M10 6h8" />
-                <path d="M10 10h8" />
-                <path d="M10 14h8" />
-              </svg>
-              <span className="text-[10px] font-semibold text-white/80 whitespace-nowrap">Newspaper Club</span>
-            </div>
-
-            {/* 11. Liforme */}
-            <div className="flex items-center gap-1 hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <svg className="h-3.5 w-3.5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M12 8v8" />
-                <path d="M8 12h8" />
-              </svg>
-              <span className="text-[10px] font-black tracking-widest text-white/80 uppercase">Liforme</span>
-            </div>
-
-            {/* 12. Let's Do This */}
-            <div className="flex items-center gap-0.5 text-white/80 font-black text-[10px] tracking-tight hover:scale-105 transition-transform duration-200 cursor-default shrink-0">
-              <span>LET'S</span>
-              <span className="bg-white/10 px-0.5 py-0.2 rounded text-[8px] border border-white/20">DO</span>
-              <span>THIS</span>
-            </div>
-          </div>
-        </motion.div>
-      </div>
+      <HeroLogoTicker logos={clientLogos} />
     </section>
   );
 };
