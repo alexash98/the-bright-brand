@@ -43,6 +43,7 @@ export interface CaseStudy {
   results: string[];
   stats: StatCard[];
   imageUrl: string;
+  clientLogo?: string;
   testimonial?: {
     text: string;
     author: string;
@@ -81,4 +82,14 @@ export interface AccordionItem {
   id: string;
   title: string;
   body: string;
+}
+
+export interface ServiceHighlightQuote {
+  id: string;
+  company: string;
+  quote: string;
+  author?: string;
+  role?: string;
+  imageSrc: string;
+  imageAlt: string;
 }

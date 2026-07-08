@@ -1,4 +1,113 @@
-import { CaseStudy, ServiceCard, Testimonial, TeamMember, PlaybookRow, AccordionItem } from "@/lib/seed-types";
+import { CaseStudy, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, AccordionItem } from "@/lib/seed-types";
+
+function heroCarouselCase(
+  id: string,
+  clientName: string,
+  highlightStat: string,
+  highlightLabel: string,
+  imageUrl: string,
+  clientLogo?: string,
+): CaseStudy {
+  return {
+    id,
+    clientName,
+    title: id,
+    category: "Paid",
+    tagline: highlightLabel,
+    highlightStat,
+    highlightLabel,
+    logoText: clientName.slice(0, 2).toUpperCase(),
+    description: "Placeholder case study for hero carousel.",
+    challenge: "TBD",
+    approach: "TBD",
+    results: [],
+    stats: [],
+    imageUrl,
+    clientLogo,
+  };
+}
+
+export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
+  heroCarouselCase(
+    "britton-and-time",
+    "Britton and Time Solicitors",
+    "+142%",
+    "enquiry growth from paid search",
+    "/carousel/britton-and-time.png",
+    "britton-and-time.png",
+  ),
+  heroCarouselCase(
+    "formx",
+    "FormX",
+    "63%",
+    "lower cost per booked sales meeting",
+    "/carousel/formx.png",
+    "formx.png",
+  ),
+  heroCarouselCase(
+    "menzies-law",
+    "Menzies Law",
+    "+89%",
+    "organic traffic year on year",
+    "/carousel/menzies-law.png",
+    "menzies-law.png",
+  ),
+  heroCarouselCase(
+    "releaf",
+    "Releaf",
+    "4.2x",
+    "return on ad spend across paid social",
+    "/carousel/releaf.png",
+    "releaf.png",
+  ),
+  heroCarouselCase(
+    "manor-interior",
+    "Manor Interior Solutions",
+    "+56%",
+    "conversion rate on key service pages",
+    "/carousel/manor-interior.png",
+  ),
+  heroCarouselCase(
+    "canopy",
+    "Canopy",
+    "38%",
+    "faster supplier onboarding cycle",
+    "/carousel/canopy.png",
+    "canopy.png",
+  ),
+  heroCarouselCase(
+    "anywhere-travel",
+    "Anywhere Travel",
+    "+59%",
+    "revenue on flat ad spend",
+    "/carousel/anywhere-travel.png",
+    "anywhere.png",
+  ),
+  heroCarouselCase(
+    "airbox",
+    "Airbox Fulfilment",
+    "2.1x",
+    "fulfilment order volume handled",
+    "/carousel/airbox.png",
+    "airbox.png",
+  ),
+  heroCarouselCase(
+    "enexus",
+    "Enexus Energy",
+    "+74%",
+    "lead quality score improvement",
+    "/carousel/enexus.png",
+    "enexus.png",
+  ),
+  heroCarouselCase(
+    "direct2",
+    "Direct2Compensation",
+    "+112%",
+    "case enquiry volume from search",
+    "/carousel/direct2-compensation.png",
+    "direct2-compensation.png",
+  ),
+];
 
 export const SERVICES: ServiceCard[] = [
   {
@@ -43,6 +152,39 @@ export const SERVICES: ServiceCard[] = [
     iconName: "BarChart3",
     linkUrl: "/analytics"
   }
+];
+
+export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
+  {
+    id: "freedom-insurance",
+    company: "freedominsure.co.uk",
+    quote:
+      "I've been here eight years, and I don't recall a period where we've genuinely been able to sustain this level of volume. It looked very good, and it was. Volume was double the previous period.",
+    author: "Roland Gilliam",
+    role: "Managing Director, Freedom Insurance",
+    imageSrc: "/testimonials/roland-gilliam.png",
+    imageAlt: "Roland Gilliam",
+  },
+  {
+    id: "anywhere",
+    company: "Anywhere.com",
+    quote:
+      "Grew revenue 59% on flat ad spend. Sharper targeting and a rebuilt funnel doubled the return on the same budget.",
+    author: "Anthony Landis",
+    role: "President, Director",
+    imageSrc: "/testimonials/anthony-landis.png",
+    imageAlt: "Anthony Landis",
+  },
+  {
+    id: "formx",
+    company: "FormX.com",
+    quote:
+      "Cut the cost per booked sales meeting by 63%. A rebuilt funnel and tighter targeting brought the cost down sharply, so the same budget delivered far more qualified pipeline.",
+    author: "Shay Hasson",
+    role: "Co-Founder FormX. Serial Entrepreneur",
+    imageSrc: "/testimonials/formx.png",
+    imageAlt: "Shay Hasson",
+  },
 ];
 
 export const PRESS_PUBLICATIONS = [

@@ -3,8 +3,9 @@
 import React from "react";
 import * as Icons from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
+import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
 import { ServiceCard } from "@/lib/seed-types";
-import { PRESS_PUBLICATIONS } from "@/lib/seed-data";
+import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
 
 interface ServicesProps {
   services: ServiceCard[];
@@ -48,16 +49,20 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
   return (
     <section id="services" className="relative border-t border-neutral-200 bg-white pt-24 pb-0">
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 md:px-8">
-        <div className="mb-16 max-w-3xl text-left">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-            Our Services
-          </p>
-          <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-            Growth marketing built around your funnel, not just our playbook.
-          </h2>
-          <p className="text-lg leading-relaxed text-neutral-600">
-            We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
-          </p>
+        <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="max-w-3xl text-left">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
+              Our Services
+            </p>
+            <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
+              Growth marketing built around your funnel, not just our playbook.
+            </h2>
+            <p className="text-lg leading-relaxed text-neutral-600">
+              We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
+            </p>
+          </div>
+
+          <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { CaseStudy } from "@/lib/seed-types";
 
@@ -8,45 +9,62 @@ interface HeroCaseStudyTickerProps {
   items: CaseStudy[];
 }
 
-const CARD_HEIGHTS = ["h-[207px]", "h-[242px]", "h-[224px]", "h-[259px]", "h-[219px]", "h-[247px]"];
-const COPY_GAP_PX = 18;
+const CARD_HEIGHT = "h-[248px]";
+const COPY_GAP_PX = 14;
+const LOGO_WIDTH_PX = 120;
+const LOGO_HEIGHT_PX = 28;
+const SCROLL_DURATION_LEFT = 58;
+const SCROLL_DURATION_RIGHT = 66;
 
-function getCardHeightClass(itemIndex: number): string {
-  return CARD_HEIGHTS[itemIndex % CARD_HEIGHTS.length] ?? "h-[276px]";
-}
+function CaseStudyCard({ study }: { study: CaseStudy }): React.ReactElement {
+  const logoLines = study.clientName.split(" ");
+  const primaryLine = logoLines[0] ?? study.clientName;
+  const secondaryLine = logoLines.slice(1).join(" ");
 
-function CaseStudyCard({
-  study,
-  heightClass,
-}: {
-  study: CaseStudy;
-  heightClass: string;
-}): React.ReactElement {
   return (
     <div
-      className={`relative w-full shrink-0 overflow-hidden rounded-[18px] ${heightClass}`}
+      className={`relative w-full shrink-0 overflow-hidden rounded-[16px] shadow-[0_10px_32px_rgba(0,0,0,0.24)] ${CARD_HEIGHT}`}
     >
       <img
         src={study.imageUrl}
-        alt={study.clientName}
+        alt=""
         referrerPolicy="no-referrer"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-[18px] py-[23px] text-center">
-        {/* Subheading — client name */}
-        <p className="max-w-[230px] text-[11.5px] font-bold uppercase leading-tight tracking-[0.14em] text-white">
-          {study.clientName}
-        </p>
+      <div className="absolute inset-0 flex flex-col items-center justify-between px-5 py-6 text-center">
+        <div
+          className="flex items-center justify-center"
+          style={{ width: LOGO_WIDTH_PX, height: LOGO_HEIGHT_PX }}
+        >
+          {study.clientLogo ? (
+            <Image
+              src={`/client-logos/${study.clientLogo}`}
+              alt={study.clientName}
+              width={LOGO_WIDTH_PX}
+              height={LOGO_HEIGHT_PX}
+              className="h-full w-full object-contain object-center brightness-0 invert"
+            />
+          ) : (
+            <div className="text-center">
+              <p className="text-sm font-bold uppercase tracking-[0.12em] text-white">
+                {primaryLine}
+              </p>
+              {secondaryLine ? (
+                <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.24em] text-white/80">
+                  {secondaryLine}
+                </p>
+              ) : null}
+            </div>
+          )}
+        </div>
 
-        {/* Metric — headline stat */}
-        <p className="mt-[18px] whitespace-nowrap text-[2.3rem] font-black leading-none tracking-tight text-brand-accent xl:mt-[23px] xl:text-[3.15rem]">
+        <p className="text-[2rem] font-black leading-none tracking-tight text-brand-accent xl:text-[2.25rem]">
           {study.highlightStat}
         </p>
 
-        {/* Section — supporting result line */}
-        <p className="mt-[14px] max-w-[242px] text-[16px] font-normal leading-snug text-white/90 xl:mt-[18px]">
+        <p className="max-w-[220px] text-[13px] font-normal leading-snug text-white/95">
           {study.highlightLabel}
         </p>
       </div>
@@ -67,14 +85,11 @@ function CaseStudyCopy({
     <div
       ref={copyRef}
       aria-hidden={ariaHidden || undefined}
-      className="flex flex-col gap-[18px]"
+      className="flex flex-col"
+      style={{ gap: COPY_GAP_PX }}
     >
-      {items.map((study, itemIndex) => (
-        <CaseStudyCard
-          key={study.id}
-          study={study}
-          heightClass={getCardHeightClass(itemIndex)}
-        />
+      {items.map((study) => (
+        <CaseStudyCard key={study.id} study={study} />
       ))}
     </div>
   );
@@ -83,9 +98,11 @@ function CaseStudyCopy({
 function ScrollingColumn({
   items,
   direction,
+  duration,
 }: {
   items: CaseStudy[];
   direction: "up" | "down";
+  duration: number;
 }): React.ReactElement {
   const copyRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
@@ -112,9 +129,7 @@ function ScrollingColumn({
   if (scrollDistance === null) {
     return (
       <div className="relative h-full min-h-0 overflow-hidden">
-        <div className="flex flex-col gap-[18px]">
-          <CaseStudyCopy items={items} copyRef={copyRef} />
-        </div>
+        <CaseStudyCopy items={items} copyRef={copyRef} />
       </div>
     );
   }
@@ -124,7 +139,8 @@ function ScrollingColumn({
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
       <motion.div
-        className="flex flex-col gap-[18px]"
+        className="flex flex-col will-change-transform"
+        style={{ gap: COPY_GAP_PX }}
         initial={{ y: startY }}
         animate={{
           y:
@@ -136,7 +152,7 @@ function ScrollingColumn({
           y: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: 28,
+            duration,
             ease: "linear",
           },
         }}
@@ -151,18 +167,26 @@ function ScrollingColumn({
 export function HeroCaseStudyTicker({
   items,
 }: HeroCaseStudyTickerProps): React.ReactElement {
-  const featured = items.slice(0, 8);
+  const featured = items;
   const leftColumn = featured.filter((_, index) => index % 2 === 0);
   const rightColumn = featured.filter((_, index) => index % 2 === 1);
 
   return (
     <div className="relative h-full min-h-0 w-full overflow-hidden">
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[46px] bg-gradient-to-b from-[#1b1b1f] to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[46px] bg-gradient-to-t from-[#232327] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[56px] bg-gradient-to-b from-[#1b1b1f] to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[56px] bg-gradient-to-t from-[#232327] to-transparent" />
 
       <div className="grid h-full min-h-0 grid-cols-2 gap-[14px]">
-        <ScrollingColumn items={leftColumn} direction="up" />
-        <ScrollingColumn items={rightColumn} direction="down" />
+        <ScrollingColumn
+          items={leftColumn}
+          direction="up"
+          duration={SCROLL_DURATION_LEFT}
+        />
+        <ScrollingColumn
+          items={rightColumn}
+          direction="down"
+          duration={SCROLL_DURATION_RIGHT}
+        />
       </div>
     </div>
   );
