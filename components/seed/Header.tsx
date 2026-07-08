@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NavItem } from "@/lib/seed-types";
@@ -29,9 +30,12 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               onClick={() => handleScrollTo("hero")} 
               className="group flex cursor-pointer items-center"
             >
-              <img
+              <Image
                 src="/seed-logo.png"
                 alt="Seed"
+                width={120}
+                height={48}
+                priority
                 className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
               />
             </div>

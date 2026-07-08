@@ -1,17 +1,8 @@
-"use client";
-
-import { EnquiryForm } from "@/components/seed/EnquiryForm";
+import dynamic from "next/dynamic";
 import { Footer } from "@/components/seed/Footer";
-import { GrowthCalculator } from "@/components/seed/GrowthCalculator";
 import { Header } from "@/components/seed/Header";
 import { Hero } from "@/components/seed/Hero";
-import { HowWeWork } from "@/components/seed/HowWeWork";
-import { LogoMarquee } from "@/components/seed/LogoMarquee";
-import { Playbook } from "@/components/seed/Playbook";
 import { Services } from "@/components/seed/Services";
-import { StatsSection } from "@/components/seed/StatsSection";
-import { TeamSection } from "@/components/seed/TeamSection";
-import { Testimonials } from "@/components/seed/Testimonials";
 import {
   CASE_STUDIES,
   CLIENT_LOGOS,
@@ -23,6 +14,56 @@ import {
   TEAM,
   TESTIMONIALS,
 } from "@/lib/seed-data";
+
+const Playbook = dynamic(
+  () =>
+    import("@/components/seed/Playbook").then((mod) => mod.Playbook),
+  { loading: () => <SectionPlaceholder heightClass="h-[520px]" /> },
+);
+
+const StatsSection = dynamic(
+  () =>
+    import("@/components/seed/StatsSection").then((mod) => mod.StatsSection),
+  { loading: () => <SectionPlaceholder heightClass="h-[640px]" /> },
+);
+
+const GrowthCalculator = dynamic(
+  () =>
+    import("@/components/seed/GrowthCalculator").then(
+      (mod) => mod.GrowthCalculator,
+    ),
+  { loading: () => <SectionPlaceholder heightClass="h-[720px]" /> },
+);
+
+const Testimonials = dynamic(
+  () =>
+    import("@/components/seed/Testimonials").then((mod) => mod.Testimonials),
+  { loading: () => <SectionPlaceholder heightClass="h-[360px]" /> },
+);
+
+const LogoMarquee = dynamic(
+  () =>
+    import("@/components/seed/LogoMarquee").then((mod) => mod.LogoMarquee),
+  { loading: () => <SectionPlaceholder heightClass="h-[180px]" /> },
+);
+
+const TeamSection = dynamic(
+  () =>
+    import("@/components/seed/TeamSection").then((mod) => mod.TeamSection),
+  { loading: () => <SectionPlaceholder heightClass="h-[720px]" /> },
+);
+
+const HowWeWork = dynamic(
+  () =>
+    import("@/components/seed/HowWeWork").then((mod) => mod.HowWeWork),
+  { loading: () => <SectionPlaceholder heightClass="h-[560px]" /> },
+);
+
+const EnquiryForm = dynamic(
+  () =>
+    import("@/components/seed/EnquiryForm").then((mod) => mod.EnquiryForm),
+  { loading: () => <SectionPlaceholder heightClass="h-[640px]" /> },
+);
 
 const NAV_ITEMS = [
   { label: "Services", url: "/services" },
@@ -44,6 +85,19 @@ const ROTATING_WORDS = [
   "Curious",
 ];
 
+function SectionPlaceholder({
+  heightClass,
+}: {
+  heightClass: string;
+}): React.ReactElement {
+  return (
+    <div
+      aria-hidden="true"
+      className={`${heightClass} w-full animate-pulse bg-neutral-100`}
+    />
+  );
+}
+
 export function HomePage(): React.ReactElement {
   return (
     <div className="relative min-h-screen overflow-x-hidden text-gray-100 antialiased selection:bg-brand-accent selection:text-black">
@@ -56,18 +110,20 @@ export function HomePage(): React.ReactElement {
       />
       <div className="bg-white text-neutral-900">
         <Services services={SERVICES} />
-        <Playbook rows={PLAYBOOK} />
-        <StatsSection caseStudies={CASE_STUDIES} />
-        <GrowthCalculator />
-        <Testimonials testimonials={TESTIMONIALS} />
-        <LogoMarquee
-          items={PLATFORM_LOGOS}
-          title="We integrate with every channel that matters"
-          reverse
-        />
-        <TeamSection members={TEAM} />
-        <HowWeWork items={HOW_WE_WORK} />
-        <EnquiryForm />
+        <div className="homepage-below-fold">
+          <Playbook rows={PLAYBOOK} />
+          <StatsSection caseStudies={CASE_STUDIES} />
+          <GrowthCalculator />
+          <Testimonials testimonials={TESTIMONIALS} />
+          <LogoMarquee
+            items={PLATFORM_LOGOS}
+            title="We integrate with every channel that matters"
+            reverse
+          />
+          <TeamSection members={TEAM} />
+          <HowWeWork items={HOW_WE_WORK} />
+          <EnquiryForm />
+        </div>
         <Footer />
       </div>
     </div>

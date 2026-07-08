@@ -83,7 +83,14 @@ h6 {
   font-weight: 600;
 }
 
+.homepage-below-fold > section,
+.homepage-below-fold > div {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 p {
   font-family: var(--font-sans);
   font-weight: 400;
 }
+

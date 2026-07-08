@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface TestimonialsProps {
   testimonials: Testimonial[];
@@ -23,10 +25,12 @@ function TestimonialCard({
 
       <div className="mt-5 border-t border-neutral-900/10 pt-5">
         <div className="flex items-center gap-3">
-          <img
+          <Image
             src={`https://picsum.photos/seed/${testimonial.avatarSeed}/80/80`}
             alt={testimonial.author}
-            referrerPolicy="no-referrer"
+            width={40}
+            height={40}
+            loading="lazy"
             className="h-10 w-10 shrink-0 rounded-full object-cover"
           />
           <div>
@@ -77,6 +81,7 @@ function TestimonialTrack({
 }): React.ReactElement {
   const segmentRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useLayoutEffect(() => {
     const measure = (): void => {
@@ -101,7 +106,7 @@ function TestimonialTrack({
     return () => observer.disconnect();
   }, [testimonials]);
 
-  if (scrollDistance === null) {
+  if (scrollDistance === null || prefersReducedMotion) {
     return (
       <div className="flex gap-4">
         <TestimonialSegment

@@ -33,7 +33,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Britton and Time Solicitors",
     "+142%",
     "enquiry growth from paid search",
-    "/carousel/britton-and-time.png",
+    "/carousel/britton-and-time.webp",
     "britton-and-time.png",
   ),
   heroCarouselCase(
@@ -41,7 +41,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "FormX",
     "63%",
     "lower cost per booked sales meeting",
-    "/carousel/formx.png",
+    "/carousel/formx.webp",
     "formx.png",
   ),
   heroCarouselCase(
@@ -49,7 +49,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Menzies Law",
     "+89%",
     "organic traffic year on year",
-    "/carousel/menzies-law.png",
+    "/carousel/menzies-law.webp",
     "menzies-law.png",
   ),
   heroCarouselCase(
@@ -57,7 +57,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Releaf",
     "4.2x",
     "return on ad spend across paid social",
-    "/carousel/releaf.png",
+    "/carousel/releaf.webp",
     "releaf.png",
   ),
   heroCarouselCase(
@@ -65,14 +65,14 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Manor Interior Solutions",
     "+56%",
     "conversion rate on key service pages",
-    "/carousel/manor-interior.png",
+    "/carousel/manor-interior.webp",
   ),
   heroCarouselCase(
     "canopy",
     "Canopy",
     "38%",
     "faster supplier onboarding cycle",
-    "/carousel/canopy.png",
+    "/carousel/canopy.webp",
     "canopy.png",
   ),
   heroCarouselCase(
@@ -80,7 +80,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Anywhere Travel",
     "+59%",
     "revenue on flat ad spend",
-    "/carousel/anywhere-travel.png",
+    "/carousel/anywhere-travel.webp",
     "anywhere.png",
   ),
   heroCarouselCase(
@@ -88,7 +88,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Airbox Fulfilment",
     "2.1x",
     "fulfilment order volume handled",
-    "/carousel/airbox.png",
+    "/carousel/airbox.webp",
     "airbox.png",
   ),
   heroCarouselCase(
@@ -96,7 +96,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Enexus Energy",
     "+74%",
     "lead quality score improvement",
-    "/carousel/enexus.png",
+    "/carousel/enexus.webp",
     "enexus.png",
   ),
   heroCarouselCase(
@@ -104,7 +104,7 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "Direct2Compensation",
     "+112%",
     "case enquiry volume from search",
-    "/carousel/direct2-compensation.png",
+    "/carousel/direct2-compensation.webp",
     "direct2-compensation.png",
   ),
 ];
@@ -156,16 +156,6 @@ export const SERVICES: ServiceCard[] = [
 
 export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
   {
-    id: "freedom-insurance",
-    company: "freedominsure.co.uk",
-    quote:
-      "I've been here eight years, and I don't recall a period where we've genuinely been able to sustain this level of volume. It looked very good, and it was. Volume was double the previous period.",
-    author: "Roland Gilliam",
-    role: "Managing Director, Freedom Insurance",
-    imageSrc: "/testimonials/roland-gilliam.png",
-    imageAlt: "Roland Gilliam",
-  },
-  {
     id: "anywhere",
     company: "Anywhere.com",
     quote:
@@ -174,6 +164,26 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
     role: "President, Director",
     imageSrc: "/testimonials/anthony-landis.png",
     imageAlt: "Anthony Landis",
+  },
+  {
+    id: "menzies-law",
+    company: "Menzies Law",
+    quote:
+      "Bright Brand have been a brilliant addition to our team. They work independently but feel like a genuine extension of our own marketing function, and the results speak for themselves.",
+    author: "Lindsey Newman",
+    role: "Head of Business Development",
+    imageSrc: "/testimonials/lindsey-newman.png",
+    imageAlt: "Lindsey Newman",
+  },
+  {
+    id: "freedom-insurance",
+    company: "freedominsure.co.uk",
+    quote:
+      "I've been here eight years, and I don't recall a period where we've genuinely been able to sustain this level of volume. It looked very good, and it was. Volume was double the previous period.",
+    author: "Roland Gilliam",
+    role: "Managing Director, Freedom Insurance",
+    imageSrc: "/testimonials/roland-gilliam.png",
+    imageAlt: "Roland Gilliam",
   },
   {
     id: "formx",

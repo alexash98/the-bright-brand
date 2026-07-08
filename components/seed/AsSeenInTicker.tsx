@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { PressPublication } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface AsSeenInTickerProps {
   publications: PressPublication[];
@@ -37,9 +39,12 @@ function PublicationLogo({
 }): React.ReactElement {
   return (
     <div className={`flex shrink-0 items-center justify-center ${LOGO_BOX_CLASS}`}>
-      <img
+      <Image
         src={`/press-logos/${publication.logo}`}
         alt={publication.name}
+        width={128}
+        height={29}
+        loading="lazy"
         className={LOGO_IMAGE_CLASS}
       />
     </div>
@@ -82,6 +87,7 @@ function ScrollingTrack({
   const copyRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
   const [tileRounds, setTileRounds] = useState(MIN_TILE_ROUNDS);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const tiledPublications = useMemo(
     () => buildTiledPublications(publications, tileRounds),
@@ -143,7 +149,11 @@ function ScrollingTrack({
       <motion.div
         className={`flex w-max ${LOGO_GAP_CLASS}`}
         initial={{ x: 0 }}
-        animate={scrollDistance ? { x: [0, -scrollDistance] } : { x: 0 }}
+        animate={
+          scrollDistance && !prefersReducedMotion
+            ? { x: [0, -scrollDistance] }
+            : { x: 0 }
+        }
         transition={{
           x: {
             repeat: Infinity,

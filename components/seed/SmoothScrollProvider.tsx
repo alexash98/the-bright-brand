@@ -7,7 +7,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import Lenis from "lenis";
 
 const HEADER_OFFSET = -80;
 
@@ -56,38 +55,45 @@ export function SmoothScrollProvider({
       return;
     }
 
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-      smoothWheel: true,
-      touchMultiplier: 1.1,
-    });
-
-    setScrollToSection(() => (id: string) => {
-      const element = document.getElementById(id);
-
-      if (!element) {
-        return;
-      }
-
-      lenis.scrollTo(element, {
-        offset: HEADER_OFFSET,
-        duration: 1.1,
-      });
-    });
-
     let frameId = 0;
+    let lenisInstance: { destroy: () => void; raf: (time: number) => void; scrollTo: (element: HTMLElement, options: { offset: number; duration: number }) => void } | null = null;
 
-    const raf = (time: number): void => {
-      lenis.raf(time);
+    const init = async (): Promise<void> => {
+      const { default: Lenis } = await import("lenis");
+
+      lenisInstance = new Lenis({
+        duration: 1.1,
+        easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+        smoothWheel: true,
+        touchMultiplier: 1.1,
+      });
+
+      setScrollToSection(() => (id: string) => {
+        const element = document.getElementById(id);
+
+        if (!element || !lenisInstance) {
+          return;
+        }
+
+        lenisInstance.scrollTo(element, {
+          offset: HEADER_OFFSET,
+          duration: 1.1,
+        });
+      });
+
+      const raf = (time: number): void => {
+        lenisInstance?.raf(time);
+        frameId = window.requestAnimationFrame(raf);
+      };
+
       frameId = window.requestAnimationFrame(raf);
     };
 
-    frameId = window.requestAnimationFrame(raf);
+    void init();
 
     return () => {
       window.cancelAnimationFrame(frameId);
-      lenis.destroy();
+      lenisInstance?.destroy();
       setScrollToSection(null);
     };
   }, []);

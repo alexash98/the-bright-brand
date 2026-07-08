@@ -1,8 +1,10 @@
 'use client';
 
+import Image from "next/image";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ClientLogo } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface HeroLogoTickerProps {
   logos: ClientLogo[];
@@ -12,11 +14,14 @@ const LOGO_GAP_CLASS = "gap-10 sm:gap-12 lg:gap-14";
 
 function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
   return (
-    <div className="flex h-6 w-24 shrink-0 items-center justify-center">
-      <img
+    <div className="relative h-6 w-24 shrink-0">
+      <Image
         src={`/client-logos/${logo.logo}`}
         alt={logo.name}
-        className="max-h-6 max-w-24 object-contain opacity-90"
+        fill
+        sizes="96px"
+        loading="lazy"
+        className="object-contain opacity-90"
       />
     </div>
   );
@@ -49,6 +54,7 @@ function LogoSegment({
 function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement {
   const segmentRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useLayoutEffect(() => {
     const measure = (): void => {
@@ -73,7 +79,7 @@ function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement 
     return () => observer.disconnect();
   }, [logos]);
 
-  if (scrollDistance === null) {
+  if (scrollDistance === null || prefersReducedMotion) {
     return (
       <div className={`flex ${LOGO_GAP_CLASS}`}>
         <LogoSegment logos={logos} segmentKey="measure" segmentRef={segmentRef} />

@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { CaseStudy } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface HeroCaseStudyTickerProps {
   items: CaseStudy[];
@@ -25,11 +26,14 @@ function CaseStudyCard({ study }: { study: CaseStudy }): React.ReactElement {
     <div
       className={`relative w-full shrink-0 overflow-hidden rounded-[16px] shadow-[0_10px_32px_rgba(0,0,0,0.24)] ${CARD_HEIGHT}`}
     >
-      <img
+      <Image
         src={study.imageUrl}
         alt=""
-        referrerPolicy="no-referrer"
-        className="absolute inset-0 h-full w-full object-cover"
+        fill
+        sizes="(max-width: 1024px) 42vw, 280px"
+        quality={70}
+        loading="lazy"
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
 
@@ -106,6 +110,7 @@ function ScrollingColumn({
 }): React.ReactElement {
   const copyRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useLayoutEffect(() => {
     const measure = (): void => {
@@ -126,7 +131,7 @@ function ScrollingColumn({
     return () => observer.disconnect();
   }, [items]);
 
-  if (scrollDistance === null) {
+  if (scrollDistance === null || prefersReducedMotion) {
     return (
       <div className="relative h-full min-h-0 overflow-hidden">
         <CaseStudyCopy items={items} copyRef={copyRef} />

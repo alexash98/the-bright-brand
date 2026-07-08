@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { CaseStudy } from "@/lib/seed-types";
 import { motion, AnimatePresence } from "motion/react";
 import { X, TrendingUp, CheckCircle2 } from "lucide-react";
@@ -70,11 +71,13 @@ export function CaseStudies({ items }: CaseStudiesProps) {
               >
                 {/* Background Image with Zoom */}
                 <div className="absolute inset-0 z-0">
-                  <img
+                  <Image
                     src={study.imageUrl}
                     alt={study.clientName}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Rich Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/70 to-transparent" />
@@ -129,11 +132,12 @@ export function CaseStudies({ items }: CaseStudiesProps) {
               >
                 {/* Image Banner Header */}
                 <div className="relative h-64 overflow-hidden md:h-80">
-                  <img
+                  <Image
                     src={activeStudy.imageUrl}
                     alt={activeStudy.clientName}
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 896px"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/60 to-transparent" />
                   <div className="absolute left-4 top-4 rounded-sm bg-brand-accent px-3 py-1 text-xs font-black uppercase tracking-wider text-brand-bg-darker">

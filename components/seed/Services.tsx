@@ -1,11 +1,29 @@
 'use client';
 
 import React from "react";
-import * as Icons from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  HelpCircle,
+  Megaphone,
+  MousePointerClick,
+  Search,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
 import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
 import { ServiceCard } from "@/lib/seed-types";
 import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
+
+const SERVICE_ICONS = {
+  Search,
+  MousePointerClick,
+  Megaphone,
+  Users,
+  Sparkles,
+  BarChart3,
+} as const;
 
 interface ServicesProps {
   services: ServiceCard[];
@@ -13,11 +31,12 @@ interface ServicesProps {
 
 export const Services: React.FC<ServicesProps> = ({ services }) => {
   const renderIcon = (name: string) => {
-    const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[name];
-    if (IconComponent) {
-      return <IconComponent className="h-6 w-6 text-brand-accent group-hover:scale-110 transition-transform duration-300" />;
-    }
-    return <Icons.HelpCircle className="h-6 w-6 text-brand-accent" />;
+    const IconComponent =
+      SERVICE_ICONS[name as keyof typeof SERVICE_ICONS] ?? HelpCircle;
+
+    return (
+      <IconComponent className="h-6 w-6 text-brand-accent transition-transform duration-300 group-hover:scale-110" />
+    );
   };
 
   const renderServiceCard = (service: ServiceCard) => (
@@ -41,7 +60,7 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
 
       <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-neutral-500 transition-colors group-hover:text-brand-accent">
         <span>Core service parameters</span>
-        <Icons.ArrowRight className="h-4 w-4 transform transition-transform duration-200 group-hover:translate-x-1" />
+        <ArrowRight className="h-4 w-4 transform transition-transform duration-200 group-hover:translate-x-1" />
       </div>
     </div>
   );

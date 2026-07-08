@@ -60,6 +60,7 @@ export function ServiceQuoteSlider({
               alt={activeQuote.imageAlt}
               width={48}
               height={48}
+              loading="lazy"
               className="h-12 w-12 shrink-0 rounded-full object-cover"
             />
             <div>

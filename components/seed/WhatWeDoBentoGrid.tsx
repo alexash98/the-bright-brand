@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { CheckCircle2, TrendingUp, X } from "lucide-react";
 import { CaseStudy } from "@/lib/seed-types";
@@ -71,11 +72,13 @@ function BentoCard({
       onClick={onClick}
       className={`group relative min-h-[220px] overflow-hidden rounded-2xl border border-white/10 text-left transition-transform duration-300 hover:scale-[1.01] sm:min-h-[240px] ${config.gridClass}`}
     >
-      <img
+      <Image
         src={study.imageUrl}
         alt={study.clientName}
-        referrerPolicy="no-referrer"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        loading="lazy"
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#071615]/95 via-[#071615]/55 to-[#071615]/20" />
 
@@ -135,11 +138,12 @@ function CaseStudyModal({
         className="custom-scrollbar relative z-10 max-h-[85vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-neutral-200 bg-white text-left"
       >
         <div className="relative h-64 overflow-hidden md:h-80">
-          <img
+          <Image
             src={study.imageUrl}
             alt={study.clientName}
-            referrerPolicy="no-referrer"
-            className="h-full w-full object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 896px"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/60 to-transparent" />
           <button
