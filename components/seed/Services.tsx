@@ -46,8 +46,8 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
   );
 
   return (
-    <section id="services" className="relative border-t border-neutral-200 bg-white py-24">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+    <section id="services" className="relative border-t border-neutral-200 bg-white pt-24 pb-0">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 md:px-8">
         <div className="mb-16 max-w-3xl text-left">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
             Our Services
@@ -63,9 +63,9 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map(renderServiceCard)}
         </div>
-
-        <AsSeenInTicker publications={PRESS_PUBLICATIONS} />
       </div>
+
+      <AsSeenInTicker publications={PRESS_PUBLICATIONS} />
     </section>
   );
 };

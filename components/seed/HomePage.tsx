@@ -55,10 +55,10 @@ export function HomePage(): React.ReactElement {
       />
       <div className="bg-white text-neutral-900">
         <Services services={SERVICES} />
-        <StatsSection caseStudies={CASE_STUDIES} />
-        <Testimonials testimonials={TESTIMONIALS} />
         <Playbook rows={PLAYBOOK} />
+        <StatsSection caseStudies={CASE_STUDIES} />
         <GrowthCalculator />
+        <Testimonials testimonials={TESTIMONIALS} />
         <LogoMarquee
           items={PLATFORM_LOGOS}
           title="We integrate with every channel that matters"

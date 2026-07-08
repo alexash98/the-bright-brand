@@ -11,7 +11,7 @@ interface PlaybookProps {
 
 export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
   return (
-    <section id="playbook" className="relative border-b border-neutral-200 bg-white py-24">
+    <section id="playbook" className="relative border-b border-neutral-200 bg-[#f7f7f5] py-24">
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-12">
         <div className="text-left lg:col-span-5">
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
@@ -38,7 +38,7 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className="grid grid-cols-1 items-center gap-3 md:grid-cols-11"
             >
-              <div className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-5 py-4 text-neutral-400 md:col-span-5">
+              <div className="flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-5 py-4 text-neutral-400 md:col-span-5">
                 <ThumbsDown className="h-4.5 w-4.5 shrink-0 text-neutral-300" />
                 <span className="text-sm font-semibold line-through text-neutral-400 md:text-base">
                   {row.from}

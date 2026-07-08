@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { PressPublication } from "@/lib/seed-types";
 
@@ -8,44 +8,64 @@ interface AsSeenInTickerProps {
   publications: PressPublication[];
 }
 
-const LOGO_GAP_CLASS = "gap-12 sm:gap-14 lg:gap-16";
+interface TiledPublication extends PressPublication {
+  tileKey: string;
+}
+
+const LOGO_GAP_CLASS = "gap-10 sm:gap-11 lg:gap-12";
+const MIN_TILE_ROUNDS = 6;
+const LOGO_BOX_CLASS = "h-[25.6px] w-[112px] sm:h-[28.8px] sm:w-[128px]";
+const LOGO_IMAGE_CLASS =
+  "max-h-[25.6px] max-w-[112px] object-contain opacity-85 sm:max-h-[28.8px] sm:max-w-[128px]";
+
+function buildTiledPublications(
+  publications: PressPublication[],
+  rounds: number,
+): TiledPublication[] {
+  return Array.from({ length: rounds }, (_, round) =>
+    publications.map((publication) => ({
+      ...publication,
+      tileKey: `${publication.id}-${round}`,
+    })),
+  ).flat();
+}
 
 function PublicationLogo({
   publication,
 }: {
-  publication: PressPublication;
+  publication: TiledPublication;
 }): React.ReactElement {
   return (
-    <div className="flex h-8 w-[140px] shrink-0 items-center justify-center sm:h-9 sm:w-[160px]">
+    <div className={`flex shrink-0 items-center justify-center ${LOGO_BOX_CLASS}`}>
       <img
         src={`/press-logos/${publication.logo}`}
         alt={publication.name}
-        className="max-h-8 max-w-[140px] object-contain opacity-85 sm:max-h-9 sm:max-w-[160px]"
+        className={LOGO_IMAGE_CLASS}
       />
     </div>
   );
 }
 
-function PublicationSegment({
+function PublicationCopy({
   publications,
-  segmentRef,
-  segmentKey,
+  copyRef,
+  copyKey,
   ariaHidden = false,
 }: {
-  publications: PressPublication[];
-  segmentRef?: React.RefObject<HTMLDivElement | null>;
-  segmentKey: string;
+  publications: TiledPublication[];
+  copyRef?: React.RefObject<HTMLDivElement | null>;
+  copyKey: string;
   ariaHidden?: boolean;
 }): React.ReactElement {
   return (
     <div
-      ref={segmentRef}
+      ref={copyRef}
       aria-hidden={ariaHidden || undefined}
       className={`flex shrink-0 items-center ${LOGO_GAP_CLASS}`}
     >
       {publications.map((publication) => (
         <PublicationLogo
-          key={`${segmentKey}-${publication.id}`}
+          key={`${copyKey}-${publication.tileKey}`}
           publication={publication}
         />
       ))}
@@ -58,66 +78,93 @@ function ScrollingTrack({
 }: {
   publications: PressPublication[];
 }): React.ReactElement {
-  const segmentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+  const [tileRounds, setTileRounds] = useState(MIN_TILE_ROUNDS);
+
+  const tiledPublications = useMemo(
+    () => buildTiledPublications(publications, tileRounds),
+    [publications, tileRounds],
+  );
 
   useLayoutEffect(() => {
     const measure = (): void => {
-      if (!segmentRef.current?.parentElement) {
+      if (!copyRef.current?.parentElement || !containerRef.current) {
         return;
       }
 
-      const segmentWidth = segmentRef.current.offsetWidth;
-      const parentStyles = window.getComputedStyle(segmentRef.current.parentElement);
+      const viewportWidth = containerRef.current.offsetWidth;
+      const copyWidth = copyRef.current.offsetWidth;
+      const parentStyles = window.getComputedStyle(copyRef.current.parentElement);
       const trackGap = Number.parseFloat(parentStyles.columnGap || parentStyles.gap || "0");
 
-      setScrollDistance(segmentWidth + trackGap);
+      if (copyWidth > 0 && copyWidth < viewportWidth + 128) {
+        const nextRounds = Math.ceil(tileRounds * ((viewportWidth + 128) / copyWidth)) + 1;
+        if (nextRounds > tileRounds) {
+          setScrollDistance(null);
+          setTileRounds(nextRounds);
+          return;
+        }
+      }
+
+      if (copyWidth > 0) {
+        setScrollDistance(copyWidth + trackGap);
+      }
     };
 
     measure();
 
     const observer = new ResizeObserver(measure);
-    if (segmentRef.current) {
-      observer.observe(segmentRef.current);
+    if (copyRef.current) {
+      observer.observe(copyRef.current);
+    }
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
-    return () => observer.disconnect();
-  }, [publications]);
+    const images = copyRef.current?.querySelectorAll("img") ?? [];
+    images.forEach((image) => {
+      if (!image.complete) {
+        image.addEventListener("load", measure);
+      }
+    });
 
-  if (scrollDistance === null) {
-    return (
-      <div className={`flex ${LOGO_GAP_CLASS}`}>
-        <PublicationSegment
-          publications={publications}
-          segmentKey="measure"
-          segmentRef={segmentRef}
-        />
-      </div>
-    );
-  }
+    return () => {
+      observer.disconnect();
+      images.forEach((image) => {
+        image.removeEventListener("load", measure);
+      });
+    };
+  }, [publications, tileRounds, tiledPublications]);
 
   return (
-    <motion.div
-      className={`flex ${LOGO_GAP_CLASS}`}
-      initial={{ x: 0 }}
-      animate={{ x: [0, -scrollDistance] }}
-      transition={{
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 55,
-          ease: "linear",
-        },
-      }}
-    >
-      <PublicationSegment
-        publications={publications}
-        segmentKey="a"
-        segmentRef={segmentRef}
-      />
-      <PublicationSegment publications={publications} segmentKey="b" ariaHidden />
-      <PublicationSegment publications={publications} segmentKey="c" ariaHidden />
-    </motion.div>
+    <div ref={containerRef} className="relative overflow-hidden">
+      <motion.div
+        className={`flex w-max ${LOGO_GAP_CLASS}`}
+        initial={{ x: 0 }}
+        animate={scrollDistance ? { x: [0, -scrollDistance] } : { x: 0 }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: Math.max(50, tiledPublications.length * 3.5),
+            ease: "linear",
+          },
+        }}
+      >
+        <PublicationCopy
+          publications={tiledPublications}
+          copyKey="a"
+          copyRef={copyRef}
+        />
+        <PublicationCopy
+          publications={tiledPublications}
+          copyKey="b"
+          ariaHidden
+        />
+      </motion.div>
+    </div>
   );
 }
 
@@ -125,13 +172,11 @@ export function AsSeenInTicker({
   publications,
 }: AsSeenInTickerProps): React.ReactElement {
   return (
-    <div className="relative mt-16 overflow-hidden bg-white py-10 sm:py-12">
-      <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-white to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-white to-transparent" />
+    <div className="relative w-full overflow-hidden border-b border-neutral-200 bg-[#f7f7f5] py-8 sm:py-9">
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#f7f7f5] to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#f7f7f5] to-transparent" />
 
-        <ScrollingTrack publications={publications} />
-      </div>
+      <ScrollingTrack publications={publications} />
     </div>
   );
 }
