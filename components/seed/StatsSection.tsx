@@ -50,7 +50,7 @@ interface StatsSectionProps {
 
 export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
   return (
-    <section className="relative overflow-hidden bg-brand-bg-darker py-20 sm:py-24">
+    <section id="work" className="relative overflow-hidden bg-brand-bg-darker py-20 sm:py-24">
       <div
         className="pointer-events-none absolute inset-0 opacity-70"
         style={{

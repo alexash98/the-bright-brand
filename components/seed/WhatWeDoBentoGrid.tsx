@@ -9,48 +9,39 @@ import { CaseStudy } from "@/lib/seed-types";
 interface BentoItemConfig {
   id: string;
   gridClass: string;
-  tags: string[];
-  stat?: string;
-  label?: string;
+  tags?: string[];
 }
 
 const BENTO_LAYOUT: BentoItemConfig[] = [
   {
-    id: "qualification-check",
+    id: "direct2",
     gridClass: "md:col-start-1 md:row-start-1 md:row-span-2",
-    tags: ["PR"],
-    stat: "From",
-    label: "zero coverage to the Financial Times",
+    tags: ["Paid"],
   },
   {
-    id: "weavabel",
+    id: "airbox",
     gridClass: "md:col-start-2 md:row-start-1",
-    tags: ["PR", "Organic"],
+    tags: ["Paid"],
   },
   {
-    id: "ultimate-activity-camps",
+    id: "britton-and-time",
     gridClass: "md:col-start-2 md:row-start-2",
     tags: ["Paid"],
-    label: "website revenue YoY",
   },
   {
-    id: "honest-burgers",
+    id: "menzies-law",
     gridClass: "md:col-start-1 md:row-start-3",
-    tags: ["Paid"],
-    label: "Increase in store visits from Google Ads",
+    tags: ["Organic"],
   },
   {
-    id: "world-of-books",
+    id: "formx",
     gridClass: "md:col-start-1 md:row-start-4",
-    tags: ["Social"],
-    stat: "+490%",
-    label: "app installs",
+    tags: ["Paid"],
   },
   {
-    id: "liforme",
+    id: "releaf",
     gridClass: "md:col-start-2 md:row-start-3 md:row-span-2",
     tags: ["Paid", "Social"],
-    label: "net sales YoY",
   },
 ];
 
@@ -63,8 +54,9 @@ function BentoCard({
   config: BentoItemConfig;
   onClick: () => void;
 }): React.ReactElement {
-  const metric = config.stat ?? study.highlightStat;
-  const label = config.label ?? study.highlightLabel;
+  const logoLines = study.clientName.split(" ");
+  const primaryLine = logoLines[0] ?? study.clientName;
+  const secondaryLine = logoLines.slice(1).join(" ");
 
   return (
     <button
@@ -80,33 +72,50 @@ function BentoCard({
         loading="lazy"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#071615]/95 via-[#071615]/55 to-[#071615]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
 
       <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-6">
-        <div className="inline-flex w-fit max-w-full items-center gap-2 rounded-md border border-white/25 bg-[#071615]/70 px-3 py-1.5 backdrop-blur-sm">
-          <span className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-white sm:text-[11px]">
-            {study.clientName}
-          </span>
+        <div className="flex items-center justify-start">
+          {study.clientLogo ? (
+            <div className="flex h-7 w-[120px] items-center justify-start">
+              <Image
+                src={`/client-logos/${study.clientLogo}`}
+                alt={study.clientName}
+                width={120}
+                height={28}
+                className="h-full w-full object-contain object-left brightness-0 invert"
+              />
+            </div>
+          ) : (
+            <div className="inline-flex w-fit max-w-full items-center gap-2 rounded-md border border-white/25 bg-black/40 px-3 py-1.5 backdrop-blur-sm">
+              <span className="truncate text-[10px] font-bold uppercase tracking-[0.14em] text-white sm:text-[11px]">
+                {primaryLine}
+                {secondaryLine ? ` ${secondaryLine}` : ""}
+              </span>
+            </div>
+          )}
         </div>
 
         <div>
           <p className="text-4xl font-semibold tracking-tight text-brand-accent sm:text-5xl">
-            {metric}
+            {study.highlightStat}
           </p>
-          <p className="mt-2 max-w-[280px] text-sm leading-snug text-white/85 sm:text-[15px]">
-            {label}
+          <p className="mt-2 max-w-[280px] text-sm leading-snug text-white/90 sm:text-[15px]">
+            {study.highlightLabel}
           </p>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {config.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/15 bg-[#1a403d] px-3 py-1 text-[11px] font-semibold text-white/75"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {config.tags && config.tags.length > 0 ? (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {config.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/15 bg-[#1a403d] px-3 py-1 text-[11px] font-semibold text-white/75"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </button>
@@ -163,57 +172,70 @@ function CaseStudyModal({
         </div>
 
         <div className="space-y-8 p-6 md:p-10">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {study.stats.map((statItem, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50 p-5 text-center"
-              >
-                <TrendingUp className="mb-2 h-5 w-5 text-brand-accent" />
-                <span className="block text-3xl font-black tracking-tight text-neutral-900">
-                  {statItem.stat}
-                </span>
-                <span className="mt-1 text-xs text-neutral-500">{statItem.label}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid gap-8 pt-4 md:grid-cols-12">
-            <div className="space-y-6 md:col-span-8">
-              <div>
-                <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                  The Challenge
-                </h4>
-                <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
-                  {study.challenge}
-                </p>
-              </div>
-              <div>
-                <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                  The Approach
-                </h4>
-                <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
-                  {study.approach}
-                </p>
-              </div>
+          {study.stats.length > 0 ? (
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {study.stats.map((statItem, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50 p-5 text-center"
+                >
+                  <TrendingUp className="mb-2 h-5 w-5 text-brand-accent" />
+                  <span className="block text-3xl font-black tracking-tight text-neutral-900">
+                    {statItem.stat}
+                  </span>
+                  <span className="mt-1 text-xs text-neutral-500">{statItem.label}</span>
+                </div>
+              ))}
             </div>
-
-            <div className="space-y-6 md:col-span-4">
-              <div>
-                <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                  The Deliverables
-                </h4>
-                <ul className="space-y-2.5">
-                  {study.results.map((result, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-neutral-600">
-                      <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-accent" />
-                      <span className="leading-snug">{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          ) : (
+            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+              <p className="text-4xl font-black tracking-tight text-brand-accent">
+                {study.highlightStat}
+              </p>
+              <p className="mt-2 text-sm text-neutral-600">{study.highlightLabel}</p>
             </div>
-          </div>
+          )}
+
+          {study.challenge !== "TBD" ? (
+            <div className="grid gap-8 pt-4 md:grid-cols-12">
+              <div className="space-y-6 md:col-span-8">
+                <div>
+                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                    The Challenge
+                  </h4>
+                  <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
+                    {study.challenge}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                    The Approach
+                  </h4>
+                  <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
+                    {study.approach}
+                  </p>
+                </div>
+              </div>
+
+              {study.results.length > 0 ? (
+                <div className="space-y-6 md:col-span-4">
+                  <div>
+                    <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-accent">
+                      The Deliverables
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {study.results.map((result, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-neutral-600">
+                          <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-accent" />
+                          <span className="leading-snug">{result}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </motion.div>
     </div>

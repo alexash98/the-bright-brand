@@ -4,14 +4,11 @@ import { Header } from "@/components/seed/Header";
 import { Hero } from "@/components/seed/Hero";
 import { Services } from "@/components/seed/Services";
 import {
-  CASE_STUDIES,
   CLIENT_LOGOS,
   HERO_CAROUSEL_CASE_STUDIES,
   HOW_WE_WORK,
-  PLATFORM_LOGOS,
   PLAYBOOK,
   SERVICES,
-  TEAM,
   TESTIMONIALS,
 } from "@/lib/seed-data";
 
@@ -27,36 +24,16 @@ const StatsSection = dynamic(
   { loading: () => <SectionPlaceholder heightClass="h-[640px]" /> },
 );
 
-const GrowthCalculator = dynamic(
+const HowWeWork = dynamic(
   () =>
-    import("@/components/seed/GrowthCalculator").then(
-      (mod) => mod.GrowthCalculator,
-    ),
-  { loading: () => <SectionPlaceholder heightClass="h-[720px]" /> },
+    import("@/components/seed/HowWeWork").then((mod) => mod.HowWeWork),
+  { loading: () => <SectionPlaceholder heightClass="h-[560px]" /> },
 );
 
 const Testimonials = dynamic(
   () =>
     import("@/components/seed/Testimonials").then((mod) => mod.Testimonials),
   { loading: () => <SectionPlaceholder heightClass="h-[360px]" /> },
-);
-
-const LogoMarquee = dynamic(
-  () =>
-    import("@/components/seed/LogoMarquee").then((mod) => mod.LogoMarquee),
-  { loading: () => <SectionPlaceholder heightClass="h-[180px]" /> },
-);
-
-const TeamSection = dynamic(
-  () =>
-    import("@/components/seed/TeamSection").then((mod) => mod.TeamSection),
-  { loading: () => <SectionPlaceholder heightClass="h-[720px]" /> },
-);
-
-const HowWeWork = dynamic(
-  () =>
-    import("@/components/seed/HowWeWork").then((mod) => mod.HowWeWork),
-  { loading: () => <SectionPlaceholder heightClass="h-[560px]" /> },
 );
 
 const EnquiryForm = dynamic(
@@ -112,15 +89,8 @@ export function HomePage(): React.ReactElement {
         <Services services={SERVICES} />
         <div className="homepage-below-fold">
           <Playbook rows={PLAYBOOK} />
-          <StatsSection caseStudies={CASE_STUDIES} />
-          <GrowthCalculator />
+          <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
           <Testimonials testimonials={TESTIMONIALS} />
-          <LogoMarquee
-            items={PLATFORM_LOGOS}
-            title="We integrate with every channel that matters"
-            reverse
-          />
-          <TeamSection members={TEAM} />
           <HowWeWork items={HOW_WE_WORK} />
           <EnquiryForm />
         </div>

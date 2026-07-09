@@ -51,7 +51,7 @@ export function ServiceQuoteSlider({
           <p className="mb-5 text-sm font-semibold text-brand-accent">
             {activeQuote.company}
           </p>
-          <blockquote className="text-lg leading-relaxed text-neutral-700 md:text-xl lg:text-[1.35rem] lg:leading-relaxed">
+          <blockquote className="text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
             {activeQuote.quote}
           </blockquote>
           <div className="mt-8 flex items-center gap-4">

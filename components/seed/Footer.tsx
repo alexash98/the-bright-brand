@@ -1,31 +1,89 @@
 'use client';
 
 import React from "react";
+import Image from "next/image";
 import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
+
+const PARTNER_LOGOS = [
+  {
+    src: "/partner-logos/shopify-partners.png",
+    alt: "Shopify Partners",
+    width: 466,
+    height: 75,
+  },
+  {
+    src: "/partner-logos/monday-partner.png",
+    alt: "monday.com Certified Partner",
+    width: 480,
+    height: 126,
+  },
+  {
+    src: "/partner-logos/google-partner.png",
+    alt: "Google Partner",
+    width: 497,
+    height: 195,
+  },
+  {
+    src: "/partner-logos/apollo-partner.png",
+    alt: "Apollo Partner",
+    width: 608,
+    height: 196,
+  },
+];
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const scrollToSection = useScrollToSection();
 
   return (
-    <footer className="border-t border-neutral-200 bg-white px-4 py-16 text-left text-neutral-600 md:px-8">
-      <div className="container mx-auto px-0 md:px-4">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-12">
-          {/* Logo & Contact details */}
-          <div className="border-b border-neutral-200 pb-8 md:border-b-0 md:pb-0">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl font-extrabold tracking-tighter text-neutral-900">Seed<span className="text-brand-accent">™</span></span>
-              <span className="rounded-sm border border-brand-accent/20 bg-brand-accent/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-brand-accent">B Corp™</span>
+    <footer className="border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 pb-10 md:gap-x-12 md:pb-12 lg:gap-x-16">
+          {PARTNER_LOGOS.map((logo) => (
+            <div
+              key={logo.src}
+              className="flex h-11 w-32 items-center justify-center sm:h-12 sm:w-40 md:h-14 md:w-44"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                unoptimized
+                className="h-full w-full object-contain object-center"
+              />
             </div>
-            <div className="mt-6 space-y-2 text-sm font-medium">
-              <p className="cursor-pointer transition-colors hover:text-brand-accent">enquiries@helloseed.co.uk</p>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-12">
+          <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
+            <button
+              type="button"
+              onClick={() => scrollToSection("hero")}
+              className="group flex cursor-pointer items-center"
+            >
+              <Image
+                src="/seed-logo.png"
+                alt="Seed"
+                width={120}
+                height={48}
+                className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
+              />
+            </button>
+            <div className="mt-6 space-y-2 text-sm font-medium text-neutral-300">
+              <a
+                href="mailto:alex@thebrightbrand.com"
+                className="block transition-colors hover:text-brand-accent"
+              >
+                alex@thebrightbrand.com
+              </a>
               <p>Pavilion View, Brighton, BN1 1UF</p>
-              <p className="text-xs text-neutral-400">Brighton HQ, UK & Global Clients</p>
+              <p className="text-xs text-neutral-500">Brighton HQ, UK & Global Clients</p>
             </div>
           </div>
 
-          {/* Services Links */}
-          <div className="border-b border-neutral-200 pb-8 md:border-b-0 md:pb-0">
+          <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Our Services
             </h4>
@@ -39,12 +97,12 @@ export const Footer: React.FC = () => {
                 "CRO/UX",
                 "Creative",
                 "Analytics",
-                "CRM"
+                "CRM",
               ].map((service) => (
                 <button
                   key={service}
                   onClick={() => scrollToSection("services")}
-                  className="rounded-full bg-neutral-50 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-700 transition-all duration-200 hover:bg-brand-accent hover:text-brand-bg-darker"
+                  className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-all duration-200 hover:border-brand-accent/30 hover:bg-brand-accent hover:text-brand-bg-darker"
                 >
                   {service}
                 </button>
@@ -52,8 +110,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Agency Links */}
-          <div className="border-b border-neutral-200 pb-8 md:border-b-0 md:pb-0">
+          <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Agency
             </h4>
@@ -67,12 +124,12 @@ export const Footer: React.FC = () => {
                 { label: "Articles", id: "work" },
                 { label: "Impact", id: "playbook" },
                 { label: "Transparency", id: "playbook" },
-                { label: "Contact", id: "enquire" }
+                { label: "Contact", id: "enquire" },
               ].map((link, idx) => (
                 <button
                   key={idx}
                   onClick={() => scrollToSection(link.id)}
-                  className="rounded-full bg-neutral-50 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-700 transition-colors duration-200 hover:bg-neutral-100 hover:text-neutral-900"
+                  className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-colors duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 >
                   {link.label}
                 </button>
@@ -80,7 +137,6 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Partner Badges & Follow */}
           <div>
             <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Partners
@@ -89,7 +145,7 @@ export const Footer: React.FC = () => {
               {["Google Partner", "Meta Partner", "Microsoft Partner"].map((p, idx) => (
                 <span
                   key={idx}
-                  className="rounded border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[11px] font-bold text-neutral-600 transition-colors hover:border-brand-accent/40 hover:text-brand-accent"
+                  className="rounded border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-neutral-400 transition-colors hover:border-brand-accent/40 hover:text-brand-accent"
                 >
                   {p}
                 </span>
@@ -103,7 +159,7 @@ export const Footer: React.FC = () => {
                 href="https://open.spotify.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-600 transition-colors hover:text-brand-accent"
+                className="text-neutral-400 transition-colors hover:text-brand-accent"
               >
                 Spotify
               </a>
@@ -111,7 +167,7 @@ export const Footer: React.FC = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-600 transition-colors hover:text-brand-accent"
+                className="text-neutral-400 transition-colors hover:text-brand-accent"
               >
                 Instagram
               </a>
@@ -119,7 +175,7 @@ export const Footer: React.FC = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-neutral-600 transition-colors hover:text-brand-accent"
+                className="text-neutral-400 transition-colors hover:text-brand-accent"
               >
                 LinkedIn
               </a>
@@ -127,14 +183,18 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Legal & Branding copyright */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200 pt-6 text-xs font-medium text-neutral-400">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs font-medium text-neutral-500">
           <p>
-            Seed is a trading name of Seed Publicity Ltd. Company number 9526599. Certified B Corporation© {currentYear}.
+            Seed is a trading name of Seed Publicity Ltd. Company number 9526599.
+            Certified B Corporation© {currentYear}.
           </p>
           <div className="flex flex-wrap gap-4">
-            <span className="cursor-pointer transition-colors hover:text-neutral-600">Brand Guidelines</span>
-            <span className="cursor-pointer transition-colors hover:text-neutral-600">AI and LLM Info</span>
+            <span className="cursor-pointer transition-colors hover:text-neutral-300">
+              Brand Guidelines
+            </span>
+            <span className="cursor-pointer transition-colors hover:text-neutral-300">
+              AI and LLM Info
+            </span>
           </div>
         </div>
       </div>

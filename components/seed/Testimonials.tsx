@@ -150,7 +150,19 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#f7f7f5] py-20 sm:py-24">
-      <div className="relative z-10 overflow-hidden">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
+        <div className="max-w-3xl text-left">
+          <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+            Trusted by brands that don&apos;t settle.
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
+            Numbers tell one story. Here&apos;s what our clients say about getting
+            there.
+          </p>
+        </div>
+      </div>
+
+      <div className="relative z-10 mt-12 overflow-hidden">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-[#f7f7f5] to-transparent sm:w-24" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[#f7f7f5] to-transparent sm:w-24" />
 
