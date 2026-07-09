@@ -70,9 +70,6 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
       <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 md:px-8">
         <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className="max-w-3xl text-left">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-              Our Services
-            </p>
             <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
               Growth marketing built around your funnel, not just our playbook.
             </h2>

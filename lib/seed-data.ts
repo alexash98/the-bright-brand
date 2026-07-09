@@ -1,5 +1,13 @@
 import { CaseStudy, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, AccordionItem } from "@/lib/seed-types";
 
+function capitalizeFirst(text: string): string {
+  if (!text) {
+    return text;
+  }
+
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 function heroCarouselCase(
   id: string,
   clientName: string,
@@ -8,14 +16,16 @@ function heroCarouselCase(
   imageUrl: string,
   clientLogo?: string,
 ): CaseStudy {
+  const label = capitalizeFirst(highlightLabel);
+
   return {
     id,
     clientName,
     title: id,
     category: "Paid",
-    tagline: highlightLabel,
+    tagline: label,
     highlightStat,
-    highlightLabel,
+    highlightLabel: label,
     logoText: clientName.slice(0, 2).toUpperCase(),
     description: "Placeholder case study for hero carousel.",
     challenge: "TBD",
@@ -205,19 +215,19 @@ export const PRESS_PUBLICATIONS = [
 ];
 
 export const CLIENT_LOGOS = [
-  { name: "Airbox Fulfilment", logo: "airbox.png", seed: "airbox" },
+  { name: "Airbox Fulfilment", logo: "airbox.png", seed: "airbox", scale: 1.2 },
   { name: "Britton & Time", logo: "britton-and-time.png", seed: "britton-and-time" },
   { name: "Bremembered.io", logo: "bremembered.png", seed: "bremembered" },
   { name: "Anywhere.com", logo: "anywhere.png", seed: "anywhere" },
-  { name: "Releaf", logo: "releaf.png", seed: "releaf" },
+  { name: "Releaf", logo: "releaf.png", seed: "releaf", scale: 1 / 1.2 },
   { name: "Canopy", logo: "canopy.png", seed: "canopy" },
-  { name: "Direct2Compensation", logo: "direct2-compensation.png", seed: "direct2" },
+  { name: "Direct2Compensation", logo: "direct2-compensation.png", seed: "direct2", scale: 1.3 },
   { name: "Enexus", logo: "enexus.png", seed: "enexus" },
   { name: "FormX", logo: "formx.png", seed: "formx" },
-  { name: "Rowe Co Solicitors", logo: "rowe-co-solicitors.png", seed: "rowe-co" },
+  { name: "Rowe Co Solicitors", logo: "rowe-co-solicitors.png", seed: "rowe-co", scale: 1.2 },
   { name: "Menzies Law", logo: "menzies-law.png", seed: "menzies" },
   { name: "Freedom Travel Insurance", logo: "freedom-travel-insurance.png", seed: "freedom" },
-  { name: "Northwest Solicitors", logo: "northwest-solicitors.png", seed: "northwest" },
+  { name: "Northwest Solicitors", logo: "northwest-solicitors.png", seed: "northwest", scale: 1.2 },
 ];
 
 export const PLATFORM_LOGOS = [

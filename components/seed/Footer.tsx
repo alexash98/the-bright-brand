@@ -10,6 +10,7 @@ const PARTNER_LOGOS = [
     alt: "Shopify Partners",
     width: 466,
     height: 75,
+    scale: 1.3,
   },
   {
     src: "/partner-logos/monday-partner.png",
@@ -38,11 +39,11 @@ export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
       <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 pb-10 md:gap-x-12 md:pb-12 lg:gap-x-16">
+        <div className="mb-12 grid grid-cols-2 items-center gap-x-6 gap-y-8 border-b border-white/10 pb-10 sm:grid-cols-4 sm:gap-x-4 md:pb-12 md:gap-x-6">
           {PARTNER_LOGOS.map((logo) => (
             <div
               key={logo.src}
-              className="flex h-11 w-32 items-center justify-center sm:h-12 sm:w-40 md:h-14 md:w-44"
+              className="flex items-center justify-center px-1"
             >
               <Image
                 src={logo.src}
@@ -50,13 +51,15 @@ export const Footer: React.FC = () => {
                 width={logo.width}
                 height={logo.height}
                 unoptimized
-                className="h-full w-full object-contain object-center"
+                className={`h-auto max-h-10 w-full max-w-[128px] object-contain object-center sm:max-h-11 sm:max-w-[140px] md:max-h-12 md:max-w-[152px] ${
+                  logo.scale === 1.3 ? "scale-[1.3]" : ""
+                }`}
               />
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4 md:gap-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <button
               type="button"
@@ -78,8 +81,8 @@ export const Footer: React.FC = () => {
               >
                 alex@thebrightbrand.com
               </a>
-              <p>Pavilion View, Brighton, BN1 1UF</p>
-              <p className="text-xs text-neutral-500">Brighton HQ, UK & Global Clients</p>
+              <p>124 City Road, London, EC1V 2NX</p>
+              <p className="text-xs text-neutral-500">Global clientbase</p>
             </div>
           </div>
 
@@ -134,51 +137,6 @@ export const Footer: React.FC = () => {
                   {link.label}
                 </button>
               ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Partners
-            </h4>
-            <div className="mb-6 flex flex-wrap gap-2">
-              {["Google Partner", "Meta Partner", "Microsoft Partner"].map((p, idx) => (
-                <span
-                  key={idx}
-                  className="rounded border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-bold text-neutral-400 transition-colors hover:border-brand-accent/40 hover:text-brand-accent"
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
-            <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Follow Us
-            </h4>
-            <div className="flex gap-4 text-sm font-bold">
-              <a
-                href="https://open.spotify.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-neutral-400 transition-colors hover:text-brand-accent"
-              >
-                Spotify
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-neutral-400 transition-colors hover:text-brand-accent"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="text-neutral-400 transition-colors hover:text-brand-accent"
-              >
-                LinkedIn
-              </a>
             </div>
           </div>
         </div>

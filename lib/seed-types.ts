@@ -8,6 +8,7 @@ export interface ClientLogo {
   name: string;
   logo: string;
   seed: string;
+  scale?: number;
 }
 
 export interface NavItem {

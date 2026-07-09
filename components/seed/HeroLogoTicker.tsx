@@ -10,16 +10,19 @@ interface HeroLogoTickerProps {
   logos: ClientLogo[];
 }
 
-const LOGO_GAP_CLASS = "gap-10 sm:gap-12 lg:gap-14";
+const LOGO_GAP_CLASS = "gap-[46px] sm:gap-[54px] lg:gap-[62px]";
 
 function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
   return (
-    <div className="relative h-6 w-24 shrink-0">
+    <div
+      className="relative h-7 w-28 shrink-0"
+      style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
+    >
       <Image
         src={`/client-logos/${logo.logo}`}
         alt={logo.name}
         fill
-        sizes="96px"
+        sizes="112px"
         loading="lazy"
         className="object-contain opacity-90"
       />

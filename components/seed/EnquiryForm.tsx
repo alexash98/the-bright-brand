@@ -78,9 +78,6 @@ export const EnquiryForm: React.FC = () => {
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="text-left lg:sticky lg:top-24">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-              Get In Touch
-            </p>
             <h2 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
               Let&apos;s build something that{" "}
               <span className="text-brand-accent">performs</span>.

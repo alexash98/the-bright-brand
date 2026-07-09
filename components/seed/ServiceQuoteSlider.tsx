@@ -48,9 +48,9 @@ export function ServiceQuoteSlider({
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
-          <p className="mb-5 text-sm font-semibold text-brand-accent">
+          <span className="mb-5 inline-flex rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
             {activeQuote.company}
-          </p>
+          </span>
           <blockquote className="text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
             {activeQuote.quote}
           </blockquote>

@@ -9,7 +9,7 @@ const STATS: { value: React.ReactNode; label: string }[] = [
     value: (
       <>
         <span className="font-semibold">£</span>
-        <span className="font-bold">32M</span>
+        <span className="font-semibold">32M</span>
         <span className="font-semibold">+</span>
       </>
     ),
@@ -18,7 +18,7 @@ const STATS: { value: React.ReactNode; label: string }[] = [
   {
     value: (
       <>
-        <span className="font-bold">80</span>
+        <span className="font-semibold">80</span>
         <span className="font-semibold">+</span>
       </>
     ),
@@ -27,7 +27,7 @@ const STATS: { value: React.ReactNode; label: string }[] = [
   {
     value: (
       <>
-        <span className="font-bold">4.9</span>
+        <span className="font-semibold">4.9</span>
         <span className="font-semibold">★</span>
       </>
     ),
@@ -36,7 +36,7 @@ const STATS: { value: React.ReactNode; label: string }[] = [
   {
     value: (
       <>
-        <span className="font-bold">10</span>
+        <span className="font-semibold">10</span>
         <span className="font-semibold">yrs</span>
       </>
     ),
@@ -86,7 +86,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
                 <p className="text-3xl font-semibold tracking-tight text-brand-accent sm:text-4xl">
                   {stat.value}
                 </p>
-                <p className="mt-2 text-sm font-bold text-neutral-400 sm:text-[15px]">
+                <p className="mt-2 text-sm font-semibold text-neutral-400 sm:text-[15px]">
                   {stat.label}
                 </p>
               </div>

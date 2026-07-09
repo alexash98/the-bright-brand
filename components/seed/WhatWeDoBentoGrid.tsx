@@ -109,7 +109,7 @@ function BentoCard({
               {config.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/15 bg-[#1a403d] px-3 py-1 text-[11px] font-semibold text-white/75"
+                  className="rounded-full border border-white/20 bg-[#f7f7f5] px-3 py-1 text-[11px] font-semibold text-neutral-800"
                 >
                   {tag}
                 </span>

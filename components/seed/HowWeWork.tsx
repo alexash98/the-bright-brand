@@ -20,9 +20,6 @@ export const HowWeWork: React.FC<HowWeWorkProps> = ({ items }) => {
     <section id="how-we-work" className="relative border-t border-neutral-200 bg-white py-24">
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-4 md:px-8 lg:grid-cols-12">
         <div className="text-left lg:sticky lg:top-24 lg:col-span-5">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-            How We Work
-          </p>
           <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             Bespoke squads built around <span className="text-brand-accent">your</span> goals.
           </h2>
