@@ -10,7 +10,7 @@ interface HowWeWorkProps {
 }
 
 export const HowWeWork: React.FC<HowWeWorkProps> = ({ items }) => {
-  const [expandedId, setExpandedId] = useState<string | null>("team");
+  const [expandedId, setExpandedId] = useState<string | null>("availability");
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -21,14 +21,17 @@ export const HowWeWork: React.FC<HowWeWorkProps> = ({ items }) => {
       <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-4 md:px-8 lg:grid-cols-12">
         <div className="text-left lg:sticky lg:top-24 lg:col-span-5">
           <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-            Bespoke squads built around <span className="text-brand-accent">your</span> goals.
+            Built for speed, not office hours.
           </h2>
           <div className="space-y-4 text-lg font-normal leading-relaxed text-neutral-600">
             <p>
-              Your account is run directly by your Pod — a dedicated, cross-functional team assembled for your exact objectives.
+              We work as an extension of your team, not a vendor you chase.
+              Senior specialists know your account and can act without passing
+              things up the chain.
             </p>
             <p>
-              Decisions happen in hours, not weeks, because the specialists executing your campaigns have complete ownership of the results.
+              When spend shifts, tracking breaks, or a window opens, you get
+              answers quickly. Not tomorrow, and not after three handoffs.
             </p>
           </div>
         </div>

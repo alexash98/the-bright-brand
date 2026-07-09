@@ -205,6 +205,16 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
     imageSrc: "/testimonials/formx.png",
     imageAlt: "Shay Hasson",
   },
+  {
+    id: "heat-from-the-spire",
+    company: "Heatfromthespire.co.uk",
+    quote:
+      "The Bright Brand team scaled our Meta channel with real discipline and turned it into proper growth. They 3x our revenue in a year, and it still feels like they are part of the business.",
+    author: "Ben Herridge",
+    role: "Managing Director & CEO",
+    imageSrc: "/testimonials/ben-herridge.png",
+    imageAlt: "Ben Herridge",
+  },
 ];
 
 export const PRESS_PUBLICATIONS = [
@@ -243,88 +253,17 @@ export const PLATFORM_LOGOS = [
   { name: "YouTube Ads", seed: "youtube" }
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "charlie",
-    text: "Working with Seed over the last 10 years has been colossal for our growth and a huge part of getting us to where we are now. They instantly got our business and our model. And it's made my journey a lot more fun along the way!",
-    author: "Charlie Hawker",
-    role: "Director",
-    company: "A4Labels.com",
-    avatarSeed: "charlie"
-  },
-  {
-    id: "paola",
-    text: "Working with Seed has been a game-changer for us. They're genuinely invested in our success and treat us like true partners! The quality of the relationship matches the quality of the work and that's what keeps us coming back!",
-    author: "Paola Kuhn",
-    role: "Marketing Manager",
-    company: "Altnets",
-    avatarSeed: "paola"
-  },
-  {
-    id: "frankie",
-    text: "A great experience! Seed took the time to understand our business and delivered a design that reflects who we are, with UX work that really impressed us. Creative, technically strong and reliable on deadlines.",
-    author: "Frankie Williams",
-    role: "Sales & Marketing",
-    company: "NRWell",
-    avatarSeed: "frankie"
-  },
-  {
-    id: "aisling",
-    text: "Seed were great to work with on launching our new wine brand. The designers and creative team are brilliant, they come up with incredible designs and the whole team were very flexible in their approach.",
-    author: "Aisling Brown",
-    role: "Head of Brand",
-    company: "Madame F",
-    avatarSeed: "aisling"
-  },
-  {
-    id: "julio",
-    text: "It was a real pleasure working with Seed on our recent SEO project. As an organisation with nearly 30 years of history, we knew our website needed technical updates to stay accessible. We're delighted with the results.",
-    author: "Julio Abraham",
-    role: "CEO",
-    company: "Off The Fence Trust",
-    avatarSeed: "julio"
-  },
-  {
-    id: "jo",
-    text: "We have been delighted with the standard of service. From day one, the team brought professionalism, expertise and genuine dedication to growing our business. They built a tailored plan to maximise results.",
-    author: "Jo Synge",
-    role: "Head of Marketing",
-    company: "David Pearson Travel",
-    avatarSeed: "jo"
-  },
-  {
-    id: "jonathan",
-    text: "Seed launched our TikTok account in a niche space, bringing real creativity and fresh ideas. Collaborative, professional and always enthusiastic - they went the extra mile to understand our customers!",
-    author: "Jonathan Carrigan",
-    role: "Digital Marketing Manager",
-    company: "Starbox",
-    avatarSeed: "jonathan"
-  },
-  {
-    id: "lloyd",
-    text: "3 years with Seed and consistently delighted with the service, results and people. They've kept us on track and stood by us through the pandemic. Highly recommend to any business wanting to grow.",
-    author: "Lloyd Kane",
-    role: "Managing Director",
-    company: "Rickshaw Travel",
-    avatarSeed: "lloyd"
-  },
-  {
-    id: "tim",
-    text: "I have worked with Seed for the last 5 years and they have increased our leads and website traffic enormously. They are great team to work with and always proactively looking to improve our SEO and PPC.",
-    author: "Tim Lowe",
-    role: "Founder",
-    company: "Lowe Guardians",
-    avatarSeed: "tim"
-  },
-  {
-    id: "will",
-    text: "Seed was brilliant on our Waitrose launch PR campaign. They landed us a free feature in Waitrose Weekend and a few other high-profile shout-outs too. Thanks, Seed!",
-    author: "Will Englander",
-    role: "Founder",
-    company: "The Root Co",
-    avatarSeed: "will"
-  }
-];
+export const TESTIMONIALS: Testimonial[] = SERVICE_HIGHLIGHT_QUOTES.map(
+  (quote) => ({
+    id: quote.id,
+    text: quote.quote,
+    author: quote.author ?? quote.company,
+    role: quote.role ?? "",
+    company: quote.company,
+    imageSrc: quote.imageSrc,
+    imageAlt: quote.imageAlt,
+  }),
+);
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -629,33 +568,33 @@ export const TEAM: TeamMember[] = [
 
 export const HOW_WE_WORK: AccordionItem[] = [
   {
-    id: "team",
-    title: "Your team, built for your goals",
-    body: "We build your Pod around the experience your business needs - specialists who've done this before, with the results to prove it. As your goals evolve, your Seed Pod adapts with them to target new channels dynamically."
+    id: "availability",
+    title: "Never out of reach",
+    body: "When a campaign needs attention, you talk to the people running it. We stay reachable because markets do not pause for Monday morning."
   },
   {
-    id: "ownership",
-    title: "Ownership, not task management",
-    body: "Every Pod at Seed thinks like a business owner because they're becoming one. Our staff are active stakeholders in the Employee Ownership Trust. You get specialists who care about commercial outcomes, not just crossing off a to-do list."
+    id: "direct",
+    title: "Direct access, no gatekeepers",
+    body: "You speak to the specialists making the decisions, not account executives or ticket systems. One conversation, clear ownership, and answers without the runaround."
   },
   {
-    id: "layers",
-    title: "No layers, no lag",
-    body: "Your Pod owns your strategy end-to-end. Decisions happen fast because the people doing the thinking are the same people doing the work. You get direct access to experts, skipping account executives."
+    id: "response",
+    title: "Fast when it counts",
+    body: "Tracking issues, budget shifts, and new opportunities get handled in hours, not days. We move quickly because delays cost revenue."
   },
   {
     id: "agnostic",
     title: "Channel-agnostic, not channel-locked",
-    body: "We don't protect budgets in channels that aren't working. If Meta Ads stall, we shift to Google. If paid hits a ceiling, we lean into SEO and Digital PR. Your strategy follows the opportunity, not a rigid, preset spending plan."
+    body: "We do not protect budgets in channels that are not working. If Meta Ads stall, we shift to Google. If paid hits a ceiling, we lean into SEO and Digital PR. Your strategy follows the opportunity, not a rigid spending plan."
   },
   {
     id: "sessions",
     title: "Quarterly Growth Sessions",
-    body: "Every quarter, your Pod steps back with your stakeholders to review what's working, challenge what isn't, and map out what's next. It is not a slide deck reading exercise - it is a live working session designed to push metrics forward."
+    body: "Every quarter we review what is working, challenge what is not, and map out what is next. A live working session designed to push metrics forward, not a slide deck read-through."
   },
   {
     id: "testing",
     title: "Test everything, share what works",
-    body: "Every Pod is constantly experimenting, and all learnings are shared across Seed. Your account benefits from what we're learning across our entire portfolio, not just your own data. That's how we stay proactive and ahead of market changes."
+    body: "We test constantly and share learnings across accounts. Your growth benefits from what we see across the portfolio, not just your own data."
   }
 ];

@@ -17,30 +17,37 @@ function TestimonialCard({
 }: {
   testimonial: Testimonial;
 }): React.ReactElement {
-  return (
-    <article className="flex h-[280px] w-[300px] shrink-0 flex-col rounded-2xl border border-neutral-200/80 bg-white p-6 sm:h-[300px] sm:w-[340px] sm:p-7">
-      <p className="flex-1 text-sm leading-relaxed text-neutral-800 sm:text-[15px]">
-        {testimonial.text}
-      </p>
+  const avatarSrc = testimonial.imageSrc
+    ? testimonial.imageSrc
+    : `https://picsum.photos/seed/${testimonial.avatarSeed ?? testimonial.id}/80/80`;
+  const avatarAlt = testimonial.imageAlt ?? testimonial.author;
 
-      <div className="mt-5 border-t border-neutral-900/10 pt-5">
-        <div className="flex items-center gap-3">
-          <Image
-            src={`https://picsum.photos/seed/${testimonial.avatarSeed}/80/80`}
-            alt={testimonial.author}
-            width={40}
-            height={40}
-            loading="lazy"
-            className="h-10 w-10 shrink-0 rounded-full object-cover"
-          />
-          <div>
-            <p className="text-sm font-semibold text-neutral-900">
-              {testimonial.author}
-            </p>
-            <p className="text-sm text-neutral-600">
-              {testimonial.role}, {testimonial.company}
-            </p>
-          </div>
+  return (
+    <article className="flex min-h-[280px] w-[300px] shrink-0 flex-col rounded-2xl border border-neutral-200/80 bg-white p-6 sm:w-[340px] sm:p-7">
+      <span className="mb-5 inline-flex w-fit rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
+        {testimonial.company}
+      </span>
+
+      <blockquote className="flex-1 text-sm leading-relaxed text-neutral-700 sm:text-[15px]">
+        {testimonial.text}
+      </blockquote>
+
+      <div className="mt-8 flex items-center gap-4">
+        <Image
+          src={avatarSrc}
+          alt={avatarAlt}
+          width={48}
+          height={48}
+          loading="lazy"
+          className="h-12 w-12 shrink-0 rounded-full object-cover"
+        />
+        <div>
+          <p className="text-sm font-semibold text-neutral-900">
+            {testimonial.author}
+          </p>
+          {testimonial.role ? (
+            <p className="text-sm text-neutral-600">{testimonial.role}</p>
+          ) : null}
         </div>
       </div>
     </article>

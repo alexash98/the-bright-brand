@@ -33,12 +33,11 @@ const PARTNER_LOGOS = [
 ];
 
 export const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
   const scrollToSection = useScrollToSection();
 
   return (
-    <footer className="border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
-      <div className="mx-auto w-full max-w-7xl">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
         <div className="mb-12 grid grid-cols-2 items-center gap-x-6 gap-y-8 border-b border-white/10 pb-10 sm:grid-cols-4 sm:gap-x-4 md:pb-12 md:gap-x-6">
           {PARTNER_LOGOS.map((logo) => (
             <div
@@ -138,21 +137,6 @@ export const Footer: React.FC = () => {
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs font-medium text-neutral-500">
-          <p>
-            Seed is a trading name of Seed Publicity Ltd. Company number 9526599.
-            Certified B Corporation© {currentYear}.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <span className="cursor-pointer transition-colors hover:text-neutral-300">
-              Brand Guidelines
-            </span>
-            <span className="cursor-pointer transition-colors hover:text-neutral-300">
-              AI and LLM Info
-            </span>
           </div>
         </div>
       </div>

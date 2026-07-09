@@ -10,24 +10,25 @@ interface PlaybookProps {
 
 export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
   return (
-    <section id="playbook" className="relative border-b border-neutral-200 bg-[#f7f7f5] py-24">
-      <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-10 px-4 md:px-8 lg:grid-cols-12 lg:gap-14">
-        <div className="text-left lg:sticky lg:top-24 lg:col-span-5">
-          <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-            The agency model, rebuilt around your outcomes.
-          </h2>
-          <p className="text-lg font-normal leading-relaxed text-neutral-600">
-            Most agencies are set up to protect retainers and billable hours, not the results you actually need. We work the other way: flexible, bespoke, and accountable to what moves the needle.
-          </p>
-        </div>
+    <section id="playbook" className="relative bg-[#f7f7f5] py-[6.9rem]">
+      <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="text-left lg:sticky lg:top-24 lg:col-span-5">
+            <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
+              The agency model, rebuilt around your outcomes.
+            </h2>
+            <p className="text-lg font-normal leading-relaxed text-neutral-600">
+              Most agencies are set up to protect retainers and billable hours, not the results you actually need. We work the other way: flexible, bespoke, and accountable to what moves the needle.
+            </p>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.45 }}
-          className="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm lg:col-span-7"
-        >
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.45 }}
+            className="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm lg:col-span-7"
+          >
           <div className="grid md:grid-cols-2">
             <div className="border-b border-neutral-200/80 bg-neutral-50/80 px-5 py-5 md:border-b-0 md:border-r md:px-6 md:py-6">
               <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-400">
@@ -80,6 +81,7 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
             </div>
           </div>
         </motion.div>
+        </div>
       </div>
     </section>
   );

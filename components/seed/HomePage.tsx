@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Footer } from "@/components/seed/Footer";
 import { Header } from "@/components/seed/Header";
 import { Hero } from "@/components/seed/Hero";
+import { PlaybookCallout } from "@/components/seed/PlaybookCallout";
 import { Services } from "@/components/seed/Services";
 import {
   CLIENT_LOGOS,
@@ -51,15 +52,16 @@ const NAV_ITEMS = [
 ];
 
 const ROTATING_WORDS = [
-  "Ambitious",
-  "Proactive",
-  "Relentless",
-  "Growth-Obsessed",
-  "Results-Driven",
-  "Fearless",
-  "Accountable",
-  "Entrepreneurial",
-  "Curious",
+  "search",
+  "social",
+  "paid",
+  "media",
+  "growth",
+  "results",
+  "revenue",
+  "leads",
+  "ROI",
+  "data",
 ];
 
 function SectionPlaceholder({
@@ -81,7 +83,7 @@ export function HomePage(): React.ReactElement {
       <Header navItems={NAV_ITEMS} />
       <Hero
         rotatingWords={ROTATING_WORDS}
-        description="Powered by our progressive model, we deliver exceptional growth by giving you the most proactive, growth-minded marketing team you'll ever work with."
+        description="We work as an extension of your team, not a separate agency layer. Senior specialists own your growth across search, paid media and creative, with clear accountability from day one."
         caseStudies={HERO_CAROUSEL_CASE_STUDIES}
         clientLogos={CLIENT_LOGOS}
       />
@@ -89,6 +91,9 @@ export function HomePage(): React.ReactElement {
         <Services services={SERVICES} />
         <div className="homepage-below-fold">
           <Playbook rows={PLAYBOOK} />
+          <div className="relative z-10 -mt-12 -mb-12 px-4 md:px-6">
+            <PlaybookCallout />
+          </div>
           <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
           <Testimonials testimonials={TESTIMONIALS} />
           <HowWeWork items={HOW_WE_WORK} />

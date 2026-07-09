@@ -58,7 +58,9 @@ export interface Testimonial {
   author: string;
   role: string;
   company: string;
-  avatarSeed: string; // picsum seed or initials
+  imageSrc?: string;
+  imageAlt?: string;
+  avatarSeed?: string;
 }
 
 export interface TeamMember {

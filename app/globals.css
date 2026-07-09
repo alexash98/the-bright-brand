@@ -84,8 +84,7 @@ h6 {
   font-weight: 600;
 }
 
-.homepage-below-fold > section,
-.homepage-below-fold > div {
+.homepage-below-fold > section {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
 }

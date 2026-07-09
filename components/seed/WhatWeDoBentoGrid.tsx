@@ -18,7 +18,7 @@ const BENTO_LAYOUT: BentoItemConfig[] = [
     id: "direct2",
     gridClass: "md:col-start-1 md:row-start-1 md:row-span-2",
     tags: ["Paid"],
-    logoScale: 1.3,
+    logoScale: 1.56,
   },
   {
     id: "airbox",

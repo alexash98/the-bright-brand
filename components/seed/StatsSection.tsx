@@ -51,14 +51,6 @@ interface StatsSectionProps {
 export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
   return (
     <section id="work" className="relative overflow-hidden bg-brand-bg-darker py-20 sm:py-24">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          backgroundImage:
-            "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(232, 184, 75, 0.08) 0%, transparent 65%), radial-gradient(ellipse 50% 40% at 85% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 70%)",
-        }}
-      />
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl text-left">
@@ -72,7 +64,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
             </h2>
             <p className="text-base leading-relaxed text-neutral-400 md:text-lg">
               A performance-driven growth partner, combining data and creativity
-              across every channel that matters — so nothing&apos;s working in
+              across every channel that matters, so nothing&apos;s working in
               isolation.
             </p>
           </div>

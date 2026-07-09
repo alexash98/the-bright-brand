@@ -55,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({
           </motion.div>
 
           <h1 className="mb-6 text-[32px] font-semibold leading-[1.2] tracking-tight text-white sm:text-5xl md:text-6xl lg:mb-7 lg:text-[3.25rem] lg:leading-[1.22] xl:text-6xl">
-            <span className="block">Your Most</span>
+            <span className="block">Win on</span>
             <span className="relative block h-[1.2em] text-brand-accent">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -66,17 +66,16 @@ export const Hero: React.FC<HeroProps> = ({
                   transition={{ type: "spring", stiffness: 120, damping: 16 }}
                   className="absolute left-0 top-0 block font-semibold tracking-tight drop-shadow-[0_2px_10px_rgba(232,184,75,0.2)] whitespace-nowrap"
                 >
-                  {rotatingWords[index]}
+                  {rotatingWords[index]}.
                 </motion.span>
               </AnimatePresence>
               <span
                 className="invisible block font-semibold tracking-tight whitespace-nowrap"
                 aria-hidden="true"
               >
-                Growth-Obsessed
+                revenue.
               </span>
             </span>
-            <span className="block">Growth Partner.</span>
           </h1>
 
           <motion.p
