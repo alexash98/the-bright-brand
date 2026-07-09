@@ -10,6 +10,7 @@ interface BentoItemConfig {
   id: string;
   gridClass: string;
   tags?: string[];
+  logoScale?: number;
 }
 
 const BENTO_LAYOUT: BentoItemConfig[] = [
@@ -17,16 +18,19 @@ const BENTO_LAYOUT: BentoItemConfig[] = [
     id: "direct2",
     gridClass: "md:col-start-1 md:row-start-1 md:row-span-2",
     tags: ["Paid"],
+    logoScale: 1.3,
   },
   {
     id: "airbox",
     gridClass: "md:col-start-2 md:row-start-1",
     tags: ["Paid"],
+    logoScale: 1.3,
   },
   {
     id: "britton-and-time",
     gridClass: "md:col-start-2 md:row-start-2",
     tags: ["Paid"],
+    logoScale: 1.2,
   },
   {
     id: "menzies-law",
@@ -54,6 +58,9 @@ function BentoCard({
   config: BentoItemConfig;
   onClick: () => void;
 }): React.ReactElement {
+  const logoScale = config.logoScale ?? 1;
+  const logoHeight = 28 * logoScale;
+  const logoWidth = 120 * logoScale;
   const logoLines = study.clientName.split(" ");
   const primaryLine = logoLines[0] ?? study.clientName;
   const secondaryLine = logoLines.slice(1).join(" ");
@@ -77,12 +84,15 @@ function BentoCard({
       <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-6">
         <div className="flex items-center justify-start">
           {study.clientLogo ? (
-            <div className="flex h-7 w-[120px] items-center justify-start">
+            <div
+              className="flex items-center justify-start"
+              style={{ height: logoHeight, width: logoWidth }}
+            >
               <Image
                 src={`/client-logos/${study.clientLogo}`}
                 alt={study.clientName}
-                width={120}
-                height={28}
+                width={Math.round(logoWidth)}
+                height={Math.round(logoHeight)}
                 className="h-full w-full object-contain object-left brightness-0 invert"
               />
             </div>

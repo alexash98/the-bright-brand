@@ -93,8 +93,8 @@ function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement 
   return (
     <motion.div
       className={`flex ${LOGO_GAP_CLASS}`}
-      initial={{ x: 0 }}
-      animate={{ x: [0, -scrollDistance] }}
+      initial={{ x: -scrollDistance }}
+      animate={{ x: [-scrollDistance, 0] }}
       transition={{
         x: {
           repeat: Infinity,
