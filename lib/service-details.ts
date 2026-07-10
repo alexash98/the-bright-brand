@@ -87,61 +87,129 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     slug: "ppc",
     id: "ppc",
     title: "Paid Search (PPC)",
-    shortTitle: "Paid Search",
+    shortTitle: "PPC Agency, London",
     iconName: "MousePointerClick",
     metaDescription:
-      "Google and Microsoft Ads management with data-led structure, testing and budget control focused on profitable growth.",
-    heroTitle: "Paid search that",
-    heroAccent: "scales with confidence",
+      "London PPC agency delivering paid search across Google, Microsoft and Amazon. Data-led campaigns built for sales, leads and scalable ROAS.",
+    heroTitle: "Your PPC performance,",
+    heroAccent: "accelerated",
     heroIntro:
-      "Campaigns structured for clarity, creative tested with intent, and spend controlled against real conversion data.",
+      "Unlock the full potential of paid search through data, smart automation and creative thinking that converts.",
+    heroIntroSecondary:
+      "We analyse search behaviour so we know exactly where your customers are looking. Whether you focus on Google and Bing or expand across every platform where demand is building, we tailor plans to your goals, margins and market.",
+    whySection: {
+      eyebrow: "Why paid search?",
+      title: "Why do you need a PPC agency?",
+      subtitle:
+        "PPC boosts visibility, drives immediate traffic, and increases sales effectively.",
+      body: [
+        "From first search to the moment someone is ready to convert, paid search is one of the biggest drivers of qualified website traffic. Running it well means managing bids, match types, creative, landing pages, feeds and reporting at once. Skill and dedication are what turn spend into advantage.",
+        "Our London-based team acts as an extension of your marketing function, driving sales, generating leads and building brand awareness. We challenge assumptions, test aggressively and optimise continuously so your budget works harder than the competition's.",
+        "With experience across ecommerce, B2B, travel, hospitality and professional services, our strategies are built with precision, fuelled by data and shaped around how people actually search for your offer.",
+      ],
+    },
+    capabilitiesHeading: "PPC services",
+    capabilitiesIntro:
+      "Our approach harnesses the full spectrum of paid search tools, curating campaigns on Google, Microsoft and beyond. We do not just meet business needs. We build targeted, dynamic strategies designed to move revenue, ROAS and market share.",
     capabilities: [
       {
-        title: "Account architecture",
+        title: "Paid Search",
         description:
-          "Campaign and ad group structure, naming conventions and bidding strategies that stay readable as spend grows.",
+          "Search plays a central role in the path to purchase, which makes Paid Search integral to any growth plan. Our analysts thrive on continual optimisation, meticulous campaign management and ROI-led decision making at local or global scale.",
         highlights: [
-          "Clean campaign hierarchy with documented naming rules",
-          "Match type and negative keyword strategy by intent",
-          "Bidding models aligned to margin and LTV targets",
+          "Google Ads and Microsoft Ads campaign management",
+          "Keyword strategy, match types and negative lists by intent",
+          "Ad copy, extensions and landing page message match",
         ],
       },
       {
-        title: "Search and Performance Max",
+        title: "Performance Max",
         description:
-          "Google and Microsoft coverage with asset groups, audience signals and feed optimisation where shopping or lead gen demands it.",
+          "Shopping and feed-led campaigns are core to ecommerce performance. We build tailored Performance Max structures, asset groups and audience signals so products reach the right customers at the right moment.",
         highlights: [
-          "Google Ads and Microsoft Ads managed in parallel",
-          "Performance Max asset groups with audience signal tuning",
-          "Shopping feed and merchant centre issue resolution",
+          "Asset group structure and audience signal strategy",
+          "Shopping feed alignment and merchant centre support",
+          "Product-level reporting tied to margin and ROAS",
         ],
       },
       {
-        title: "Landing page alignment",
+        title: "Demand Gen",
         description:
-          "Message match, form UX and conversion tracking reviewed alongside ads so spend is not wasted on broken journeys.",
+          "Reach potential customers when they are discovering new content and brands. With placements across Gmail, YouTube and Discover feeds, Demand Gen campaigns build awareness and drive action in upper-funnel moments.",
         highlights: [
-          "Ad-to-page message match reviews on every major campaign",
-          "Form UX and CRO recommendations tied to conversion rate",
-          "Event tracking verified before budget scales",
+          "Audience-led prospecting across Google surfaces",
+          "Creative formats built for discovery placements",
+          "Full-funnel measurement from impression to conversion",
         ],
       },
       {
-        title: "Budget and bid management",
+        title: "Display",
         description:
-          "Daily pacing, seasonality planning and marginal ROAS targets that protect efficiency while finding room to scale.",
+          "Re-engage existing customers or attract new ones with strategic targeting across Google's Display Network. We match formats and placements to your audience, offer and funnel stage.",
         highlights: [
-          "Daily spend pacing with anomaly alerts",
-          "Seasonal budget models and forecast planning",
-          "Marginal ROAS analysis before budget shifts",
+          "Remarketing and prospecting display structures",
+          "Responsive display and image creative coordination",
+          "Placement and audience exclusions to reduce waste",
+        ],
+      },
+      {
+        title: "YouTube and video",
+        description:
+          "Put your brand and products in front of the right viewers with video campaigns built for awareness, consideration and conversion. From short-form hooks to longer storytelling, we align creative to objective.",
+        highlights: [
+          "YouTube awareness, consideration and action campaigns",
+          "Video creative briefing aligned to platform best practice",
+          "View-through and engaged-view reporting tied to downstream sales",
+        ],
+      },
+      {
+        title: "App campaigns",
+        description:
+          "Increase downloads, improve in-app engagement and extend customer lifetime value with dedicated app campaigns across Google App Campaigns and Apple Search Ads.",
+        highlights: [
+          "Google App Campaigns for Android and iOS growth",
+          "Apple Search Ads for high-intent app store visibility",
+          "In-app event tracking and cohort performance analysis",
+        ],
+      },
+      {
+        title: "Feed optimisation",
+        description:
+          "Strong product data helps ad platforms match inventory to search demand. We work with feed tools and merchant centre setup so algorithms understand your catalogue and surface the right SKUs.",
+        highlights: [
+          "Product title, attribute and category optimisation",
+          "Feed error monitoring and merchant centre hygiene",
+          "Custom labels for margin, seasonality and priority SKUs",
+        ],
+      },
+      {
+        title: "Amazon Ads",
+        description:
+          "Whether you are launching on Amazon or scaling existing activity, we help brands grow sales and protect margin on a highly competitive marketplace through efficient sponsored product and brand strategies.",
+        highlights: [
+          "Sponsored Products, Brands and Display campaign setup",
+          "Keyword and ASIN targeting based on search intent",
+          "Market share and profitability reporting by SKU and category",
+        ],
+      },
+      {
+        title: "PPC consultancy",
+        description:
+          "For in-house teams that want senior input without full outsourcing, our specialists advise on strategy, spot opportunities and share practical training so your campaigns stay best in class.",
+        highlights: [
+          "Account audits and strategic roadmap sessions",
+          "Training for in-house marketers and media buyers",
+          "Ongoing advisory on platform updates and test plans",
         ],
       },
     ],
+    approachIntro:
+      "We combine audit discipline with rapid testing and honest reporting, so you see where spend is working and where it needs to change.",
     approach: [
       {
         title: "Audit and restructure",
         description:
-          "We map waste, overlap and tracking gaps, then rebuild the account around your highest-intent terms and offers.",
+          "We map waste, overlap and tracking gaps, then rebuild the account around your highest-intent terms, products and offers.",
       },
       {
         title: "Launch with baselines",
@@ -151,7 +219,7 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
       {
         title: "Test and refine",
         description:
-          "Ad copy, extensions and audiences tested in structured cycles so winners compound rather than resetting each month.",
+          "Ad copy, extensions, audiences and bids tested in structured cycles so winners compound rather than resetting each month.",
       },
       {
         title: "Scale or cut with data",
@@ -161,8 +229,43 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     ],
     outcomes: [
       { value: "6.2x", label: "Average ROAS across managed accounts" },
-      { value: "−40%", label: "Typical wasted spend removed in audit phase" },
+      { value: "£5M+", label: "Yearly ad spend managed for clients" },
       { value: "Weekly", label: "Optimisation cadence with live dashboards" },
+    ],
+    testimonial: {
+      quote:
+        "The paid search team's focus, communication and drive to deliver a positive ROI gave us the confidence to increase media budgets several-fold in a few months. The ideas they put forward to scale efficiently have made a real difference to our growth plans.",
+      author: "Chris Griffin",
+      role: "CEO & Founder",
+      company: "Secret Sales",
+    },
+    faqsHeading: "PPC agency FAQs",
+    faqs: [
+      {
+        question: "What does a PPC agency do?",
+        answer:
+          "A PPC agency manages paid search campaigns on platforms like Google Ads and Microsoft Ads. That includes keyword strategy, campaign structure, bidding, creative, landing page alignment, tracking and ongoing optimisation to improve leads, sales and return on ad spend.",
+      },
+      {
+        question: "How is PPC different from SEO?",
+        answer:
+          "PPC delivers immediate visibility by paying for placement in search results, while SEO builds organic rankings over time. Most growth plans use both: PPC for speed, testing and demand capture, SEO for sustainable long-term traffic.",
+      },
+      {
+        question: "Do you manage Google and Microsoft Ads?",
+        answer:
+          "Yes. We manage campaigns across Google Ads and Microsoft Ads, and can extend into Amazon Ads, YouTube, Display, Demand Gen and Performance Max depending on where your customers search and how you sell.",
+      },
+      {
+        question: "How quickly can I expect results from PPC?",
+        answer:
+          "Paid search can drive traffic and conversions as soon as campaigns go live, but strong performance usually comes from structured testing and account refinement over the first few weeks. We set baselines early so improvements are visible and measurable.",
+      },
+      {
+        question: "Can you work alongside our in-house team?",
+        answer:
+          "Absolutely. We can fully manage your accounts or provide consultancy, audits and training for in-house marketers who want senior paid search support without handing over everything.",
+      },
     ],
   },
   {

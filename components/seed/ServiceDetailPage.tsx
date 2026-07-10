@@ -66,23 +66,57 @@ export function ServiceDetailPage({
           <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
             {service.heroIntro}
           </p>
+          {service.heroIntroSecondary ? (
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-text-pale/60 md:text-lg">
+              {service.heroIntroSecondary}
+            </p>
+          ) : null}
       </MarketingHero>
 
       <main className="bg-white text-neutral-900">
+        {service.whySection ? (
+          <section className="px-4 py-16 md:px-8 md:py-24">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+              <div>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+                  {service.whySection.eyebrow}
+                </p>
+                <h2 className="mb-4 text-2xl font-semibold tracking-tight text-neutral-900 md:text-4xl">
+                  {service.whySection.title}
+                </h2>
+                <p className="text-base font-semibold uppercase tracking-wide text-neutral-500 md:text-sm">
+                  {service.whySection.subtitle}
+                </p>
+              </div>
+              <div className="space-y-4 text-base leading-relaxed text-neutral-600 md:text-lg">
+                {service.whySection.body.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         <section className="bg-[#f7f7f5] px-4 py-20 md:px-8 md:py-28">
           <div className="mx-auto max-w-7xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               What&apos;s included
             </p>
             <h2 className="mb-4 max-w-2xl text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
-              Core service parameters
+              {service.capabilitiesHeading ?? "Core service parameters"}
             </h2>
-            <p className="mb-12 max-w-2xl text-base leading-relaxed text-neutral-600 md:text-lg">
-              The building blocks we deploy for every engagement, tailored to your
-              market, margins and growth stage.
+            <p className="mb-12 max-w-3xl text-base leading-relaxed text-neutral-600 md:text-lg">
+              {service.capabilitiesIntro ??
+                "The building blocks we deploy for every engagement, tailored to your market, margins and growth stage."}
             </p>
 
-            <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+            <div
+              className={`grid gap-6 md:gap-8 ${
+                service.capabilities.length > 4
+                  ? "md:grid-cols-2 lg:grid-cols-3"
+                  : "md:grid-cols-2"
+              }`}
+            >
               {service.capabilities.map((capability, index) => (
                 <article
                   key={capability.title}
@@ -126,8 +160,8 @@ export function ServiceDetailPage({
                   Our approach
                 </h2>
                 <p className="text-base leading-relaxed text-neutral-600 md:text-lg">
-                  A clear sequence from first access to ongoing optimisation, so
-                  you always know what we are working on and why.
+                  {service.approachIntro ??
+                    "A clear sequence from first access to ongoing optimisation, so you always know what we are working on and why."}
                 </p>
               </div>
 
@@ -193,6 +227,52 @@ export function ServiceDetailPage({
             </div>
           </div>
         </section>
+
+        {service.testimonial ? (
+          <section className="border-y border-neutral-200 bg-white px-4 py-16 md:px-8 md:py-20">
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="text-lg leading-relaxed text-neutral-700 md:text-xl md:leading-relaxed">
+                &ldquo;{service.testimonial.quote}&rdquo;
+              </p>
+              <div className="mt-8">
+                <p className="font-semibold text-neutral-900">
+                  {service.testimonial.author}
+                </p>
+                <p className="mt-1 text-sm text-neutral-500">
+                  {service.testimonial.role}, {service.testimonial.company}
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {service.faqs && service.faqs.length > 0 ? (
+          <section className="px-4 py-16 md:px-8 md:py-20">
+            <div className="mx-auto max-w-3xl">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+                FAQs
+              </p>
+              <h2 className="mb-10 text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
+                {service.faqsHeading ?? `Common questions about ${service.shortTitle.toLowerCase()}`}
+              </h2>
+              <dl className="space-y-8">
+                {service.faqs.map((faq) => (
+                  <div
+                    key={faq.question}
+                    className="border-b border-neutral-200 pb-8 last:border-b-0 last:pb-0"
+                  >
+                    <dt className="mb-3 text-lg font-semibold text-neutral-900">
+                      {faq.question}
+                    </dt>
+                    <dd className="text-base leading-relaxed text-neutral-600">
+                      {faq.answer}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        ) : null}
 
         <section className="px-4 py-16 md:px-8 md:py-20">
           <div className="mx-auto max-w-7xl">

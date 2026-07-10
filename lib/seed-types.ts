@@ -42,6 +42,25 @@ export interface ServiceOutcome {
   label: string;
 }
 
+export interface ServiceWhySection {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  body: string[];
+}
+
+export interface ServiceTestimonial {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+}
+
+export interface ServiceFaq {
+  question: string;
+  answer: string;
+}
+
 export interface ServiceDetail {
   slug: string;
   id: string;
@@ -52,9 +71,17 @@ export interface ServiceDetail {
   heroTitle: string;
   heroAccent: string;
   heroIntro: string;
+  heroIntroSecondary?: string;
+  whySection?: ServiceWhySection;
+  capabilitiesHeading?: string;
+  capabilitiesIntro?: string;
   capabilities: ServiceCapability[];
   approach: ServiceApproachStep[];
+  approachIntro?: string;
   outcomes: ServiceOutcome[];
+  testimonial?: ServiceTestimonial;
+  faqs?: ServiceFaq[];
+  faqsHeading?: string;
 }
 
 export interface StatCard {
