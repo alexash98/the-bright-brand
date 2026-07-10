@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 24" fill="#000" role="img" aria-label="Hyros">
+  <g transform="translate(0 2)">
+    <circle cx="4.5" cy="4.5" r="2.4" fill="#000"/>
+    <circle cx="14.5" cy="10" r="2.4" fill="#000"/>
+    <circle cx="4.5" cy="15.5" r="2.4" fill="#000"/>
+    <path d="M4.5 4.5 L14.5 10 L4.5 15.5" fill="none" stroke="#000" stroke-width="1.8" stroke-linejoin="round"/>
+  </g>
+  <text x="22" y="17.5" fill="#000" font-family="Helvetica Neue, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="-0.01em">hyros</text>
+</svg>

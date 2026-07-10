@@ -9,6 +9,8 @@ export interface ClientLogo {
   logo: string;
   seed: string;
   scale?: number;
+  folder?: "client-logos" | "platform-logos" | "partner-logos";
+  widthClass?: string;
 }
 
 export interface NavItem {

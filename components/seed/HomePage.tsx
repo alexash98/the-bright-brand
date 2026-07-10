@@ -9,6 +9,7 @@ import {
   CLIENT_LOGOS,
   HERO_CAROUSEL_CASE_STUDIES,
   ENGAGEMENT_STEPS,
+  MARQUEE_PLATFORM_LOGOS,
   PLAYBOOK,
   SERVICES,
   TESTIMONIALS,
@@ -98,7 +99,7 @@ export function HomePage(): React.ReactElement {
           <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
           <Testimonials testimonials={TESTIMONIALS} />
           <HowWeWork steps={ENGAGEMENT_STEPS} />
-          <ClientLogoMarquee logos={CLIENT_LOGOS} />
+          <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />
           <EnquiryForm />
         </div>
         <Footer />

@@ -13,17 +13,20 @@ interface ClientLogoMarqueeProps {
 const LOGO_GAP_CLASS = "gap-12 sm:gap-16 md:gap-20";
 
 function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
+  const folder = logo.folder ?? "client-logos";
+
   return (
     <div
-      className="relative h-6 w-24 shrink-0 opacity-70 transition-opacity duration-300 hover:opacity-100 sm:h-7 sm:w-28"
+      className={`relative h-[1.8rem] shrink-0 opacity-70 transition-opacity duration-300 hover:opacity-100 sm:h-[2.1rem] ${logo.widthClass ?? "w-[8.4rem]"}`}
       style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
     >
       <Image
-        src={`/client-logos/${logo.logo}`}
+        src={`/${folder}/${logo.logo}`}
         alt={logo.name}
         fill
-        sizes="112px"
+        sizes="168px"
         loading="lazy"
+        unoptimized={logo.logo.endsWith(".svg")}
         className="object-contain brightness-0"
       />
     </div>
@@ -114,7 +117,7 @@ export function ClientLogoMarquee({
   logos,
 }: ClientLogoMarqueeProps): React.ReactElement {
   return (
-    <div className="overflow-hidden border-y border-neutral-200/80 bg-white py-9 md:py-10">
+    <div className="overflow-hidden border-y border-neutral-200/80 bg-white py-6 md:py-7">
       <div className="relative">
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />

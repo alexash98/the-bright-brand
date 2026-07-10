@@ -240,6 +240,72 @@ export const CLIENT_LOGOS = [
   { name: "Northwest Solicitors", logo: "northwest-solicitors.png", seed: "northwest", scale: 1.2 },
 ];
 
+export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
+  {
+    name: "Shopify",
+    logo: "shopify.svg",
+    seed: "shopify",
+    folder: "platform-logos",
+    widthClass: "w-[8.7rem]",
+  },
+  {
+    name: "Triple Whale",
+    logo: "triple-whale.svg",
+    seed: "triple-whale",
+    folder: "platform-logos",
+    widthClass: "w-[10.8rem]",
+  },
+  {
+    name: "TikTok",
+    logo: "tiktok.svg",
+    seed: "tiktok",
+    folder: "platform-logos",
+    widthClass: "w-[8.1rem]",
+  },
+  {
+    name: "Meta",
+    logo: "meta.svg",
+    seed: "meta",
+    folder: "platform-logos",
+    widthClass: "w-[6.9rem]",
+  },
+  {
+    name: "Hyros",
+    logo: "hyros.svg",
+    seed: "hyros",
+    folder: "platform-logos",
+    widthClass: "w-[6.6rem]",
+  },
+  {
+    name: "Northbeam",
+    logo: "northbeam.svg",
+    seed: "northbeam",
+    folder: "platform-logos",
+    widthClass: "w-[9.6rem]",
+  },
+  {
+    name: "HubSpot",
+    logo: "hubspot.svg",
+    seed: "hubspot",
+    folder: "platform-logos",
+    widthClass: "w-[8.4rem]",
+  },
+  {
+    name: "Salesforce",
+    logo: "salesforce.svg",
+    seed: "salesforce",
+    folder: "platform-logos",
+    widthClass: "w-[9.6rem]",
+  },
+  {
+    name: "Pipedrive",
+    logo: "pipedrive.svg",
+    seed: "pipedrive",
+    folder: "platform-logos",
+    widthClass: "w-[9rem]",
+  },
+];
+
 export const PLATFORM_LOGOS = [
   { name: "Amazon Ads", seed: "amazon" },
   { name: "ChatGPT Business", seed: "chatgpt" },
