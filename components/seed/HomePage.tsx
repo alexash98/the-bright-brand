@@ -52,16 +52,16 @@ const NAV_ITEMS = [
 ];
 
 const ROTATING_WORDS = [
-  "search",
-  "social",
-  "paid",
-  "media",
-  "growth",
-  "results",
-  "revenue",
-  "leads",
-  "ROI",
-  "data",
+  "paid social",
+  "paid search",
+  "organic search",
+  "paid media",
+  "digital PR",
+  "revenue growth",
+  "lead generation",
+  "campaign ROI",
+  "conversion data",
+  "growth metrics",
 ];
 
 function SectionPlaceholder({

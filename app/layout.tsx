@@ -3,7 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { SmoothScrollProvider } from "@/components/seed/SmoothScrollProvider";
 import { organization, website } from "@/lib/schema";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,22 +23,22 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Seed Performance Marketing",
-    template: "%s | Seed Performance Marketing",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
   description:
     "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   openGraph: {
     type: "website",
     locale: "en_GB",
-    siteName: "Seed Performance Marketing",
-    title: "Seed Performance Marketing",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
     description:
       "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Seed Performance Marketing",
+    title: SITE_NAME,
     description:
       "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
   },

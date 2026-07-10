@@ -74,12 +74,9 @@ export const Footer: React.FC = () => {
               />
             </button>
             <div className="mt-6 space-y-2 text-sm font-medium text-neutral-300">
-              <a
-                href="mailto:alex@thebrightbrand.com"
-                className="block transition-colors hover:text-brand-accent"
-              >
-                alex@thebrightbrand.com
-              </a>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                The Bright Brand
+              </p>
               <p>124 City Road, London, EC1V 2NX</p>
               <p className="text-xs text-neutral-500">Global clientbase</p>
             </div>

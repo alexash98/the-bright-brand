@@ -54,8 +54,8 @@ export const Hero: React.FC<HeroProps> = ({
             Performance Marketing Agency
           </motion.div>
 
-          <h1 className="mb-6 text-[32px] font-semibold leading-[1.2] tracking-tight text-white sm:text-5xl md:text-6xl lg:mb-7 lg:text-[3.25rem] lg:leading-[1.22] xl:text-6xl">
-            <span className="block">Win on</span>
+          <h1 className="mb-6 text-[33px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[2.875rem] md:text-[3.75rem] lg:mb-7 lg:text-[3.5rem] lg:leading-[1.22] xl:text-[3.875rem]">
+            <span className="block">We help you win on</span>
             <span className="relative block h-[1.2em] text-brand-accent">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -73,7 +73,7 @@ export const Hero: React.FC<HeroProps> = ({
                 className="invisible block font-semibold tracking-tight whitespace-nowrap"
                 aria-hidden="true"
               >
-                revenue.
+                lead generation.
               </span>
             </span>
           </h1>
