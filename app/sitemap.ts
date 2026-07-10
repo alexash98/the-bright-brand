@@ -1,7 +1,13 @@
 import type { MetadataRoute } from "next";
+import { getAllServiceSlugs } from "@/lib/service-details";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const servicePages = getAllServiceSlugs().map((slug) => ({
+    url: `${SITE_URL}/services/${slug}`,
+    lastModified: new Date("2026-07-10"),
+  }));
+
   return [
     {
       url: `${SITE_URL}/`,
@@ -11,5 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/services`,
       lastModified: new Date("2026-07-10"),
     },
+    ...servicePages,
   ];
 }

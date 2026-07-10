@@ -26,6 +26,37 @@ export interface ServiceCard {
   linkUrl: string;
 }
 
+export interface ServiceCapability {
+  title: string;
+  description: string;
+  highlights: string[];
+}
+
+export interface ServiceApproachStep {
+  title: string;
+  description: string;
+}
+
+export interface ServiceOutcome {
+  value: string;
+  label: string;
+}
+
+export interface ServiceDetail {
+  slug: string;
+  id: string;
+  title: string;
+  shortTitle: string;
+  iconName: string;
+  metaDescription: string;
+  heroTitle: string;
+  heroAccent: string;
+  heroIntro: string;
+  capabilities: ServiceCapability[];
+  approach: ServiceApproachStep[];
+  outcomes: ServiceOutcome[];
+}
+
 export interface StatCard {
   stat: string;
   label: string;

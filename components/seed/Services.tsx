@@ -1,29 +1,13 @@
 'use client';
 
 import React from "react";
-import {
-  ArrowRight,
-  BarChart3,
-  HelpCircle,
-  Megaphone,
-  MousePointerClick,
-  Search,
-  Sparkles,
-  Users,
-} from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
 import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
+import { getServiceIcon } from "@/lib/service-icons";
 import { ServiceCard } from "@/lib/seed-types";
 import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
-
-const SERVICE_ICONS = {
-  Search,
-  MousePointerClick,
-  Megaphone,
-  Users,
-  Sparkles,
-  BarChart3,
-} as const;
 
 interface ServicesProps {
   services: ServiceCard[];
@@ -35,8 +19,7 @@ export const Services: React.FC<ServicesProps> = ({
   variant = "homepage",
 }) => {
   const renderIcon = (name: string) => {
-    const IconComponent =
-      SERVICE_ICONS[name as keyof typeof SERVICE_ICONS] ?? HelpCircle;
+    const IconComponent = getServiceIcon(name);
 
     return (
       <IconComponent className="h-6 w-6 text-brand-accent transition-transform duration-300 group-hover:scale-110" />
@@ -44,8 +27,9 @@ export const Services: React.FC<ServicesProps> = ({
   };
 
   const renderServiceCard = (service: ServiceCard) => (
-    <div
+    <Link
       key={service.id}
+      href={service.linkUrl}
       className="group relative flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50 p-8 transition-all duration-300 hover:border-brand-accent/20 hover:bg-white hover:shadow-[0_8px_30px_rgba(232,184,75,0.08)]"
     >
       <div>
@@ -66,7 +50,7 @@ export const Services: React.FC<ServicesProps> = ({
         <span>Core service parameters</span>
         <ArrowRight className="h-4 w-4 transform transition-transform duration-200 group-hover:translate-x-1" />
       </div>
-    </div>
+    </Link>
   );
 
   return (

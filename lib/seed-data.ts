@@ -125,42 +125,42 @@ export const SERVICES: ServiceCard[] = [
     title: "Organic Search (SEO)",
     description: "Sustainable traffic growth through technical SEO, content strategy, and link building.",
     iconName: "Search",
-    linkUrl: "/seo"
+    linkUrl: "/services/seo"
   },
   {
     id: "ppc",
     title: "Paid Search (PPC)",
     description: "Maximise ROI across Google and Microsoft with data-led paid search campaigns.",
     iconName: "MousePointerClick",
-    linkUrl: "/ppc"
+    linkUrl: "/services/ppc"
   },
   {
     id: "social",
     title: "Paid Social",
     description: "Build demand across Meta, TikTok and Pinterest with creative that actually performs.",
     iconName: "Megaphone",
-    linkUrl: "/social"
+    linkUrl: "/services/social"
   },
   {
     id: "pr",
     title: "Digital PR",
     description: "Earn coverage and links from top-tier publications to boost authority and awareness.",
     iconName: "Users",
-    linkUrl: "/digital-pr"
+    linkUrl: "/services/digital-pr"
   },
   {
     id: "creative",
     title: "Creative Strategy",
     description: "Scroll-stopping creative that drives engagement and measurable performance.",
     iconName: "Sparkles",
-    linkUrl: "/creative"
+    linkUrl: "/services/creative"
   },
   {
     id: "analytics",
     title: "Data & Analytics",
     description: "Robust tracking, dashboards, and attribution that turn data into better decisions.",
     iconName: "BarChart3",
-    linkUrl: "/analytics"
+    linkUrl: "/services/analytics"
   }
 ];
 
