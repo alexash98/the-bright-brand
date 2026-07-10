@@ -9,38 +9,39 @@ const STATS: { value: React.ReactNode; label: string }[] = [
     value: (
       <>
         <span className="font-semibold">£</span>
-        <span className="font-semibold">32M</span>
+        <span className="font-semibold">5M</span>
         <span className="font-semibold">+</span>
       </>
     ),
-    label: "Managed Spend",
+    label: "Yearly Ad Spend Managed",
   },
   {
     value: (
       <>
-        <span className="font-semibold">80</span>
+        <span className="font-semibold">£</span>
+        <span className="font-semibold">50M</span>
         <span className="font-semibold">+</span>
       </>
     ),
-    label: "Brands Served",
-  },
-  {
-    value: (
-      <>
-        <span className="font-semibold">4.9</span>
-        <span className="font-semibold">★</span>
-      </>
-    ),
-    label: "Client Rating",
+    label: "Revenue Generated",
   },
   {
     value: (
       <>
         <span className="font-semibold">10</span>
-        <span className="font-semibold">yrs</span>
+        <span className="font-semibold"> yrs</span>
       </>
     ),
-    label: "In Business",
+    label: "Experience",
+  },
+  {
+    value: (
+      <>
+        <span className="font-semibold">6.2</span>
+        <span className="font-semibold">x</span>
+      </>
+    ),
+    label: "Average ROAS",
   },
 ];
 
@@ -50,7 +51,7 @@ interface StatsSectionProps {
 
 export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
   return (
-    <section id="work" className="relative overflow-hidden bg-brand-bg-darker py-20 sm:py-24">
+    <section id="work" className="relative overflow-hidden bg-brand-bg-darker pt-28 pb-20 sm:pt-32 sm:pb-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl text-left">
