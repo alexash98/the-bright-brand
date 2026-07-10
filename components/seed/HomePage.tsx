@@ -3,11 +3,12 @@ import { Footer } from "@/components/seed/Footer";
 import { Header } from "@/components/seed/Header";
 import { Hero } from "@/components/seed/Hero";
 import { PlaybookCallout } from "@/components/seed/PlaybookCallout";
+import { ClientLogoMarquee } from "@/components/seed/ClientLogoMarquee";
 import { Services } from "@/components/seed/Services";
 import {
   CLIENT_LOGOS,
   HERO_CAROUSEL_CASE_STUDIES,
-  HOW_WE_WORK,
+  ENGAGEMENT_STEPS,
   PLAYBOOK,
   SERVICES,
   TESTIMONIALS,
@@ -96,7 +97,8 @@ export function HomePage(): React.ReactElement {
           </div>
           <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
           <Testimonials testimonials={TESTIMONIALS} />
-          <HowWeWork items={HOW_WE_WORK} />
+          <HowWeWork steps={ENGAGEMENT_STEPS} />
+          <ClientLogoMarquee logos={CLIENT_LOGOS} />
           <EnquiryForm />
         </div>
         <Footer />

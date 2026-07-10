@@ -81,6 +81,13 @@ export interface PlaybookRow {
   to: string;
 }
 
+export interface EngagementStep {
+  id: string;
+  phase: string;
+  title: string;
+  body: string;
+}
+
 export interface AccordionItem {
   id: string;
   title: string;

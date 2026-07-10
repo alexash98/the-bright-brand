@@ -1,4 +1,4 @@
-import { CaseStudy, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, AccordionItem } from "@/lib/seed-types";
+import { CaseStudy, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep } from "@/lib/seed-types";
 
 function capitalizeFirst(text: string): string {
   if (!text) {
@@ -566,35 +566,29 @@ export const TEAM: TeamMember[] = [
   }
 ];
 
-export const HOW_WE_WORK: AccordionItem[] = [
+export const ENGAGEMENT_STEPS: EngagementStep[] = [
   {
-    id: "availability",
-    title: "Never out of reach",
-    body: "When a campaign needs attention, you talk to the people running it. We stay reachable because markets do not pause for Monday morning."
+    id: "audit",
+    phase: "Week 1",
+    title: "Audit and alignment",
+    body: "We review your tracking, channels, and spend. You get an honest view of what is working, what is not, and where the quick wins are.",
   },
   {
-    id: "direct",
-    title: "Direct access, no gatekeepers",
-    body: "You speak to the specialists making the decisions, not account executives or ticket systems. One conversation, clear ownership, and answers without the runaround."
+    id: "fix",
+    phase: "Weeks 2 to 4",
+    title: "Fix and relaunch",
+    body: "Tracking sorted, campaigns restructured, and creative tested properly. Changes go live with clear baselines so you can see impact quickly.",
   },
   {
-    id: "response",
-    title: "Fast when it counts",
-    body: "Tracking issues, budget shifts, and new opportunities get handled in hours, not days. We move quickly because delays cost revenue."
+    id: "scale",
+    phase: "Month 2 onward",
+    title: "Scale what works",
+    body: "Budget follows performance. Underperforming channels get cut or reworked. Winning campaigns get more fuel and tighter optimisation.",
   },
   {
-    id: "agnostic",
-    title: "Channel-agnostic, not channel-locked",
-    body: "We do not protect budgets in channels that are not working. If Meta Ads stall, we shift to Google. If paid hits a ceiling, we lean into SEO and Digital PR. Your strategy follows the opportunity, not a rigid spending plan."
+    id: "review",
+    phase: "Every quarter",
+    title: "Review and reset",
+    body: "A working session with your team to review numbers, challenge assumptions, and set priorities for the next quarter. No passive reporting.",
   },
-  {
-    id: "sessions",
-    title: "Quarterly Growth Sessions",
-    body: "Every quarter we review what is working, challenge what is not, and map out what is next. A live working session designed to push metrics forward, not a slide deck read-through."
-  },
-  {
-    id: "testing",
-    title: "Test everything, share what works",
-    body: "We test constantly and share learnings across accounts. Your growth benefits from what we see across the portfolio, not just your own data."
-  }
 ];
