@@ -27,9 +27,13 @@ const SERVICE_ICONS = {
 
 interface ServicesProps {
   services: ServiceCard[];
+  variant?: "homepage" | "standalone";
 }
 
-export const Services: React.FC<ServicesProps> = ({ services }) => {
+export const Services: React.FC<ServicesProps> = ({
+  services,
+  variant = "homepage",
+}) => {
   const renderIcon = (name: string) => {
     const IconComponent =
       SERVICE_ICONS[name as keyof typeof SERVICE_ICONS] ?? HelpCircle;
@@ -66,27 +70,54 @@ export const Services: React.FC<ServicesProps> = ({ services }) => {
   );
 
   return (
-    <section id="services" className="relative border-t border-neutral-200 bg-white pt-24 pb-0">
-      <div className="relative z-10 mx-auto max-w-7xl px-4 pb-24 md:px-8">
-        <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div className="max-w-3xl text-left">
-            <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-              Growth marketing built around your funnel, not just our playbook.
+    <section
+      id="services"
+      className={`relative bg-white pb-0 ${
+        variant === "homepage"
+          ? "border-t border-neutral-200 pt-24"
+          : "pt-16"
+      }`}
+    >
+      <div
+        className={`relative z-10 mx-auto max-w-7xl px-4 md:px-8 ${
+          variant === "homepage" ? "pb-24" : "pb-16"
+        }`}
+      >
+        {variant === "homepage" ? (
+          <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+            <div className="max-w-3xl text-left">
+              <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
+                Growth marketing built around your funnel, not just our playbook.
+              </h2>
+              <p className="text-lg leading-relaxed text-neutral-600">
+                We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
+              </p>
+            </div>
+
+            <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
+          </div>
+        ) : (
+          <div className="mb-12 max-w-3xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+              Our approach
+            </p>
+            <h2 className="mb-5 text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
+              One integrated strategy across every channel.
             </h2>
             <p className="text-lg leading-relaxed text-neutral-600">
               We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
             </p>
           </div>
-
-          <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
-        </div>
+        )}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map(renderServiceCard)}
         </div>
       </div>
 
-      <AsSeenInTicker publications={PRESS_PUBLICATIONS} />
+      {variant === "homepage" ? (
+        <AsSeenInTicker publications={PRESS_PUBLICATIONS} />
+      ) : null}
     </section>
   );
 };

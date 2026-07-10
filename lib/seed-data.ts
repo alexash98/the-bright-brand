@@ -1,4 +1,4 @@
-import { CaseStudy, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep } from "@/lib/seed-types";
+import { CaseStudy, ClientLogo, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep } from "@/lib/seed-types";
 
 function capitalizeFirst(text: string): string {
   if (!text) {

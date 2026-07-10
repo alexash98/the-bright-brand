@@ -14,6 +14,7 @@ import {
   SERVICES,
   TESTIMONIALS,
 } from "@/lib/seed-data";
+import { NAV_ITEMS } from "@/lib/nav";
 
 const Playbook = dynamic(
   () =>
@@ -44,14 +45,6 @@ const EnquiryForm = dynamic(
     import("@/components/seed/EnquiryForm").then((mod) => mod.EnquiryForm),
   { loading: () => <SectionPlaceholder heightClass="h-[640px]" /> },
 );
-
-const NAV_ITEMS = [
-  { label: "Services", url: "/services" },
-  { label: "Our Work", url: "/work" },
-  { label: "Team", url: "/about" },
-  { label: "How We Work", url: "/how-we-work" },
-  { label: "ROI Calculator", url: "/calculator" },
-];
 
 const ROTATING_WORDS = [
   "paid social",

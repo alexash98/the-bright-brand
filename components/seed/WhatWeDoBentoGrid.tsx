@@ -252,16 +252,21 @@ function CaseStudyModal({
   );
 }
 
+const FEATURED_BENTO_LAYOUT: BentoItemConfig[] = BENTO_LAYOUT.slice(0, 3);
+
 interface WhatWeDoBentoGridProps {
   caseStudies: CaseStudy[];
+  layout?: "full" | "featured";
 }
 
 export function WhatWeDoBentoGrid({
   caseStudies,
+  layout = "full",
 }: WhatWeDoBentoGridProps): React.ReactElement {
   const [activeStudy, setActiveStudy] = useState<CaseStudy | null>(null);
+  const activeLayout = layout === "featured" ? FEATURED_BENTO_LAYOUT : BENTO_LAYOUT;
 
-  const bentoStudies = BENTO_LAYOUT.map((config) => ({
+  const bentoStudies = activeLayout.map((config) => ({
     config,
     study: caseStudies.find((item) => item.id === config.id),
   })).filter(
@@ -273,7 +278,11 @@ export function WhatWeDoBentoGrid({
 
   return (
     <>
-      <div className="mt-16 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:grid-rows-4 md:gap-4">
+      <div
+        className={`mt-16 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-4 ${
+          layout === "featured" ? "md:grid-rows-2" : "md:grid-rows-4"
+        }`}
+      >
         {bentoStudies.map(({ config, study }) => (
           <BentoCard
             key={study.id}

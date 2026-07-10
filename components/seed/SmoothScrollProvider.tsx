@@ -5,12 +5,23 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
+import { usePathname } from "next/navigation";
 
 const HEADER_OFFSET = -80;
 
 type ScrollToSection = (id: string) => void;
+
+type LenisInstance = {
+  destroy: () => void;
+  raf: (time: number) => void;
+  scrollTo: (
+    target: number | HTMLElement,
+    options?: { offset?: number; duration?: number; immediate?: boolean },
+  ) => void;
+};
 
 const SmoothScrollContext = createContext<ScrollToSection | null>(null);
 
@@ -37,11 +48,42 @@ export function useScrollToSection(): ScrollToSection {
   );
 }
 
+function scrollToTop(lenisInstance: LenisInstance | null): void {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, { immediate: true });
+    return;
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function scrollToHash(lenisInstance: LenisInstance | null, hash: string): void {
+  const element = document.getElementById(hash);
+
+  if (!element) {
+    scrollToTop(lenisInstance);
+    return;
+  }
+
+  if (lenisInstance) {
+    lenisInstance.scrollTo(element, {
+      offset: HEADER_OFFSET,
+      duration: 1.1,
+    });
+    return;
+  }
+
+  element.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.scrollBy(0, HEADER_OFFSET);
+}
+
 export function SmoothScrollProvider({
   children,
 }: {
   children: React.ReactNode;
 }): React.ReactElement {
+  const pathname = usePathname();
+  const lenisRef = useRef<LenisInstance | null>(null);
   const [scrollToSection, setScrollToSection] = useState<ScrollToSection | null>(
     null,
   );
@@ -56,33 +98,34 @@ export function SmoothScrollProvider({
     }
 
     let frameId = 0;
-    let lenisInstance: { destroy: () => void; raf: (time: number) => void; scrollTo: (element: HTMLElement, options: { offset: number; duration: number }) => void } | null = null;
 
     const init = async (): Promise<void> => {
       const { default: Lenis } = await import("lenis");
 
-      lenisInstance = new Lenis({
+      const lenisInstance = new Lenis({
         duration: 1.1,
         easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
         smoothWheel: true,
         touchMultiplier: 1.1,
-      });
+      }) as LenisInstance;
+
+      lenisRef.current = lenisInstance;
 
       setScrollToSection(() => (id: string) => {
         const element = document.getElementById(id);
 
-        if (!element || !lenisInstance) {
+        if (!element || !lenisRef.current) {
           return;
         }
 
-        lenisInstance.scrollTo(element, {
+        lenisRef.current.scrollTo(element, {
           offset: HEADER_OFFSET,
           duration: 1.1,
         });
       });
 
       const raf = (time: number): void => {
-        lenisInstance?.raf(time);
+        lenisRef.current?.raf(time);
         frameId = window.requestAnimationFrame(raf);
       };
 
@@ -93,10 +136,25 @@ export function SmoothScrollProvider({
 
     return () => {
       window.cancelAnimationFrame(frameId);
-      lenisInstance?.destroy();
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
       setScrollToSection(null);
     };
   }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, "");
+
+    if (hash) {
+      const frameId = window.requestAnimationFrame(() => {
+        scrollToHash(lenisRef.current, hash);
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
+    scrollToTop(lenisRef.current);
+  }, [pathname]);
 
   return (
     <SmoothScrollContext.Provider value={scrollToSection}>

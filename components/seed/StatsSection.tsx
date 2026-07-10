@@ -47,23 +47,46 @@ const STATS: { value: React.ReactNode; label: string }[] = [
 
 interface StatsSectionProps {
   caseStudies: CaseStudy[];
+  theme?: "dark" | "light";
+  bentoLayout?: "full" | "featured";
 }
 
-export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
+export const StatsSection: React.FC<StatsSectionProps> = ({
+  caseStudies,
+  theme = "dark",
+  bentoLayout = "full",
+}) => {
+  const isLight = theme === "light";
+
   return (
-    <section id="work" className="relative overflow-hidden bg-brand-bg-darker pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <section
+      id="work"
+      className={`relative overflow-hidden ${
+        isLight
+          ? "bg-[#f7f7f5] py-16 sm:py-20"
+          : "bg-brand-bg-darker pt-28 pb-20 sm:pt-32 sm:pb-24"
+      }`}
+    >
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl text-left">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
               What We Do
             </p>
-            <h2 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-white md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
+            <h2
+              className={`mb-6 text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-[2.75rem] lg:leading-[1.15] ${
+                isLight ? "text-neutral-900" : "text-white"
+              }`}
+            >
               Full-funnel{" "}
               <span className="text-brand-accent">growth</span> for brands that
               want to win.
             </h2>
-            <p className="text-base leading-relaxed text-neutral-400 md:text-lg">
+            <p
+              className={`text-base leading-relaxed md:text-lg ${
+                isLight ? "text-neutral-600" : "text-neutral-400"
+              }`}
+            >
               A performance-driven growth partner, combining data and creativity
               across every channel that matters, so nothing&apos;s working in
               isolation.
@@ -74,12 +97,20 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="flex min-h-[132px] flex-col justify-center rounded-2xl border border-white/10 bg-[#232327] px-5 py-6 sm:min-h-[148px] sm:px-6 sm:py-7"
+                className={`flex min-h-[132px] flex-col justify-center rounded-2xl border px-5 py-6 sm:min-h-[148px] sm:px-6 sm:py-7 ${
+                  isLight
+                    ? "border-neutral-200 bg-white"
+                    : "border-white/10 bg-[#232327]"
+                }`}
               >
                 <p className="text-3xl font-semibold tracking-tight text-brand-accent sm:text-4xl">
                   {stat.value}
                 </p>
-                <p className="mt-2 text-sm font-semibold text-neutral-400 sm:text-[15px]">
+                <p
+                  className={`mt-2 text-sm font-semibold sm:text-[15px] ${
+                    isLight ? "text-neutral-600" : "text-neutral-400"
+                  }`}
+                >
                   {stat.label}
                 </p>
               </div>
@@ -87,7 +118,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({ caseStudies }) => {
           </div>
         </div>
 
-        <WhatWeDoBentoGrid caseStudies={caseStudies} />
+        <WhatWeDoBentoGrid caseStudies={caseStudies} layout={bentoLayout} />
       </div>
     </section>
   );

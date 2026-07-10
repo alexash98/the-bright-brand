@@ -2,6 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
 
 const PARTNER_LOGOS = [
@@ -32,8 +34,59 @@ const PARTNER_LOGOS = [
   },
 ];
 
+const AGENCY_LINKS = [
+  { label: "About", id: "about" },
+  { label: "Careers", id: "about" },
+  { label: "Sectors", id: "services" },
+  { label: "Podcast", id: "testimonials" },
+  { label: "Work", id: "work" },
+  { label: "Articles", id: "work" },
+  { label: "Impact", id: "playbook" },
+  { label: "Transparency", id: "playbook" },
+  { label: "Contact", id: "enquire" },
+];
+
+function FooterLink({
+  href,
+  onClick,
+  children,
+  className,
+}: {
+  href?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+  className: string;
+}): React.ReactElement {
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} className={className}>
+      {children}
+    </button>
+  );
+}
+
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
   const scrollToSection = useScrollToSection();
+
+  const sectionHref = (sectionId: string): string | undefined => {
+    if (pathname === "/") {
+      return undefined;
+    }
+
+    return `/#${sectionId}`;
+  };
+
+  const handleSectionClick = (sectionId: string): void => {
+    scrollToSection(sectionId);
+  };
 
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
@@ -60,11 +113,7 @@ export const Footer: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <button
-              type="button"
-              onClick={() => scrollToSection("hero")}
-              className="group flex cursor-pointer items-center"
-            >
+            <Link href="/" className="group flex cursor-pointer items-center">
               <Image
                 src="/seed-logo.png"
                 alt="Seed"
@@ -72,7 +121,7 @@ export const Footer: React.FC = () => {
                 height={48}
                 className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
               />
-            </button>
+            </Link>
             <div className="mt-6 space-y-2 text-sm font-medium text-neutral-300">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
                 The Bright Brand
@@ -98,13 +147,13 @@ export const Footer: React.FC = () => {
                 "Analytics",
                 "CRM",
               ].map((service) => (
-                <button
+                <Link
                   key={service}
-                  onClick={() => scrollToSection("services")}
+                  href="/services"
                   className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-all duration-200 hover:border-brand-accent/30 hover:bg-brand-accent hover:text-brand-bg-darker"
                 >
                   {service}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -114,24 +163,19 @@ export const Footer: React.FC = () => {
               Agency
             </h4>
             <div className="flex flex-wrap gap-2">
-              {[
-                { label: "About", id: "about" },
-                { label: "Careers", id: "about" },
-                { label: "Sectors", id: "services" },
-                { label: "Podcast", id: "testimonials" },
-                { label: "Work", id: "work" },
-                { label: "Articles", id: "work" },
-                { label: "Impact", id: "playbook" },
-                { label: "Transparency", id: "playbook" },
-                { label: "Contact", id: "enquire" },
-              ].map((link, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => scrollToSection(link.id)}
+              {AGENCY_LINKS.map((link) => (
+                <FooterLink
+                  key={`${link.label}-${link.id}`}
+                  href={sectionHref(link.id)}
+                  onClick={
+                    pathname === "/"
+                      ? () => handleSectionClick(link.id)
+                      : undefined
+                  }
                   className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-colors duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 >
                   {link.label}
-                </button>
+                </FooterLink>
               ))}
             </div>
           </div>
