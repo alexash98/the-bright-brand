@@ -3,8 +3,6 @@ import { NavItem } from "@/lib/seed-types";
 export const NAV_ITEMS: NavItem[] = [
   { label: "Services", url: "/services" },
   { label: "Our Work", url: "/work" },
-  { label: "Team", url: "/about" },
-  { label: "How We Work", url: "/how-we-work" },
 ];
 
 const PAGE_ROUTES = new Set(["/services", "/contact", "/work"]);

@@ -113,10 +113,7 @@ function BentoCard({
         </div>
 
         <div>
-          <p className="text-4xl font-semibold tracking-tight text-brand-accent sm:text-5xl">
-            {study.highlightStat}
-          </p>
-          <p className="mt-2 max-w-[280px] text-sm leading-snug text-white/90 sm:text-[15px]">
+          <p className="max-w-[280px] text-sm leading-snug text-white/90 sm:text-[15px]">
             {study.highlightLabel}
           </p>
 

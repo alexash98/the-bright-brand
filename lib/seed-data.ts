@@ -119,6 +119,23 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
   ),
 ];
 
+const WORK_PAGE_CASE_STUDY_ORDER = [
+  "menzies-law",
+  "formx",
+  "manor-interior",
+  "releaf",
+  "anywhere-travel",
+  "canopy",
+  "enexus",
+  "airbox",
+  "britton-and-time",
+  "direct2",
+] as const;
+
+export const WORK_PAGE_CASE_STUDIES: CaseStudy[] = WORK_PAGE_CASE_STUDY_ORDER.map(
+  (id) => HERO_CAROUSEL_CASE_STUDIES.find((study) => study.id === id),
+).filter((study): study is CaseStudy => study !== undefined);
+
 export const SERVICES: ServiceCard[] = [
   {
     id: "seo",
