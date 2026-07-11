@@ -5,10 +5,9 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Our Work", url: "/work" },
   { label: "Team", url: "/about" },
   { label: "How We Work", url: "/how-we-work" },
-  { label: "ROI Calculator", url: "/calculator" },
 ];
 
-const PAGE_ROUTES = new Set(["/services"]);
+const PAGE_ROUTES = new Set(["/services", "/contact"]);
 
 export function getNavHref(item: NavItem): string {
   if (PAGE_ROUTES.has(item.url)) {
@@ -27,6 +26,6 @@ export function getHomepageSectionId(item: NavItem): string {
   return item.url.replace(/^\//, "");
 }
 
-export function getEnquireHref(pathname: string): string {
-  return pathname === "/" ? "#enquire" : "/#enquire";
+export function getEnquireHref(): string {
+  return "/contact";
 }

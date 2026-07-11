@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
+import { TestimonialCard } from "@/components/seed/TestimonialCard";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface TestimonialsProps {
@@ -11,48 +12,6 @@ interface TestimonialsProps {
 }
 
 const CARD_GAP_PX = 16;
-
-function TestimonialCard({
-  testimonial,
-}: {
-  testimonial: Testimonial;
-}): React.ReactElement {
-  const avatarSrc = testimonial.imageSrc
-    ? testimonial.imageSrc
-    : `https://picsum.photos/seed/${testimonial.avatarSeed ?? testimonial.id}/80/80`;
-  const avatarAlt = testimonial.imageAlt ?? testimonial.author;
-
-  return (
-    <article className="flex min-h-[280px] w-[300px] shrink-0 flex-col rounded-2xl border border-neutral-200/80 bg-white p-6 sm:w-[340px] sm:p-7">
-      <span className="mb-5 inline-flex w-fit rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
-        {testimonial.company}
-      </span>
-
-      <blockquote className="flex-1 text-sm leading-relaxed text-neutral-700 sm:text-[15px]">
-        {testimonial.text}
-      </blockquote>
-
-      <div className="mt-8 flex items-center gap-4">
-        <Image
-          src={avatarSrc}
-          alt={avatarAlt}
-          width={48}
-          height={48}
-          loading="lazy"
-          className="h-12 w-12 shrink-0 rounded-full object-cover"
-        />
-        <div>
-          <p className="text-sm font-semibold text-neutral-900">
-            {testimonial.author}
-          </p>
-          {testimonial.role ? (
-            <p className="text-sm text-neutral-600">{testimonial.role}</p>
-          ) : null}
-        </div>
-      </div>
-    </article>
-  );
-}
 
 function TestimonialSegment({
   testimonials,
@@ -75,13 +34,14 @@ function TestimonialSegment({
         <TestimonialCard
           key={`${segmentKey}-${testimonial.id}`}
           testimonial={testimonial}
+          className="min-h-[280px] w-[300px] shrink-0 sm:w-[340px]"
         />
       ))}
     </div>
   );
 }
 
-function TestimonialTrack({
+export function TestimonialTrack({
   testimonials,
 }: {
   testimonials: Testimonial[];

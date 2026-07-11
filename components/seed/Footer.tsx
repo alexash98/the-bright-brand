@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
+import { CONTACT } from "@/lib/contact";
 
 const PARTNER_LOGOS = [
   {
@@ -43,7 +44,7 @@ const AGENCY_LINKS = [
   { label: "Articles", id: "work" },
   { label: "Impact", id: "playbook" },
   { label: "Transparency", id: "playbook" },
-  { label: "Contact", id: "enquire" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function FooterLink({
@@ -126,7 +127,7 @@ export const Footer: React.FC = () => {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
                 The Bright Brand
               </p>
-              <p>124 City Road, London, EC1V 2NX</p>
+              <p>{CONTACT.address.line1}, {CONTACT.address.line2}</p>
               <p className="text-xs text-neutral-500">Global clientbase</p>
             </div>
           </div>
@@ -165,10 +166,14 @@ export const Footer: React.FC = () => {
             <div className="flex flex-wrap gap-2">
               {AGENCY_LINKS.map((link) => (
                 <FooterLink
-                  key={`${link.label}-${link.id}`}
-                  href={sectionHref(link.id)}
+                  key={link.label}
+                  href={
+                    "href" in link
+                      ? link.href
+                      : sectionHref(link.id)
+                  }
                   onClick={
-                    pathname === "/"
+                    !("href" in link) && pathname === "/"
                       ? () => handleSectionClick(link.id)
                       : undefined
                   }

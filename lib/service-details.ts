@@ -232,13 +232,6 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
       { value: "£5M+", label: "Yearly ad spend managed for clients" },
       { value: "Weekly", label: "Optimisation cadence with live dashboards" },
     ],
-    testimonial: {
-      quote:
-        "The paid search team's focus, communication and drive to deliver a positive ROI gave us the confidence to increase media budgets several-fold in a few months. The ideas they put forward to scale efficiently have made a real difference to our growth plans.",
-      author: "Chris Griffin",
-      role: "CEO & Founder",
-      company: "Secret Sales",
-    },
     faqsHeading: "PPC agency FAQs",
     faqs: [
       {

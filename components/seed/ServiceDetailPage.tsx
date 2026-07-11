@@ -44,33 +44,33 @@ export function ServiceDetailPage({
       <Header navItems={NAV_ITEMS} />
 
       <MarketingHero>
-          <Link
-            href="/services"
-            className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-text-pale/70 transition-colors hover:text-brand-accent"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            All services
-          </Link>
+        <Link
+          href="/services"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-text-pale/70 transition-colors hover:text-brand-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          All services
+        </Link>
 
-          <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-            <Icon className="h-6 w-6 text-brand-accent" />
-          </div>
+        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+          <Icon className="h-6 w-6 text-brand-accent" />
+        </div>
 
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-            {service.shortTitle}
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+          {service.shortTitle}
+        </p>
+        <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:text-6xl">
+          {service.heroTitle}{" "}
+          <span className="text-brand-accent">{service.heroAccent}</span>.
+        </h1>
+        <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
+          {service.heroIntro}
+        </p>
+        {service.heroIntroSecondary ? (
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-text-pale/60 md:text-lg">
+            {service.heroIntroSecondary}
           </p>
-          <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:text-6xl">
-            {service.heroTitle}{" "}
-            <span className="text-brand-accent">{service.heroAccent}</span>.
-          </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
-            {service.heroIntro}
-          </p>
-          {service.heroIntroSecondary ? (
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-text-pale/60 md:text-lg">
-              {service.heroIntroSecondary}
-            </p>
-          ) : null}
+        ) : null}
       </MarketingHero>
 
       <main className="bg-white text-neutral-900">

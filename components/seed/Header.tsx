@@ -61,8 +61,8 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
     );
   };
 
-  const enquireHref = getEnquireHref(pathname);
-  const isHomepageEnquire = pathname === "/";
+  const enquireHref = getEnquireHref();
+  const isOnContactPage = pathname === "/contact";
 
   return (
     <>
@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
             </div>
 
             <div className="hidden md:block">
-              {isHomepageEnquire ? (
+              {isOnContactPage ? (
                 <button
                   type="button"
                   onClick={() => handleScrollTo("enquire")}
@@ -131,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               {navItems.map((item) => renderNavItem(item, mobileNavLinkClassName))}
             </div>
 
-            {isHomepageEnquire ? (
+            {isOnContactPage ? (
               <button
                 type="button"
                 onClick={() => handleScrollTo("enquire")}
