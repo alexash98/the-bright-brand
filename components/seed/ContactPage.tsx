@@ -39,7 +39,7 @@ export function ContactPage(): React.ReactElement {
           Tell us where <span className="text-brand-accent">you</span> want to
           go.
         </h1>
-        <p className="max-w-xl text-lg leading-relaxed text-brand-text-pale/85 md:text-xl xl:text-lg">
+        <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
           No pitch deck and no pressure. Share a few details and we will
           respond with an honest view of what comes next.
         </p>

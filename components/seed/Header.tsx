@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NavItem } from "@/lib/seed-types";
-import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
+import { useScrollToSection, useScrollToTop } from "@/components/seed/SmoothScrollProvider";
 import {
   getEnquireHref,
   getHomepageSectionId,
@@ -29,6 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const scrollToSection = useScrollToSection();
+  const scrollToTop = useScrollToTop();
 
   const handleScrollTo = (id: string) => {
     setIsOpen(false);
@@ -64,12 +65,20 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
   const enquireHref = getEnquireHref();
   const isOnContactPage = pathname === "/contact";
 
+  const handleHomeClick = (): void => {
+    setIsOpen(false);
+
+    if (pathname === "/") {
+      scrollToTop();
+    }
+  };
+
   return (
     <>
       <nav id="navbar" className="fixed top-0 z-50 w-full bg-[#1f1f22]/95 backdrop-blur-md transition-all duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4 md:px-8">
           <div className="flex items-center">
-            <Link href="/" className="group flex cursor-pointer items-center">
+            <Link href="/" onClick={handleHomeClick} className="group flex cursor-pointer items-center">
               <Image
                 src="/seed-logo.png"
                 alt="Seed"

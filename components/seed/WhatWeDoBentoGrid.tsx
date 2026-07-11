@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
-import { CheckCircle2, TrendingUp, X } from "lucide-react";
+import { CaseStudyModalLayer } from "@/components/seed/CaseStudyModal";
 import { CaseStudy } from "@/lib/seed-types";
 
 interface BentoItemConfig {
@@ -132,126 +131,6 @@ function BentoCard({
   );
 }
 
-function CaseStudyModal({
-  study,
-  onClose,
-}: {
-  study: CaseStudy;
-  onClose: () => void;
-}): React.ReactElement {
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-brand-bg-darker/80 backdrop-blur-md"
-      />
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ type: "spring", damping: 25, stiffness: 350 }}
-        className="custom-scrollbar relative z-10 max-h-[85vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-neutral-200 bg-white text-left"
-      >
-        <div className="relative h-64 overflow-hidden md:h-80">
-          <Image
-            src={study.imageUrl}
-            alt={study.clientName}
-            fill
-            sizes="(max-width: 768px) 100vw, 896px"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/60 to-transparent" />
-          <button
-            onClick={onClose}
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-brand-bg-darker/60 text-white transition-colors hover:border-brand-accent/40 hover:text-brand-accent"
-          >
-            <X className="h-5 w-5" />
-          </button>
-          <div className="absolute bottom-6 left-6 right-6">
-            <span className="text-sm font-bold uppercase tracking-wider text-brand-accent">
-              Client Case Study
-            </span>
-            <h3 className="mt-2 text-3xl font-semibold leading-tight text-white md:text-5xl">
-              {study.clientName}
-            </h3>
-          </div>
-        </div>
-
-        <div className="space-y-8 p-6 md:p-10">
-          {study.stats.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-              {study.stats.map((statItem, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center justify-center rounded-xl border border-neutral-200 bg-neutral-50 p-5 text-center"
-                >
-                  <TrendingUp className="mb-2 h-5 w-5 text-brand-accent" />
-                  <span className="block text-3xl font-black tracking-tight text-neutral-900">
-                    {statItem.stat}
-                  </span>
-                  <span className="mt-1 text-xs text-neutral-500">{statItem.label}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-6 text-center">
-              <p className="text-4xl font-black tracking-tight text-brand-accent">
-                {study.highlightStat}
-              </p>
-              <p className="mt-2 text-sm text-neutral-600">{study.highlightLabel}</p>
-            </div>
-          )}
-
-          {study.challenge !== "TBD" ? (
-            <div className="grid gap-8 pt-4 md:grid-cols-12">
-              <div className="space-y-6 md:col-span-8">
-                <div>
-                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                    The Challenge
-                  </h4>
-                  <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
-                    {study.challenge}
-                  </p>
-                </div>
-                <div>
-                  <h4 className="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                    The Approach
-                  </h4>
-                  <p className="text-sm leading-relaxed text-neutral-600 md:text-base">
-                    {study.approach}
-                  </p>
-                </div>
-              </div>
-
-              {study.results.length > 0 ? (
-                <div className="space-y-6 md:col-span-4">
-                  <div>
-                    <h4 className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand-accent">
-                      The Deliverables
-                    </h4>
-                    <ul className="space-y-2.5">
-                      {study.results.map((result, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-neutral-600">
-                          <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-accent" />
-                          <span className="leading-snug">{result}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
 const FEATURED_BENTO_LAYOUT: BentoItemConfig[] = BENTO_LAYOUT.slice(0, 3);
 
 interface WhatWeDoBentoGridProps {
@@ -293,11 +172,10 @@ export function WhatWeDoBentoGrid({
         ))}
       </div>
 
-      <AnimatePresence>
-        {activeStudy && (
-          <CaseStudyModal study={activeStudy} onClose={() => setActiveStudy(null)} />
-        )}
-      </AnimatePresence>
+      <CaseStudyModalLayer
+        study={activeStudy}
+        onClose={() => setActiveStudy(null)}
+      />
     </>
   );
 }

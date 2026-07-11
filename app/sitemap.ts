@@ -21,6 +21,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/contact`,
       lastModified: new Date("2026-07-11"),
     },
+    {
+      url: `${SITE_URL}/work`,
+      lastModified: new Date("2026-07-11"),
+    },
     ...servicePages,
   ];
 }

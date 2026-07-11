@@ -19,9 +19,9 @@ export function ContactEnquirySection(): React.ReactElement {
   } = useEnquiryForm();
 
   return (
-    <section id="enquire" className="relative bg-white pb-12 md:pb-14">
+    <section id="enquire" className="relative bg-white pb-12 pt-16 md:pb-14">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="relative -mt-24 pt-10 md:-mt-28 md:pt-14">
+        <div>
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
             Enquiry
           </p>

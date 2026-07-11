@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation";
 const HEADER_OFFSET = -80;
 
 type ScrollToSection = (id: string) => void;
+type ScrollToTop = () => void;
 
 type LenisInstance = {
   destroy: () => void;
@@ -24,6 +25,7 @@ type LenisInstance = {
 };
 
 const SmoothScrollContext = createContext<ScrollToSection | null>(null);
+const ScrollToTopContext = createContext<ScrollToTop | null>(null);
 
 export function useScrollToSection(): ScrollToSection {
   const scrollTo = useContext(SmoothScrollContext);
@@ -48,13 +50,26 @@ export function useScrollToSection(): ScrollToSection {
   );
 }
 
+export function useScrollToTop(): ScrollToTop {
+  const scrollToTop = useContext(ScrollToTopContext);
+
+  return useCallback(() => {
+    scrollToTop?.();
+  }, [scrollToTop]);
+}
+
+function resetNativeScroll(): void {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+}
+
 function scrollToTop(lenisInstance: LenisInstance | null): void {
   if (lenisInstance) {
     lenisInstance.scrollTo(0, { immediate: true });
-    return;
   }
 
-  window.scrollTo(0, 0);
+  resetNativeScroll();
 }
 
 function scrollToHash(lenisInstance: LenisInstance | null, hash: string): void {
@@ -77,6 +92,27 @@ function scrollToHash(lenisInstance: LenisInstance | null, hash: string): void {
   window.scrollBy(0, HEADER_OFFSET);
 }
 
+function runAfterNavigation(
+  lenisInstance: LenisInstance | null,
+  action: () => void,
+): () => void {
+  action();
+
+  const firstFrame = window.requestAnimationFrame(() => {
+    action();
+
+    window.requestAnimationFrame(() => {
+      action();
+
+      if (!lenisInstance) {
+        window.setTimeout(action, 0);
+      }
+    });
+  });
+
+  return () => window.cancelAnimationFrame(firstFrame);
+}
+
 export function SmoothScrollProvider({
   children,
 }: {
@@ -87,6 +123,15 @@ export function SmoothScrollProvider({
   const [scrollToSection, setScrollToSection] = useState<ScrollToSection | null>(
     null,
   );
+  const [scrollToTopHandler, setScrollToTopHandler] = useState<ScrollToTop | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+  }, []);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -94,6 +139,7 @@ export function SmoothScrollProvider({
     ).matches;
 
     if (prefersReducedMotion) {
+      setScrollToTopHandler(() => () => scrollToTop(null));
       return;
     }
 
@@ -124,6 +170,8 @@ export function SmoothScrollProvider({
         });
       });
 
+      setScrollToTopHandler(() => () => scrollToTop(lenisRef.current));
+
       const raf = (time: number): void => {
         lenisRef.current?.raf(time);
         frameId = window.requestAnimationFrame(raf);
@@ -139,6 +187,7 @@ export function SmoothScrollProvider({
       lenisRef.current?.destroy();
       lenisRef.current = null;
       setScrollToSection(null);
+      setScrollToTopHandler(() => () => scrollToTop(null));
     };
   }, []);
 
@@ -146,19 +195,21 @@ export function SmoothScrollProvider({
     const hash = window.location.hash.replace(/^#/, "");
 
     if (hash) {
-      const frameId = window.requestAnimationFrame(() => {
+      return runAfterNavigation(lenisRef.current, () => {
         scrollToHash(lenisRef.current, hash);
       });
-
-      return () => window.cancelAnimationFrame(frameId);
     }
 
-    scrollToTop(lenisRef.current);
+    return runAfterNavigation(lenisRef.current, () => {
+      scrollToTop(lenisRef.current);
+    });
   }, [pathname]);
 
   return (
-    <SmoothScrollContext.Provider value={scrollToSection}>
-      {children}
-    </SmoothScrollContext.Provider>
+    <ScrollToTopContext.Provider value={scrollToTopHandler}>
+      <SmoothScrollContext.Provider value={scrollToSection}>
+        {children}
+      </SmoothScrollContext.Provider>
+    </ScrollToTopContext.Provider>
   );
 }

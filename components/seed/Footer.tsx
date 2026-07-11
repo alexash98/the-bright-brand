@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
+import { useScrollToSection, useScrollToTop } from "@/components/seed/SmoothScrollProvider";
 import { CONTACT } from "@/lib/contact";
 
 const PARTNER_LOGOS = [
@@ -76,6 +76,7 @@ function FooterLink({
 export const Footer: React.FC = () => {
   const pathname = usePathname();
   const scrollToSection = useScrollToSection();
+  const scrollToTop = useScrollToTop();
 
   const sectionHref = (sectionId: string): string | undefined => {
     if (pathname === "/") {
@@ -114,7 +115,15 @@ export const Footer: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <Link href="/" className="group flex cursor-pointer items-center">
+            <Link
+              href="/"
+              onClick={() => {
+                if (pathname === "/") {
+                  scrollToTop();
+                }
+              }}
+              className="group flex cursor-pointer items-center"
+            >
               <Image
                 src="/seed-logo.png"
                 alt="Seed"
