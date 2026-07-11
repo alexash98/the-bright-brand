@@ -3,9 +3,10 @@ import { NavItem } from "@/lib/seed-types";
 export const NAV_ITEMS: NavItem[] = [
   { label: "Services", url: "/services" },
   { label: "Our Work", url: "/work" },
+  { label: "About Us", url: "/about" },
 ];
 
-const PAGE_ROUTES = new Set(["/services", "/contact", "/work"]);
+const PAGE_ROUTES = new Set(["/services", "/contact", "/work", "/about"]);
 
 export function getNavHref(item: NavItem): string {
   if (PAGE_ROUTES.has(item.url)) {

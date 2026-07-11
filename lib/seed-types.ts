@@ -105,6 +105,7 @@ export interface CaseStudy {
   stats: StatCard[];
   imageUrl: string;
   clientLogo?: string;
+  clientLogoInvert?: boolean;
   testimonial?: {
     text: string;
     author: string;
@@ -139,6 +140,49 @@ export interface TeamMember {
 export interface PlaybookRow {
   from: string;
   to: string;
+}
+
+export interface AboutWorkPillar {
+  title: string;
+  body: string;
+}
+
+export interface AboutHeroHighlight {
+  value: string;
+  label: string;
+}
+
+export interface AboutBridgeHighlight {
+  title: string;
+  body: string;
+  icon: "senior" | "connected" | "reporting";
+}
+
+export interface AboutComparisonSection {
+  eyebrow: string;
+  title: string;
+  highlight: string;
+  leftTitle: string;
+  rightTitle: string;
+  typical: string[];
+  seed: string[];
+  bridgeHighlights: AboutBridgeHighlight[];
+}
+
+export interface AboutCultureContent {
+  eyebrow: string;
+  title: string;
+  highlight: string;
+  intro: string;
+  pillars: AboutWorkPillar[];
+}
+
+export interface AboutFeaturedWorkContent {
+  eyebrow: string;
+  title: string;
+  highlight: string;
+  intro: string;
+  caseStudyIds: string[];
 }
 
 export interface EngagementStep {

@@ -1,4 +1,4 @@
-import { CaseStudy, ClientLogo, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep } from "@/lib/seed-types";
+import { CaseStudy, ClientLogo, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep, AboutComparisonSection, AboutCultureContent, AboutFeaturedWorkContent, AboutHeroHighlight } from "@/lib/seed-types";
 
 function capitalizeFirst(text: string): string {
   if (!text) {
@@ -15,6 +15,7 @@ function heroCarouselCase(
   highlightLabel: string,
   imageUrl: string,
   clientLogo?: string,
+  clientLogoInvert = true,
 ): CaseStudy {
   const label = capitalizeFirst(highlightLabel);
 
@@ -34,6 +35,7 @@ function heroCarouselCase(
     stats: [],
     imageUrl,
     clientLogo,
+    clientLogoInvert,
   };
 }
 
@@ -119,6 +121,39 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
   ),
 ];
 
+export const WORK_ONLY_CASE_STUDIES: CaseStudy[] = [
+  heroCarouselCase(
+    "heat-from-the-spire",
+    "Heat from the Spire",
+    "3x",
+    "revenue growth in one year",
+    "/carousel/heat-from-the-spire-store.webp",
+    "hfts-logo-transparent.png",
+    false,
+  ),
+  heroCarouselCase(
+    "northwest-solicitors",
+    "Northwest Solicitors",
+    "+81%",
+    "case enquiry volume from search",
+    "/carousel/northwest-solicitors.webp",
+    "northwest-solicitors.png",
+  ),
+  heroCarouselCase(
+    "baker-ashley",
+    "Baker Ashley Solicitors",
+    "+74%",
+    "conveyancing enquiry growth from search",
+    "/carousel/baker-ashley.webp",
+    "baker-ashley.png",
+  ),
+];
+
+const WORK_PAGE_CASE_STUDIES_SOURCE = [
+  ...HERO_CAROUSEL_CASE_STUDIES,
+  ...WORK_ONLY_CASE_STUDIES,
+];
+
 const WORK_PAGE_CASE_STUDY_ORDER = [
   "menzies-law",
   "formx",
@@ -130,10 +165,13 @@ const WORK_PAGE_CASE_STUDY_ORDER = [
   "airbox",
   "britton-and-time",
   "direct2",
+  "heat-from-the-spire",
+  "northwest-solicitors",
+  "baker-ashley",
 ] as const;
 
 export const WORK_PAGE_CASE_STUDIES: CaseStudy[] = WORK_PAGE_CASE_STUDY_ORDER.map(
-  (id) => HERO_CAROUSEL_CASE_STUDIES.find((study) => study.id === id),
+  (id) => WORK_PAGE_CASE_STUDIES_SOURCE.find((study) => study.id === id),
 ).filter((study): study is CaseStudy => study !== undefined);
 
 export const SERVICES: ServiceCard[] = [
@@ -573,6 +611,87 @@ export const PLAYBOOK: PlaybookRow[] = [
   { from: "New business machines", to: "Long-term partnerships" },
   { from: "Fear of failure, no innovation", to: "Experiment and adapt" }
 ];
+
+export const ABOUT_HERO_HIGHLIGHTS: AboutHeroHighlight[] = [
+  { value: "£50M+", label: "Revenue generated for clients" },
+  { value: "10 yrs", label: "Building performance marketing teams" },
+  { value: "6", label: "Senior directors across core disciplines" },
+  { value: "EOT", label: "Transitioning to employee ownership" },
+];
+
+export const ABOUT_WHY_DIFFERENT: AboutComparisonSection = {
+  eyebrow: "Why we're different",
+  title: "Most agencies are built to protect",
+  highlight: "the retainer.",
+  leftTitle: "What we see elsewhere",
+  rightTitle: "How Seed works",
+  typical: [
+    "Junior teams execute while senior people stay in the pitch room",
+    "Channels managed separately with no shared view of the funnel",
+    "Monthly reports full of impressions, reach and other vanity metrics",
+    "Scope signed off before anyone has looked properly at your data",
+    "Recommendations shaped by what the agency sells, not what you need",
+  ],
+  seed: [
+    "Directors and specialists in your calls from the first week",
+    "Search, paid, creative and PR planned as one connected system",
+    "Reporting tied to revenue, pipeline and cost efficiency",
+    "Strategy built from your analytics and updated as conditions change",
+    "Advice based on what moves your numbers, not our service menu",
+  ],
+  bridgeHighlights: [
+    {
+      icon: "senior",
+      title: "Senior from week one",
+      body: "Directors in your calls, not just the pitch room.",
+    },
+    {
+      icon: "connected",
+      title: "One connected plan",
+      body: "Search, paid, creative and PR working as a system.",
+    },
+    {
+      icon: "reporting",
+      title: "Metrics that matter",
+      body: "Reporting tied to revenue, pipeline and efficiency.",
+    },
+  ],
+};
+
+export const ABOUT_CULTURE: AboutCultureContent = {
+  eyebrow: "How we work",
+  title: "Structured for momentum, not",
+  highlight: "maintenance.",
+  intro:
+    "We organise around client pods, not departments. Each pod brings together the specialists your account needs, with clear ownership and fast decision-making. That means less process theatre and more time spent on work that shows up in your results.",
+  pillars: [
+    {
+      title: "Client pods, not hand-offs",
+      body: "Your account is run by a small, stable team that knows your business. Briefs do not bounce between departments or disappear into a ticket queue.",
+    },
+    {
+      title: "Senior specialists from week one",
+      body: "The people who scope your strategy are the people who deliver it. No bait-and-switch once the contract is signed.",
+    },
+    {
+      title: "Reporting you can act on",
+      body: "We focus on metrics that connect to commercial outcomes. If a number cannot inform a decision, it does not belong in your dashboard.",
+    },
+    {
+      title: "Partnerships that stay flexible",
+      body: "We prefer agreements that reflect real progress, not lock-ins that suit us. Scale up, scale down, or shift focus as your priorities change.",
+    },
+  ],
+};
+
+export const ABOUT_FEATURED_WORK: AboutFeaturedWorkContent = {
+  eyebrow: "Client results",
+  title: "Outcomes you can",
+  highlight: "measure.",
+  intro:
+    "The work shows up in revenue, pipeline and efficiency — not slide decks. Here is a sample of what that looks like in practice.",
+  caseStudyIds: ["menzies-law", "britton-and-time", "heat-from-the-spire"],
+};
 
 export const TEAM: TeamMember[] = [
   {

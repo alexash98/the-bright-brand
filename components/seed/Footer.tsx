@@ -36,7 +36,7 @@ const PARTNER_LOGOS = [
 ];
 
 const AGENCY_LINKS = [
-  { label: "About", id: "about" },
+  { label: "About", href: "/about" },
   { label: "Careers", id: "about" },
   { label: "Sectors", id: "services" },
   { label: "Podcast", id: "testimonials" },
