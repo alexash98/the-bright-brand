@@ -297,13 +297,6 @@ export const CLIENT_LOGOS = [
 
 export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   {
-    name: "Shopify",
-    logo: "shopify.svg",
-    seed: "shopify",
-    folder: "platform-logos",
-    widthClass: "w-[8.7rem]",
-  },
-  {
     name: "Triple Whale",
     logo: "triple-whale.svg",
     seed: "triple-whale",
@@ -319,45 +312,55 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Meta",
-    logo: "meta.svg",
+    logo: "meta.png",
     seed: "meta",
+    folder: "platform-logos",
+    widthClass: "w-[7.4rem]",
+    preserveColors: true,
+  },
+  {
+    name: "Hyros",
+    logo: "hyros.png",
+    seed: "hyros",
     folder: "platform-logos",
     widthClass: "w-[6.9rem]",
   },
   {
-    name: "Hyros",
-    logo: "hyros.svg",
-    seed: "hyros",
-    folder: "platform-logos",
-    widthClass: "w-[6.6rem]",
-  },
-  {
     name: "Northbeam",
-    logo: "northbeam.svg",
+    logo: "northbeam.png",
     seed: "northbeam",
     folder: "platform-logos",
     widthClass: "w-[9.6rem]",
   },
   {
     name: "HubSpot",
-    logo: "hubspot.svg",
+    logo: "hubspot.png",
     seed: "hubspot",
     folder: "platform-logos",
     widthClass: "w-[8.4rem]",
   },
   {
     name: "Salesforce",
-    logo: "salesforce.svg",
+    logo: "salesforce.png",
     seed: "salesforce",
     folder: "platform-logos",
-    widthClass: "w-[9.6rem]",
+    widthClass: "w-[10.8rem]",
+    heightClass: "h-[3.4rem] sm:h-[3.8rem]",
+    preserveColors: true,
   },
   {
     name: "Pipedrive",
-    logo: "pipedrive.svg",
+    logo: "pipedrive.png",
     seed: "pipedrive",
     folder: "platform-logos",
     widthClass: "w-[9rem]",
+  },
+  {
+    name: "Shopify",
+    logo: "shopify.svg",
+    seed: "shopify",
+    folder: "platform-logos",
+    widthClass: "w-[8.7rem]",
   },
 ];
 

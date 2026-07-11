@@ -17,7 +17,7 @@ function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
 
   return (
     <div
-      className={`relative h-[1.8rem] shrink-0 opacity-70 transition-opacity duration-300 hover:opacity-100 sm:h-[2.1rem] ${logo.widthClass ?? "w-[8.4rem]"}`}
+      className={`relative shrink-0 opacity-70 transition-opacity duration-300 hover:opacity-100 ${logo.heightClass ?? "h-[1.8rem] sm:h-[2.1rem]"} ${logo.widthClass ?? "w-[8.4rem]"}`}
       style={logo.scale ? { transform: `scale(${logo.scale})` } : undefined}
     >
       <Image
@@ -26,8 +26,8 @@ function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
         fill
         sizes="168px"
         loading="lazy"
-        unoptimized={logo.logo.endsWith(".svg")}
-        className="object-contain brightness-0"
+        unoptimized={logo.logo.endsWith(".svg") || logo.preserveColors}
+        className={`object-contain ${logo.preserveColors ? "" : "brightness-0"}`}
       />
     </div>
   );
@@ -48,7 +48,7 @@ function LogoSegment({
     <div
       ref={segmentRef}
       aria-hidden={ariaHidden || undefined}
-      className={`flex ${LOGO_GAP_CLASS}`}
+      className={`flex items-center ${LOGO_GAP_CLASS}`}
     >
       {logos.map((logo) => (
         <LogoItem key={`${segmentKey}-${logo.seed}`} logo={logo} />
@@ -87,7 +87,7 @@ function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement 
 
   if (scrollDistance === null || prefersReducedMotion) {
     return (
-      <div className={`flex overflow-x-auto ${LOGO_GAP_CLASS}`}>
+      <div className={`flex items-center overflow-x-auto ${LOGO_GAP_CLASS}`}>
         <LogoSegment logos={logos} segmentKey="static" segmentRef={segmentRef} />
       </div>
     );
@@ -95,7 +95,7 @@ function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement 
 
   return (
     <motion.div
-      className={`flex ${LOGO_GAP_CLASS}`}
+      className={`flex items-center ${LOGO_GAP_CLASS}`}
       animate={{ x: [-scrollDistance, 0] }}
       transition={{
         x: {

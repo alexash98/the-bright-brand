@@ -7,10 +7,26 @@ import { CaseStudyModalLayer } from "@/components/seed/CaseStudyModal";
 import { CaseStudy } from "@/lib/seed-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
-const CARD_INTRO_TRANSITION = {
-  duration: 0.75,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
+const GRID_VARIANTS = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.025,
+    },
+  },
+} as const;
+
+const CARD_VARIANTS = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+} as const;
 
 interface BentoItemConfig {
   id: string;
@@ -162,12 +178,16 @@ export function WhatWeDoBentoGrid({
 
   return (
     <>
-      <div
+      <motion.div
         className={`mt-16 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 md:gap-4 ${
           layout === "featured" ? "md:grid-rows-2" : "md:grid-rows-4"
         }`}
+        initial={prefersReducedMotion ? undefined : "hidden"}
+        whileInView={prefersReducedMotion ? undefined : "visible"}
+        viewport={{ once: true, amount: 0.06 }}
+        variants={prefersReducedMotion ? undefined : GRID_VARIANTS}
       >
-        {bentoStudies.map(({ config, study }, index) => {
+        {bentoStudies.map(({ config, study }) => {
           const card = (
             <BentoCard
               study={study}
@@ -188,19 +208,13 @@ export function WhatWeDoBentoGrid({
             <motion.div
               key={study.id}
               className={config.gridClass}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                ...CARD_INTRO_TRANSITION,
-                delay: index * 0.12,
-              }}
+              variants={CARD_VARIANTS}
             >
               {card}
             </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
       <CaseStudyModalLayer
         study={activeStudy}

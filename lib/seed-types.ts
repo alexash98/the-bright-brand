@@ -11,6 +11,8 @@ export interface ClientLogo {
   scale?: number;
   folder?: "client-logos" | "platform-logos" | "partner-logos";
   widthClass?: string;
+  heightClass?: string;
+  preserveColors?: boolean;
 }
 
 export interface NavItem {

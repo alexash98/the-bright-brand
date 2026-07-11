@@ -6,21 +6,39 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { PortfolioCard } from "@/components/seed/PortfolioCard";
 import { AboutFeaturedWorkContent, CaseStudy } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface AboutFeaturedWorkSectionProps {
   content: AboutFeaturedWorkContent;
   caseStudies: CaseStudy[];
 }
 
-const CARD_INTRO_TRANSITION = {
-  duration: 0.6,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
+const GRID_VARIANTS = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+} as const;
+
+const CARD_VARIANTS = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+} as const;
 
 export function AboutFeaturedWorkSection({
   content,
   caseStudies,
 }: AboutFeaturedWorkSectionProps): React.ReactElement {
+  const prefersReducedMotion = usePrefersReducedMotion();
   return (
     <section className="bg-white py-20 text-neutral-900 md:py-28">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -49,22 +67,27 @@ export function AboutFeaturedWorkSection({
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          {caseStudies.map((study, index) => (
-            <motion.div
-              key={study.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                ...CARD_INTRO_TRANSITION,
-                delay: index * 0.1,
-              }}
-            >
-              <PortfolioCard study={study} />
-            </motion.div>
-          ))}
-        </div>
+        {prefersReducedMotion ? (
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+            {caseStudies.map((study) => (
+              <PortfolioCard key={study.id} study={study} />
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.06 }}
+            variants={GRID_VARIANTS}
+          >
+            {caseStudies.map((study) => (
+              <motion.div key={study.id} variants={CARD_VARIANTS}>
+                <PortfolioCard study={study} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );

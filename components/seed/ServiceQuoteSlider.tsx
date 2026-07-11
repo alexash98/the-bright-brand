@@ -52,7 +52,7 @@ export function ServiceQuoteSlider({
             {activeQuote.company}
           </span>
           <blockquote className="text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
-            {activeQuote.quote}
+            &ldquo;{activeQuote.quote}&rdquo;
           </blockquote>
           <div className="mt-8 flex items-center gap-4">
             <Image

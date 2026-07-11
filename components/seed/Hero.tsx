@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { HeroCaseStudyTicker } from "@/components/seed/HeroCaseStudyTicker";
@@ -100,12 +101,12 @@ export const Hero: React.FC<HeroProps> = ({
               Arrange a 15-minute intro
               <ArrowRight className="h-4 w-4 transform transition-transform group-hover:translate-x-1" />
             </button>
-            <button
-              onClick={() => handleScrollTo("services")}
+            <Link
+              href="/services"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-brand-accent/20 bg-brand-bg px-7 text-sm font-bold text-white transition-all hover:border-brand-accent/40 hover:bg-brand-bg-card lg:h-10 lg:px-6"
             >
               See what we do
-            </button>
+            </Link>
           </motion.div>
 
           {/* Partner Badges */}

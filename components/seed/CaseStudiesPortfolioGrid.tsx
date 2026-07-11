@@ -6,10 +6,26 @@ import { CaseStudy } from "@/lib/seed-types";
 import { PortfolioCard } from "@/components/seed/PortfolioCard";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
-const CARD_INTRO_TRANSITION = {
-  duration: 0.75,
-  ease: [0.22, 1, 0.36, 1] as const,
-};
+const GRID_VARIANTS = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.025,
+    },
+  },
+} as const;
+
+const CARD_VARIANTS = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+} as const;
 
 interface CaseStudiesPortfolioGridProps {
   caseStudies: CaseStudy[];
@@ -33,35 +49,29 @@ export function CaseStudiesPortfolioGrid({
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-          {caseStudies.map((study, index) => {
-            const card = <PortfolioCard study={study} />;
-
-            if (prefersReducedMotion) {
-              return (
-                <div key={study.id} className="h-full">
-                  {card}
-                </div>
-              );
-            }
-
-            return (
-              <motion.div
-                key={study.id}
-                className="h-full"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  ...CARD_INTRO_TRANSITION,
-                  delay: index * 0.12,
-                }}
-              >
-                {card}
+        {prefersReducedMotion ? (
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+            {caseStudies.map((study) => (
+              <div key={study.id} className="h-full">
+                <PortfolioCard study={study} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.06 }}
+            variants={GRID_VARIANTS}
+          >
+            {caseStudies.map((study) => (
+              <motion.div key={study.id} className="h-full" variants={CARD_VARIANTS}>
+                <PortfolioCard study={study} />
               </motion.div>
-            );
-          })}
-        </div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </section>
   );
