@@ -2,12 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
 import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
 import { getServiceIcon } from "@/lib/service-icons";
 import { ServiceCard } from "@/lib/seed-types";
 import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface ServicesProps {
   services: ServiceCard[];
@@ -18,6 +20,9 @@ export const Services: React.FC<ServicesProps> = ({
   services,
   variant = "homepage",
 }) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const animateCards = variant === "standalone" && !prefersReducedMotion;
+
   const renderIcon = (name: string) => {
     const IconComponent = getServiceIcon(name);
 
@@ -26,32 +31,58 @@ export const Services: React.FC<ServicesProps> = ({
     );
   };
 
-  const renderServiceCard = (service: ServiceCard) => (
-    <Link
-      key={service.id}
-      href={service.linkUrl}
-      className="group relative flex flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50 p-8 transition-all duration-300 hover:border-brand-accent/20 hover:bg-white hover:shadow-[0_8px_30px_rgba(232,184,75,0.08)]"
-    >
-      <div>
-        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-neutral-200 bg-white transition-all duration-300 group-hover:border-brand-accent/35 group-hover:bg-brand-accent/10">
-          {renderIcon(service.iconName)}
+  const renderServiceCard = (service: ServiceCard, index: number) => {
+    const card = (
+      <Link
+        href={service.linkUrl}
+        className="group relative flex h-full flex-col justify-between rounded-xl border border-neutral-200 bg-neutral-50 p-8 transition-all duration-300 hover:border-brand-accent/20 hover:bg-white hover:shadow-[0_8px_30px_rgba(232,184,75,0.08)]"
+      >
+        <div>
+          <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-neutral-200 bg-white transition-all duration-300 group-hover:border-brand-accent/35 group-hover:bg-brand-accent/10">
+            {renderIcon(service.iconName)}
+          </div>
+
+          <h3 className="mb-3 text-xl font-semibold text-neutral-900 transition-colors duration-200 group-hover:text-brand-accent">
+            {service.title}
+          </h3>
+
+          <p className="mb-6 text-sm leading-relaxed text-neutral-600 md:text-base">
+            {service.description}
+          </p>
         </div>
 
-        <h3 className="mb-3 text-xl font-semibold text-neutral-900 transition-colors duration-200 group-hover:text-brand-accent">
-          {service.title}
-        </h3>
+        <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-neutral-500 transition-colors group-hover:text-brand-accent">
+          <span>Core service parameters</span>
+          <ArrowRight className="h-4 w-4 transform transition-transform duration-200 group-hover:translate-x-1" />
+        </div>
+      </Link>
+    );
 
-        <p className="mb-6 text-sm leading-relaxed text-neutral-600 md:text-base">
-          {service.description}
-        </p>
-      </div>
+    if (!animateCards) {
+      return (
+        <div key={service.id} className="h-full">
+          {card}
+        </div>
+      );
+    }
 
-      <div className="mt-auto flex items-center gap-1.5 text-sm font-semibold text-neutral-500 transition-colors group-hover:text-brand-accent">
-        <span>Core service parameters</span>
-        <ArrowRight className="h-4 w-4 transform transition-transform duration-200 group-hover:translate-x-1" />
-      </div>
-    </Link>
-  );
+    return (
+      <motion.div
+        key={service.id}
+        className="h-full"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{
+          duration: 0.75,
+          delay: index * 0.12,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        {card}
+      </motion.div>
+    );
+  };
 
   return (
     <section
@@ -95,7 +126,7 @@ export const Services: React.FC<ServicesProps> = ({
         )}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(renderServiceCard)}
+          {services.map((service, index) => renderServiceCard(service, index))}
         </div>
       </div>
 

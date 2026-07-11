@@ -2,8 +2,15 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { CaseStudyModalLayer } from "@/components/seed/CaseStudyModal";
 import { CaseStudy } from "@/lib/seed-types";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+
+const CARD_INTRO_TRANSITION = {
+  duration: 0.75,
+  ease: [0.22, 1, 0.36, 1] as const,
+};
 
 interface BentoItemConfig {
   id: string;
@@ -68,7 +75,7 @@ function BentoCard({
     <button
       type="button"
       onClick={onClick}
-      className={`group relative min-h-[220px] overflow-hidden rounded-2xl border border-white/10 text-left transition-transform duration-300 hover:scale-[1.01] sm:min-h-[240px] ${config.gridClass}`}
+      className="group relative h-full min-h-[220px] w-full overflow-hidden rounded-2xl border border-white/10 text-left transition-transform duration-300 hover:scale-[1.01] sm:min-h-[240px]"
     >
       <Image
         src={study.imageUrl}
@@ -143,6 +150,7 @@ export function WhatWeDoBentoGrid({
   layout = "full",
 }: WhatWeDoBentoGridProps): React.ReactElement {
   const [activeStudy, setActiveStudy] = useState<CaseStudy | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
   const activeLayout = layout === "featured" ? FEATURED_BENTO_LAYOUT : BENTO_LAYOUT;
 
   const bentoStudies = activeLayout.map((config) => ({
@@ -162,14 +170,39 @@ export function WhatWeDoBentoGrid({
           layout === "featured" ? "md:grid-rows-2" : "md:grid-rows-4"
         }`}
       >
-        {bentoStudies.map(({ config, study }) => (
-          <BentoCard
-            key={study.id}
-            study={study}
-            config={config}
-            onClick={() => setActiveStudy(study)}
-          />
-        ))}
+        {bentoStudies.map(({ config, study }, index) => {
+          const card = (
+            <BentoCard
+              study={study}
+              config={config}
+              onClick={() => setActiveStudy(study)}
+            />
+          );
+
+          if (prefersReducedMotion) {
+            return (
+              <div key={study.id} className={config.gridClass}>
+                {card}
+              </div>
+            );
+          }
+
+          return (
+            <motion.div
+              key={study.id}
+              className={config.gridClass}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                ...CARD_INTRO_TRANSITION,
+                delay: index * 0.12,
+              }}
+            >
+              {card}
+            </motion.div>
+          );
+        })}
       </div>
 
       <CaseStudyModalLayer
