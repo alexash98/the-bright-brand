@@ -78,6 +78,8 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
     "+56%",
     "conversion rate on key service pages",
     "/carousel/manor-interior.webp",
+    "manor-interior.png",
+    false,
   ),
   heroCarouselCase(
     "canopy",

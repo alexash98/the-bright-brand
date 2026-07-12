@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
 import { HomePage } from "@/components/seed/HomePage";
 
-import { SITE_NAME } from "@/lib/site";
+const HOME_TITLE = "Performance Marketing Agency | The Bright Brand";
+const HOME_DESCRIPTION =
+  "The Bright Brand is an award-winning performance marketing agency. We help brands scale through PPC, paid media, CRO, and cold email outreach.";
 
 export const metadata: Metadata = {
-  title: SITE_NAME,
-  description:
-    "We work as an extension of your team, not a separate agency layer. No middlemen or hand-offs, just direct ownership of your growth across search, paid media and creative, with accountability from day one.",
+  title: {
+    absolute: HOME_TITLE,
+  },
+  description: HOME_DESCRIPTION,
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
+  twitter: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
   alternates: {
     canonical: "/",
   },

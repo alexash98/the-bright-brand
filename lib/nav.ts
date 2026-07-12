@@ -2,11 +2,11 @@ import { NavItem } from "@/lib/seed-types";
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Services", url: "/services" },
-  { label: "Our Work", url: "/work" },
+  { label: "Our Work", url: "/case-studies" },
   { label: "About Us", url: "/about" },
 ];
 
-const PAGE_ROUTES = new Set(["/services", "/contact", "/work", "/about"]);
+const PAGE_ROUTES = new Set(["/services", "/contact", "/case-studies", "/about"]);
 
 export function getNavHref(item: NavItem): string {
   if (PAGE_ROUTES.has(item.url)) {

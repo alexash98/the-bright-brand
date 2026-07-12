@@ -58,7 +58,7 @@ export function AboutFeaturedWorkSection({
               {content.intro}
             </p>
             <Link
-              href="/work"
+              href="/case-studies"
               className="inline-flex items-center gap-2 text-sm font-semibold text-neutral-900 transition-colors hover:text-brand-accent-dark"
             >
               View all work

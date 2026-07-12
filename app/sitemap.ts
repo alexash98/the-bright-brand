@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-07-11"),
     },
     {
-      url: `${SITE_URL}/work`,
+      url: `${SITE_URL}/case-studies`,
       lastModified: new Date("2026-07-11"),
     },
     {

@@ -28,6 +28,9 @@ function CaseStudyCard({
   const logoLines = study.clientName.split(" ");
   const primaryLine = logoLines[0] ?? study.clientName;
   const secondaryLine = logoLines.slice(1).join(" ");
+  const invertLogo = study.clientLogoInvert !== false;
+  const logoWidth = study.id === "manor-interior" ? 168 : LOGO_WIDTH_PX;
+  const logoHeight = study.id === "manor-interior" ? 34 : LOGO_HEIGHT_PX;
 
   return (
     <div
@@ -50,18 +53,20 @@ function CaseStudyCard({
       <div className="absolute inset-0 flex flex-col items-center justify-between px-5 py-6 text-center">
         <div
           className="flex items-center justify-center"
-          style={{ width: LOGO_WIDTH_PX, height: LOGO_HEIGHT_PX }}
+          style={{ width: logoWidth, height: logoHeight }}
         >
           {study.clientLogo ? (
             <Image
               src={`/client-logos/${study.clientLogo}`}
               alt={study.clientName}
-              width={LOGO_WIDTH_PX}
-              height={LOGO_HEIGHT_PX}
+              width={logoWidth}
+              height={logoHeight}
               loading={eager ? "eager" : "lazy"}
               decoding="async"
               unoptimized
-              className="h-full w-full object-contain object-center brightness-0 invert"
+              className={`h-full w-full object-contain object-center ${
+                invertLogo ? "brightness-0 invert" : ""
+              }`}
             />
           ) : (
             <div className="text-center">

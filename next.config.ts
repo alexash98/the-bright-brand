@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
         destination: "/services/attribution",
         permanent: true,
       },
+      {
+        source: "/work",
+        destination: "/case-studies",
+        permanent: true,
+      },
     ];
   },
   experimental: {

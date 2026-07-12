@@ -33,7 +33,9 @@ export function PortfolioCard({
                     ? "flex h-7 w-28 origin-left scale-[1.2] items-center justify-start sm:h-8 sm:w-32"
                     : study.id === "britton-and-time"
                       ? "flex h-7 w-28 origin-left scale-[1.2] items-center justify-start sm:h-8 sm:w-32"
-                      : "flex h-7 w-28 items-center justify-start sm:h-8 sm:w-32";
+                      : study.id === "manor-interior"
+                        ? "flex h-8 w-40 origin-left items-center justify-start sm:h-9 sm:w-44"
+                        : "flex h-7 w-28 items-center justify-start sm:h-8 sm:w-32";
 
   return (
     <article className="group relative min-h-[320px] overflow-hidden rounded-2xl border border-neutral-200/80 sm:min-h-[350px]">
