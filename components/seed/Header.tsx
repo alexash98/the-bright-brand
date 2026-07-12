@@ -20,7 +20,7 @@ interface HeaderProps {
 }
 
 const navLinkClassName =
-  "inline-flex min-h-11 items-center text-[13px] font-semibold text-brand-text-pale/90 transition-colors duration-200 hover:text-brand-accent";
+  "inline-flex min-h-11 items-center text-[15px] font-semibold text-brand-text-pale/90 transition-colors duration-200 hover:text-brand-accent";
 
 const mobileNavLinkClassName =
   "inline-flex min-h-11 items-center border-b border-brand-teal-light/10 py-2 text-left text-lg font-bold text-brand-text-pale/90 transition-colors hover:text-brand-accent";
@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
                 <button
                   type="button"
                   onClick={() => handleScrollTo("enquire")}
-                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[13px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
+                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
                 >
                   Enquire Now
                   <ArrowUpRight className="h-4.5 w-4.5" />
@@ -109,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               ) : (
                 <Link
                   href={enquireHref}
-                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[13px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
+                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
                 >
                   Enquire Now
                   <ArrowUpRight className="h-4.5 w-4.5" />
