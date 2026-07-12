@@ -130,6 +130,9 @@ export const Footer: React.FC = () => {
                 alt="Seed"
                 width={120}
                 height={48}
+                loading="lazy"
+                decoding="async"
+                unoptimized
                 className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
               />
             </Link>
@@ -138,14 +141,14 @@ export const Footer: React.FC = () => {
                 The Bright Brand
               </p>
               <p>{CONTACT.address.line1}, {CONTACT.address.line2}</p>
-              <p className="text-xs text-neutral-500">Global clientbase</p>
+              <p className="text-xs text-neutral-400">Global clientbase</p>
             </div>
           </div>
 
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Our Services
-            </h4>
+            </h2>
             <div className="flex flex-wrap gap-2">
               {[
                 "SEO",
@@ -161,7 +164,7 @@ export const Footer: React.FC = () => {
                 <Link
                   key={service}
                   href="/services"
-                  className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-all duration-200 hover:border-brand-accent/30 hover:bg-brand-accent hover:text-brand-bg-darker"
+                  className="inline-flex min-h-11 items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 font-sans text-xs font-bold text-neutral-200 transition-all duration-200 hover:border-brand-accent/30 hover:bg-brand-accent hover:text-brand-bg-darker"
                 >
                   {service}
                 </Link>
@@ -170,9 +173,9 @@ export const Footer: React.FC = () => {
           </div>
 
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <h4 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Agency
-            </h4>
+            </h2>
             <div className="flex flex-wrap gap-2">
               {AGENCY_LINKS.map((link) => (
                 <FooterLink
@@ -187,7 +190,7 @@ export const Footer: React.FC = () => {
                       ? () => handleSectionClick(link.id)
                       : undefined
                   }
-                  className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 font-sans text-xs font-bold text-neutral-300 transition-colors duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white"
+                  className="inline-flex min-h-11 items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 font-sans text-xs font-bold text-neutral-200 transition-colors duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white"
                 >
                   {link.label}
                 </FooterLink>

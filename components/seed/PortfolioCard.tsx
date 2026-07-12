@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/seed-types";
 
 export function PortfolioCard({
@@ -42,6 +43,8 @@ export function PortfolioCard({
         fill
         sizes="(max-width: 768px) 100vw, 33vw"
         loading="lazy"
+        decoding="async"
+        unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
         className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
@@ -55,7 +58,9 @@ export function PortfolioCard({
                 alt={study.clientName}
                 width={160}
                 height={44}
-                unoptimized={study.clientLogoInvert === false}
+                loading="lazy"
+                decoding="async"
+                unoptimized
                 className={`h-full w-full object-contain object-left ${
                   invertLogo ? "brightness-0 invert" : ""
                 }`}

@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/seed-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -17,7 +18,13 @@ const LOGO_HEIGHT_PX = 28;
 const SCROLL_DURATION_LEFT = 58;
 const SCROLL_DURATION_RIGHT = 66;
 
-function CaseStudyCard({ study }: { study: CaseStudy }): React.ReactElement {
+function CaseStudyCard({
+  study,
+  eager,
+}: {
+  study: CaseStudy;
+  eager?: boolean;
+}): React.ReactElement {
   const logoLines = study.clientName.split(" ");
   const primaryLine = logoLines[0] ?? study.clientName;
   const secondaryLine = logoLines.slice(1).join(" ");
@@ -31,8 +38,11 @@ function CaseStudyCard({ study }: { study: CaseStudy }): React.ReactElement {
         alt=""
         fill
         sizes="(max-width: 1024px) 42vw, 280px"
-        quality={70}
-        loading="lazy"
+        quality={75}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={eager ? "low" : "auto"}
+        unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
@@ -48,6 +58,9 @@ function CaseStudyCard({ study }: { study: CaseStudy }): React.ReactElement {
               alt={study.clientName}
               width={LOGO_WIDTH_PX}
               height={LOGO_HEIGHT_PX}
+              loading={eager ? "eager" : "lazy"}
+              decoding="async"
+              unoptimized
               className="h-full w-full object-contain object-center brightness-0 invert"
             />
           ) : (
@@ -80,10 +93,12 @@ function CaseStudyCopy({
   items,
   copyRef,
   ariaHidden = false,
+  eagerFirst = false,
 }: {
   items: CaseStudy[];
   copyRef?: React.RefObject<HTMLDivElement | null>;
   ariaHidden?: boolean;
+  eagerFirst?: boolean;
 }): React.ReactElement {
   return (
     <div
@@ -92,8 +107,12 @@ function CaseStudyCopy({
       className="flex flex-col"
       style={{ gap: COPY_GAP_PX }}
     >
-      {items.map((study) => (
-        <CaseStudyCard key={study.id} study={study} />
+      {items.map((study, index) => (
+        <CaseStudyCard
+          key={study.id}
+          study={study}
+          eager={eagerFirst && !ariaHidden && index === 0}
+        />
       ))}
     </div>
   );
@@ -134,7 +153,7 @@ function ScrollingColumn({
   if (scrollDistance === null || prefersReducedMotion) {
     return (
       <div className="relative h-full min-h-0 overflow-hidden">
-        <CaseStudyCopy items={items} copyRef={copyRef} />
+        <CaseStudyCopy items={items} copyRef={copyRef} eagerFirst />
       </div>
     );
   }
@@ -162,7 +181,7 @@ function ScrollingColumn({
           },
         }}
       >
-        <CaseStudyCopy items={items} />
+        <CaseStudyCopy items={items} copyRef={copyRef} eagerFirst />
         <CaseStudyCopy items={items} ariaHidden />
       </motion.div>
     </div>

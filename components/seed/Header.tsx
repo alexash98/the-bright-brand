@@ -20,10 +20,10 @@ interface HeaderProps {
 }
 
 const navLinkClassName =
-  "text-[13px] font-semibold text-brand-text-pale/80 transition-colors duration-200 hover:text-brand-accent";
+  "inline-flex min-h-11 items-center text-[13px] font-semibold text-brand-text-pale/90 transition-colors duration-200 hover:text-brand-accent";
 
 const mobileNavLinkClassName =
-  "border-b border-brand-teal-light/10 py-2 text-left text-lg font-bold text-brand-text-pale/80 transition-colors hover:text-brand-accent";
+  "inline-flex min-h-11 items-center border-b border-brand-teal-light/10 py-2 text-left text-lg font-bold text-brand-text-pale/90 transition-colors hover:text-brand-accent";
 
 export const Header: React.FC<HeaderProps> = ({ navItems }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -85,6 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
                 width={120}
                 height={48}
                 priority
+                unoptimized
                 className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
               />
             </Link>
@@ -117,9 +118,11 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
             </div>
 
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-brand-text-pale/80 hover:text-brand-accent md:hidden transition-colors"
+              className="inline-flex h-11 w-11 items-center justify-center text-brand-text-pale/90 transition-colors hover:text-brand-accent md:hidden"
               aria-label="Toggle menu"
+              aria-expanded={isOpen}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>

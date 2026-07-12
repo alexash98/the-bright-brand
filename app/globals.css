@@ -84,9 +84,17 @@ h6 {
   font-weight: 600;
 }
 
-.homepage-below-fold > section {
+.homepage-below-fold > section,
+.page-below-fold > section {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-below-fold > section,
+  .page-below-fold > section {
+    content-visibility: visible;
+  }
 }
 
 p {

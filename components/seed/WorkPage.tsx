@@ -1,9 +1,18 @@
+import dynamic from "next/dynamic";
 import { Footer } from "@/components/seed/Footer";
-import { CaseStudiesPortfolioGrid } from "@/components/seed/CaseStudiesPortfolioGrid";
 import { Header } from "@/components/seed/Header";
 import { MarketingHero } from "@/components/seed/MarketingHero";
+import { SectionPlaceholder } from "@/components/seed/SectionPlaceholder";
 import { NAV_ITEMS } from "@/lib/nav";
 import { WORK_PAGE_CASE_STUDIES } from "@/lib/seed-data";
+
+const CaseStudiesPortfolioGrid = dynamic(
+  () =>
+    import("@/components/seed/CaseStudiesPortfolioGrid").then(
+      (mod) => mod.CaseStudiesPortfolioGrid,
+    ),
+  { loading: () => <SectionPlaceholder heightClass="h-[1200px]" /> },
+);
 
 export function WorkPage(): React.ReactElement {
   return (
@@ -25,7 +34,9 @@ export function WorkPage(): React.ReactElement {
       </MarketingHero>
 
       <main>
-        <CaseStudiesPortfolioGrid caseStudies={WORK_PAGE_CASE_STUDIES} />
+        <div className="page-below-fold">
+          <CaseStudiesPortfolioGrid caseStudies={WORK_PAGE_CASE_STUDIES} />
+        </div>
         <Footer />
       </main>
     </div>

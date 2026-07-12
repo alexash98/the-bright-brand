@@ -227,7 +227,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
       "Grew revenue 59% on flat ad spend. Sharper targeting and a rebuilt funnel doubled the return on the same budget.",
     author: "Anthony Landis",
     role: "President, Director",
-    imageSrc: "/testimonials/anthony-landis.png",
+    imageSrc: "/testimonials/anthony-landis.webp",
     imageAlt: "Anthony Landis",
   },
   {
@@ -237,7 +237,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
       "Bright Brand have been a brilliant addition to our team. They work independently but feel like a genuine extension of our own marketing function, and the results speak for themselves.",
     author: "Lindsey Newman",
     role: "Head of Business Development",
-    imageSrc: "/testimonials/lindsey-newman.png",
+    imageSrc: "/testimonials/lindsey-newman.webp",
     imageAlt: "Lindsey Newman",
   },
   {
@@ -247,7 +247,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
       "I've been here eight years, and I don't recall a period where we've genuinely been able to sustain this level of volume. It looked very good, and it was. Volume was double the previous period.",
     author: "Roland Gilliam",
     role: "Managing Director, Freedom Insurance",
-    imageSrc: "/testimonials/roland-gilliam.png",
+    imageSrc: "/testimonials/roland-gilliam.webp",
     imageAlt: "Roland Gilliam",
   },
   {
@@ -257,7 +257,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
       "Cut the cost per booked sales meeting by 63%. A rebuilt funnel and tighter targeting brought the cost down sharply, so the same budget delivered far more qualified pipeline.",
     author: "Shay Hasson",
     role: "Co-Founder FormX. Serial Entrepreneur",
-    imageSrc: "/testimonials/formx.png",
+    imageSrc: "/testimonials/formx.webp",
     imageAlt: "Shay Hasson",
   },
   {
@@ -267,7 +267,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
       "The Bright Brand team scaled our Meta channel with real discipline and turned it into proper growth. They 3x our revenue in a year, and it still feels like they are part of the business.",
     author: "Ben Herridge",
     role: "Managing Director & CEO",
-    imageSrc: "/testimonials/ben-herridge.png",
+    imageSrc: "/testimonials/ben-herridge.webp",
     imageAlt: "Ben Herridge",
   },
 ];
@@ -312,7 +312,7 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Meta",
-    logo: "meta.png",
+    logo: "meta.svg",
     seed: "meta",
     folder: "platform-logos",
     widthClass: "w-[7.4rem]",
@@ -320,28 +320,28 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Hyros",
-    logo: "hyros.png",
+    logo: "hyros.svg",
     seed: "hyros",
     folder: "platform-logos",
     widthClass: "w-[6.9rem]",
   },
   {
     name: "Northbeam",
-    logo: "northbeam.png",
+    logo: "northbeam.svg",
     seed: "northbeam",
     folder: "platform-logos",
     widthClass: "w-[9.6rem]",
   },
   {
     name: "HubSpot",
-    logo: "hubspot.png",
+    logo: "hubspot.svg",
     seed: "hubspot",
     folder: "platform-logos",
     widthClass: "w-[8.4rem]",
   },
   {
     name: "Salesforce",
-    logo: "salesforce.png",
+    logo: "salesforce.svg",
     seed: "salesforce",
     folder: "platform-logos",
     widthClass: "w-[10.8rem]",
@@ -350,7 +350,7 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Pipedrive",
-    logo: "pipedrive.png",
+    logo: "pipedrive.svg",
     seed: "pipedrive",
     folder: "platform-logos",
     widthClass: "w-[9rem]",

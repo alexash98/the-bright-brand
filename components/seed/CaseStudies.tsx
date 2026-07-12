@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CaseStudyModalLayer } from "@/components/seed/CaseStudyModal";
+import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/seed-types";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -75,6 +76,8 @@ export function CaseStudies({ items }: CaseStudiesProps) {
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     loading="lazy"
+                    decoding="async"
+                    unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/70 to-transparent" />

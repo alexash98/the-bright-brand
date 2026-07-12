@@ -34,6 +34,8 @@ export function TestimonialCard({
           width={48}
           height={48}
           loading="lazy"
+          decoding="async"
+          unoptimized
           className="h-12 w-12 shrink-0 rounded-full object-cover"
         />
         <div>

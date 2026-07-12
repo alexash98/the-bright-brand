@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
 import { TestimonialCard } from "@/components/seed/TestimonialCard";
@@ -105,7 +104,6 @@ export function TestimonialTrack({
         segmentRef={segmentRef}
       />
       <TestimonialSegment testimonials={testimonials} segmentKey="b" ariaHidden />
-      <TestimonialSegment testimonials={testimonials} segmentKey="c" ariaHidden />
     </motion.div>
   );
 }

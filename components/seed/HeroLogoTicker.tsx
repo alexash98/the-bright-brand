@@ -24,6 +24,8 @@ function LogoItem({ logo }: { logo: ClientLogo }): React.ReactElement {
         fill
         sizes="112px"
         loading="lazy"
+        decoding="async"
+        unoptimized
         className="object-contain opacity-90"
       />
     </div>
@@ -106,7 +108,6 @@ function ScrollingTrack({ logos }: { logos: ClientLogo[] }): React.ReactElement 
     >
       <LogoSegment logos={logos} segmentKey="a" segmentRef={segmentRef} />
       <LogoSegment logos={logos} segmentKey="b" ariaHidden />
-      <LogoSegment logos={logos} segmentKey="c" ariaHidden />
     </motion.div>
   );
 }

@@ -144,9 +144,20 @@ export function SmoothScrollProvider({
     }
 
     let frameId = 0;
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let cancelled = false;
 
     const init = async (): Promise<void> => {
+      if (cancelled) {
+        return;
+      }
+
       const { default: Lenis } = await import("lenis");
+
+      if (cancelled) {
+        return;
+      }
 
       const lenisInstance = new Lenis({
         duration: 1.1,
@@ -180,9 +191,25 @@ export function SmoothScrollProvider({
       frameId = window.requestAnimationFrame(raf);
     };
 
-    void init();
+    // Keep first paint free of Lenis; start after idle or a short delay.
+    const scheduleInit = (): void => {
+      void init();
+    };
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(scheduleInit, { timeout: 1800 });
+    } else {
+      timeoutId = window.setTimeout(scheduleInit, 400);
+    }
 
     return () => {
+      cancelled = true;
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) {
+        window.clearTimeout(timeoutId);
+      }
       window.cancelAnimationFrame(frameId);
       lenisRef.current?.destroy();
       lenisRef.current = null;

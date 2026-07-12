@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { CheckCircle2, TrendingUp, X } from "lucide-react";
+import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/seed-types";
 
 interface CaseStudyModalProps {
@@ -38,6 +39,7 @@ export function CaseStudyModal({
             alt={study.clientName}
             fill
             sizes="(max-width: 768px) 100vw, 896px"
+            unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-bg-darker via-brand-bg-darker/60 to-transparent" />

@@ -45,6 +45,8 @@ function PublicationLogo({
         width={128}
         height={29}
         loading="lazy"
+        decoding="async"
+        unoptimized
         className={LOGO_IMAGE_CLASS}
       />
     </div>

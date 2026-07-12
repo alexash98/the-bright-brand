@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/seed/Footer";
 import { Header } from "@/components/seed/Header";
 import { MarketingHero } from "@/components/seed/MarketingHero";
+import { SectionPlaceholder } from "@/components/seed/SectionPlaceholder";
 import { getServiceIcon } from "@/lib/service-icons";
 import { NAV_ITEMS } from "@/lib/nav";
 import { SERVICES } from "@/lib/seed-data";
@@ -15,19 +16,6 @@ const EnquiryForm = dynamic(
     import("@/components/seed/EnquiryForm").then((mod) => mod.EnquiryForm),
   { loading: () => <SectionPlaceholder heightClass="h-[640px]" /> },
 );
-
-function SectionPlaceholder({
-  heightClass,
-}: {
-  heightClass: string;
-}): React.ReactElement {
-  return (
-    <div
-      aria-hidden="true"
-      className={`${heightClass} w-full animate-pulse bg-neutral-100`}
-    />
-  );
-}
 
 interface ServiceDetailPageProps {
   service: ServiceDetail;
@@ -74,6 +62,7 @@ export function ServiceDetailPage({
       </MarketingHero>
 
       <main className="bg-white text-neutral-900">
+        <div className="page-below-fold">
         {service.whySection ? (
           <section className="px-4 py-16 md:px-8 md:py-24">
             <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
@@ -316,6 +305,7 @@ export function ServiceDetailPage({
         </section>
 
         <EnquiryForm />
+        </div>
         <Footer />
       </main>
     </div>
