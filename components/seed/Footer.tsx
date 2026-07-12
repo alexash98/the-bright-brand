@@ -39,38 +39,58 @@ const PARTNER_LOGOS = [
 const AGENCY_LINKS = [
   { label: "About", href: "/about" },
   { label: "Careers", id: "about" },
-  { label: "Sectors", id: "services" },
-  { label: "Podcast", id: "testimonials" },
-  { label: "Work", id: "work" },
-  { label: "Articles", id: "work" },
-  { label: "Impact", id: "playbook" },
-  { label: "Transparency", id: "playbook" },
+  { label: "Work", href: "/case-studies" },
   { label: "Contact", href: "/contact" },
 ];
 
-function FooterLink({
-  href,
-  onClick,
-  children,
-  className,
-}: {
-  href?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-  className: string;
-}): React.ReactElement {
-  if (href) {
-    return (
-      <Link href={href} className={className}>
-        {children}
-      </Link>
-    );
-  }
+const SERVICE_LINKS = [
+  "SEO",
+  "PPC",
+  "Paid Social",
+  "Paid Media",
+  "Attribution",
+  "CRO/UX",
+  "Creative",
+  "Analytics",
+  "CRM",
+];
 
+const FOOTER_LINK_CLASS =
+  "text-neutral-300 transition-colors duration-200 hover:text-white";
+
+function FooterInlineLinks({
+  items,
+}: {
+  items: Array<
+    | { label: string; href: string }
+    | { label: string; href?: string; onClick?: () => void }
+  >;
+}): React.ReactElement {
   return (
-    <button type="button" onClick={onClick} className={className}>
-      {children}
-    </button>
+    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-relaxed">
+      {items.map((item, index) => (
+        <React.Fragment key={item.label}>
+          {index > 0 ? (
+            <span aria-hidden="true" className="select-none text-white/15">
+              /
+            </span>
+          ) : null}
+          {"onClick" in item && item.onClick ? (
+            <button
+              type="button"
+              onClick={item.onClick}
+              className={FOOTER_LINK_CLASS}
+            >
+              {item.label}
+            </button>
+          ) : (
+            <Link href={item.href ?? "/"} className={FOOTER_LINK_CLASS}>
+              {item.label}
+            </Link>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
 
@@ -116,31 +136,30 @@ export const Footer: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <Link
-              href="/"
-              onClick={() => {
-                if (pathname === "/") {
-                  scrollToTop();
-                }
-              }}
-              className="group flex cursor-pointer items-center"
-            >
-              <Image
-                src="/seed-logo.png"
-                alt="The Bright Brand"
-                width={120}
-                height={48}
-                loading="lazy"
-                decoding="async"
-                unoptimized
-                className="h-11 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-12"
-              />
-            </Link>
-            <div className="mt-6 space-y-2 text-sm font-medium text-neutral-300">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                The Bright Brand
+            <div className="space-y-2 text-sm font-medium text-neutral-300">
+              <Link
+                href="/"
+                onClick={() => {
+                  if (pathname === "/") {
+                    scrollToTop();
+                  }
+                }}
+                className="group mb-3 inline-flex sm:mb-4"
+              >
+                <Image
+                  src="/seed-logo.png"
+                  alt="The Bright Brand"
+                  width={120}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
+                  unoptimized
+                  className="h-10 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-11"
+                />
+              </Link>
+              <p>
+                {CONTACT.address.line1}, {CONTACT.address.line2}
               </p>
-              <p>{CONTACT.address.line1}, {CONTACT.address.line2}</p>
               <p className="text-xs text-neutral-400">Global clientbase</p>
             </div>
           </div>
@@ -149,53 +168,32 @@ export const Footer: React.FC = () => {
             <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Our Services
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "SEO",
-                "PPC",
-                "Paid Social",
-                "Paid Media",
-                "Attribution",
-                "CRO/UX",
-                "Creative",
-                "Analytics",
-                "CRM",
-              ].map((service) => (
-                <Link
-                  key={service}
-                  href="/services"
-                  className="inline-flex min-h-11 items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 font-sans text-xs font-bold text-neutral-200 transition-all duration-200 hover:border-brand-accent/30 hover:bg-brand-accent hover:text-brand-bg-darker"
-                >
-                  {service}
-                </Link>
-              ))}
-            </div>
+            <FooterInlineLinks
+              items={SERVICE_LINKS.map((service) => ({
+                label: service,
+                href: "/services",
+              }))}
+            />
           </div>
 
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Agency
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {AGENCY_LINKS.map((link) => (
-                <FooterLink
-                  key={link.label}
-                  href={
-                    "href" in link
-                      ? link.href
-                      : sectionHref(link.id)
-                  }
-                  onClick={
-                    !("href" in link) && pathname === "/"
-                      ? () => handleSectionClick(link.id)
-                      : undefined
-                  }
-                  className="inline-flex min-h-11 items-center rounded-full border border-white/10 bg-white/5 px-3.5 py-2 font-sans text-xs font-bold text-neutral-200 transition-colors duration-200 hover:border-white/20 hover:bg-white/10 hover:text-white"
-                >
-                  {link.label}
-                </FooterLink>
-              ))}
-            </div>
+            <FooterInlineLinks
+              items={AGENCY_LINKS.map((link) =>
+                "href" in link
+                  ? { label: link.label, href: link.href }
+                  : {
+                      label: link.label,
+                      href: sectionHref(link.id),
+                      onClick:
+                        pathname === "/"
+                          ? () => handleSectionClick(link.id)
+                          : undefined,
+                    },
+              )}
+            />
           </div>
         </div>
 

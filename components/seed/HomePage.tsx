@@ -63,7 +63,6 @@ const ROTATING_WORDS = [
   "paid search",
   "organic search",
   "paid media",
-  "digital PR",
   "revenue growth",
   "lead generation",
   "campaign ROI",
