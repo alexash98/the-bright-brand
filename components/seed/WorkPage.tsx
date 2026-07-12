@@ -21,15 +21,15 @@ export function WorkPage(): React.ReactElement {
 
       <MarketingHero>
         <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-          Client stories
+          Case studies
         </p>
         <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:text-6xl">
-          Trusted by brands that don&apos;t{" "}
-          <span className="text-brand-accent">settle</span>.
+          Growth you can{" "}
+          <span className="text-brand-accent">measure</span>.
         </h1>
         <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
-          Results from clients we work with across search, paid media, social
-          and PR.
+          Outcomes from the brands we partner with across search, paid media,
+          social and PR.
         </p>
       </MarketingHero>
 

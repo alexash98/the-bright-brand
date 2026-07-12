@@ -306,10 +306,11 @@ export const CLIENT_LOGOS = [
 export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   {
     name: "Triple Whale",
-    logo: "triple-whale.svg",
+    logo: "triple-whale.png",
     seed: "triple-whale",
     folder: "platform-logos",
     widthClass: "w-[10.8rem]",
+    preserveColors: true,
   },
   {
     name: "TikTok",

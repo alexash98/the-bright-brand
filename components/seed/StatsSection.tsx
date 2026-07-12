@@ -54,16 +54,16 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl text-left">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-              What We Do
+              What we do
             </p>
             <h2
               className={`mb-6 text-3xl font-semibold leading-tight tracking-tight md:text-4xl lg:text-[2.75rem] lg:leading-[1.15] ${
                 isLight ? "text-neutral-900" : "text-white"
               }`}
             >
-              Full-funnel{" "}
-              <span className="text-brand-accent">growth</span> for brands that
-              want to win.
+              One integrated{" "}
+              <span className="text-brand-accent">plan</span> across every
+              channel.
             </h2>
             <p
               className={`text-base leading-relaxed md:text-lg ${
