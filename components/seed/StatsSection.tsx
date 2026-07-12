@@ -1,49 +1,32 @@
 'use client';
 
 import React from "react";
+import { Clock, Gauge, TrendingUp, Wallet } from "lucide-react";
 import { CaseStudy } from "@/lib/seed-types";
 import { WhatWeDoBentoGrid } from "@/components/seed/WhatWeDoBentoGrid";
 
-const STATS: { value: React.ReactNode; label: string }[] = [
+const STATS = [
   {
-    value: (
-      <>
-        <span className="font-semibold">£</span>
-        <span className="font-semibold">5M</span>
-        <span className="font-semibold">+</span>
-      </>
-    ),
+    value: "£5M+",
     label: "Yearly Ad Spend Managed",
+    icon: Wallet,
   },
   {
-    value: (
-      <>
-        <span className="font-semibold">£</span>
-        <span className="font-semibold">50M</span>
-        <span className="font-semibold">+</span>
-      </>
-    ),
+    value: "£50M+",
     label: "Revenue Generated",
+    icon: TrendingUp,
   },
   {
-    value: (
-      <>
-        <span className="font-semibold">10</span>
-        <span className="font-semibold"> yrs</span>
-      </>
-    ),
+    value: "10 yrs",
     label: "Experience",
+    icon: Clock,
   },
   {
-    value: (
-      <>
-        <span className="font-semibold">6.2</span>
-        <span className="font-semibold">x</span>
-      </>
-    ),
+    value: "6.2x",
     label: "Average ROAS",
+    icon: Gauge,
   },
-];
+] as const;
 
 interface StatsSectionProps {
   caseStudies: CaseStudy[];
@@ -93,28 +76,51 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className={`flex min-h-[132px] flex-col justify-center rounded-2xl border px-5 py-6 sm:min-h-[148px] sm:px-6 sm:py-7 ${
-                  isLight
-                    ? "border-neutral-200 bg-white"
-                    : "border-white/10 bg-[#232327]"
-                }`}
-              >
-                <p className="text-3xl font-semibold tracking-tight text-brand-accent sm:text-4xl">
-                  {stat.value}
-                </p>
-                <p
-                  className={`mt-2 text-sm font-semibold sm:text-[15px] ${
-                    isLight ? "text-neutral-600" : "text-neutral-400"
-                  }`}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+          <div
+            className={`overflow-hidden rounded-2xl border ${
+              isLight
+                ? "border-neutral-200/80 bg-white shadow-sm"
+                : "border-white/10 bg-[#232327]"
+            }`}
+          >
+            <div
+              className={`grid grid-cols-2 ${
+                isLight ? "divide-neutral-200/80" : "divide-white/10"
+              } divide-x divide-y`}
+            >
+              {STATS.map((stat) => {
+                const Icon = stat.icon;
+
+                return (
+                  <div
+                    key={stat.label}
+                    className={`relative px-5 py-6 sm:px-7 sm:py-8 ${
+                      isLight ? "bg-white" : "bg-[#232327]"
+                    }`}
+                  >
+                    <div
+                      className={`mb-5 inline-flex h-9 w-9 items-center justify-center rounded-full border ${
+                        isLight
+                          ? "border-brand-accent/20 bg-brand-accent/10 text-brand-accent-dark"
+                          : "border-brand-accent/25 bg-brand-accent/10 text-brand-accent"
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" strokeWidth={1.75} />
+                    </div>
+                    <h3 className="text-[2rem] leading-none tracking-tight text-brand-accent sm:text-[2.35rem]">
+                      {stat.value}
+                    </h3>
+                    <p
+                      className={`mt-3 max-w-[12rem] text-[11px] font-bold uppercase leading-snug tracking-[0.14em] ${
+                        isLight ? "text-neutral-500" : "text-neutral-500"
+                      }`}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 

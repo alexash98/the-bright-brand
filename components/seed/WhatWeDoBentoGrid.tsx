@@ -134,6 +134,12 @@ function BentoCard({
           )}
         </div>
 
+        <div className="flex flex-1 flex-col justify-center py-2 sm:py-3">
+          <div className="font-display text-3xl font-normal tracking-tight text-brand-accent sm:text-4xl md:text-5xl">
+            {study.highlightStat}
+          </div>
+        </div>
+
         <div>
           <p className="max-w-[280px] text-sm leading-snug text-white/90 sm:text-[15px]">
             {study.highlightLabel}

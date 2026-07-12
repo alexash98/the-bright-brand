@@ -18,7 +18,7 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
               The agency model, rebuilt around your outcomes.
             </h2>
             <p className="text-lg font-normal leading-relaxed text-neutral-600">
-              Most agencies are set up to protect retainers and billable hours, not the results you actually need. We work the other way: flexible, bespoke, and accountable to what moves the needle.
+              We don&apos;t lock you into bloated retainers. You get a bespoke approach, real flexibility, and clear accountability for results.
             </p>
           </div>
 

@@ -4,16 +4,16 @@ import {
   LucideIcon,
   Megaphone,
   MousePointerClick,
+  Network,
   Search,
   Sparkles,
-  Users,
 } from "lucide-react";
 
 export const SERVICE_ICONS = {
   Search,
   MousePointerClick,
   Megaphone,
-  Users,
+  Network,
   Sparkles,
   BarChart3,
 } as const satisfies Record<string, LucideIcon>;

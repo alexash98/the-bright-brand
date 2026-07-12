@@ -178,45 +178,51 @@ export const SERVICES: ServiceCard[] = [
   {
     id: "seo",
     title: "Organic Search (SEO)",
-    description: "Sustainable traffic growth through technical SEO, content strategy, and link building.",
+    description:
+      "Sustainable traffic growth through technical SEO, content strategy, and smart link building.",
     iconName: "Search",
-    linkUrl: "/services/seo"
+    linkUrl: "/services/seo",
   },
   {
     id: "ppc",
     title: "Paid Search (PPC)",
-    description: "Maximise ROI across Google and Microsoft with data-led paid search campaigns.",
+    description:
+      "Maximise ROI across Google and Microsoft with data-led paid search campaigns.",
     iconName: "MousePointerClick",
-    linkUrl: "/services/ppc"
+    linkUrl: "/services/ppc",
   },
   {
     id: "social",
     title: "Paid Social",
-    description: "Build demand across Meta, TikTok and Pinterest with creative that actually performs.",
+    description:
+      "Build demand across Meta, TikTok and Pinterest with creative that actually converts.",
     iconName: "Megaphone",
-    linkUrl: "/services/social"
+    linkUrl: "/services/social",
   },
   {
-    id: "pr",
-    title: "Digital PR",
-    description: "Earn coverage and links from top-tier publications to boost authority and awareness.",
-    iconName: "Users",
-    linkUrl: "/services/digital-pr"
+    id: "attribution",
+    title: "Attribution Systems",
+    description:
+      "Custom CRM dashboards and attribution that show exactly what every channel is worth.",
+    iconName: "Network",
+    linkUrl: "/services/attribution",
   },
   {
     id: "creative",
     title: "Creative Strategy",
-    description: "Scroll-stopping creative that drives engagement and measurable performance.",
+    description:
+      "Scroll-stopping creative that drives engagement and measurable performance.",
     iconName: "Sparkles",
-    linkUrl: "/services/creative"
+    linkUrl: "/services/creative",
   },
   {
     id: "analytics",
     title: "Data & Analytics",
-    description: "Robust tracking, dashboards, and attribution that turn data into better decisions.",
+    description:
+      "Robust tracking, dashboards, and attribution that turn raw data into better decisions.",
     iconName: "BarChart3",
-    linkUrl: "/services/analytics"
-  }
+    linkUrl: "/services/analytics",
+  },
 ];
 
 export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
@@ -312,7 +318,7 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Meta",
-    logo: "meta.svg",
+    logo: "meta.png",
     seed: "meta",
     folder: "platform-logos",
     widthClass: "w-[7.4rem]",
@@ -320,28 +326,28 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Hyros",
-    logo: "hyros.svg",
+    logo: "hyros.png",
     seed: "hyros",
     folder: "platform-logos",
     widthClass: "w-[6.9rem]",
   },
   {
     name: "Northbeam",
-    logo: "northbeam.svg",
+    logo: "northbeam.png",
     seed: "northbeam",
     folder: "platform-logos",
     widthClass: "w-[9.6rem]",
   },
   {
     name: "HubSpot",
-    logo: "hubspot.svg",
+    logo: "hubspot.png",
     seed: "hubspot",
     folder: "platform-logos",
     widthClass: "w-[8.4rem]",
   },
   {
     name: "Salesforce",
-    logo: "salesforce.svg",
+    logo: "salesforce.png",
     seed: "salesforce",
     folder: "platform-logos",
     widthClass: "w-[10.8rem]",
@@ -350,7 +356,7 @@ export const MARQUEE_PLATFORM_LOGOS: ClientLogo[] = [
   },
   {
     name: "Pipedrive",
-    logo: "pipedrive.svg",
+    logo: "pipedrive.png",
     seed: "pipedrive",
     folder: "platform-logos",
     widthClass: "w-[9rem]",

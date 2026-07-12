@@ -344,85 +344,85 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     ],
   },
   {
-    slug: "digital-pr",
-    id: "pr",
-    title: "Digital PR",
-    shortTitle: "Digital PR",
-    iconName: "Users",
+    slug: "attribution",
+    id: "attribution",
+    title: "Attribution Systems",
+    shortTitle: "Attribution",
+    iconName: "Network",
     metaDescription:
-      "Coverage and links from relevant publications that build brand authority and support organic search performance.",
-    heroTitle: "PR that earns",
-    heroAccent: "authority and links",
+      "Custom CRM dashboards and attribution models that show exactly what every channel is worth to your business.",
+    heroTitle: "Attribution that shows",
+    heroAccent: "what each channel is worth",
     heroIntro:
-      "Stories journalists want to run, coverage that builds trust, and links that strengthen your organic search position.",
+      "Custom CRM dashboards and multi-touch attribution that connect spend to revenue, so budget follows what actually drives growth.",
     capabilities: [
       {
-        title: "Campaign ideation",
+        title: "CRM dashboard builds",
         description:
-          "Data-led stories, reactive commentary and brand narratives designed for national, trade and regional press.",
+          "Custom reporting views in HubSpot, Salesforce, Pipedrive and other CRMs tailored to how your team sells and reports.",
         highlights: [
-          "Data studies and survey-led stories with news hook potential",
-          "Reactive commentary tied to live news cycles",
-          "Campaign calendars aligned to product and SEO priorities",
+          "Pipeline and revenue views aligned to marketing source data",
+          "Role-based dashboards for marketing, sales and leadership",
+          "Automated refresh cycles so reporting stays current",
         ],
       },
       {
-        title: "Media relations",
+        title: "Multi-touch attribution",
         description:
-          "Journalist outreach, briefing documents and relationship building with editors in your category.",
+          "Models that map the full path from first touch to closed revenue, not just last-click platform reporting.",
         highlights: [
-          "Targeted journalist lists by beat and publication tier",
-          "Press releases, briefing notes and expert comment ready to send",
-          "Relationship building with trade and national editors",
+          "First-touch, last-touch and weighted models where data allows",
+          "Platform vs CRM reconciliation on a regular cadence",
+          "Rules agreed with finance before spend scales",
         ],
       },
       {
-        title: "Link and mention tracking",
+        title: "Channel value mapping",
         description:
-          "Coverage logged against domain authority, relevance and referral value so SEO and brand teams share one view.",
+          "Clear readouts on what SEO, paid search, paid social and other channels contribute to pipeline and revenue.",
         highlights: [
-          "Coverage logged with DA, relevance and follow/nofollow status",
-          "Referral traffic and branded search impact tracked",
-          "Shared reporting for SEO, brand and leadership teams",
+          "Cost per qualified lead and revenue by channel",
+          "Assisted conversion views across the full funnel",
+          "Spend efficiency scores your team can act on weekly",
         ],
       },
       {
-        title: "Executive profiling",
+        title: "Data integration",
         description:
-          "Founder and expert commentary that positions your leadership as a credible voice in the market.",
+          "Connections between ad platforms, analytics, CRM and offline sources so attribution reflects real business outcomes.",
         highlights: [
-          "Media training and key message development for spokespeople",
-          "Bylined articles and opinion pieces in target publications",
-          "Podcast, broadcast and panel placement where relevant",
+          "GA4, ad platform and CRM data stitched into one view",
+          "Offline conversion and sales data fed back to media platforms",
+          "Documentation and QA so the model stays trustworthy",
         ],
       },
     ],
     approach: [
       {
-        title: "Find the angle",
+        title: "Audit the data stack",
         description:
-          "We review search data, market trends and your proprietary insights to land stories with genuine news value.",
+          "We map tracking, CRM fields and reporting gaps before building anything, so dashboards reflect reality from day one.",
       },
       {
-        title: "Pitch and place",
+        title: "Design the model",
         description:
-          "Targeted outreach to relevant outlets with assets ready for fast turnaround when journalists bite.",
+          "Attribution rules and dashboard structure agreed with marketing, sales and finance before development starts.",
       },
       {
-        title: "Amplify coverage",
+        title: "Build and validate",
         description:
-          "Wins syndicated across owned channels, sales collateral and retargeting audiences where appropriate.",
+          "Dashboards and integrations built, tested against known deals and spend, then refined until numbers reconcile.",
       },
       {
-        title: "Measure impact",
+        title: "Train and iterate",
         description:
-          "Referral traffic, link acquisition and branded search movement tracked alongside reach and share of voice.",
+          "Your team gets a clear read on channel value, with ongoing tweaks as channels, offers and data sources evolve.",
       },
     ],
     outcomes: [
-      { value: "Tier 1", label: "National and trade placements secured" },
-      { value: "SEO+", label: "Authority gains that support organic growth" },
-      { value: "Always-on", label: "Reactive and planned calendar combined" },
+      { value: "Full-funnel", label: "Visibility from first touch to closed revenue" },
+      { value: "CRM-native", label: "Dashboards built where your team already works" },
+      { value: "Actionable", label: "Channel readouts your team uses for budget calls" },
     ],
   },
   {

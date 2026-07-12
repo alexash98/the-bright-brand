@@ -155,7 +155,7 @@ export const Footer: React.FC = () => {
                 "PPC",
                 "Paid Social",
                 "Paid Media",
-                "Digital PR",
+                "Attribution",
                 "CRO/UX",
                 "Creative",
                 "Analytics",
