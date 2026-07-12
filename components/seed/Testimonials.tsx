@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
 import { TestimonialCard } from "@/components/seed/TestimonialCard";
@@ -10,28 +10,45 @@ interface TestimonialsProps {
   testimonials: Testimonial[];
 }
 
-const CARD_GAP_PX = 16;
+interface TiledTestimonial extends Testimonial {
+  tileKey: string;
+}
 
-function TestimonialSegment({
+const CARD_GAP_CLASS = "gap-4";
+const MIN_TILE_ROUNDS = 2;
+
+function buildTiledTestimonials(
+  testimonials: Testimonial[],
+  rounds: number,
+): TiledTestimonial[] {
+  return Array.from({ length: rounds }, (_, round) =>
+    testimonials.map((testimonial) => ({
+      ...testimonial,
+      tileKey: `${testimonial.id}-${round}`,
+    })),
+  ).flat();
+}
+
+function TestimonialCopy({
   testimonials,
-  segmentRef,
-  segmentKey,
+  copyRef,
+  copyKey,
   ariaHidden = false,
 }: {
-  testimonials: Testimonial[];
-  segmentRef?: React.RefObject<HTMLDivElement | null>;
-  segmentKey: string;
+  testimonials: TiledTestimonial[];
+  copyRef?: React.RefObject<HTMLDivElement | null>;
+  copyKey: string;
   ariaHidden?: boolean;
 }): React.ReactElement {
   return (
     <div
-      ref={segmentRef}
+      ref={copyRef}
       aria-hidden={ariaHidden || undefined}
-      className="flex shrink-0 items-stretch gap-4"
+      className={`flex shrink-0 items-stretch ${CARD_GAP_CLASS}`}
     >
       {testimonials.map((testimonial) => (
         <TestimonialCard
-          key={`${segmentKey}-${testimonial.id}`}
+          key={`${copyKey}-${testimonial.tileKey}`}
           testimonial={testimonial}
           className="min-h-[280px] w-[300px] shrink-0 sm:w-[340px]"
         />
@@ -45,66 +62,98 @@ export function TestimonialTrack({
 }: {
   testimonials: Testimonial[];
 }): React.ReactElement {
-  const segmentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState<number | null>(null);
+  const [tileRounds, setTileRounds] = useState(MIN_TILE_ROUNDS);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  const tiledTestimonials = useMemo(
+    () => buildTiledTestimonials(testimonials, tileRounds),
+    [testimonials, tileRounds],
+  );
 
   useLayoutEffect(() => {
     const measure = (): void => {
-      if (!segmentRef.current?.parentElement) {
+      if (!copyRef.current?.parentElement || !containerRef.current) {
         return;
       }
 
-      const segmentWidth = segmentRef.current.offsetWidth;
-      const parentStyles = window.getComputedStyle(segmentRef.current.parentElement);
+      const viewportWidth = containerRef.current.offsetWidth;
+      const copyWidth = copyRef.current.offsetWidth;
+      const parentStyles = window.getComputedStyle(copyRef.current.parentElement);
       const trackGap = Number.parseFloat(parentStyles.columnGap || parentStyles.gap || "0");
 
-      setScrollDistance(segmentWidth + (trackGap || CARD_GAP_PX));
+      if (copyWidth > 0 && copyWidth < viewportWidth + 128) {
+        const nextRounds = Math.ceil(tileRounds * ((viewportWidth + 128) / copyWidth)) + 1;
+
+        if (nextRounds > tileRounds) {
+          setScrollDistance(null);
+          setTileRounds(nextRounds);
+          return;
+        }
+      }
+
+      if (copyWidth > 0) {
+        setScrollDistance(copyWidth + trackGap);
+      }
     };
 
     measure();
 
     const observer = new ResizeObserver(measure);
-    if (segmentRef.current) {
-      observer.observe(segmentRef.current);
+
+    if (copyRef.current) {
+      observer.observe(copyRef.current);
     }
 
-    return () => observer.disconnect();
-  }, [testimonials]);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
-  if (scrollDistance === null || prefersReducedMotion) {
-    return (
-      <div className="flex gap-4">
-        <TestimonialSegment
-          testimonials={testimonials}
-          segmentKey="measure"
-          segmentRef={segmentRef}
-        />
-      </div>
-    );
-  }
+    const images = copyRef.current?.querySelectorAll("img") ?? [];
+
+    images.forEach((image) => {
+      if (!image.complete) {
+        image.addEventListener("load", measure);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+      images.forEach((image) => {
+        image.removeEventListener("load", measure);
+      });
+    };
+  }, [testimonials, tileRounds, tiledTestimonials]);
 
   return (
-    <motion.div
-      className="flex gap-4"
-      initial={{ x: 0 }}
-      animate={{ x: [0, -scrollDistance] }}
-      transition={{
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 80,
-          ease: "linear",
-        },
-      }}
-    >
-      <TestimonialSegment
-        testimonials={testimonials}
-        segmentKey="a"
-        segmentRef={segmentRef}
-      />
-      <TestimonialSegment testimonials={testimonials} segmentKey="b" ariaHidden />
-    </motion.div>
+    <div ref={containerRef} className="relative overflow-hidden">
+      <motion.div
+        className={`flex w-max ${CARD_GAP_CLASS}`}
+        initial={{ x: 0 }}
+        animate={
+          scrollDistance && !prefersReducedMotion
+            ? { x: [0, -scrollDistance] }
+            : { x: 0 }
+        }
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: Math.max(80, tiledTestimonials.length * 8),
+            ease: "linear",
+          },
+        }}
+      >
+        <TestimonialCopy
+          testimonials={tiledTestimonials}
+          copyKey="a"
+          copyRef={copyRef}
+        />
+        <TestimonialCopy testimonials={tiledTestimonials} copyKey="b" ariaHidden />
+      </motion.div>
+    </div>
   );
 }
 

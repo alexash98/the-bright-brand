@@ -103,10 +103,10 @@ export const Services: React.FC<ServicesProps> = ({
           <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
             <div className="max-w-3xl text-left">
               <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-                Growth marketing built around your funnel, not just our playbook.
+                Performance marketing built around your funnel, not our playbook.
               </h2>
               <p className="text-lg leading-relaxed text-neutral-600">
-                We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
+                We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
               </p>
               <AskAiAboutBrand className="mt-8" />
             </div>
@@ -122,7 +122,7 @@ export const Services: React.FC<ServicesProps> = ({
               One integrated strategy across every channel.
             </h2>
             <p className="text-lg leading-relaxed text-neutral-600">
-              We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
+              We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
             </p>
           </div>
         )}

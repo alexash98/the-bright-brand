@@ -78,7 +78,7 @@ export function HomePage(): React.ReactElement {
       <main>
         <Hero
           rotatingWords={ROTATING_WORDS}
-          description="We work as an extension of your team, not a separate agency layer. Senior specialists own your growth across search, paid media and creative, with clear accountability from day one."
+          description="We work as an extension of your team, not a separate agency layer. No middlemen or hand-offs, just direct ownership of your growth across search, paid media and creative, with accountability from day one."
           caseStudies={HERO_CAROUSEL_CASE_STUDIES}
           clientLogos={CLIENT_LOGOS}
         />
