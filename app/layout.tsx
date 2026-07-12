@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Instrument_Sans, Outfit } from "next/font/google";
 import { JsonLd } from "@/components/JsonLd";
 import { SmoothScrollProvider } from "@/components/seed/SmoothScrollProvider";
 import { organization, website } from "@/lib/schema";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-instrument-sans",
   display: "swap",
   preload: true,
 });
@@ -54,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased`}
+      className={`${instrumentSans.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="brand-grid min-h-full">
         <JsonLd data={[organization(), website()]} />
