@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useScrollToSection, useScrollToTop } from "@/components/seed/SmoothScrollProvider";
+import { AskAiAboutBrand } from "@/components/seed/AskAiAboutBrand";
 import { CONTACT } from "@/lib/contact";
 
 const PARTNER_LOGOS = [
@@ -193,6 +194,10 @@ export const Footer: React.FC = () => {
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 border-t border-white/10 pt-8">
+          <AskAiAboutBrand theme="dark" layout="bar" />
         </div>
       </div>
     </footer>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
+import { AskAiAboutBrand } from "@/components/seed/AskAiAboutBrand";
 import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
 import { getServiceIcon } from "@/lib/service-icons";
 import { ServiceCard } from "@/lib/seed-types";
@@ -107,6 +108,7 @@ export const Services: React.FC<ServicesProps> = ({
               <p className="text-lg leading-relaxed text-neutral-600">
                 We integrate organic search, high-volume paid media, creator-led social campaigns, and authoritative public relations under a single data-aligned strategy.
               </p>
+              <AskAiAboutBrand className="mt-8" />
             </div>
 
             <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
