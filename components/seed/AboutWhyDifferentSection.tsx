@@ -14,7 +14,7 @@ export function AboutWhyDifferentSection({
 }: AboutWhyDifferentSectionProps): React.ReactElement {
   const pairs = content.typical.map((typical, index) => ({
     typical,
-    seed: content.seed[index] ?? "",
+    ours: content.ours[index] ?? "",
   }));
 
   return (
@@ -42,7 +42,7 @@ export function AboutWhyDifferentSection({
         <div className="border-t border-neutral-200">
           {pairs.map((pair, index) => (
             <motion.div
-              key={pair.seed}
+              key={pair.ours}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -59,7 +59,7 @@ export function AboutWhyDifferentSection({
                 <span className="mb-1 block text-[11px] font-bold uppercase tracking-[0.18em] text-brand-accent-dark md:hidden">
                   {content.rightTitle}
                 </span>
-                {pair.seed}
+                {pair.ours}
               </p>
             </motion.div>
           ))}

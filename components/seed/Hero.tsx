@@ -49,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({
             Performance Marketing Agency
           </div>
 
-          {/* No opacity fade on LCP text — Motion initial opacity:0 was delaying LCP */}
+          {/* No opacity fade on LCP text; Motion initial opacity:0 was delaying LCP */}
           <h1 className="mb-6 text-[33px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[2.875rem] md:text-[3.75rem] lg:mb-7 lg:text-[3.5rem] lg:leading-[1.22] xl:text-[3.875rem]">
             <span className="block">We help you win on</span>
             <span className="relative block h-[1.2em] text-brand-accent">

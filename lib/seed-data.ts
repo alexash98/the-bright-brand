@@ -423,7 +423,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
     testimonial: {
-      text: "Securing the Financial Times was a colossal milestone for our market standing. Seed's unique focus on making our data tell a public story was brilliant.",
+      text: "Securing the Financial Times was a colossal milestone for our market standing. The Bright Brand's unique focus on making our data tell a public story was brilliant.",
       author: "Ed Hall",
       role: "CEO, Qualification Check"
     }
@@ -453,7 +453,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80",
     testimonial: {
-      text: "Seed's digital PR campaigns reversed a multi-month drop in our traffic within weeks. A brilliant cross-channel effort.",
+      text: "The Bright Brand's digital PR campaigns reversed a multi-month drop in our traffic within weeks. A brilliant cross-channel effort.",
       author: "Frankie Williams",
       role: "Sales Partner"
     }
@@ -616,11 +616,11 @@ export const CASE_STUDIES: CaseStudy[] = [
 ];
 
 export const PLAYBOOK: PlaybookRow[] = [
-  { from: "Tethered to the billable hour", to: "Pricing based on outcomes" },
-  { from: "Fixed, long-term contracts", to: "Flexible agreements" },
-  { from: "Packaged, off-the-shelf services", to: "Agile, bespoke solutions" },
-  { from: "New business machines", to: "Long-term partnerships" },
-  { from: "Fear of failure, no innovation", to: "Experiment and adapt" }
+  { from: "Middlemen and hand-offs between teams", to: "Direct ownership from day one" },
+  { from: "Channels managed in silos", to: "One integrated growth plan" },
+  { from: "Reports full of vanity metrics", to: "Reporting tied to revenue and pipeline" },
+  { from: "Bloated retainers and lock-ins", to: "Flexible terms that follow progress" },
+  { from: "Strategy before anyone sees your data", to: "Plans built from your analytics" },
 ];
 
 export const ABOUT_HERO_HIGHLIGHTS: AboutHeroHighlight[] = [
@@ -635,31 +635,31 @@ export const ABOUT_WHY_DIFFERENT: AboutComparisonSection = {
   title: "Most agencies are built to protect",
   highlight: "the retainer.",
   leftTitle: "What we see elsewhere",
-  rightTitle: "How Seed works",
+  rightTitle: "How we work",
   typical: [
-    "Junior teams execute while senior people stay in the pitch room",
+    "Middlemen and hand-offs between account teams",
     "Channels managed separately with no shared view of the funnel",
     "Monthly reports full of impressions, reach and other vanity metrics",
-    "Scope signed off before anyone has looked properly at your data",
-    "Recommendations shaped by what the agency sells, not what you need",
+    "Bloated retainers and long-term lock-ins by default",
+    "Strategy signed off before anyone has looked properly at your data",
   ],
-  seed: [
-    "Directors and specialists in your calls from the first week",
-    "Search, paid, creative and PR planned as one connected system",
+  ours: [
+    "Direct ownership of your growth from day one",
+    "Search, paid and creative planned as one integrated growth plan",
     "Reporting tied to revenue, pipeline and cost efficiency",
-    "Strategy built from your analytics and updated as conditions change",
-    "Advice based on what moves your numbers, not our service menu",
+    "Flexible terms that follow progress, not fixed retainers",
+    "Plans built from your analytics and updated as conditions change",
   ],
   bridgeHighlights: [
     {
       icon: "senior",
-      title: "Senior from week one",
-      body: "Directors in your calls, not just the pitch room.",
+      title: "Direct ownership",
+      body: "No middlemen or hand-offs. One team accountable for your growth.",
     },
     {
       icon: "connected",
-      title: "One connected plan",
-      body: "Search, paid, creative and PR working as a system.",
+      title: "One integrated plan",
+      body: "Search, paid and creative working as one growth system.",
     },
     {
       icon: "reporting",
@@ -671,26 +671,26 @@ export const ABOUT_WHY_DIFFERENT: AboutComparisonSection = {
 
 export const ABOUT_CULTURE: AboutCultureContent = {
   eyebrow: "How we work",
-  title: "Structured for momentum, not",
-  highlight: "maintenance.",
+  title: "Built for progress, not",
+  highlight: "process.",
   intro:
-    "We organise around client pods, not departments. Each pod brings together the specialists your account needs, with clear ownership and fast decision-making. That means less process theatre and more time spent on work that shows up in your results.",
+    "We work as an extension of your team, not a separate agency layer. That means direct ownership, faster decisions, and less time lost to hand-offs, ticket queues and reporting nobody acts on.",
   pillars: [
     {
-      title: "Client pods, not hand-offs",
-      body: "Your account is run by a small, stable team that knows your business. Briefs do not bounce between departments or disappear into a ticket queue.",
+      title: "One team, clear ownership",
+      body: "Your account is run by a small, stable team that knows your business. Work does not bounce between departments or vanish into a black hole once the contract is signed.",
     },
     {
-      title: "Senior specialists from week one",
-      body: "The people who scope your strategy are the people who deliver it. No bait-and-switch once the contract is signed.",
+      title: "Integrated from day one",
+      body: "Search, paid, creative and attribution are planned together so channels compound instead of competing. No siloed channel teams working from separate playbooks.",
     },
     {
       title: "Reporting you can act on",
       body: "We focus on metrics that connect to commercial outcomes. If a number cannot inform a decision, it does not belong in your dashboard.",
     },
     {
-      title: "Partnerships that stay flexible",
-      body: "We prefer agreements that reflect real progress, not lock-ins that suit us. Scale up, scale down, or shift focus as your priorities change.",
+      title: "Terms that follow progress",
+      body: "We prefer agreements that reflect real results, not lock-ins that suit us. Scale up, scale down, or shift focus as your priorities change.",
     },
   ],
 };
@@ -700,7 +700,7 @@ export const ABOUT_FEATURED_WORK: AboutFeaturedWorkContent = {
   title: "Outcomes you can",
   highlight: "measure.",
   intro:
-    "The work shows up in revenue, pipeline and efficiency — not slide decks. Here is a sample of what that looks like in practice.",
+    "The work shows up in revenue, pipeline and efficiency, not slide decks. Here is a sample of what that looks like in practice.",
   caseStudyIds: ["menzies-law", "britton-and-time", "heat-from-the-spire"],
 };
 
@@ -737,7 +737,7 @@ export const TEAM: TeamMember[] = [
     seniority: "Director",
     email: "louis@thebrightbrand.com",
     startDate: "Oct 2018",
-    bio: "Louis oversees technical architecture, crawl budgets, and AI search visibility optimization. He built Seed's proprietary ranking audit indexer, Atlas.",
+    bio: "Louis oversees technical architecture, crawl budgets, and AI search visibility optimization. He built our proprietary ranking audit indexer, Atlas.",
     avatarSeed: "louis",
     hobbies: ["Mechanical Keyboards", "Retro games", "Biking"]
   },

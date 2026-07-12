@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
             <Link href="/" onClick={handleHomeClick} className="group flex cursor-pointer items-center">
               <Image
                 src="/seed-logo.png"
-                alt="Seed"
+                alt="The Bright Brand"
                 width={120}
                 height={48}
                 priority

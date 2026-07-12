@@ -4,7 +4,7 @@ Website project for **The Bright Brand**.
 
 ## Status
 
-Planning phase — SEO strategy and site architecture come first, then build.
+Planning phase: SEO strategy and site architecture come first, then build.
 
 ## Getting started
 

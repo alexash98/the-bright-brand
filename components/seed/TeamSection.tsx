@@ -23,7 +23,7 @@ export const TeamSection: React.FC<TeamSectionProps> = ({ members }) => {
             Built by people that <span className="text-brand-accent">care</span>.
           </h2>
           <p className="text-lg font-normal leading-relaxed text-neutral-600">
-            Seed runs on high-agency, trust, and structural pods. We are fully transitioning to an Employee Ownership Trust (EOT) because we believe the people who build results should co-own the business.
+            The Bright Brand runs on high-agency, trust, and clear ownership. We are fully transitioning to an Employee Ownership Trust (EOT) because we believe the people who build results should co-own the business.
           </p>
         </div>
 

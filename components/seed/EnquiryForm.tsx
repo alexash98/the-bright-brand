@@ -8,10 +8,10 @@ import { useEnquiryForm } from "@/components/seed/useEnquiryForm";
 import { useScrollToSection } from "@/components/seed/SmoothScrollProvider";
 
 const FEATURE_POINTS = [
-  "Pricing based on outcomes",
-  "Flexible agreements",
-  "Agile, bespoke solutions",
-  "Long-term partnerships",
+  "Direct ownership from day one",
+  "One integrated growth plan",
+  "Reporting tied to revenue and pipeline",
+  "Flexible terms that follow progress",
 ];
 
 const DEFAULT_FIELD_CLASS =

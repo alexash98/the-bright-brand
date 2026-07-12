@@ -55,9 +55,9 @@ export function AboutPage(): React.ReactElement {
           <span className="text-brand-accent">outcomes</span>, not retainers.
         </h1>
         <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl lg:max-w-xl">
-          We work as an extension of your team. Senior specialists across
-          search, paid media, creative and PR own your growth with clear
-          accountability from day one.
+          We work as an extension of your team. Specialists across search,
+          paid media, creative and PR own your growth with clear accountability
+          from day one.
         </p>
       </MarketingHero>
 

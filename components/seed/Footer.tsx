@@ -127,7 +127,7 @@ export const Footer: React.FC = () => {
             >
               <Image
                 src="/seed-logo.png"
-                alt="Seed"
+                alt="The Bright Brand"
                 width={120}
                 height={48}
                 loading="lazy"

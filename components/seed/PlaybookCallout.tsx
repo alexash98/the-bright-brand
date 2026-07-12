@@ -34,7 +34,7 @@ export function PlaybookCallout({
           isDark ? "text-brand-text-pale/75" : "text-neutral-600"
         }`}
       >
-        Flexible engagements, clear accountability, and no off-the-shelf retainers.
+        Flexible engagements, clear accountability, and plans built from your data.
       </p>
       {href ? (
         <Link href={href} className={buttonClassName}>

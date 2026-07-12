@@ -167,7 +167,7 @@ export interface AboutComparisonSection {
   leftTitle: string;
   rightTitle: string;
   typical: string[];
-  seed: string[];
+  ours: string[];
   bridgeHighlights: AboutBridgeHighlight[];
 }
 

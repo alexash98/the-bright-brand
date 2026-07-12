@@ -12,7 +12,7 @@ export const GrowthCalculator: React.FC = () => {
 
   // Live ROI Estimates memoization
   const estimates = useMemo(() => {
-    // Seed optimization benchmarks:
+    // Bright Brand optimization benchmarks:
     // revenue focus: +46% average ROAS improvement
     // efficiency focus: -28% spend waste reduction
     // omnichannel focus: +51% impressions YoY
@@ -21,7 +21,7 @@ export const GrowthCalculator: React.FC = () => {
     const currentRevenue = budget * currentRoas;
     const projectedRevenue = currentRevenue * (1 + rateOfImprovement);
     const estimatedExtraRevenue = projectedRevenue - currentRevenue;
-    const adSpendEfficiencySavings = budget * 0.22; // average 22% waste trimming via pod consolidation
+    const adSpendEfficiencySavings = budget * 0.22; // average 22% waste trimming via channel consolidation
 
     return {
       projectedRevenue: Math.round(projectedRevenue),
@@ -42,7 +42,7 @@ export const GrowthCalculator: React.FC = () => {
             Estimate your growth potential.
           </h2>
           <p className="text-lg font-normal text-neutral-600">
-            Drag the sliders below to estimate the incremental revenue we can unlock by consolidating your campaigns into focused performance pods.
+            Drag the sliders below to estimate the incremental revenue we can unlock by consolidating your campaigns into a focused, integrated growth plan.
           </p>
         </div>
 
@@ -155,7 +155,7 @@ export const GrowthCalculator: React.FC = () => {
 
             {/* Quick explanatory footer */}
             <p className="mt-8 text-left text-[11px] font-semibold italic text-neutral-400">
-              *Calculations are based on Seed's average client outcomes from our 2025/2026 audits. Exact metrics depend on account maturity and seasonality.
+              *Calculations are based on The Bright Brand&apos;s average client outcomes from our 2025/2026 audits. Exact metrics depend on account maturity and seasonality.
             </p>
           </div>
 
