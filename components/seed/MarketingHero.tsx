@@ -4,12 +4,14 @@ interface MarketingHeroProps {
   children: React.ReactNode;
   aside?: React.ReactNode;
   footer?: React.ReactNode;
+  asideAlign?: "center" | "start";
 }
 
 export function MarketingHero({
   children,
   aside,
   footer,
+  asideAlign = "center",
 }: MarketingHeroProps): React.ReactElement {
   return (
     <section className="flex flex-col bg-brand-bg-darker">
@@ -17,7 +19,9 @@ export function MarketingHero({
         <div
           className={`mx-auto w-full max-w-7xl ${
             aside
-              ? "grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8 xl:gap-10"
+              ? `grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 xl:gap-10 ${
+                  asideAlign === "start" ? "items-start" : "items-center"
+                }`
               : ""
           }`}
         >

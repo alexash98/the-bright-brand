@@ -91,6 +91,52 @@ export interface StatCard {
   label: string;
 }
 
+export interface CaseStudyTrendPoint {
+  label: string;
+  value: number;
+  displayValue: string;
+}
+
+export interface CaseStudyMetricComparison {
+  title: string;
+  beforeLabel: string;
+  afterLabel: string;
+  beforeValue: string;
+  afterValue: string;
+  changeLabel: string;
+  beforeRatio: number;
+  afterRatio: number;
+}
+
+export interface CaseStudyVisualSection {
+  eyebrow: string;
+  title: string;
+  description: string;
+  revenueTrend: CaseStudyTrendPoint[];
+  comparisons: CaseStudyMetricComparison[];
+}
+
+export interface CaseStudyDetail {
+  slug: string;
+  carouselId: string;
+  clientName: string;
+  clientLogo?: string;
+  clientLogoInvert?: boolean;
+  metaDescription: string;
+  heroEyebrow: string;
+  heroTitle: string;
+  heroAccent?: string;
+  heroIntro: string;
+  heroStats: StatCard[];
+  imageUrl: string;
+  category: CaseStudy["category"];
+  bodyEyebrow: string;
+  bodyTitle: string;
+  bodyDescription: string;
+  body: string[];
+  visualSection?: CaseStudyVisualSection;
+}
+
 export interface CaseStudy {
   id: string;
   title: string;

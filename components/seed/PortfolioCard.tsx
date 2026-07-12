@@ -2,7 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { isPreoptimizedLocalImage } from "@/lib/image";
+import { getCaseStudyDetailSlug } from "@/lib/case-study-details";
 import { CaseStudy } from "@/lib/seed-types";
 
 export function PortfolioCard({
@@ -10,6 +12,7 @@ export function PortfolioCard({
 }: {
   study: CaseStudy;
 }): React.ReactElement {
+  const detailSlug = getCaseStudyDetailSlug(study.id);
   const logoLines = study.clientName.split(" ");
   const primaryLine = logoLines[0] ?? study.clientName;
   const secondaryLine = logoLines.slice(1).join(" ");
@@ -37,7 +40,7 @@ export function PortfolioCard({
                         ? "flex h-8 w-40 origin-left items-center justify-start sm:h-9 sm:w-44"
                         : "flex h-7 w-28 items-center justify-start sm:h-8 sm:w-32";
 
-  return (
+  const card = (
     <article className="group relative min-h-[320px] overflow-hidden rounded-2xl border border-neutral-200/80 sm:min-h-[350px]">
       <Image
         src={study.imageUrl}
@@ -95,4 +98,14 @@ export function PortfolioCard({
       </div>
     </article>
   );
+
+  if (detailSlug) {
+    return (
+      <Link href={`/case-studies/${detailSlug}`} className="block h-full">
+        {card}
+      </Link>
+    );
+  }
+
+  return card;
 }

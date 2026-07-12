@@ -91,9 +91,9 @@ export const HERO_CAROUSEL_CASE_STUDIES: CaseStudy[] = [
   ),
   heroCarouselCase(
     "anywhere-travel",
-    "Anywhere Travel",
-    "+59%",
-    "revenue on flat ad spend",
+    "Anywhere.com",
+    "+67%",
+    "revenue growth year on year",
     "/carousel/anywhere-travel.webp",
     "anywhere.png",
   ),

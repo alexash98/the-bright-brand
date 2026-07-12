@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllCaseStudySlugs } from "@/lib/case-study-details";
 import { getAllServiceSlugs } from "@/lib/service-details";
 import { SITE_URL } from "@/lib/site";
 
@@ -6,6 +7,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages = getAllServiceSlugs().map((slug) => ({
     url: `${SITE_URL}/services/${slug}`,
     lastModified: new Date("2026-07-10"),
+  }));
+
+  const caseStudyPages = getAllCaseStudySlugs().map((slug) => ({
+    url: `${SITE_URL}/case-studies/${slug}`,
+    lastModified: new Date("2026-07-12"),
   }));
 
   return [
@@ -30,5 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date("2026-07-11"),
     },
     ...servicePages,
+    ...caseStudyPages,
   ];
 }
