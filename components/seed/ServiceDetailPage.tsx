@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/seed/Footer";
 import { Header } from "@/components/seed/Header";
 import { MarketingHero } from "@/components/seed/MarketingHero";
+import { ServiceFaqsSection } from "@/components/seed/ServiceFaqsSection";
 import { SectionPlaceholder } from "@/components/seed/SectionPlaceholder";
 import { getServiceIcon } from "@/lib/service-icons";
 import { NAV_ITEMS } from "@/lib/nav";
@@ -24,7 +25,6 @@ interface ServiceDetailPageProps {
 export function ServiceDetailPage({
   service,
 }: ServiceDetailPageProps): React.ReactElement {
-  const Icon = getServiceIcon(service.iconName);
   const relatedServices = SERVICES.filter((item) => item.id !== service.id);
 
   return (
@@ -40,13 +40,6 @@ export function ServiceDetailPage({
           All services
         </Link>
 
-        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-          <Icon className="h-6 w-6 text-brand-accent" />
-        </div>
-
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-          {service.shortTitle}
-        </p>
         <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:text-6xl">
           {service.heroTitle}{" "}
           <span className="text-brand-accent">{service.heroAccent}</span>.
@@ -65,18 +58,15 @@ export function ServiceDetailPage({
         <div className="page-below-fold">
         {service.whySection ? (
           <section className="px-4 py-16 md:px-8 md:py-24">
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-              <div>
+            <div className="mx-auto max-w-7xl text-left">
+              {service.whySection.eyebrow ? (
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
                   {service.whySection.eyebrow}
                 </p>
-                <h2 className="mb-4 text-2xl font-semibold tracking-tight text-neutral-900 md:text-4xl">
+              ) : null}
+              <h2 className="mb-8 text-2xl font-semibold tracking-tight text-neutral-900 md:text-4xl">
                   {service.whySection.title}
                 </h2>
-                <p className="text-base font-semibold uppercase tracking-wide text-neutral-500 md:text-sm">
-                  {service.whySection.subtitle}
-                </p>
-              </div>
               <div className="space-y-4 text-base leading-relaxed text-neutral-600 md:text-lg">
                 {service.whySection.body.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
@@ -236,31 +226,13 @@ export function ServiceDetailPage({
         ) : null}
 
         {service.faqs && service.faqs.length > 0 ? (
-          <section className="px-4 py-16 md:px-8 md:py-20">
-            <div className="mx-auto max-w-3xl">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-                FAQs
-              </p>
-              <h2 className="mb-10 text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
-                {service.faqsHeading ?? `Common questions about ${service.shortTitle.toLowerCase()}`}
-              </h2>
-              <dl className="space-y-8">
-                {service.faqs.map((faq) => (
-                  <div
-                    key={faq.question}
-                    className="border-b border-neutral-200 pb-8 last:border-b-0 last:pb-0"
-                  >
-                    <dt className="mb-3 text-lg font-semibold text-neutral-900">
-                      {faq.question}
-                    </dt>
-                    <dd className="text-base leading-relaxed text-neutral-600">
-                      {faq.answer}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </section>
+          <ServiceFaqsSection
+            heading={
+              service.faqsHeading ??
+              `Common questions about ${service.shortTitle.toLowerCase()}`
+            }
+            faqs={service.faqs}
+          />
         ) : null}
 
         <section className="px-4 py-16 md:px-8 md:py-20">

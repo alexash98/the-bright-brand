@@ -1,4 +1,6 @@
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { AboutHeroAside } from "@/components/seed/AboutHeroAside";
 import { Footer } from "@/components/seed/Footer";
 import { Header } from "@/components/seed/Header";
@@ -47,9 +49,13 @@ export function AboutPage(): React.ReactElement {
       <Header navItems={NAV_ITEMS} />
 
       <MarketingHero aside={<AboutHeroAside highlights={ABOUT_HERO_HIGHLIGHTS} />}>
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-          About us
-        </p>
+        <Link
+          href="/"
+          className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-text-pale/70 transition-colors hover:text-brand-accent"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Return to home
+        </Link>
         <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:max-w-none lg:text-6xl">
           An agency built around{" "}
           <span className="text-brand-accent">outcomes</span>, not retainers.

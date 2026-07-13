@@ -45,9 +45,8 @@ export interface ServiceOutcome {
 }
 
 export interface ServiceWhySection {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  subtitle: string;
   body: string[];
 }
 

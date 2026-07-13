@@ -94,14 +94,9 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     heroTitle: "Your PPC performance,",
     heroAccent: "accelerated",
     heroIntro:
-      "Unlock the full potential of paid search through data, smart automation and creative thinking that converts.",
-    heroIntroSecondary:
-      "We analyse search behaviour so we know exactly where your customers are looking. Whether you focus on Google and Bing or expand across every platform where demand is building, we tailor plans to your goals, margins and market.",
+      "Unlock the full potential of paid search through data, smart automation and creative thinking that converts. We analyse search behaviour to find your customers and tailor Google, Bing and platform plans to your goals, margins and market.",
     whySection: {
-      eyebrow: "Why paid search?",
       title: "Why do you need a PPC agency?",
-      subtitle:
-        "PPC boosts visibility, drives immediate traffic, and increases sales effectively.",
       body: [
         "From first search to the moment someone is ready to convert, paid search is one of the biggest drivers of qualified website traffic. Running it well means managing bids, match types, creative, landing pages, feeds and reporting at once. Skill and dedication are what turn spend into advantage.",
         "Our London-based team acts as an extension of your marketing function, driving sales, generating leads and building brand awareness. We challenge assumptions, test aggressively and optimise continuously so your budget works harder than the competition's.",
