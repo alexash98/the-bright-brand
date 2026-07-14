@@ -6,7 +6,13 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "About Us", url: "/about" },
 ];
 
-const PAGE_ROUTES = new Set(["/services", "/contact", "/case-studies", "/about"]);
+const PAGE_ROUTES = new Set([
+  "/services",
+  "/contact",
+  "/case-studies",
+  "/about",
+  "/blog",
+]);
 
 export function getNavHref(item: NavItem): string {
   if (PAGE_ROUTES.has(item.url)) {

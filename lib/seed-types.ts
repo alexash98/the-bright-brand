@@ -254,3 +254,26 @@ export interface ServiceHighlightQuote {
   imageSrc: string;
   imageAlt: string;
 }
+
+export type BlogPostCategory =
+  | "PPC"
+  | "SEO"
+  | "Paid Social"
+  | "Strategy"
+  | "CRO";
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  metaDescription: string;
+  category: BlogPostCategory;
+  authorName: string;
+  authorRole: string;
+  publishedAt: string;
+  updatedAt: string;
+  readTimeMinutes: number;
+  imageUrl: string;
+  imageAlt: string;
+  body: string[];
+}

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getAllBlogSlugs, getBlogPostBySlug } from "@/lib/blog-posts";
 import { getAllCaseStudySlugs } from "@/lib/case-study-details";
 import { getAllServiceSlugs } from "@/lib/service-details";
 import { SITE_URL } from "@/lib/site";
@@ -13,6 +14,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${SITE_URL}/case-studies/${slug}`,
     lastModified: new Date("2026-07-12"),
   }));
+
+  const blogPages = getAllBlogSlugs().map((slug) => {
+    const post = getBlogPostBySlug(slug);
+
+    return {
+      url: `${SITE_URL}/blog/${slug}`,
+      lastModified: new Date(post?.updatedAt ?? "2026-07-14"),
+    };
+  });
 
   return [
     {
@@ -35,7 +45,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/about`,
       lastModified: new Date("2026-07-11"),
     },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: new Date("2026-07-14"),
+    },
     ...servicePages,
     ...caseStudyPages,
+    ...blogPages,
   ];
 }
