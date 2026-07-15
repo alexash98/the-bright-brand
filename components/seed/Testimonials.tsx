@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/seed-types";
+import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { TestimonialCard } from "@/components/seed/TestimonialCard";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -158,6 +159,10 @@ export function TestimonialTrack({
 }
 
 export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
+  if (!SHOW_TESTIMONIALS_SECTION) {
+    return null;
+  }
+
   if (testimonials.length === 0) {
     return null;
   }

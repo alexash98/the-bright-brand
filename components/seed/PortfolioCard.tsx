@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CLICKABLE_CASE_STUDY_CARDS } from "@/lib/feature-flags";
 import { isPreoptimizedLocalImage } from "@/lib/image";
 import { getCaseStudyDetailSlug } from "@/lib/case-study-details";
 import { CaseStudy } from "@/lib/seed-types";
@@ -50,7 +51,9 @@ export function PortfolioCard({
         loading="lazy"
         decoding="async"
         unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
-        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        className={`object-cover transition-transform duration-500 ${
+          CLICKABLE_CASE_STUDY_CARDS ? "group-hover:scale-[1.03]" : ""
+        }`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
 
@@ -99,7 +102,7 @@ export function PortfolioCard({
     </article>
   );
 
-  if (detailSlug) {
+  if (detailSlug && CLICKABLE_CASE_STUDY_CARDS) {
     return (
       <Link href={`/case-studies/${detailSlug}`} className="block h-full">
         {card}

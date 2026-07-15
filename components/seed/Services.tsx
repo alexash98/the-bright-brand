@@ -7,6 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { AsSeenInTicker } from "@/components/seed/AsSeenInTicker";
 import { AskAiAboutBrand } from "@/components/seed/AskAiAboutBrand";
 import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
+import { SHOW_SERVICE_QUOTE_SLIDER } from "@/lib/feature-flags";
 import { getServiceIcon } from "@/lib/service-icons";
 import { ServiceCard } from "@/lib/seed-types";
 import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
@@ -100,7 +101,13 @@ export const Services: React.FC<ServicesProps> = ({
         }`}
       >
         {variant === "homepage" ? (
-          <div className="mb-16 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div
+            className={`mb-16 ${
+              SHOW_SERVICE_QUOTE_SLIDER
+                ? "grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16"
+                : ""
+            }`}
+          >
             <div className="max-w-3xl text-left">
               <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
                 Performance marketing built around your funnel, not our playbook.
@@ -111,7 +118,9 @@ export const Services: React.FC<ServicesProps> = ({
               <AskAiAboutBrand className="mt-8" />
             </div>
 
-            <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
+            {SHOW_SERVICE_QUOTE_SLIDER ? (
+              <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
+            ) : null}
           </div>
         ) : (
           <div className="mb-12 max-w-3xl">
