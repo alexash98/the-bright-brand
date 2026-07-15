@@ -9,3 +9,7 @@ export const CONTACT = {
   contactRole: "Client Partner",
   responseTime: "We reply within one business day",
 } as const;
+
+// Discovery call booking link, used on every CTA.
+export const CALENDLY_URL =
+  "https://calendly.com/alex-thebrightbrand/growth-strategy-call";

@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useScrollToSection, useScrollToTop } from "@/components/seed/SmoothScrollProvider";
+import { useScrollToTop } from "@/components/seed/SmoothScrollProvider";
 import { AskAiAboutBrand } from "@/components/seed/AskAiAboutBrand";
 import { CONTACT } from "@/lib/contact";
 
@@ -36,24 +36,15 @@ const PARTNER_LOGOS = [
   },
 ];
 
-const AGENCY_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Careers", id: "about" },
-  { label: "Work", href: "/case-studies" },
+// Quick Links match the live footer exactly: home, services, case studies,
+// contact, Odal, plus blog. No Careers or per-service anchors (not on live).
+const QUICK_LINKS: Array<{ label: string; href: string; external?: boolean }> = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
-];
-
-const SERVICE_LINKS = [
-  "SEO",
-  "PPC",
-  "Paid Social",
-  "Paid Media",
-  "Attribution",
-  "CRO/UX",
-  "Creative",
-  "Analytics",
-  "CRM",
+  { label: "Odal", href: "https://www.odal.io/", external: true },
 ];
 
 const FOOTER_LINK_CLASS =
@@ -62,10 +53,7 @@ const FOOTER_LINK_CLASS =
 function FooterInlineLinks({
   items,
 }: {
-  items: Array<
-    | { label: string; href: string }
-    | { label: string; href?: string; onClick?: () => void }
-  >;
+  items: Array<{ label: string; href: string; external?: boolean }>;
 }): React.ReactElement {
   return (
     <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2 text-sm leading-relaxed">
@@ -76,16 +64,17 @@ function FooterInlineLinks({
               /
             </span>
           ) : null}
-          {"onClick" in item && item.onClick ? (
-            <button
-              type="button"
-              onClick={item.onClick}
+          {item.external ? (
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className={FOOTER_LINK_CLASS}
             >
               {item.label}
-            </button>
+            </a>
           ) : (
-            <Link href={item.href ?? "/"} className={FOOTER_LINK_CLASS}>
+            <Link href={item.href} className={FOOTER_LINK_CLASS}>
               {item.label}
             </Link>
           )}
@@ -97,20 +86,7 @@ function FooterInlineLinks({
 
 export const Footer: React.FC = () => {
   const pathname = usePathname();
-  const scrollToSection = useScrollToSection();
   const scrollToTop = useScrollToTop();
-
-  const sectionHref = (sectionId: string): string | undefined => {
-    if (pathname === "/") {
-      return undefined;
-    }
-
-    return `/#${sectionId}`;
-  };
-
-  const handleSectionClick = (sectionId: string): void => {
-    scrollToSection(sectionId);
-  };
 
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-brand-bg-darker px-4 py-16 text-left text-neutral-400 md:px-8">
@@ -135,7 +111,7 @@ export const Footer: React.FC = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <div className="space-y-2 text-sm font-medium text-neutral-300">
               <Link
@@ -167,34 +143,9 @@ export const Footer: React.FC = () => {
 
           <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
             <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Our Services
+              Quick Links
             </h2>
-            <FooterInlineLinks
-              items={SERVICE_LINKS.map((service) => ({
-                label: service,
-                href: "/services",
-              }))}
-            />
-          </div>
-
-          <div className="border-b border-white/10 pb-8 md:border-b-0 md:pb-0">
-            <h2 className="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-              Agency
-            </h2>
-            <FooterInlineLinks
-              items={AGENCY_LINKS.map((link) =>
-                "href" in link
-                  ? { label: link.label, href: link.href }
-                  : {
-                      label: link.label,
-                      href: sectionHref(link.id),
-                      onClick:
-                        pathname === "/"
-                          ? () => handleSectionClick(link.id)
-                          : undefined,
-                    },
-              )}
-            />
+            <FooterInlineLinks items={QUICK_LINKS} />
           </div>
         </div>
 

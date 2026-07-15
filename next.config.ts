@@ -4,17 +4,31 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // Canonical URLs carry no trailing slash. Apex -> www is handled at the
+  // Vercel domain level (a 301), NOT here, to avoid a double redirect hop.
+  trailingSlash: false,
   async redirects() {
+    // statusCode: 301 is used deliberately instead of `permanent: true`.
+    // In Next, `permanent: true` emits a 308, but the migration contract calls
+    // for a literal 301, so we set the status code explicitly.
     return [
+      // Legacy work URLs collapse into /case-studies.
       {
-        source: "/services/digital-pr",
-        destination: "/services/attribution",
-        permanent: true,
+        source: "/portfolio",
+        destination: "/case-studies",
+        statusCode: 301,
       },
       {
-        source: "/work",
+        source: "/client-case-studies",
         destination: "/case-studies",
-        permanent: true,
+        statusCode: 301,
+      },
+      // Blog posts live at /brightbrand/{slug} (live CMS collection path).
+      // Anything left at the old /blog/{slug} pattern 301s across.
+      {
+        source: "/blog/:slug",
+        destination: "/brightbrand/:slug",
+        statusCode: 301,
       },
     ];
   },

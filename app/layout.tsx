@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Outfit } from "next/font/google";
-import { JsonLd } from "@/components/JsonLd";
+import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
+import { GtmRouteListener } from "@/components/analytics/GtmRouteListener";
+import { OdalTracker } from "@/components/analytics/OdalTracker";
 import { SmoothScrollProvider } from "@/components/seed/SmoothScrollProvider";
-import { organization, website } from "@/lib/schema";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
@@ -57,7 +58,9 @@ export default function RootLayout({
       className={`${instrumentSans.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="brand-grid min-h-full">
-        <JsonLd data={[organization(), website()]} />
+        <GoogleTagManager />
+        <OdalTracker />
+        <GtmRouteListener />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

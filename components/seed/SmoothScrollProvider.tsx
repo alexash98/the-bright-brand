@@ -145,7 +145,7 @@ export function SmoothScrollProvider({
 
     let frameId = 0;
     let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let timeoutId: number | undefined;
     let cancelled = false;
 
     const init = async (): Promise<void> => {
@@ -196,7 +196,7 @@ export function SmoothScrollProvider({
       void init();
     };
 
-    if ("requestIdleCallback" in window) {
+    if (typeof window.requestIdleCallback === "function") {
       idleId = window.requestIdleCallback(scheduleInit, { timeout: 1800 });
     } else {
       timeoutId = window.setTimeout(scheduleInit, 400);

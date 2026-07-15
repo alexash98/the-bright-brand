@@ -1,22 +1,36 @@
+import { CONTACT } from "@/lib/contact";
+import type { Post } from "@/lib/posts/types";
+import { DEFAULT_OG_IMAGE } from "@/lib/seo/site";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
+const LOGO_URL = `${SITE_URL}/seed-logo.png`;
 
 export interface OrganizationSchema {
   "@context": "https://schema.org";
   "@type": "Organization";
   "@id": string;
   name: string;
+  legalName: string;
   url: string;
   logo: {
     "@type": "ImageObject";
     url: string;
   };
+  email: string;
+  address: {
+    "@type": "PostalAddress";
+    streetAddress: string;
+    addressLocality: string;
+    postalCode: string;
+    addressCountry: string;
+  };
   sameAs: string[];
   contactPoint: {
     "@type": "ContactPoint";
     contactType: string;
+    email: string;
     availableLanguage: string[];
   };
 }
@@ -32,9 +46,9 @@ export interface WebSiteSchema {
   };
 }
 
-export interface ArticleSchema {
+export interface BlogPostingSchema {
   "@context": "https://schema.org";
-  "@type": "Article";
+  "@type": "BlogPosting";
   headline: string;
   description: string;
   url: string;
@@ -45,8 +59,14 @@ export interface ArticleSchema {
     name: string;
   };
   publisher: {
-    "@id": string;
+    "@type": "Organization";
+    name: string;
+    logo: {
+      "@type": "ImageObject";
+      url: string;
+    };
   };
+  image: string[];
   mainEntityOfPage: {
     "@type": "WebPage";
     "@id": string;
@@ -59,17 +79,29 @@ export function organization(): OrganizationSchema {
     "@type": "Organization",
     "@id": ORGANIZATION_ID,
     name: SITE_NAME,
+    legalName: "Bright Brand Holdings Ltd",
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      // TODO: replace with final logo asset at /logo.png
-      url: `${SITE_URL}/logo.png`,
+      url: LOGO_URL,
     },
-    // TODO: add social and authority profile URLs when available
-    sameAs: [],
+    email: "alex@thebrightbrand.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: CONTACT.address.line1,
+      addressLocality: "London",
+      postalCode: "EC1V 2NX",
+      addressCountry: "GB",
+    },
+    // Profile URLs pulled verbatim from the live site footer.
+    sameAs: [
+      "https://www.instagram.com/brightbrandhq/",
+      "https://www.facebook.com/profile.php?id=61566233787140",
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
+      email: "alex@thebrightbrand.com",
       availableLanguage: ["English"],
     },
   };
@@ -88,31 +120,32 @@ export function website(): WebSiteSchema {
   };
 }
 
-export function article(input: {
-  headline: string;
-  description: string;
-  slug: string;
-  datePublished: string;
-  dateModified: string;
-  authorName: string;
-}): ArticleSchema {
-  const pageUrl = `${SITE_URL}/blog/${input.slug}`;
+export function blogPosting(post: Post): BlogPostingSchema {
+  const pageUrl = `${SITE_URL}/brightbrand/${post.slug}`;
 
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: input.headline,
-    description: input.description,
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.metaDescription,
     url: pageUrl,
-    datePublished: input.datePublished,
-    dateModified: input.dateModified,
+    datePublished: post.date,
+    dateModified: post.date,
     author: {
       "@type": "Person",
-      name: input.authorName,
+      name: post.author.name,
     },
+    // Publisher nested in full (not @id) so each post validates standalone in
+    // the Rich Results Test; the Organization node itself lives on the home page.
     publisher: {
-      "@id": ORGANIZATION_ID,
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: LOGO_URL,
+      },
     },
+    image: [post.ogImage ?? DEFAULT_OG_IMAGE.url],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": pageUrl,

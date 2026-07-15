@@ -7,6 +7,7 @@ import {
   getCaseStudyDetailBySlug,
 } from "@/lib/case-study-details";
 import { breadcrumbList } from "@/lib/schema";
+import { isPageRoute, pageMetadata } from "@/lib/seo/pages";
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
@@ -20,31 +21,12 @@ export async function generateMetadata({
   params,
 }: CaseStudyPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const study = getCaseStudyDetailBySlug(slug);
-
-  if (!study) {
-    return {};
+  // Titles/descriptions are curated verbatim from the live site in pages.ts.
+  const path = `/case-studies/${slug}`;
+  if (isPageRoute(path)) {
+    return pageMetadata(path);
   }
-
-  const title = `${study.clientName} Case Study | The Bright Brand`;
-
-  return {
-    title: {
-      absolute: title,
-    },
-    description: study.metaDescription,
-    openGraph: {
-      title,
-      description: study.metaDescription,
-    },
-    twitter: {
-      title,
-      description: study.metaDescription,
-    },
-    alternates: {
-      canonical: `/case-studies/${study.slug}`,
-    },
-  };
+  return {};
 }
 
 export default async function Page({
