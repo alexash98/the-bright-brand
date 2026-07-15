@@ -1,9 +1,14 @@
 'use client';
 
 import { TestimonialTrack } from "@/components/seed/Testimonials";
+import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { TESTIMONIALS } from "@/lib/seed-data";
 
-export function ContactTestimonialsSection(): React.ReactElement {
+export function ContactTestimonialsSection(): React.ReactElement | null {
+  if (!SHOW_TESTIMONIALS_SECTION) {
+    return null;
+  }
+
   return (
     <section
       aria-label="Client testimonials"

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { CaseStudyModalLayer } from "@/components/seed/CaseStudyModal";
+import { CLICKABLE_CASE_STUDY_CARDS } from "@/lib/feature-flags";
 import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/seed-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -79,7 +80,7 @@ function BentoCard({
 }: {
   study: CaseStudy;
   config: BentoItemConfig;
-  onClick: () => void;
+  onClick?: () => void;
 }): React.ReactElement {
   const logoScale = config.logoScale ?? 1;
   const logoHeight = 28 * logoScale;
@@ -88,12 +89,11 @@ function BentoCard({
   const primaryLine = logoLines[0] ?? study.clientName;
   const secondaryLine = logoLines.slice(1).join(" ");
 
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group relative h-full min-h-[220px] w-full overflow-hidden rounded-2xl border border-white/10 text-left transition-transform duration-300 hover:scale-[1.01] sm:min-h-[240px]"
-    >
+  const cardClassName =
+    "group relative h-full min-h-[220px] w-full overflow-hidden rounded-2xl border border-white/10 text-left sm:min-h-[240px]";
+
+  const cardContent = (
+    <>
       <Image
         src={study.imageUrl}
         alt={study.clientName}
@@ -102,7 +102,9 @@ function BentoCard({
         loading="lazy"
         decoding="async"
         unoptimized={isPreoptimizedLocalImage(study.imageUrl)}
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        className={`object-cover transition-transform duration-500 ${
+          CLICKABLE_CASE_STUDY_CARDS ? "group-hover:scale-105" : ""
+        }`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/55 to-black/35" />
 
@@ -159,8 +161,22 @@ function BentoCard({
           ) : null}
         </div>
       </div>
-    </button>
+    </>
   );
+
+  if (CLICKABLE_CASE_STUDY_CARDS) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={`${cardClassName} transition-transform duration-300 hover:scale-[1.01]`}
+      >
+        {cardContent}
+      </button>
+    );
+  }
+
+  return <article className={cardClassName}>{cardContent}</article>;
 }
 
 const FEATURED_BENTO_LAYOUT: BentoItemConfig[] = BENTO_LAYOUT.slice(0, 3);
@@ -204,7 +220,11 @@ export function WhatWeDoBentoGrid({
             <BentoCard
               study={study}
               config={config}
-              onClick={() => setActiveStudy(study)}
+              onClick={
+                CLICKABLE_CASE_STUDY_CARDS
+                  ? () => setActiveStudy(study)
+                  : undefined
+              }
             />
           );
 
@@ -228,10 +248,12 @@ export function WhatWeDoBentoGrid({
         })}
       </motion.div>
 
-      <CaseStudyModalLayer
-        study={activeStudy}
-        onClose={() => setActiveStudy(null)}
-      />
+      {CLICKABLE_CASE_STUDY_CARDS ? (
+        <CaseStudyModalLayer
+          study={activeStudy}
+          onClose={() => setActiveStudy(null)}
+        />
+      ) : null}
     </>
   );
 }
