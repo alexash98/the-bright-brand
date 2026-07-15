@@ -1,70 +1,106 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
-
-:root {
-  /* Base and surfaces */
-  --tbb-bg: #060a10;
-  --tbb-surface: #080d16;
-  --tbb-card: rgba(255, 255, 255, 0.04);
-  --tbb-card-border: rgba(255, 255, 255, 0.08);
-
-  /* Text */
-  --tbb-text: #ffffff;
-  --tbb-text-muted: rgba(255, 255, 255, 0.5);
-
-  /* Accent and status */
-  --tbb-blue: #5b9fff;
-  --tbb-green: #34d399;
-  --tbb-red: #fb7185;
-}
+@import "lenis/dist/lenis.css";
 
 @theme {
-  --color-tbb-bg: var(--tbb-bg);
-  --color-tbb-surface: var(--tbb-surface);
-  --color-tbb-card: var(--tbb-card);
-  --color-tbb-text: var(--tbb-text);
-  --color-tbb-text-muted: var(--tbb-text-muted);
-  --color-tbb-blue: var(--tbb-blue);
-  --color-tbb-green: var(--tbb-green);
-  --color-tbb-red: var(--tbb-red);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-bg: #1b1b1f;
+  --color-brand-bg-dark: #1b1b1f;
+  --color-brand-bg-darker: #1b1b1f;
+  --color-brand-bg-card: rgba(255, 255, 255, 0.04);
+  --color-brand-accent: #e8b84b;
+  --color-brand-accent-hover: #d4a843;
+  --color-brand-accent-dark: #9a7324;
+  --color-brand-text-pale: #e2eae9;
+  --color-brand-teal-light: #ffffff;
+  --color-brand-teal-border: rgba(255, 255, 255, 0.08);
 }
 
-@theme inline {
-  --color-tbb-bg: var(--tbb-bg);
-  --color-tbb-surface: var(--tbb-surface);
-  --color-tbb-card: var(--tbb-card);
-  --color-tbb-text: var(--tbb-text);
-  --color-tbb-text-muted: var(--tbb-text-muted);
-  --color-tbb-blue: var(--tbb-blue);
-  --color-tbb-green: var(--tbb-green);
-  --color-tbb-red: var(--tbb-red);
-  --font-sans: var(--font-inter);
+.brand-grid {
+  background-color: #1b1b1f;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 184, 75, 0.4);
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
-  background-color: var(--tbb-bg);
-  color: var(--tbb-text);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  background-color: #1b1b1f;
+  color: #e2eae9;
+  overflow-x: hidden;
 }
 
-.tbb-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 48px 48px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
-.tbb-glow {
-  position: absolute;
-  top: -120px;
-  right: -120px;
-  width: 600px;
-  height: 500px;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(30, 100, 220, 0.28) 0%,
-    rgba(10, 40, 120, 0.12) 50%,
-    transparent 75%
-  );
+.homepage-below-fold > section,
+.page-below-fold > section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-below-fold > section,
+  .page-below-fold > section {
+    content-visibility: visible;
+  }
+}
+
+p {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.6;
+}
+

@@ -18,7 +18,7 @@ Landing pages are assembled, not hand-built each time. Speed comes from a shared
 - **One primary call to action per view.** Secondary actions are visually quieter.
 - **Consistent rhythm.** Use the spacing scale from `tailwind.config` for section padding and gaps, so vertical rhythm is even down the page.
 - **Real content, never lorem.** Design against the actual headline and copy, since length changes the layout.
-- **Distinctive, not templated.** Avoid the default generic-startup look. Make deliberate choices about colour, type, and imagery that read as this brand. Consult the frontend-design skill for direction rather than shipping defaults.
+- **Match the design reference.** When a layout or visual reference is supplied (for example an AI Studio export or screenshot), replicate its structure, spacing, colour, and typography faithfully unless asked to change it.
 - Above-the-fold hero image uses `next/image` with `priority`; everything else lazy-loads.
 
 ## Responsive and stable

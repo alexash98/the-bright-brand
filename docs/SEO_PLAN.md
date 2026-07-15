@@ -1,4 +1,4 @@
-# The Bright Brand — SEO Plan
+# The Bright Brand: SEO Plan
 
 > Draft workspace for keyword research, site structure, and content strategy.
 > Fill in each section before we start building the site.
