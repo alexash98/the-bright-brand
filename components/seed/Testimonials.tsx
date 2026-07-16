@@ -9,6 +9,8 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface TestimonialsProps {
   testimonials: Testimonial[];
+  /** Static centred card instead of horizontal marquee. */
+  layout?: "marquee" | "featured";
 }
 
 interface TiledTestimonial extends Testimonial {
@@ -158,7 +160,10 @@ export function TestimonialTrack({
   );
 }
 
-export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
+export const Testimonials: React.FC<TestimonialsProps> = ({
+  testimonials,
+  layout = "marquee",
+}) => {
   if (!SHOW_TESTIMONIALS_SECTION) {
     return null;
   }
@@ -166,6 +171,10 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
   if (testimonials.length === 0) {
     return null;
   }
+
+  const featured =
+    layout === "featured" || (layout === "marquee" && testimonials.length === 1);
+  const featuredTestimonial = testimonials[0];
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#f7f7f5] py-20 sm:py-24">
@@ -181,12 +190,21 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
         </div>
       </div>
 
-      <div className="relative z-10 mt-12 overflow-hidden">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-[#f7f7f5] to-transparent sm:w-24" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[#f7f7f5] to-transparent sm:w-24" />
+      {featured && featuredTestimonial ? (
+        <div className="relative z-10 mx-auto mt-12 max-w-7xl px-4 md:px-8">
+          <TestimonialCard
+            testimonial={featuredTestimonial}
+            className="mx-auto max-w-2xl"
+          />
+        </div>
+      ) : (
+        <div className="relative z-10 mt-12 overflow-hidden">
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-[#f7f7f5] to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[#f7f7f5] to-transparent sm:w-24" />
 
-        <TestimonialTrack testimonials={testimonials} />
-      </div>
+          <TestimonialTrack testimonials={testimonials} />
+        </div>
+      )}
     </section>
   );
 };

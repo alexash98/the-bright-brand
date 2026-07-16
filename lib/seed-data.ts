@@ -398,6 +398,21 @@ export const TESTIMONIALS: Testimonial[] = SERVICE_HIGHLIGHT_QUOTES.map(
   }),
 );
 
+/** Single featured client quote on the homepage (no carousel). */
+export const HOMEPAGE_FEATURED_QUOTE = SERVICE_HIGHLIGHT_QUOTES.find(
+  (quote) => quote.id === "menzies-law",
+)!;
+
+export const HOMEPAGE_FEATURED_TESTIMONIAL: Testimonial = {
+  id: HOMEPAGE_FEATURED_QUOTE.id,
+  text: HOMEPAGE_FEATURED_QUOTE.quote,
+  author: HOMEPAGE_FEATURED_QUOTE.author ?? HOMEPAGE_FEATURED_QUOTE.company,
+  role: HOMEPAGE_FEATURED_QUOTE.role ?? "",
+  company: HOMEPAGE_FEATURED_QUOTE.company,
+  imageSrc: HOMEPAGE_FEATURED_QUOTE.imageSrc,
+  imageAlt: HOMEPAGE_FEATURED_QUOTE.imageAlt,
+};
+
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: "qualification-check",
