@@ -10,7 +10,7 @@ import { ServiceQuoteSlider } from "@/components/seed/ServiceQuoteSlider";
 import { SHOW_SERVICE_QUOTE_SLIDER } from "@/lib/feature-flags";
 import { getServiceIcon } from "@/lib/service-icons";
 import { ServiceCard } from "@/lib/seed-types";
-import { PRESS_PUBLICATIONS, SERVICE_HIGHLIGHT_QUOTES } from "@/lib/seed-data";
+import { PRESS_PUBLICATIONS, HOMEPAGE_FEATURED_QUOTE } from "@/lib/seed-data";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface ServicesProps {
@@ -119,7 +119,7 @@ export const Services: React.FC<ServicesProps> = ({
             </div>
 
             {SHOW_SERVICE_QUOTE_SLIDER ? (
-              <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
+              <ServiceQuoteSlider quotes={[HOMEPAGE_FEATURED_QUOTE]} />
             ) : null}
           </div>
         ) : (
