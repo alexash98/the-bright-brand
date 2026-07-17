@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="64" viewBox="0 0 240 64" fill="none">
+  <g fill="#111111">
+    <!-- simplified crest -->
+    <path d="M28 10c0 0 6-4 12-4s12 4 12 4v18c0 10-8 18-12 22-4-4-12-12-12-22V10z"/>
+    <path d="M14 22c4 2 8 2 12 0-2 8-6 14-12 18-2-6-2-12 0-18z"/>
+    <path d="M54 22c-4 2-8 2-12 0 2 8 6 14 12 18 2-6 2-12 0-18z"/>
+    <rect x="68" y="12" width="1.5" height="40" fill="#111111"/>
+    <text x="80" y="30" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">The Law</text>
+    <text x="80" y="50" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">Society</text>
+  </g>
+</svg>

@@ -5,7 +5,7 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
-const LOGO_URL = `${SITE_URL}/seed-logo.png`;
+const LOGO_URL = `${SITE_URL}/brightbrand-white.png`;
 
 export interface OrganizationSchema {
   "@context": "https://schema.org";

@@ -15,7 +15,7 @@ const AUTHOR: PostAuthor = {
 // subtitles, meta descriptions, slugs, dates, categories). Bodies are merged
 // in from bodies.generated.ts (produced by scripts/import-post-bodies.mjs).
 // A post with no body stays noindexed via the metadata layer.
-const POST_SEED: Post[] = [
+const POST_FRONTMATTER: Post[] = [
   {
     title: "How to Set Up Meta Offline Conversion Tracking in 2026",
     slug: "how-to-set-up-meta-offline-conversion-tracking-in-2026",
@@ -211,7 +211,7 @@ const POST_SEED: Post[] = [
 
 // Merge imported bodies onto the frontmatter, then inject curated internal
 // links (phrase wrap only — prose is never rewritten).
-export const POSTS: Post[] = POST_SEED.map((post) => {
+export const POSTS: Post[] = POST_FRONTMATTER.map((post) => {
   const raw = POST_BODIES[post.slug] ?? post.body;
   return {
     ...post,

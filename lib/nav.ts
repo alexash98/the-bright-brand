@@ -1,4 +1,4 @@
-import { NavItem } from "@/lib/seed-types";
+import { NavItem } from "@/lib/site-types";
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Services", url: "/services" },

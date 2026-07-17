@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { CaseStudyDetailPage } from "@/components/seed/CaseStudyDetailPage";
+import { CaseStudyDetailPage } from "@/components/site/CaseStudyDetailPage";
 import {
   getAllCaseStudySlugs,
   getCaseStudyDetailBySlug,

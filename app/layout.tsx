@@ -3,7 +3,7 @@ import { Instrument_Sans, Outfit } from "next/font/google";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { GtmRouteListener } from "@/components/analytics/GtmRouteListener";
 import { OdalTracker } from "@/components/analytics/OdalTracker";
-import { SmoothScrollProvider } from "@/components/seed/SmoothScrollProvider";
+import { SmoothScrollProvider } from "@/components/site/SmoothScrollProvider";
 import { SITE_URL, SITE_NAME } from "@/lib/site";
 import "./globals.css";
 
@@ -30,20 +30,20 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
+    "The Bright Brand is an award-winning performance marketing agency. We help brands scale through PPC, paid media, CRO, and cold email outreach.",
   openGraph: {
     type: "website",
     locale: "en_GB",
     siteName: SITE_NAME,
     title: SITE_NAME,
     description:
-      "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
+      "The Bright Brand is an award-winning performance marketing agency. We help brands scale through PPC, paid media, CRO, and cold email outreach.",
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description:
-      "High-fidelity performance marketing agency landing page with services, case studies, team, and ROI calculator.",
+      "The Bright Brand is an award-winning performance marketing agency. We help brands scale through PPC, paid media, CRO, and cold email outreach.",
   },
 };
 

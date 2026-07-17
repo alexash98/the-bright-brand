@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
-import { BlogPage } from "@/components/seed/BlogPage";
+import { BlogPage } from "@/components/site/BlogPage";
 import { breadcrumbList } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo/pages";
 

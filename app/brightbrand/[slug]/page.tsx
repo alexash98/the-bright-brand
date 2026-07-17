@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { PostDetailPage } from "@/components/seed/PostDetailPage";
+import { PostDetailPage } from "@/components/site/PostDetailPage";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/posts";
 import { blogPosting, breadcrumbList } from "@/lib/schema";
 import { postMetadata } from "@/lib/seo/post-metadata";

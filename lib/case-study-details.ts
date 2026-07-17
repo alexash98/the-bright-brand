@@ -1,4 +1,4 @@
-import { CaseStudyDetail } from "@/lib/seed-types";
+import { CaseStudyDetail } from "@/lib/site-types";
 
 export const CASE_STUDY_DETAILS: CaseStudyDetail[] = [
   {

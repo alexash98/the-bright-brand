@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { ServiceDetailPage } from "@/components/seed/ServiceDetailPage";
+import { ServiceDetailPage } from "@/components/site/ServiceDetailPage";
 import {
   getAllServiceSlugs,
   getServiceDetailBySlug,

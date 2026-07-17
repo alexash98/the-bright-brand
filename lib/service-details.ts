@@ -1,4 +1,4 @@
-import { ServiceDetail } from "@/lib/seed-types";
+import { ServiceDetail } from "@/lib/site-types";
 
 export const SERVICE_DETAILS: ServiceDetail[] = [
   {
