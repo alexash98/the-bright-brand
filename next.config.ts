@@ -30,6 +30,77 @@ const nextConfig: NextConfig = {
         destination: "/brightbrand/:slug",
         statusCode: 301,
       },
+      // M&E hub renamed: keep equity from /industries/building-services-me.
+      {
+        source: "/industries/building-services-me",
+        destination: "/industries/building-services",
+        statusCode: 301,
+      },
+      {
+        source: "/industries/building-services-me/:path*",
+        destination: "/industries/building-services",
+        statusCode: 301,
+      },
+      // Safari hub broadened to adventure + expedition.
+      {
+        source: "/industries/safari-expedition-operators",
+        destination: "/industries/safari-adventure-and-expedition-operators",
+        statusCode: 301,
+      },
+      {
+        source: "/industries/safari-expedition-operators/:path*",
+        destination: "/industries/safari-adventure-and-expedition-operators",
+        statusCode: 301,
+      },
+      // Procurement hub broadened to B2B SaaS.
+      {
+        source: "/industries/procurement-supplier-management",
+        destination: "/industries/b2b-saas-and-platforms",
+        statusCode: 301,
+      },
+      {
+        source: "/industries/procurement-supplier-management/:path*",
+        destination: "/industries/b2b-saas-and-platforms",
+        statusCode: 301,
+      },
+      // Unpublished / legacy B2B SaaS path collapses onto the live hub.
+      {
+        source: "/industries/b2b-saas",
+        destination: "/industries/b2b-saas-and-platforms",
+        statusCode: 301,
+      },
+      {
+        source: "/industries/b2b-saas/:path*",
+        destination: "/industries/b2b-saas-and-platforms",
+        statusCode: 301,
+      },
+      // Category procurement child replaced by consulting firms under B2B SaaS.
+      {
+        source: "/industries/category-procurement-teams",
+        destination: "/industries/consulting-firms",
+        statusCode: 301,
+      },
+      {
+        source: "/industries/category-procurement-teams/:path*",
+        destination: "/industries/consulting-firms",
+        statusCode: 301,
+      },
+      // Removed industry×service money pages and calculators (Jul 2026).
+      {
+        source: "/industries/:industry/:service",
+        destination: "/industries/:industry",
+        statusCode: 301,
+      },
+      {
+        source: "/tools",
+        destination: "/industries",
+        statusCode: 301,
+      },
+      {
+        source: "/tools/:slug",
+        destination: "/industries",
+        statusCode: 301,
+      },
     ];
   },
   experimental: {

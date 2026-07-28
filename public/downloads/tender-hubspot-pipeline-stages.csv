@@ -1,0 +1,9 @@
+stage_order,stage_label,win_probability_pct,forecast_category
+1,Relationship / positioning,10,pipeline
+2,PQQ,25,pipeline
+3,ITT,40,pipeline
+4,Bid submitted,55,pipeline
+5,Preferred bidder,75,best_case
+6,Award / contracted,100,closed_won
+7,Lost,0,closed_lost
+8,Withdrawn,0,closed_lost

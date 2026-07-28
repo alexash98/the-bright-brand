@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
+import { getAllIndustries } from "@/content/registry";
+import { getAllIntegrationSlugs } from "@/content/integrations";
+import { getAllResourceSlugs } from "@/content/resources";
+import { getAllServiceCatalogueSlugs } from "@/content/services";
 import { getAllCaseStudySlugs } from "@/lib/case-study-details";
 import { getAllPosts, hasBody } from "@/lib/posts";
+import { isHiddenIndustry } from "@/lib/seo/hidden-industries";
 import { PAGE_SEO } from "@/lib/seo/pages";
 import { getAllServiceSlugs } from "@/lib/service-details";
 import { SITE_URL } from "@/lib/site";
@@ -9,8 +14,8 @@ function absolute(path: string): string {
   return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
-// Fully derived from the data layer. Nothing is hardcoded, so the sitemap
-// grows automatically the moment a case study or post lands in its module.
+// Fully derived from the data layer. Example industry fixtures (_*.ts) are
+// excluded via getAllIndustries defaults.
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildTime = new Date();
   const entries = new Map<string, MetadataRoute.Sitemap[number]>();
@@ -22,30 +27,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   };
 
-  // 1. Static routes from the SEO source of truth. Exclude /404 (sitemapping
-  //    an error page is a defect) and the case-study detail keys — those are
-  //    emitted below only when their content actually exists.
   for (const route of Object.keys(PAGE_SEO)) {
     if (route === "/404") continue;
     if (route.startsWith("/case-studies/")) continue;
     add(route, buildTime);
   }
 
-  // 2. Case-study detail pages that exist in the repo. Absent ones (5 of 6
-  //    today) are never emitted, so we never sitemap a 404.
   for (const slug of getAllCaseStudySlugs()) {
     add(`/case-studies/${slug}`, buildTime);
   }
 
-  // 3. Service detail pages (net-new, indexed).
   for (const slug of getAllServiceSlugs()) {
     add(`/services/${slug}`, buildTime);
   }
 
-  // 4. Blog posts that have a body. A bodyless post stays out until it lands.
+  for (const slug of getAllServiceCatalogueSlugs()) {
+    add(`/services/${slug}`, buildTime);
+  }
+
+  add("/industries", buildTime);
+
+  for (const industry of getAllIndustries({ includeExamples: false })) {
+    if (isHiddenIndustry(industry)) continue;
+    add(`/industries/${industry.slug}`, buildTime);
+  }
+
   for (const post of getAllPosts()) {
     if (!hasBody(post)) continue;
     add(`/brightbrand/${post.slug}`, new Date(`${post.date}T00:00:00Z`));
+  }
+
+  add("/integrations", buildTime);
+  for (const slug of getAllIntegrationSlugs()) {
+    add(`/integrations/${slug}`, buildTime);
+  }
+
+  add("/resources", buildTime);
+  for (const slug of getAllResourceSlugs()) {
+    add(`/resources/${slug}`, buildTime);
   }
 
   return [...entries.values()];

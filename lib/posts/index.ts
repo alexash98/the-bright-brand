@@ -15,7 +15,8 @@ const AUTHOR: PostAuthor = {
 // subtitles, meta descriptions, slugs, dates, categories). Bodies are merged
 // in from bodies.generated.ts (produced by scripts/import-post-bodies.mjs).
 // A post with no body stays noindexed via the metadata layer.
-const POST_SEED: Post[] = [
+// tags added for Wave 4D taxonomy linking into /industries and /services.
+const POST_FRONTMATTER: Post[] = [
   {
     title: "How to Set Up Meta Offline Conversion Tracking in 2026",
     slug: "how-to-set-up-meta-offline-conversion-tracking-in-2026",
@@ -26,6 +27,7 @@ const POST_SEED: Post[] = [
       "Learn how to implement Meta's 2026 offline conversion tracking system to measure in-store and phone sales. Improve campaign optimization and ROI today.",
     author: AUTHOR,
     body: null,
+    tags: ["offline-conversions", "meta-ads", "attribution"],
   },
   {
     title: "YouTube Shorts Holiday Ads: 3 Game-Changers for 2026",
@@ -37,6 +39,7 @@ const POST_SEED: Post[] = [
       "Discover YouTube Shorts' three major advertising updates that boost holiday campaigns. Learn how comments, creator links, and expanded reach can drive your 2025 results. Act now!",
     author: AUTHOR,
     body: null,
+    tags: ["google-ads", "meta-ads"],
   },
   {
     title: "Facebook's 2026 Ad Revolution: Why Marketers Must Adapt",
@@ -48,6 +51,7 @@ const POST_SEED: Post[] = [
       "Discover how Meta's Andromeda algorithm transforms Facebook advertising with creative-first approaches and simplified targeting. Adapt your strategy now or risk falling behind.",
     author: AUTHOR,
     body: null,
+    tags: ["meta-ads"],
   },
   {
     title: "LinkedIn's 360Brew Algorithm: What You Need to Know for 2026",
@@ -59,6 +63,7 @@ const POST_SEED: Post[] = [
       "Discover how LinkedIn's 360Brew algorithm connects profiles with content, rewards topic consistency, and values quality engagement. Adapt your strategy today!",
     author: AUTHOR,
     body: null,
+    tags: ["linkedin"],
   },
   {
     title: "AI Marketing Copilots: Transforming Campaign Management",
@@ -70,6 +75,7 @@ const POST_SEED: Post[] = [
       "Discover how AI marketing copilots boost campaign efficiency by 37% and results by 42%. Learn how these systems are reshaping strategy, creative, and optimization. Explore now!",
     author: AUTHOR,
     body: null,
+    tags: ["ai-marketing", "marketing-automation"],
   },
   {
     title: "Setting Up Offline Conversions with GCLID: The Missing Link",
@@ -81,6 +87,7 @@ const POST_SEED: Post[] = [
       "Learn how to track offline conversions using Google Click ID (GCLID) to see your true ROI, optimize ad spend and improve conversion rates by 30%. Start today!",
     author: AUTHOR,
     body: null,
+    tags: ["offline-conversions", "google-ads", "attribution"],
   },
   {
     title: "GEO vs. SEO: Optimizing for AI-Powered Search Results",
@@ -92,6 +99,7 @@ const POST_SEED: Post[] = [
       "Discover how Generative Engine Optimization (GEO) works alongside SEO to increase visibility in AI search tools like ChatGPT. Learn implementation strategies today.",
     author: AUTHOR,
     body: null,
+    tags: ["geo-seo"],
   },
   {
     title: "TikTok Advertising in 2026: Best Campaign Strategies Revealed",
@@ -103,6 +111,7 @@ const POST_SEED: Post[] = [
       "Discover the most effective TikTok advertising strategies for 2026, from AR experiences to creator partnerships. Learn what works and start optimizing your campaigns today!",
     author: AUTHOR,
     body: null,
+    tags: ["tiktok"],
   },
   {
     title: "Facebook Offline Conversion Tracking: Boost ROI with Sales Data",
@@ -114,6 +123,7 @@ const POST_SEED: Post[] = [
       "Discover how Facebook Offline Conversion Tracking links your ad campaigns to real-world sales. Learn implementation methods and boost your marketing ROI today.",
     author: AUTHOR,
     body: null,
+    tags: ["offline-conversions", "meta-ads", "attribution"],
   },
   {
     title: "Zero-Party Data: Building Trust While Gathering Insights",
@@ -126,6 +136,7 @@ const POST_SEED: Post[] = [
       "Discover how zero-party data collection builds consumer trust while gathering valuable insights. Learn implementation strategies for privacy-conscious marketing. Start now.",
     author: AUTHOR,
     body: null,
+    tags: ["consent", "crm"],
   },
   {
     title: "2026 Facebook & Instagram Ads Playbook: Future-Proof Strategies",
@@ -137,6 +148,7 @@ const POST_SEED: Post[] = [
       "Discover AI-powered creative tools, privacy-first targeting, and seamless shopping experiences in our 2026 Facebook & Instagram advertising playbook. Start preparing now!",
     author: AUTHOR,
     body: null,
+    tags: ["meta-ads"],
   },
   {
     title: "Top 5 Marketing Automations Driving Revenue in 2026",
@@ -149,6 +161,7 @@ const POST_SEED: Post[] = [
       "Discover the 5 essential marketing automations that will drive revenue by 2026. Learn how to implement these automated workflows for better customer engagement and start now.",
     author: AUTHOR,
     body: null,
+    tags: ["marketing-automation", "crm"],
   },
   {
     title: "5 Essential Marketing Automation Workflows for 2026",
@@ -160,6 +173,7 @@ const POST_SEED: Post[] = [
       "Discover the 5 critical marketing automation workflows your team needs by 2026, from AI-powered lead scoring to integrated analytics. Start implementing now!",
     author: AUTHOR,
     body: null,
+    tags: ["marketing-automation", "crm"],
   },
   {
     title: "Google Ads Strategy for Travel Brands 2026: Future-Proof Tips",
@@ -172,6 +186,7 @@ const POST_SEED: Post[] = [
       "Discover advanced Google Ads strategies for travel brands in 2026, including AI integration, video marketing, and personalization techniques. Start planning your future campaigns now.",
     author: AUTHOR,
     body: null,
+    tags: ["google-ads", "travel", "call-tracking"],
   },
   {
     title: "How to Create High-Converting Ad Copy with AI Prompting in 2026",
@@ -183,6 +198,7 @@ const POST_SEED: Post[] = [
       "Discover how prompt engineering for AI systems can create high-converting ad copy in 2026. Learn the PACIFIC method and build your strategic advantage. Start now!",
     author: AUTHOR,
     body: null,
+    tags: ["ai-marketing", "google-ads"],
   },
   {
     title: "AI Integration in Business Workflows: 2026 Transformation Guide",
@@ -195,6 +211,7 @@ const POST_SEED: Post[] = [
       "Discover how businesses are implementing agentic AI systems across departments in 2026. Learn practical applications and infrastructure requirements to stay competitive.",
     author: AUTHOR,
     body: null,
+    tags: ["ai-marketing", "marketing-automation"],
   },
   {
     title: "Facebook Ads Strategy for Law Firms That Converts in 2026",
@@ -206,12 +223,13 @@ const POST_SEED: Post[] = [
       "Discover proven Facebook ad strategies that deliver high-quality leads for law firms in 2026. Learn measurement, targeting and creative tactics to reduce costs. Start converting today!",
     author: AUTHOR,
     body: null,
+    tags: ["meta-ads", "legal"],
   },
 ];
 
 // Merge imported bodies onto the frontmatter, then inject curated internal
-// links (phrase wrap only — prose is never rewritten).
-export const POSTS: Post[] = POST_SEED.map((post) => {
+// links (phrase wrap only; prose is never rewritten).
+export const POSTS: Post[] = POST_FRONTMATTER.map((post) => {
   const raw = POST_BODIES[post.slug] ?? post.body;
   return {
     ...post,
@@ -249,6 +267,17 @@ export function formatPostDate(date: string): string {
     year: "numeric",
     timeZone: "UTC",
   }).format(new Date(`${date}T00:00:00Z`));
+}
+
+/** Posts matching any of the given tags, newest first. */
+export function getPostsByTags(tags: string[], limit = 3): Post[] {
+  if (tags.length === 0) return [];
+  const tagSet = new Set(tags.map((tag) => tag.toLowerCase()));
+  return getAllPosts()
+    .filter((post) =>
+      (post.tags ?? []).some((tag) => tagSet.has(tag.toLowerCase())),
+    )
+    .slice(0, limit);
 }
 
 // Related posts: curated internal-link graph first, then same-category fill.

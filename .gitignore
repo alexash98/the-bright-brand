@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Vercel
 .vercel
+
+# Generated SEO review PDFs (regenerate with npm run seo:pdfs)
+/docs/seo/page-pdfs/

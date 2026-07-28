@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80" fill="none">
+  <rect width="200" height="80" rx="4" fill="#4A1C6B"/>
+  <text x="100" y="28" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="14" fill="#FFFFFF">This is</text>
+  <text x="48" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700" fill="#FFFFFF">M</text>
+  <circle cx="88" cy="48" r="12" fill="#D4A017" stroke="#F5D76E" stroke-width="2"/>
+  <circle cx="88" cy="48" r="7" fill="none" stroke="#8B6914" stroke-width="1.2"/>
+  <text x="104" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="700" fill="#FFFFFF">NEY</text>
+</svg>

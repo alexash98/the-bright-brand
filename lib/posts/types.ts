@@ -25,4 +25,6 @@ export interface Post {
   // Article body. null means "not yet supplied": the route renders a
   // placeholder and is noindexed until a real body lands (see Prompt 3).
   body: string | null;
+  /** Topic tags for taxonomy → /industries and /services linking. */
+  tags?: string[];
 }

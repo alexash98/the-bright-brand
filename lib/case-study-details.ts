@@ -1,4 +1,4 @@
-import { CaseStudyDetail } from "@/lib/seed-types";
+import { CaseStudyDetail } from "@/lib/site-types";
 
 export const CASE_STUDY_DETAILS: CaseStudyDetail[] = [
   {
@@ -127,7 +127,7 @@ export const CASE_STUDY_DETAILS: CaseStudyDetail[] = [
     body: [
       "Britton & Time is an award-winning law firm with offices in Mayfair and Brighton. Established in 2020, they've quickly become one of the fastest-growing firms in the South East, earning recognition from major UK outlets including the BBC, GB News, The Argus and the Sussex Business Awards. They provide legal services across both personal and business matters, working across around 10 different practice areas.",
       "Our team manages their Google Ads and has recently introduced two new channels, Microsoft Ads and LinkedIn. We're running campaigns across approximately 10 different legal areas for both their Mayfair and Brighton offices.",
-      "We're working closely with Daniel Beach, the operations manager. The main challenge was understanding the full client journey and getting proper offline conversion tracking in place. Without this, the firm couldn't accurately attribute revenue back to specific campaigns or see what was genuinely driving results.",
+      "We're working closely with Daniel Beech, the operations manager. The main challenge was understanding the full client journey and getting proper offline conversion tracking in place. Without this, the firm couldn't accurately attribute revenue back to specific campaigns or see what was genuinely driving results.",
       "We built a completely custom tracking system from the ground up, using scripts across multiple platforms including HubSpot, Clio Rail, Clio Grow and Clio Manage. This allowed us to amalgamate all the data into one clear reporting point, giving us weekly and bi-monthly visibility on exactly what they're getting back for every pound spent.",
       "With proper data finally in place, we could see which campaigns were genuinely generating revenue and which weren't pulling their weight. We restructured the account from the ground up, stripping out old ad groups, keywords and DSAs that weren't delivering. From there, we introduced new campaigns that focused the budget where it actually mattered, cutting the rest.",
       "Under the NDA signed with Britton & Time, we can't share specific data around CPAs, revenue or other confidential metrics. Given the sensitive nature of legal services and client confidentiality, the firm maintains strict controls over what performance data can be disclosed publicly.",

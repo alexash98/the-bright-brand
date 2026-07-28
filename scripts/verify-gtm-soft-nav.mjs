@@ -7,7 +7,7 @@ const page = await browser.newPage();
 
 await page.goto(`${base}/`, { waitUntil: "networkidle" });
 
-// Seed dataLayer if GTM bootstrap is slow/blocked in CI; the listener still
+// Prime dataLayer if GTM bootstrap is slow/blocked in CI; the listener still
 // pushes into whatever array exists.
 await page.evaluate(() => {
   window.dataLayer = window.dataLayer || [];

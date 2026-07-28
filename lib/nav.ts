@@ -1,17 +1,20 @@
-import { NavItem } from "@/lib/seed-types";
+import { NavItem } from "@/lib/site-types";
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Services", url: "/services" },
+  { label: "Industries", url: "/industries" },
   { label: "Our Work", url: "/case-studies" },
   { label: "About Us", url: "/about" },
 ];
 
 const PAGE_ROUTES = new Set([
   "/services",
+  "/industries",
   "/contact",
   "/case-studies",
   "/about",
   "/blog",
+  "/resources",
 ]);
 
 export function getNavHref(item: NavItem): string {
