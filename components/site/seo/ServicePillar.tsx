@@ -6,6 +6,7 @@ import { MarketingPageShell } from "@/components/site/seo/MarketingPageShell";
 import { RelatedLinks } from "@/components/site/seo/RelatedLinks";
 import type { Industry } from "@/content/types";
 import type { ServiceCatalogueEntry } from "@/content/services";
+import { buildServiceIndustryVariantLinks } from "@/lib/seo/industry-links";
 
 interface ServicePillarProps {
   service: ServiceCatalogueEntry;
@@ -16,18 +17,10 @@ export function ServicePillar({
   service,
   industryVariants,
 }: ServicePillarProps): React.ReactElement {
-  const variantLinks = industryVariants.map((industry) => {
-    const moneyPage = industry.moneyPages.find(
-      (page) => page.service === service.slug,
-    );
-    return {
-      href: `/industries/${industry.slug}/${service.slug}`,
-      title: moneyPage?.title ?? `${service.shortName} for ${industry.name}`,
-      description:
-        moneyPage?.intro.slice(0, 160) ??
-        `How we deliver ${service.name.toLowerCase()} for ${industry.name.toLowerCase()}.`,
-    };
-  });
+  const variantLinks = buildServiceIndustryVariantLinks(
+    service.slug,
+    industryVariants,
+  );
 
   return (
     <MarketingPageShell
@@ -40,12 +33,29 @@ export function ServicePillar({
               { name: service.name, href: `/services/${service.slug}` },
             ]}
           />
-          <h1 className="mb-6 max-w-4xl text-4xl font-semibold tracking-tight text-brand-text-pale md:text-5xl lg:text-6xl">
+          <p className="mb-4 inline-flex items-center rounded-full border border-brand-accent/20 bg-brand-bg px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent">
+            Service pillar
+          </p>
+          <h1 className="mb-5 max-w-xl text-[2rem] font-semibold leading-[1.15] tracking-tight text-white sm:text-4xl md:text-5xl">
             {service.name}
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-brand-text-pale/70 md:text-xl">
+          <p className="mb-8 max-w-xl text-base leading-relaxed text-brand-text-pale/80 md:text-lg">
             {service.intro}
           </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/contact"
+              className="inline-flex h-11 min-h-11 items-center justify-center rounded-full bg-brand-accent px-7 text-sm font-bold text-brand-bg-darker transition-colors hover:bg-brand-accent-hover"
+            >
+              Arrange a 15-minute intro
+            </Link>
+            <Link
+              href="/industries"
+              className="inline-flex h-11 min-h-11 items-center justify-center rounded-full border border-brand-accent/25 bg-brand-bg px-7 text-sm font-bold text-white transition-colors hover:border-brand-accent/45"
+            >
+              Browse industries
+            </Link>
+          </div>
         </MarketingHero>
       }
       afterContent={<Cta />}
@@ -85,7 +95,7 @@ export function ServicePillar({
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group block h-full border border-neutral-200 bg-white p-8 transition-colors hover:border-brand-accent"
+                    className="group block h-full rounded-3xl border border-neutral-200 bg-white p-7 transition-colors hover:border-brand-accent"
                   >
                     <h3 className="mb-3 text-xl font-semibold text-neutral-900 group-hover:text-brand-accent-dark">
                       {link.title}

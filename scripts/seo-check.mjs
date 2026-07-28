@@ -2,7 +2,12 @@ import { spawnSync } from "node:child_process";
 import { join } from "node:path";
 
 const root = process.cwd();
-const steps = ["content-lint.mjs", "dedup-check.mjs"];
+const steps = [
+  "content-lint.mjs",
+  "dedup-check.mjs",
+  "proof-check.mjs",
+  "check-market-intel.mjs",
+];
 
 let failed = false;
 

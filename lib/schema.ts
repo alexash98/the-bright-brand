@@ -8,17 +8,19 @@ import {
   breadcrumbList,
   faqPage,
   review,
+  softwareApplication,
   serviceSchema as serviceSchemaWithUrl,
   type BreadcrumbListSchema,
   type FaqPageSchema,
   type OrganizationSchema,
   type ReviewSchema,
   type ServiceSchema,
+  type SoftwareApplicationSchema,
   type WebSiteSchema,
 } from "@/lib/seo/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const LOGO_URL = `${SITE_URL}/brightbrand-white.png`;
+const LOGO_URL = `${SITE_URL}/seed-logo.png`;
 
 export {
   ORGANIZATION_ID,
@@ -27,11 +29,13 @@ export {
   breadcrumbList,
   faqPage,
   review,
+  softwareApplication,
   type BreadcrumbListSchema,
   type FaqPageSchema,
   type OrganizationSchema,
   type ReviewSchema,
   type ServiceSchema,
+  type SoftwareApplicationSchema,
   type WebSiteSchema,
 };
 

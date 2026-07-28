@@ -6,7 +6,8 @@ export interface PressPublication {
 
 export interface ClientLogo {
   name: string;
-  logo: string;
+  /** When omitted, the marquee renders a typographic wordmark. */
+  logo?: string;
   key: string;
   scale?: number;
   folder?: "client-logos" | "platform-logos" | "partner-logos";

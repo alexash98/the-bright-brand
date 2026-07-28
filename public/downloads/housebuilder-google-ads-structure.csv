@@ -1,0 +1,7 @@
+campaign_name,campaign_type,ad_group_name,label_development,notes
+UK_Brand_Master,Search,Brand_Exact,corporate,Corporate brand terms
+DEV_Riverside_Brand,Search,Riverside_Brand,riverside,Development brand
+DEV_Riverside_Generic,Search,Riverside_Location_Generic,riverside,Location + new homes generics
+DEV_Riverside_Competitor,Search,Riverside_Competitor,riverside,Use sparingly
+DEV_Oakfield_Brand,Search,Oakfield_Brand,oakfield,Second development example
+DEV_Oakfield_Generic,Search,Oakfield_Location_Generic,oakfield,Second development example

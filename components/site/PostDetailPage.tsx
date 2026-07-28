@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { MarketingHero } from "@/components/site/MarketingHero";
+import { RelatedServices } from "@/components/site/RelatedServices";
 import { CALENDLY_URL } from "@/lib/contact";
 import {
   formatPostDate,
@@ -83,6 +84,8 @@ export function PostDetailPage({ post }: PostDetailPageProps): React.ReactElemen
             )}
           </div>
         </article>
+
+        <RelatedServices tags={post.tags} />
 
         {related.length > 0 ? (
           <section className="border-t border-neutral-200 bg-[#f7f7f5] px-4 py-16 md:px-8 md:py-20">

@@ -7,7 +7,7 @@ export interface ServiceCatalogueEntry {
   shortName: string;
   metaTitle: string;
   metaDescription: string;
-  /** Structural placeholder only. Vertical proof lives on industry money pages. */
+  /** Structural placeholder only. Vertical proof lives on industry hub pages. */
   intro: string;
   sections: { heading: string; body: string }[];
 }

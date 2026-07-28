@@ -13,6 +13,10 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface ServiceQuoteSliderProps {
   quotes: ServiceHighlightQuote[];
+  /** Override auto-advance interval. Defaults to 3000ms. */
+  autoAdvanceMs?: number;
+  /** Crossfade / slide duration in seconds. Defaults to 0.4. */
+  transitionDuration?: number;
 }
 
 const LOCATION_LABEL: Record<QuoteLocation, string> = {
@@ -20,12 +24,15 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
   US: "United States",
 };
 
-const AUTO_ADVANCE_MS = 3000;
+const DEFAULT_AUTO_ADVANCE_MS = 3000;
 
 export function ServiceQuoteSlider({
   quotes,
+  autoAdvanceMs = DEFAULT_AUTO_ADVANCE_MS,
+  transitionDuration = 0.4,
 }: ServiceQuoteSliderProps): React.ReactElement {
   const rootRef = useRef<HTMLElement | null>(null);
+  const wasInViewRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -44,13 +51,14 @@ export function ServiceQuoteSlider({
     const observer = new IntersectionObserver(
       ([entry]) => {
         const visible = Boolean(entry?.isIntersecting);
-        setIsInView(visible);
-        if (visible) {
-          // Always open on Britton & Time when the block enters view.
+        // Only reset when first entering view, not on every observer tick.
+        if (visible && !wasInViewRef.current) {
           setActiveIndex(0);
         }
+        wasInViewRef.current = visible;
+        setIsInView(visible);
       },
-      { threshold: 0.45 },
+      { threshold: 0.35 },
     );
 
     observer.observe(node);
@@ -69,10 +77,10 @@ export function ServiceQuoteSlider({
 
     const timer = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % quotes.length);
-    }, AUTO_ADVANCE_MS);
+    }, autoAdvanceMs);
 
     return () => window.clearInterval(timer);
-  }, [quotes.length, isInView, isPaused, prefersReducedMotion]);
+  }, [quotes.length, isInView, isPaused, prefersReducedMotion, autoAdvanceMs]);
 
   const activeQuote = quotes[activeIndex];
 
@@ -101,7 +109,7 @@ export function ServiceQuoteSlider({
           }
           animate={{ opacity: 1, x: 0 }}
           exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -28 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: transitionDuration, ease: "easeOut" }}
         >
           <div className="mb-5 flex items-center justify-between gap-3">
             <span className="inline-flex rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
@@ -118,7 +126,7 @@ export function ServiceQuoteSlider({
             ) : null}
           </div>
 
-          <blockquote className="min-h-[7.5rem] text-[0.9rem] leading-relaxed text-neutral-700 md:min-h-[8rem] md:text-base lg:min-h-[8.5rem] lg:text-[1.08rem] lg:leading-relaxed">
+          <blockquote className="min-h-[8.5rem] text-[0.9rem] leading-relaxed text-neutral-700 md:min-h-[9.5rem] md:text-base lg:min-h-[10rem] lg:text-[1.08rem] lg:leading-relaxed">
             &ldquo;{activeQuote.quote}&rdquo;
           </blockquote>
 

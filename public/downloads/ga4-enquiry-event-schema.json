@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "purpose": "Enquiry-led GA4 event contract",
+  "events": [
+    {
+      "name": "generate_lead",
+      "description": "Form or enquiry submit",
+      "parameters": [
+        "lead_type",
+        "page_type",
+        "development_id",
+        "value",
+        "currency"
+      ]
+    },
+    {
+      "name": "call_click",
+      "description": "tel: link click",
+      "parameters": [
+        "page_type",
+        "development_id"
+      ]
+    },
+    {
+      "name": "meeting_booked",
+      "description": "Calendly or booking confirmation",
+      "parameters": [
+        "meeting_type",
+        "value",
+        "currency"
+      ]
+    },
+    {
+      "name": "lead_qualified",
+      "description": "CRM qualified stage",
+      "parameters": [
+        "value",
+        "currency",
+        "crm_stage"
+      ]
+    },
+    {
+      "name": "opportunity_created",
+      "description": "CRM opportunity open",
+      "parameters": [
+        "value",
+        "currency",
+        "crm_stage"
+      ]
+    },
+    {
+      "name": "closed_won",
+      "description": "CRM closed won",
+      "parameters": [
+        "value",
+        "currency",
+        "crm_stage"
+      ]
+    }
+  ],
+  "pii_rules": [
+    "Never send email, phone, or name as event parameters."
+  ]
+}

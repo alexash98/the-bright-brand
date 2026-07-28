@@ -1,4 +1,4 @@
-import { readdirSync } from "node:fs";
+import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { createJiti } from "jiti";
 import type { Industry, MoneyPage, ServiceSlug } from "@/content/types";
@@ -19,7 +19,23 @@ const INDUSTRIES_DIR = join(process.cwd(), "content/industries");
 
 const jiti = createJiti(join(process.cwd(), "content/registry.ts"), {
   interopDefault: true,
+  // Always re-read source files when the cache key changes (mtime).
+  moduleCache: false,
 });
+
+function industriesDirMtimeMs(): number {
+  try {
+    let newest = statSync(INDUSTRIES_DIR).mtimeMs;
+    for (const file of readdirSync(INDUSTRIES_DIR)) {
+      if (!file.endsWith(".ts") || file.endsWith(".d.ts")) continue;
+      const mtime = statSync(join(INDUSTRIES_DIR, file)).mtimeMs;
+      if (mtime > newest) newest = mtime;
+    }
+    return newest;
+  } catch {
+    return Date.now();
+  }
+}
 
 function loadIndustryRecords(): IndustryRecord[] {
   let files: string[];
@@ -71,11 +87,15 @@ function loadIndustryRecords(): IndustryRecord[] {
 }
 
 let cachedRecords: IndustryRecord[] | null = null;
+let cachedMtimeMs = 0;
 
 function getRecords(): IndustryRecord[] {
-  if (!cachedRecords) {
-    cachedRecords = loadIndustryRecords();
+  const mtimeMs = industriesDirMtimeMs();
+  if (cachedRecords && cachedMtimeMs === mtimeMs) {
+    return cachedRecords;
   }
+  cachedRecords = loadIndustryRecords();
+  cachedMtimeMs = mtimeMs;
   return cachedRecords;
 }
 
@@ -170,4 +190,5 @@ export function getAllMoneyPageParams(options?: {
 /** Force a reload (used by scripts after file changes). */
 export function resetRegistryCache(): void {
   cachedRecords = null;
+  cachedMtimeMs = 0;
 }

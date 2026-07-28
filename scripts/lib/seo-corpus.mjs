@@ -58,15 +58,12 @@ export function buildSeoCorpus() {
 
   for (const entry of catalogue) {
     const variants = registry.getIndustriesForServiceRoute(entry.slug);
-    const variantLinks = variants.map((industry) => {
-      const moneyPage = industry.moneyPages.find(
-        (page) => page.service === entry.slug,
-      );
-      return {
-        href: `/industries/${industry.slug}/${entry.slug}`,
-        anchor: moneyPage?.title ?? `${entry.shortName} for ${industry.name}`,
-      };
-    });
+    const variantLinks = industryLinks
+      .buildServiceIndustryVariantLinks(entry.slug, variants)
+      .map((link) => ({
+        href: link.href,
+        anchor: link.title,
+      }));
 
     const structuralLinks = [
       {
@@ -112,9 +109,10 @@ export function buildSeoCorpus() {
 
   for (const record of records) {
     const industry = record.industry;
-    const serviceLinks = industryLinks.buildIndustryServiceLinks(industry);
-    const relatedLinks = industryLinks.buildRelatedIndustryLinks(industry);
-    const childLinks = industryLinks.buildChildIndustryLinks(industry);
+    const hubLinks = industryLinks.buildIndustryHubLinkSets(industry);
+    const serviceLinks = hubLinks.serviceLinks;
+    const relatedLinks = hubLinks.relatedLinks;
+    const childLinks = hubLinks.childLinks;
 
     pages.push({
       route: `/industries/${industry.slug}`,
@@ -123,31 +121,48 @@ export function buildSeoCorpus() {
       h1: [`${industry.name} marketing agency`],
       headings: [
         { level: 1, text: `${industry.name} marketing agency` },
-        {
-          level: 2,
-          text: `How the pipeline actually works in ${industry.name.toLowerCase()}`,
-        },
+        { level: 2, text: "How this market actually buys" },
         ...industry.pipelineShape.map((section) => ({
           level: 3,
           text: section.heading,
         })),
-        { level: 2, text: "Services built for this vertical" },
+        ...(industry.pipelineStages?.length
+          ? [
+              {
+                level: 3,
+                text: `${industry.name} commercial stages`,
+              },
+            ]
+          : []),
+        { level: 2, text: "Service builds for this vertical" },
         ...serviceLinks.map((link) => ({ level: 3, text: link.title })),
         {
           level: 2,
           text: `Proof from ${industry.name.toLowerCase()} work`,
         },
         ...industry.proof.map((item) => ({ level: 3, text: item.client })),
-        { level: 2, text: "The infrastructure we build" },
+        { level: 2, text: "The stack behind the ads" },
         ...industry.infrastructure.map((section) => ({
           level: 3,
           text: section.heading,
         })),
+        ...(industry.stackNotes?.length
+          ? [
+              {
+                level: 2,
+                text: "CRMs and tools this industry already runs",
+              },
+              ...industry.stackNotes.map((section) => ({
+                level: 3,
+                text: section.heading,
+              })),
+            ]
+          : []),
         ...(childLinks.length
           ? [
               {
                 level: 2,
-                text: `Related ${industry.name.toLowerCase()} markets`,
+                text: `Markets inside ${industry.name.toLowerCase()}`,
               },
             ]
           : []),
@@ -159,7 +174,11 @@ export function buildSeoCorpus() {
       bodyText: [
         industry.intro,
         ...industry.pipelineShape.map((s) => `${s.heading}\n${s.body}`),
+        ...(industry.pipelineStages ?? []).map(
+          (stage) => `${stage.name}${stage.note ? `: ${stage.note}` : ""}`,
+        ),
         ...industry.infrastructure.map((s) => `${s.heading}\n${s.body}`),
+        ...(industry.stackNotes ?? []).map((s) => `${s.heading}\n${s.body}`),
         ...industry.proof.map(
           (p) => `${p.client}\n${p.situation}\n${p.built}`,
         ),
@@ -181,58 +200,123 @@ export function buildSeoCorpus() {
       ],
     });
 
-    for (const moneyPage of industry.moneyPages) {
-      const catalogue = services.getServiceCatalogueEntry(moneyPage.service);
-      const related = industryLinks.buildMoneyPageRelatedLinks(
-        industry,
-        moneyPage.service,
-      );
+  }
 
+  // Wave 4: integrations
+  try {
+    const integrations = jiti(join(root, "content/integrations/index.ts"));
+    const allIntegrations = integrations.getAllIntegrations();
+    pages.push({
+      route: "/integrations",
+      kind: "index",
+      isExample: false,
+      h1: ["Integration guides you can actually implement"],
+      headings: [
+        {
+          level: 1,
+          text: "Integration guides you can actually implement",
+        },
+        ...allIntegrations.map((guide) => ({ level: 2, text: guide.name })),
+      ],
+      bodyText: allIntegrations.map((guide) => guide.intro).join("\n"),
+      links: allIntegrations.map((guide) => ({
+        href: `/integrations/${guide.slug}`,
+        anchor: guide.name,
+      })),
+    });
+
+    for (const guide of allIntegrations) {
       pages.push({
-        route: `/industries/${industry.slug}/${moneyPage.service}`,
-        kind: "money-page",
-        isExample: record.isExample,
-        h1: [moneyPage.title],
+        route: `/integrations/${guide.slug}`,
+        kind: "integration",
+        isExample: false,
+        h1: [guide.name],
         headings: [
-          { level: 1, text: moneyPage.title },
-          ...moneyPage.sections.map((section) => ({
+          { level: 1, text: guide.name },
+          ...guide.sections.map((section) => ({
             level: 2,
             text: section.heading,
           })),
-          {
-            level: 2,
-            text: `${catalogue?.shortName ?? moneyPage.service} proof in ${industry.name.toLowerCase()}`,
-          },
-          { level: 2, text: "Related industries and services" },
-          {
-            level: 2,
-            text: `${catalogue?.shortName ?? moneyPage.service} for ${industry.name.toLowerCase()} FAQs`,
-          },
+          { level: 2, text: "Related guides and services" },
+          { level: 2, text: `${guide.name} FAQs` },
         ],
         bodyText: [
-          moneyPage.intro,
-          ...moneyPage.sections.map((s) => `${s.heading}\n${s.body}`),
-          ...moneyPage.proof.map(
-            (p) => `${p.client}\n${p.situation}\n${p.built}`,
-          ),
-          ...moneyPage.faqs.map((f) => `${f.q}\n${f.a}`),
+          guide.intro,
+          ...guide.sections.map((s) => `${s.heading}\n${s.body}`),
+          ...guide.faqs.map((f) => `${f.q}\n${f.a}`),
+        ].join("\n\n"),
+        links: guide.relatedLinks.map((link) => ({
+          href: link.href,
+          anchor: link.title,
+        })),
+      });
+    }
+  } catch {
+    // Integrations optional until Wave 4 lands fully.
+  }
+
+  // Wave 4: resources
+  try {
+    const resources = jiti(join(root, "content/resources/index.ts"));
+    const allResources = resources.getAllResources();
+    pages.push({
+      route: "/resources",
+      kind: "index",
+      isExample: false,
+      h1: ["Templates and downloadables"],
+      headings: [
+        { level: 1, text: "Templates and downloadables" },
+        ...allResources.map((resource) => ({
+          level: 2,
+          text: resource.name,
+        })),
+      ],
+      bodyText: allResources.map((resource) => resource.intro).join("\n"),
+      links: allResources.map((resource) => ({
+        href: `/resources/${resource.slug}`,
+        anchor: resource.name,
+      })),
+    });
+
+    for (const resource of allResources) {
+      pages.push({
+        route: `/resources/${resource.slug}`,
+        kind: "resource",
+        isExample: false,
+        h1: [resource.name],
+        headings: [
+          { level: 1, text: resource.name },
+          { level: 2, text: "Direct downloads" },
+          ...resource.sections.map((section) => ({
+            level: 2,
+            text: section.heading,
+          })),
+          { level: 2, text: "Related pages" },
+          { level: 2, text: `${resource.name} FAQs` },
+        ],
+        bodyText: [
+          resource.intro,
+          ...resource.sections.map((s) => `${s.heading}\n${s.body}`),
+          ...resource.faqs.map((f) => `${f.q}\n${f.a}`),
         ].join("\n\n"),
         links: [
-          {
-            href: `/industries/${industry.slug}`,
-            anchor: `${industry.name} marketing programmes`,
-          },
-          {
-            href: `/services/${moneyPage.service}`,
-            anchor: `${catalogue?.name ?? moneyPage.service} service pillar`,
-          },
-          ...related.map((link) => ({
+          ...resource.relatedLinks.map((link) => ({
             href: link.href,
             anchor: link.title,
           })),
+          {
+            href: "/services/crm-implementation",
+            anchor: "CRM implementation",
+          },
+          {
+            href: "/services/conversion-tracking-attribution",
+            anchor: "conversion tracking and attribution",
+          },
         ],
       });
     }
+  } catch {
+    // Resources optional until Wave 4 lands fully.
   }
 
   return pages;

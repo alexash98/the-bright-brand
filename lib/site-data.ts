@@ -549,11 +549,23 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
 
 export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
   {
+    id: "canopy",
+    company: "Canopy",
+    location: "UK",
+    quote:
+      "Over 25% of our enterprise pipeline comes through Bright Brand. We're now in active discussions with Procurement Directors and senior leadership at major UK and European businesses. They deliver at the level that matters.",
+    author: "Doug McLean",
+    role: "Founder & Director",
+    imageSrc: "/testimonials/doug-mclean.png",
+    imageAlt: "Doug McLean, Founder & Director at Canopy",
+    partnerLogos: CANOPY_PARTNER_LOGOS,
+  },
+  {
     id: "anywhere",
     company: "Anywhere.com",
     location: "US",
     quote:
-      "Bright Brand helped us grow revenue 59% on flat ad spend. Sharper targeting and a rebuilt funnel meant we doubled the return on the same budget, and the team still feels like a proper extension of ours rather than another agency on the side.",
+      "The Bright Brand aren't a typical marketing agency. They understand the mechanics of travel and optimise towards higher lifetime value and a more premium client base through sharp age-demographic targeting and audience building, all aligned to our commercial data and implemented by their team. We've seen quicker bookings and a stronger bottom line as a result.",
     author: "Anthony Landis",
     role: "President, Director",
     imageSrc: "/testimonials/anthony-landis.webp",
@@ -608,18 +620,6 @@ export const SERVICE_HIGHLIGHT_QUOTES_HELD: ServiceHighlightQuote[] = [
     partnerLogos: BRITTON_FEATURED_LOGOS,
   },
   {
-    id: "canopy",
-    company: "Canopy",
-    location: "UK",
-    quote:
-      "Bright Brand send us enterprise clients every week — qualified, engaged, and ready for a proper conversation. It is one of the steadiest pipelines we have, and they feel like part of the team.",
-    author: "Doug McLean",
-    role: "Founder & Director",
-    imageSrc: "/testimonials/doug-mclean.png",
-    imageAlt: "Doug McLean, Founder & Director at Canopy",
-    partnerLogos: CANOPY_PARTNER_LOGOS,
-  },
-  {
     id: "menzies-law",
     company: "Menzies Law",
     location: "UK",
@@ -656,7 +656,6 @@ export const PRESS_PUBLICATIONS = [
 
 export const CLIENT_LOGOS = [
   { name: "Airbox Fulfilment", logo: "airbox.png", key: "airbox", scale: 1.2 },
-  { name: "Britton & Time", logo: "britton-and-time.png", key: "britton-and-time" },
   { name: "Bremembered.io", logo: "bremembered.png", key: "bremembered" },
   { name: "Anywhere.com", logo: "anywhere.png", key: "anywhere" },
   { name: "Releaf", logo: "releaf.png", key: "releaf", scale: 1 / 1.2 },

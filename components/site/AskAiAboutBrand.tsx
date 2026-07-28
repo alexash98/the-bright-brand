@@ -48,14 +48,19 @@ interface AskAiAboutBrandProps {
   /** Homepage: stacked under copy. Footer: label + icons in one horizontal bar. */
   layout?: "stack" | "bar";
   className?: string;
+  /** Override the default Ask AI prompt (e.g. travel / cruise specific). */
+  prompt?: string;
+  label?: string;
 }
 
 export function AskAiAboutBrand({
   theme = "light",
   layout = "stack",
   className = "",
+  prompt,
+  label = "Ask AI about The Bright Brand",
 }: AskAiAboutBrandProps): React.ReactElement {
-  const links = getAskAiLinks();
+  const links = getAskAiLinks(prompt);
   const isDark = theme === "dark";
   const isBar = layout === "bar";
 
@@ -72,7 +77,7 @@ export function AskAiAboutBrand({
           isDark ? "text-neutral-400" : "text-neutral-500"
         }`}
       >
-        Ask AI about The Bright Brand
+        {label}
       </p>
 
       <ul className="flex flex-nowrap items-center gap-1">

@@ -17,10 +17,17 @@ export function Cta({
   return (
     <section
       data-seo-boilerplate
-      className="bg-brand-bg-darker px-4 py-16 md:px-8 md:py-24"
+      className="relative overflow-hidden bg-brand-bg-darker px-4 py-16 md:px-8 md:py-24"
     >
-      <div className="mx-auto flex max-w-7xl flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
-        <div className="max-w-2xl">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-16 top-0 h-56 w-56 rounded-full bg-brand-accent/10 blur-3xl"
+      />
+      <div className="relative mx-auto flex max-w-7xl flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
+        <div className="max-w-2xl motion-safe:animate-[industry-fade-up_0.55s_ease-out_both]">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            Next step
+          </p>
           <h2 className="mb-4 text-2xl font-semibold tracking-tight text-brand-text-pale md:text-4xl">
             {heading}
           </h2>
@@ -30,7 +37,7 @@ export function Cta({
         </div>
         <Link
           href={href}
-          className="inline-flex min-h-12 items-center gap-2 bg-brand-accent px-6 py-3 text-sm font-semibold text-black transition-colors hover:bg-brand-accent-hover"
+          className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-accent px-7 py-3 text-sm font-semibold text-black transition-colors hover:bg-brand-accent-hover"
         >
           {buttonLabel}
           <ArrowRight className="h-4 w-4" />

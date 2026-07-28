@@ -7,12 +7,16 @@ export interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  className?: string;
 }
 
-export function Breadcrumbs({ items }: BreadcrumbsProps): React.ReactElement {
+export function Breadcrumbs({
+  items,
+  className = "mb-8",
+}: BreadcrumbsProps): React.ReactElement {
   return (
-    <nav aria-label="Breadcrumb" className="mb-8">
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-brand-text-pale/70">
+    <nav aria-label="Breadcrumb" className={className}>
+      <ol className="inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/10 bg-brand-bg/50 px-4 py-2 text-sm text-brand-text-pale/70 backdrop-blur-sm">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (

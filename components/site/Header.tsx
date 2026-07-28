@@ -80,13 +80,13 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
           <div className="flex items-center">
             <Link href="/" onClick={handleHomeClick} className="group flex cursor-pointer items-center">
               <Image
-                src="/brightbrand-white.png"
+                src="/seed-logo.png"
                 alt="The Bright Brand"
-                width={220}
+                width={40}
                 height={40}
                 priority
                 unoptimized
-                className="h-8 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-9"
+                className="h-8 w-8 transition-opacity duration-200 group-hover:opacity-80 sm:h-9 sm:w-9"
               />
             </Link>
           </div>

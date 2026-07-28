@@ -15,6 +15,7 @@ import {
   serviceSchemaWithUrl,
 } from "@/lib/schema";
 import { absolutePageMetadata } from "@/lib/seo/metadata";
+import { buildServiceIndustryVariantLinks } from "@/lib/seo/industry-links";
 import {
   getAllServiceSlugs,
   getServiceDetailBySlug,
@@ -103,6 +104,12 @@ export default async function Page({
   }
 
   const industryVariants = getIndustriesForServiceRoute(catalogue.slug);
+  // Cap variants so service pillars stay inside the twelve-link body budget
+  // (eight variants + four structural links).
+  const cappedVariantCount = buildServiceIndustryVariantLinks(
+    catalogue.slug,
+    industryVariants,
+  ).length;
 
   return (
     <>
@@ -121,7 +128,10 @@ export default async function Page({
           }),
         ]}
       />
-      <ServicePillar service={catalogue} industryVariants={industryVariants} />
+      <ServicePillar
+        service={catalogue}
+        industryVariants={industryVariants.slice(0, cappedVariantCount)}
+      />
     </>
   );
 }

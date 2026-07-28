@@ -9,7 +9,11 @@
     "lint": "eslint",
     "seo:dedup": "node scripts/dedup-check.mjs",
     "seo:lint": "node scripts/content-lint.mjs",
-    "seo:check": "node scripts/seo-check.mjs"
+    "seo:proof": "node scripts/proof-check.mjs",
+    "seo:intel": "node scripts/check-market-intel.mjs",
+    "seo:check": "node scripts/seo-check.mjs",
+    "seo:content-links": "node scripts/backfill-content-links.mjs",
+    "seo:pdfs": "node scripts/export-industry-pdfs.mjs"
   },
   "dependencies": {
     "lenis": "^1.3.25",

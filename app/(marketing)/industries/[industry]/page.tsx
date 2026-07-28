@@ -59,6 +59,9 @@ export default async function Page({
   }
 
   const path = `/industries/${industry.slug}`;
+  const parent = industry.parent
+    ? getIndustryForRoute(industry.parent)
+    : undefined;
 
   return (
     <>
@@ -67,6 +70,14 @@ export default async function Page({
           breadcrumbList([
             { name: "Home", path: "/" },
             { name: "Industries", path: "/industries" },
+            ...(parent
+              ? [
+                  {
+                    name: parent.name,
+                    path: `/industries/${parent.slug}`,
+                  },
+                ]
+              : []),
             { name: industry.name, path },
           ]),
           serviceSchemaWithUrl({

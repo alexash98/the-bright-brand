@@ -4,7 +4,7 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
-const LOGO_URL = `${SITE_URL}/brightbrand-white.png`;
+const LOGO_URL = `${SITE_URL}/seed-logo.png`;
 
 export interface OrganizationSchema {
   "@context": "https://schema.org";
@@ -265,6 +265,50 @@ export function review(testimonial: AttributableTestimonial): ReviewSchema {
       "@type": "Organization",
       "@id": ORGANIZATION_ID,
       name: SITE_NAME,
+    },
+  };
+}
+
+export interface SoftwareApplicationSchema {
+  "@context": "https://schema.org";
+  "@type": "SoftwareApplication";
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory: string;
+  operatingSystem: string;
+  offers: {
+    "@type": "Offer";
+    price: string;
+    priceCurrency: string;
+  };
+  provider: {
+    "@id": string;
+  };
+}
+
+/** Free web tool / calculator. No Review or AggregateRating. */
+export function softwareApplication(input: {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string;
+}): SoftwareApplicationSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: input.name,
+    description: input.description,
+    url: input.url.startsWith("http") ? input.url : `${SITE_URL}${input.url}`,
+    applicationCategory: input.applicationCategory ?? "BusinessApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "GBP",
+    },
+    provider: {
+      "@id": ORGANIZATION_ID,
     },
   };
 }

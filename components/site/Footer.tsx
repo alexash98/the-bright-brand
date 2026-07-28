@@ -124,14 +124,14 @@ export const Footer: React.FC = () => {
                 className="group mb-3 inline-flex sm:mb-4"
               >
                 <Image
-                  src="/brightbrand-white.png"
+                  src="/seed-logo.png"
                   alt="The Bright Brand"
-                  width={220}
+                  width={40}
                   height={40}
                   loading="lazy"
                   decoding="async"
                   unoptimized
-                  className="h-7 w-auto transition-opacity duration-200 group-hover:opacity-80 sm:h-8"
+                  className="h-7 w-7 transition-opacity duration-200 group-hover:opacity-80 sm:h-8 sm:w-8"
                 />
               </Link>
               <p>
