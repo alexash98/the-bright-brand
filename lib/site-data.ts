@@ -502,7 +502,7 @@ export const FORMX_FEATURED_LOGOS: QuotePartnerLogo[] = [
   },
 ];
 
-/** Same six-slot row as Britton; slight scale so padded marks match press logos. */
+/** Same six-slot row and sizing as Britton & Time. */
 export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
   {
     id: "yondr",
@@ -510,7 +510,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/yondr.png",
     width: 200,
     height: 72,
-    scale: 1.2,
   },
   {
     id: "iss",
@@ -518,7 +517,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/iss.png",
     width: 200,
     height: 72,
-    scale: 1.15,
   },
   {
     id: "edf",
@@ -526,7 +524,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/edf.png",
     width: 200,
     height: 72,
-    scale: 1.2,
   },
   {
     id: "lloyds-bank",
@@ -534,7 +531,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/lloyds-bank.png",
     width: 200,
     height: 72,
-    scale: 1.15,
   },
   {
     id: "cbre",
@@ -542,7 +538,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/cbre.png",
     width: 200,
     height: 72,
-    scale: 1.2,
   },
   {
     id: "uk-government",
@@ -550,7 +545,6 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/uk-government.png",
     width: 200,
     height: 72,
-    scale: 1.15,
   },
 ];
 

@@ -9,14 +9,17 @@ interface QuotePartnerLogoTickerProps {
   ariaLabel?: string;
 }
 
-/** Fixed six-column footprint so every quote's "Featured in" row matches. */
+/** Fixed six-column row — same footprint as Britton & Time on every slide. */
 const SLOT_COUNT = 6;
 
 export function QuotePartnerLogoTicker({
   logos,
   ariaLabel = "Partner logos",
 }: QuotePartnerLogoTickerProps): React.ReactElement {
-  const slots = Array.from({ length: SLOT_COUNT }, (_, index) => logos[index] ?? null);
+  const slots = Array.from(
+    { length: SLOT_COUNT },
+    (_, index) => logos[index] ?? null,
+  );
 
   return (
     <ul
@@ -26,19 +29,12 @@ export function QuotePartnerLogoTicker({
       {slots.map((logo, index) => (
         <li key={logo?.id ?? `empty-${index}`} className="min-w-0">
           {logo ? (
-            <div
-              className="relative mx-auto h-9 w-full sm:h-10"
-              style={
-                logo.scale
-                  ? { transform: `scale(${logo.scale})` }
-                  : undefined
-              }
-            >
+            <div className="relative mx-auto aspect-[200/72] w-full">
               <Image
                 src={logo.src}
                 alt={logo.name}
                 fill
-                sizes="120px"
+                sizes="140px"
                 loading="lazy"
                 decoding="async"
                 unoptimized
@@ -46,7 +42,7 @@ export function QuotePartnerLogoTicker({
               />
             </div>
           ) : (
-            <div className="h-9 w-full sm:h-10" aria-hidden />
+            <div className="aspect-[200/72] w-full" aria-hidden />
           )}
         </li>
       ))}

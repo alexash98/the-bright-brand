@@ -12,7 +12,7 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface ServiceQuoteSliderProps {
   quotes: ServiceHighlightQuote[];
-  /** Override auto-advance interval. Defaults to 3000ms. */
+  /** Override auto-advance interval. Defaults to 4500ms. */
   autoAdvanceMs?: number;
   /** Kept for API compatibility; crossfade is CSS opacity. */
   transitionDuration?: number;
@@ -25,14 +25,20 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
 
 const DEFAULT_AUTO_ADVANCE_MS = 4500;
 
+/**
+ * Fixed vertical rhythm matching Britton & Time:
+ * badge → quote (flex grow) → avatar/name/role → Featured in → logos.
+ * Shorter quotes leave empty space in the quote band so the bottom block
+ * never jumps up (Canopy was floating higher than Dan/Tony).
+ */
 function QuoteSlide({
   quote,
 }: {
   quote: ServiceHighlightQuote;
 }): React.ReactElement {
   return (
-    <>
-      <div className="mb-5 flex items-center justify-between gap-3">
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="mb-5 flex shrink-0 items-center justify-between gap-3">
         <span className="inline-flex rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
           {quote.company}
         </span>
@@ -47,62 +53,59 @@ function QuoteSlide({
         ) : null}
       </div>
 
-      <blockquote className="text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
+      <blockquote className="min-h-0 flex-1 text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
         &ldquo;{quote.quote}&rdquo;
       </blockquote>
 
-      <div className="mt-8 flex items-center gap-4">
-        <Image
-          src={quote.imageSrc}
-          alt={quote.imageAlt}
-          width={48}
-          height={48}
-          loading="lazy"
-          decoding="async"
-          unoptimized
-          className="h-12 w-12 shrink-0 rounded-full object-cover"
-        />
-        <div>
-          {quote.author ? (
+      <div className="mt-8 shrink-0">
+        <div className="flex h-12 items-center gap-4">
+          <Image
+            src={quote.imageSrc}
+            alt={quote.imageAlt}
+            width={48}
+            height={48}
+            loading="lazy"
+            decoding="async"
+            unoptimized
+            className="h-12 w-12 shrink-0 rounded-full object-cover"
+          />
+          <div className="min-w-0">
+            <p className="truncate font-semibold leading-tight text-neutral-900">
+              {quote.author ?? quote.company}
+            </p>
+            <p className="mt-0.5 truncate text-sm leading-tight text-neutral-600">
+              {quote.role ?? "\u00a0"}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 border-t border-neutral-100 pt-4">
+          {quote.partnerLogos?.length ? (
             <>
-              <p className="font-semibold text-neutral-900">{quote.author}</p>
-              {quote.role ? (
-                <p className="text-sm text-neutral-600">{quote.role}</p>
-              ) : null}
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                {quote.partnerLogosLabel ?? "Featured in"}
+              </p>
+              <QuotePartnerLogoTicker
+                logos={quote.partnerLogos}
+                ariaLabel={quote.partnerLogosLabel ?? "Featured in"}
+              />
             </>
-          ) : (
-            <p className="font-semibold text-neutral-900">{quote.company}</p>
-          )}
+          ) : null}
+
+          {quote.highlight ? (
+            <div
+              className={
+                quote.partnerLogos?.length
+                  ? "border-t border-neutral-100"
+                  : undefined
+              }
+            >
+              <QuoteHighlightFooter highlight={quote.highlight} />
+            </div>
+          ) : null}
         </div>
       </div>
-
-      {/* Shared footer footprint so every slide's "Featured in" row matches. */}
-      <div className="mt-5 min-h-[7.5rem] border-t border-neutral-100 pt-4 sm:min-h-[8rem]">
-        {quote.partnerLogos?.length ? (
-          <>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-              {quote.partnerLogosLabel ?? "Featured in"}
-            </p>
-            <QuotePartnerLogoTicker
-              logos={quote.partnerLogos}
-              ariaLabel={quote.partnerLogosLabel ?? "Featured in"}
-            />
-          </>
-        ) : null}
-
-        {quote.highlight ? (
-          <div
-            className={
-              quote.partnerLogos?.length
-                ? "border-t border-neutral-100"
-                : undefined
-            }
-          >
-            <QuoteHighlightFooter highlight={quote.highlight} />
-          </div>
-        ) : null}
-      </div>
-    </>
+    </div>
   );
 }
 
@@ -177,10 +180,6 @@ export function ServiceQuoteSlider({
         }
       }}
     >
-      {/*
-        Grid stack: every slide sits in the same cell, so the panel height
-        is always the tallest quote. Crossfade opacity keeps the page still.
-      */}
       <div className="grid">
         {quotes.map((quote, index) => {
           const isActive = index === activeIndex;
@@ -188,7 +187,7 @@ export function ServiceQuoteSlider({
           return (
             <div
               key={quote.id}
-              className={`col-start-1 row-start-1 transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
+              className={`col-start-1 row-start-1 h-full transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
                 isActive
                   ? "relative z-10 opacity-100"
                   : "pointer-events-none z-0 opacity-0"
