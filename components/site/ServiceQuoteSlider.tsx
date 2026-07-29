@@ -270,7 +270,7 @@ export function ServiceQuoteSlider({
     >
       <div className="relative">
         {/* Invisible stack sets a stable height from the tallest quote. */}
-        <div className="grid invisible" aria-hidden>
+        <div className="grid invisible pb-2" aria-hidden>
           {quotes.map((quote) => (
             <div key={`sizer-${quote.id}`} className="col-start-1 row-start-1">
               <QuoteSlide quote={quote} />

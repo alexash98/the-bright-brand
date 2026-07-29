@@ -9,7 +9,6 @@ interface QuotePartnerLogoTickerProps {
   ariaLabel?: string;
 }
 
-/** Fixed six-column row. Every asset is normalised to 280×80. */
 const SLOT_COUNT = 6;
 
 export function QuotePartnerLogoTicker({
@@ -27,14 +26,14 @@ export function QuotePartnerLogoTicker({
       aria-label={ariaLabel}
     >
       {slots.map((logo, index) => (
-        <li key={logo?.id ?? `empty-${index}`} className="min-w-0">
+        <li key={logo?.id ?? `empty-${index}`} className="flex min-w-0 items-center justify-center">
           {logo ? (
-            <div className="relative mx-auto aspect-[280/80] w-full">
+            <div className="relative aspect-[200/72] w-full">
               <Image
                 src={logo.src}
                 alt={logo.name}
                 fill
-                sizes="160px"
+                sizes="120px"
                 loading="lazy"
                 decoding="async"
                 unoptimized
@@ -42,7 +41,7 @@ export function QuotePartnerLogoTicker({
               />
             </div>
           ) : (
-            <div className="aspect-[280/80] w-full" aria-hidden />
+            <div className="aspect-[200/72] w-full" aria-hidden />
           )}
         </li>
       ))}
