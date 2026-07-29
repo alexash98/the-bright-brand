@@ -502,6 +502,7 @@ export const FORMX_FEATURED_LOGOS: QuotePartnerLogo[] = [
   },
 ];
 
+/** Same six-slot row as Britton; slight scale so padded marks match press logos. */
 export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
   {
     id: "yondr",
@@ -509,6 +510,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/yondr.png",
     width: 200,
     height: 72,
+    scale: 1.2,
   },
   {
     id: "iss",
@@ -516,6 +518,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/iss.png",
     width: 200,
     height: 72,
+    scale: 1.15,
   },
   {
     id: "edf",
@@ -523,6 +526,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/edf.png",
     width: 200,
     height: 72,
+    scale: 1.2,
   },
   {
     id: "lloyds-bank",
@@ -530,6 +534,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/lloyds-bank.png",
     width: 200,
     height: 72,
+    scale: 1.15,
   },
   {
     id: "cbre",
@@ -537,6 +542,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/cbre.png",
     width: 200,
     height: 72,
+    scale: 1.2,
   },
   {
     id: "uk-government",
@@ -544,6 +550,7 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
     src: "/quote-logos/canopy/uk-government.png",
     width: 200,
     height: 72,
+    scale: 1.15,
   },
 ];
 
@@ -571,6 +578,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
     role: "Founder & Director",
     imageSrc: "/testimonials/doug-mclean.png",
     imageAlt: "Doug McLean, Founder & Director at Canopy",
+    partnerLogosLabel: "Featured in",
     partnerLogos: CANOPY_PARTNER_LOGOS,
   },
   {
@@ -596,7 +604,7 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
     role: "Co-Founder FormX. Serial Entrepreneur",
     imageSrc: "/testimonials/formx.webp",
     imageAlt: "Shay Hasson",
-    partnerLogosLabel: "Also founded & backed",
+    partnerLogosLabel: "Featured in",
     partnerLogos: FORMX_FEATURED_LOGOS,
   },
   {
