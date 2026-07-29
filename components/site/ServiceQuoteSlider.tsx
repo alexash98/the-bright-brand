@@ -23,7 +23,7 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
   US: "United States",
 };
 
-const DEFAULT_AUTO_ADVANCE_MS = 3000;
+const DEFAULT_AUTO_ADVANCE_MS = 4500;
 
 function QuoteSlide({
   quote,
@@ -76,33 +76,32 @@ function QuoteSlide({
         </div>
       </div>
 
-      {quote.partnerLogos?.length || quote.highlight ? (
-        <div className="mt-5 border-t border-neutral-100 pt-4">
-          {quote.partnerLogos?.length ? (
-            <>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                {quote.partnerLogosLabel ?? "Trusted by"}
-              </p>
-              <QuotePartnerLogoTicker
-                logos={quote.partnerLogos}
-                ariaLabel={quote.partnerLogosLabel ?? "Trusted by"}
-              />
-            </>
-          ) : null}
+      {/* Shared footer footprint so every slide's "Featured in" row matches. */}
+      <div className="mt-5 min-h-[7.5rem] border-t border-neutral-100 pt-4 sm:min-h-[8rem]">
+        {quote.partnerLogos?.length ? (
+          <>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+              {quote.partnerLogosLabel ?? "Featured in"}
+            </p>
+            <QuotePartnerLogoTicker
+              logos={quote.partnerLogos}
+              ariaLabel={quote.partnerLogosLabel ?? "Featured in"}
+            />
+          </>
+        ) : null}
 
-          {quote.highlight ? (
-            <div
-              className={
-                quote.partnerLogos?.length
-                  ? "border-t border-neutral-100"
-                  : undefined
-              }
-            >
-              <QuoteHighlightFooter highlight={quote.highlight} />
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+        {quote.highlight ? (
+          <div
+            className={
+              quote.partnerLogos?.length
+                ? "border-t border-neutral-100"
+                : undefined
+            }
+          >
+            <QuoteHighlightFooter highlight={quote.highlight} />
+          </div>
+        ) : null}
+      </div>
     </>
   );
 }
@@ -180,7 +179,7 @@ export function ServiceQuoteSlider({
     >
       {/*
         Grid stack: every slide sits in the same cell, so the panel height
-        is always the tallest quote. Switching slides cannot resize the page.
+        is always the tallest quote. Crossfade opacity keeps the page still.
       */}
       <div className="grid">
         {quotes.map((quote, index) => {
@@ -189,7 +188,7 @@ export function ServiceQuoteSlider({
           return (
             <div
               key={quote.id}
-              className={`col-start-1 row-start-1 transition-opacity duration-300 ${
+              className={`col-start-1 row-start-1 transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
                 isActive
                   ? "relative z-10 opacity-100"
                   : "pointer-events-none z-0 opacity-0"
@@ -219,7 +218,7 @@ export function ServiceQuoteSlider({
                 aria-selected={isActive}
                 aria-label={`Show quote from ${quote.company}`}
                 onClick={() => goToSlide(index)}
-                className={`rounded-full transition-all duration-300 ${
+                className={`rounded-full transition-all duration-500 ease-in-out ${
                   isActive
                     ? "h-2 w-8 bg-neutral-800"
                     : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400"
