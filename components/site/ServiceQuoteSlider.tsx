@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
 import {
   QuoteLocation,
   ServiceHighlightQuote,
@@ -15,7 +14,7 @@ interface ServiceQuoteSliderProps {
   quotes: ServiceHighlightQuote[];
   /** Override auto-advance interval. Defaults to 3000ms. */
   autoAdvanceMs?: number;
-  /** Crossfade / slide duration in seconds. Defaults to 0.4. */
+  /** Kept for API compatibility; crossfade is CSS opacity. */
   transitionDuration?: number;
 }
 
@@ -26,10 +25,91 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
 
 const DEFAULT_AUTO_ADVANCE_MS = 3000;
 
+function QuoteSlide({
+  quote,
+}: {
+  quote: ServiceHighlightQuote;
+}): React.ReactElement {
+  return (
+    <>
+      <div className="mb-5 flex items-center justify-between gap-3">
+        <span className="inline-flex rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
+          {quote.company}
+        </span>
+        {quote.location ? (
+          <span
+            className="inline-flex shrink-0 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-accent-dark"
+            title={LOCATION_LABEL[quote.location]}
+            aria-label={LOCATION_LABEL[quote.location]}
+          >
+            {quote.location}
+          </span>
+        ) : null}
+      </div>
+
+      <blockquote className="text-[0.9rem] leading-relaxed text-neutral-700 md:text-base lg:text-[1.08rem] lg:leading-relaxed">
+        &ldquo;{quote.quote}&rdquo;
+      </blockquote>
+
+      <div className="mt-8 flex items-center gap-4">
+        <Image
+          src={quote.imageSrc}
+          alt={quote.imageAlt}
+          width={48}
+          height={48}
+          loading="lazy"
+          decoding="async"
+          unoptimized
+          className="h-12 w-12 shrink-0 rounded-full object-cover"
+        />
+        <div>
+          {quote.author ? (
+            <>
+              <p className="font-semibold text-neutral-900">{quote.author}</p>
+              {quote.role ? (
+                <p className="text-sm text-neutral-600">{quote.role}</p>
+              ) : null}
+            </>
+          ) : (
+            <p className="font-semibold text-neutral-900">{quote.company}</p>
+          )}
+        </div>
+      </div>
+
+      {quote.partnerLogos?.length || quote.highlight ? (
+        <div className="mt-5 border-t border-neutral-100 pt-4">
+          {quote.partnerLogos?.length ? (
+            <>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
+                {quote.partnerLogosLabel ?? "Trusted by"}
+              </p>
+              <QuotePartnerLogoTicker
+                logos={quote.partnerLogos}
+                ariaLabel={quote.partnerLogosLabel ?? "Trusted by"}
+              />
+            </>
+          ) : null}
+
+          {quote.highlight ? (
+            <div
+              className={
+                quote.partnerLogos?.length
+                  ? "border-t border-neutral-100"
+                  : undefined
+              }
+            >
+              <QuoteHighlightFooter highlight={quote.highlight} />
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
 export function ServiceQuoteSlider({
   quotes,
   autoAdvanceMs = DEFAULT_AUTO_ADVANCE_MS,
-  transitionDuration = 0.4,
 }: ServiceQuoteSliderProps): React.ReactElement {
   const rootRef = useRef<HTMLElement | null>(null);
   const wasInViewRef = useRef(false);
@@ -51,7 +131,6 @@ export function ServiceQuoteSlider({
     const observer = new IntersectionObserver(
       ([entry]) => {
         const visible = Boolean(entry?.isIntersecting);
-        // Only reset when first entering view, not on every observer tick.
         if (visible && !wasInViewRef.current) {
           setActiveIndex(0);
         }
@@ -82,16 +161,14 @@ export function ServiceQuoteSlider({
     return () => window.clearInterval(timer);
   }, [quotes.length, isInView, isPaused, prefersReducedMotion, autoAdvanceMs]);
 
-  const activeQuote = quotes[activeIndex];
-
-  if (!activeQuote) {
+  if (quotes.length === 0) {
     return <></>;
   }
 
   return (
     <aside
       ref={rootRef}
-      className="flex min-h-[280px] flex-col justify-center lg:pl-8"
+      className="flex flex-col justify-center lg:pl-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -101,95 +178,29 @@ export function ServiceQuoteSlider({
         }
       }}
     >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeQuote.id}
-          initial={
-            prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: 28 }
-          }
-          animate={{ opacity: 1, x: 0 }}
-          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -28 }}
-          transition={{ duration: transitionDuration, ease: "easeOut" }}
-        >
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <span className="inline-flex rounded-full border border-neutral-200 bg-[#f7f7f5] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-neutral-800">
-              {activeQuote.company}
-            </span>
-            {activeQuote.location ? (
-              <span
-                className="inline-flex shrink-0 rounded-full border border-brand-accent/30 bg-brand-accent/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-accent-dark"
-                title={LOCATION_LABEL[activeQuote.location]}
-                aria-label={LOCATION_LABEL[activeQuote.location]}
-              >
-                {activeQuote.location}
-              </span>
-            ) : null}
-          </div>
+      {/*
+        Grid stack: every slide sits in the same cell, so the panel height
+        is always the tallest quote. Switching slides cannot resize the page.
+      */}
+      <div className="grid">
+        {quotes.map((quote, index) => {
+          const isActive = index === activeIndex;
 
-          <blockquote className="min-h-[8.5rem] text-[0.9rem] leading-relaxed text-neutral-700 md:min-h-[9.5rem] md:text-base lg:min-h-[10rem] lg:text-[1.08rem] lg:leading-relaxed">
-            &ldquo;{activeQuote.quote}&rdquo;
-          </blockquote>
-
-          <div className="mt-8 flex items-center gap-4">
-            <Image
-              src={activeQuote.imageSrc}
-              alt={activeQuote.imageAlt}
-              width={48}
-              height={48}
-              loading="lazy"
-              decoding="async"
-              unoptimized
-              className="h-12 w-12 shrink-0 rounded-full object-cover"
-            />
-            <div>
-              {activeQuote.author ? (
-                <>
-                  <p className="font-semibold text-neutral-900">
-                    {activeQuote.author}
-                  </p>
-                  {activeQuote.role ? (
-                    <p className="text-sm text-neutral-600">
-                      {activeQuote.role}
-                    </p>
-                  ) : null}
-                </>
-              ) : (
-                <p className="font-semibold text-neutral-900">
-                  {activeQuote.company}
-                </p>
-              )}
+          return (
+            <div
+              key={quote.id}
+              className={`col-start-1 row-start-1 transition-opacity duration-300 ${
+                isActive
+                  ? "relative z-10 opacity-100"
+                  : "pointer-events-none z-0 opacity-0"
+              }`}
+              aria-hidden={!isActive}
+            >
+              <QuoteSlide quote={quote} />
             </div>
-          </div>
-
-          {activeQuote.partnerLogos?.length || activeQuote.highlight ? (
-            <div className="mt-5 border-t border-neutral-100 pt-4">
-              {activeQuote.partnerLogos?.length ? (
-                <>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">
-                    {activeQuote.partnerLogosLabel ?? "Trusted by"}
-                  </p>
-                  <QuotePartnerLogoTicker
-                    logos={activeQuote.partnerLogos}
-                    ariaLabel={activeQuote.partnerLogosLabel ?? "Trusted by"}
-                  />
-                </>
-              ) : null}
-
-              {activeQuote.highlight ? (
-                <div
-                  className={
-                    activeQuote.partnerLogos?.length
-                      ? "border-t border-neutral-100"
-                      : undefined
-                  }
-                >
-                  <QuoteHighlightFooter highlight={activeQuote.highlight} />
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-        </motion.div>
-      </AnimatePresence>
+          );
+        })}
+      </div>
 
       {quotes.length > 1 ? (
         <div
