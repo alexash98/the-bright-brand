@@ -2,6 +2,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "motion/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   QuoteLocation,
   ServiceHighlightQuote,
@@ -14,7 +16,7 @@ interface ServiceQuoteSliderProps {
   quotes: ServiceHighlightQuote[];
   /** Override auto-advance interval. Defaults to 4500ms. */
   autoAdvanceMs?: number;
-  /** Kept for API compatibility; crossfade is CSS opacity. */
+  /** Kept for API compatibility. */
   transitionDuration?: number;
 }
 
@@ -25,11 +27,26 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
 
 const DEFAULT_AUTO_ADVANCE_MS = 4500;
 
+type Direction = 1 | -1;
+
+const slideVariants = {
+  enter: (direction: Direction) => ({
+    x: direction > 0 ? 36 : -36,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: Direction) => ({
+    x: direction > 0 ? -36 : 36,
+    opacity: 0,
+  }),
+};
+
 /**
  * Fixed vertical rhythm matching Britton & Time:
  * badge → quote (flex grow) → avatar/name/role → Featured in → logos.
- * Shorter quotes leave empty space in the quote band so the bottom block
- * never jumps up (Canopy was floating higher than Dan/Tony).
  */
 function QuoteSlide({
   quote,
@@ -109,20 +126,63 @@ function QuoteSlide({
   );
 }
 
+function NavArrow({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}): React.ReactElement {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-800 transition-colors duration-200 hover:border-brand-accent/40 hover:bg-brand-accent/10 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/50"
+    >
+      {children}
+    </button>
+  );
+}
+
 export function ServiceQuoteSlider({
   quotes,
   autoAdvanceMs = DEFAULT_AUTO_ADVANCE_MS,
 }: ServiceQuoteSliderProps): React.ReactElement {
   const rootRef = useRef<HTMLElement | null>(null);
   const wasInViewRef = useRef(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [[activeIndex, direction], setSlide] = useState<[number, Direction]>([
+    0, 1,
+  ]);
   const [isPaused, setIsPaused] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  const goToSlide = useCallback((index: number) => {
-    setActiveIndex(index);
-  }, []);
+  const paginate = useCallback(
+    (step: Direction) => {
+      if (quotes.length <= 1) return;
+      setSlide(([current]) => {
+        const next = (current + step + quotes.length) % quotes.length;
+        return [next, step];
+      });
+    },
+    [quotes.length],
+  );
+
+  const goToSlide = useCallback(
+    (index: number) => {
+      setSlide(([current]) => {
+        if (index === current) return [current, 1];
+        const forward =
+          (index - current + quotes.length) % quotes.length <=
+          quotes.length / 2;
+        return [index, forward ? 1 : -1];
+      });
+    },
+    [quotes.length],
+  );
 
   useEffect(() => {
     const node = rootRef.current;
@@ -134,7 +194,7 @@ export function ServiceQuoteSlider({
       ([entry]) => {
         const visible = Boolean(entry?.isIntersecting);
         if (visible && !wasInViewRef.current) {
-          setActiveIndex(0);
+          setSlide([0, 1]);
         }
         wasInViewRef.current = visible;
         setIsInView(visible);
@@ -157,20 +217,48 @@ export function ServiceQuoteSlider({
     }
 
     const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % quotes.length);
+      paginate(1);
     }, autoAdvanceMs);
 
     return () => window.clearInterval(timer);
-  }, [quotes.length, isInView, isPaused, prefersReducedMotion, autoAdvanceMs]);
+  }, [
+    quotes.length,
+    isInView,
+    isPaused,
+    prefersReducedMotion,
+    autoAdvanceMs,
+    paginate,
+  ]);
 
-  if (quotes.length === 0) {
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node || quotes.length <= 1) return;
+
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        paginate(-1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        paginate(1);
+      }
+    };
+
+    node.addEventListener("keydown", onKeyDown);
+    return () => node.removeEventListener("keydown", onKeyDown);
+  }, [paginate, quotes.length]);
+
+  const activeQuote = quotes[activeIndex];
+
+  if (!activeQuote) {
     return <></>;
   }
 
   return (
     <aside
       ref={rootRef}
-      className="flex flex-col justify-center lg:pl-8"
+      tabIndex={0}
+      className="flex flex-col justify-center outline-none lg:pl-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -180,51 +268,72 @@ export function ServiceQuoteSlider({
         }
       }}
     >
-      <div className="grid">
-        {quotes.map((quote, index) => {
-          const isActive = index === activeIndex;
-
-          return (
-            <div
-              key={quote.id}
-              className={`col-start-1 row-start-1 h-full transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
-                isActive
-                  ? "relative z-10 opacity-100"
-                  : "pointer-events-none z-0 opacity-0"
-              }`}
-              aria-hidden={!isActive}
-            >
+      <div className="relative">
+        {/* Invisible stack sets a stable height from the tallest quote. */}
+        <div className="grid invisible" aria-hidden>
+          {quotes.map((quote) => (
+            <div key={`sizer-${quote.id}`} className="col-start-1 row-start-1">
               <QuoteSlide quote={quote} />
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <div className="absolute inset-0 overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction} initial={false}>
+            <motion.div
+              key={activeQuote.id}
+              custom={direction}
+              variants={slideVariants}
+              initial={prefersReducedMotion ? false : "enter"}
+              animate="center"
+              exit={prefersReducedMotion ? undefined : "exit"}
+              transition={{
+                duration: prefersReducedMotion ? 0.2 : 0.55,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="absolute inset-0"
+            >
+              <QuoteSlide quote={activeQuote} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
       {quotes.length > 1 ? (
-        <div
-          className="mt-6 flex items-center gap-2"
-          role="tablist"
-          aria-label="Client quotes"
-        >
-          {quotes.map((quote, index) => {
-            const isActive = index === activeIndex;
+        <div className="mt-6 flex items-center justify-between gap-4">
+          <NavArrow label="Previous review" onClick={() => paginate(-1)}>
+            <ChevronLeft className="h-5 w-5" aria-hidden />
+          </NavArrow>
 
-            return (
-              <button
-                key={quote.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-label={`Show quote from ${quote.company}`}
-                onClick={() => goToSlide(index)}
-                className={`rounded-full transition-all duration-500 ease-in-out ${
-                  isActive
-                    ? "h-2 w-8 bg-neutral-800"
-                    : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400"
-                }`}
-              />
-            );
-          })}
+          <div
+            className="flex items-center gap-2"
+            role="tablist"
+            aria-label="Client quotes"
+          >
+            {quotes.map((quote, index) => {
+              const isActive = index === activeIndex;
+
+              return (
+                <button
+                  key={quote.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-label={`Show quote from ${quote.company}`}
+                  onClick={() => goToSlide(index)}
+                  className={`rounded-full transition-all duration-500 ease-in-out ${
+                    isActive
+                      ? "h-2 w-8 bg-neutral-800"
+                      : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400"
+                  }`}
+                />
+              );
+            })}
+          </div>
+
+          <NavArrow label="Next review" onClick={() => paginate(1)}>
+            <ChevronRight className="h-5 w-5" aria-hidden />
+          </NavArrow>
         </div>
       ) : null}
     </aside>
