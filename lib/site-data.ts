@@ -549,6 +549,19 @@ export const CANOPY_PARTNER_LOGOS: QuotePartnerLogo[] = [
 
 export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
   {
+    id: "britton-and-time",
+    company: "Britton & Time",
+    location: "UK",
+    quote:
+      "The Bright Brand have helped us to do what other pay-per-click partners have promised but never been able to deliver: attribute leads to campaigns and pinpoint return on ad spend. In a heavily contested sector, they took the time to listen to us, understand our products, drive down CPCs and build common sense, achievable plans for growth.",
+    author: "Daniel Beech",
+    role: "Founder & Operations Manager",
+    imageSrc: "/testimonials/daniel-beech.png",
+    imageAlt: "Daniel Beech, Founder & Operations Manager at Britton & Time",
+    partnerLogosLabel: "Featured in",
+    partnerLogos: BRITTON_FEATURED_LOGOS,
+  },
+  {
     id: "canopy",
     company: "Canopy",
     location: "UK",
@@ -607,19 +620,6 @@ export const SERVICE_HIGHLIGHT_QUOTES: ServiceHighlightQuote[] = [
  */
 export const SERVICE_HIGHLIGHT_QUOTES_HELD: ServiceHighlightQuote[] = [
   {
-    id: "britton-and-time",
-    company: "Britton & Time",
-    location: "UK",
-    quote:
-      "Bright Brand tied our ad spend to revenue properly for the first time. They manage our paid advertising across Google, Microsoft and LinkedIn with real discipline, and we finally know what every pound is doing.",
-    author: "Daniel Beech",
-    role: "Founder & Operations Manager",
-    imageSrc: "/testimonials/daniel-beech.png",
-    imageAlt: "Daniel Beech, Founder & Operations Manager at Britton & Time",
-    partnerLogosLabel: "Featured in",
-    partnerLogos: BRITTON_FEATURED_LOGOS,
-  },
-  {
     id: "menzies-law",
     company: "Menzies Law",
     location: "UK",
@@ -656,6 +656,7 @@ export const PRESS_PUBLICATIONS = [
 
 export const CLIENT_LOGOS = [
   { name: "Airbox Fulfilment", logo: "airbox.png", key: "airbox", scale: 1.2 },
+  { name: "Britton & Time", logo: "britton-and-time.png", key: "britton-and-time" },
   { name: "Bremembered.io", logo: "bremembered.png", key: "bremembered" },
   { name: "Anywhere.com", logo: "anywhere.png", key: "anywhere" },
   { name: "Releaf", logo: "releaf.png", key: "releaf", scale: 1 / 1.2 },
