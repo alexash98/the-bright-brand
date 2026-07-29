@@ -234,7 +234,7 @@ const legalSolicitors: Industry = {
       client: "Britton & Time",
       anonymised: false,
       situation:
-        "Britton & Time is an award-winning law firm with offices in Mayfair and Brighton, working across around 10 practice areas for personal and business clients. Paid search was live, but the firm could not see which campaigns created real instructions. Daniel Beech, Founder & Operations Manager: \"Bright Brand tied our ad spend to revenue properly for the first time. They manage our paid advertising across Google, Microsoft and LinkedIn with real discipline, and we finally know what every pound is doing.\"",
+        "Britton & Time is an award-winning law firm with offices in Mayfair and Brighton, working across around 10 practice areas for personal and business clients. Paid search was live, but the firm could not see which campaigns created real instructions. Daniel Beech, Founder & Operations Manager: \"The Bright Brand have helped us to do what other pay-per-click partners have promised but never been able to deliver: attribute leads to campaigns and pinpoint return on ad spend. In a heavily contested sector, they took the time to listen to us, understand our products, drive down CPCs and build common sense, achievable plans for growth.\"",
       built:
         "A custom attribution build joining HubSpot, Clio Rail, Clio Grow and Clio Manage into one reporting point, plus a rebuild of Google Ads and the addition of Microsoft Ads and LinkedIn. Campaigns now run across approximately 10 legal areas for both offices, with weekly and bi-monthly visibility on return for every pound spent. CPA and revenue figures stay under NDA and are not published.",
       results: [
