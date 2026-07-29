@@ -29,7 +29,14 @@ export function QuotePartnerLogoTicker({
       {slots.map((logo, index) => (
         <li key={logo?.id ?? `empty-${index}`} className="min-w-0">
           {logo ? (
-            <div className="relative mx-auto aspect-[200/72] w-full">
+            <div
+              className="relative mx-auto h-9 w-full overflow-visible sm:h-10"
+              style={
+                logo.scale
+                  ? { transform: `scale(${logo.scale})` }
+                  : undefined
+              }
+            >
               <Image
                 src={logo.src}
                 alt={logo.name}
@@ -42,7 +49,7 @@ export function QuotePartnerLogoTicker({
               />
             </div>
           ) : (
-            <div className="aspect-[200/72] w-full" aria-hidden />
+            <div className="h-9 w-full sm:h-10" aria-hidden />
           )}
         </li>
       ))}
