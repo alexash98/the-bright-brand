@@ -9,7 +9,7 @@ interface QuotePartnerLogoTickerProps {
   ariaLabel?: string;
 }
 
-/** Fixed six-column row — same footprint as Britton & Time on every slide. */
+/** Fixed six-column row. Every asset is normalised to 280×80. */
 const SLOT_COUNT = 6;
 
 export function QuotePartnerLogoTicker({
@@ -23,33 +23,26 @@ export function QuotePartnerLogoTicker({
 
   return (
     <ul
-      className="m-0 grid w-full list-none grid-cols-6 items-center gap-x-3 py-5 sm:gap-x-4 sm:py-6"
+      className="m-0 grid w-full list-none grid-cols-6 items-center gap-x-2 py-4 sm:gap-x-3 sm:py-5"
       aria-label={ariaLabel}
     >
       {slots.map((logo, index) => (
         <li key={logo?.id ?? `empty-${index}`} className="min-w-0">
           {logo ? (
-            <div
-              className="relative mx-auto h-9 w-full overflow-visible sm:h-10"
-              style={
-                logo.scale
-                  ? { transform: `scale(${logo.scale})` }
-                  : undefined
-              }
-            >
+            <div className="relative mx-auto aspect-[280/80] w-full">
               <Image
                 src={logo.src}
                 alt={logo.name}
                 fill
-                sizes="140px"
+                sizes="160px"
                 loading="lazy"
                 decoding="async"
                 unoptimized
-                className="object-contain object-center opacity-95"
+                className="object-contain object-center"
               />
             </div>
           ) : (
-            <div className="h-9 w-full sm:h-10" aria-hidden />
+            <div className="aspect-[280/80] w-full" aria-hidden />
           )}
         </li>
       ))}
