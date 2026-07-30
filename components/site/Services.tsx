@@ -122,7 +122,10 @@ export const Services: React.FC<ServicesProps> = ({
             </SectionIntro>
 
             {SHOW_SERVICE_QUOTE_SLIDER ? (
-              <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
+              <ServiceQuoteSlider
+                quotes={SERVICE_HIGHLIGHT_QUOTES}
+                autoAdvanceMs={3500}
+              />
             ) : null}
           </div>
         ) : (

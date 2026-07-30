@@ -152,6 +152,8 @@ export interface CaseStudy {
   results: string[];
   stats: StatCard[];
   imageUrl: string;
+  /** Descriptive alt for the case study image; falls back to clientName. */
+  imageAlt?: string;
   clientLogo?: string;
   clientLogoInvert?: boolean;
   testimonial?: {

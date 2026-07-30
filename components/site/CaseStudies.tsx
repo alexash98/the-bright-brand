@@ -72,7 +72,7 @@ export function CaseStudies({ items }: CaseStudiesProps) {
                 <div className="absolute inset-0 z-0">
                   <Image
                     src={study.imageUrl}
-                    alt={study.clientName}
+                    alt={study.imageAlt ?? study.clientName}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     loading="lazy"

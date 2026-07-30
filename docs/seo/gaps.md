@@ -20,7 +20,7 @@ Agents append here. Do not invent answers. Alex resolves items, then content age
 Files written: `content/industries/construction.ts`, `commercial-fit-out.ts`, `residential-home-builders.ts`.
 
 - [ ] Manor: replace method-only / implementation-count proof results with signed performance metrics when Alex supplies them. Named method proof ships; anonymised composites currently carry board-level numbers on fit-out money pages.
-- [ ] Traditional UK outlet housebuilder: FormX is named modular / residential-adjacent proof (CPA −63%, $4.5M pre-seed context). Need a signed UK multi-development housebuilder for Google Ads, call tracking and landing-page CRO numbers currently held as anonymised composites (`signedOff: false`).
+- [ ] Traditional UK outlet housebuilder: FormX is named modular / residential-adjacent proof (CPA −83%, $4.5M pre-seed context). Need a signed UK multi-development housebuilder for Google Ads, call tracking and landing-page CRO numbers currently held as anonymised composites (`signedOff: false`).
 - [ ] Confirm whether FormX quote (Shay Hasson) should appear as Review schema on residential pages, or stay case-study / testimonial-surface only.
 - [ ] Civils and infrastructure: still pillar-only reference on `/industries/construction/` until a nameable client exists (per SEGMENTS / SPEC).
 - [x] Optional: `PipelineDiagram` shipped on industry pillars (24 Jul 2026); still prose-led for tender vs reservation detail.

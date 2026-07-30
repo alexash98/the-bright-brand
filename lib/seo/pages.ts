@@ -39,7 +39,7 @@ export const PAGE_SEO = {
   "/case-studies/anywhere": {
     title: "Road to 10M ARR | The Bright Brand",
     description:
-      "How Bright Brand saved Anywhere.com $300K in wasted ad spend and helped grow their revenue from $6M to $10M, representing a 67% increase year on year",
+      "How Bright Brand saved Anywhere.com $300K in wasted ad spend and helped grow their revenue from $6M to $10M, representing a 74% increase year on year",
   },
   "/case-studies/formx": {
     title: "4.5M Pre Seed Growth Mission | The Bright Brand",

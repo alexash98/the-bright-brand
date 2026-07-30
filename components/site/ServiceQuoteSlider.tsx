@@ -25,7 +25,7 @@ const LOCATION_LABEL: Record<QuoteLocation, string> = {
   US: "United States",
 };
 
-const DEFAULT_AUTO_ADVANCE_MS = 4500;
+const DEFAULT_AUTO_ADVANCE_MS = 3500;
 
 type Direction = 1 | -1;
 

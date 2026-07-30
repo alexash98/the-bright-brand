@@ -259,7 +259,7 @@ const luxuryTailorMadeTravel: Industry = {
           metric: "Revenue",
           before: "$6M",
           after: "$10M",
-          window: "one year (+67% YoY)",
+          window: "one year (+74% YoY)",
         },
       ],
       signedOff: true,

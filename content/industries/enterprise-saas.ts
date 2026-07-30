@@ -16,7 +16,7 @@ const enterpriseSaas: Industry = {
   proofLead: {
     heading:
       "One or two SaaS companies. Founder-level attention. A build shaped around your ICP and deal stages.",
-    body: "We are taking on a small number of enterprise SaaS companies to build this properly: ICP-matched outbound, committee-aware CRM stages, closed ARR training bidding, and board packs that show marketing contribution in revenue. FormX cut cost per booked sales meeting by 63%. Over 25% of Canopy's enterprise pipeline comes through Bright Brand. You get a senior team on your stack, not a SaaS template resold fifth.",
+    body: "We are taking on a small number of enterprise SaaS companies to build this properly: ICP-matched outbound, committee-aware CRM stages, closed ARR training bidding, and board packs that show marketing contribution in revenue. FormX cut cost per booked sales meeting by 83%. Over 25% of Canopy's enterprise pipeline comes through Bright Brand. You get a senior team on your stack, not a SaaS template resold fifth.",
     quoteId: "formx",
     quoteIds: ["formx", "canopy"],
     askAiPrompt:
@@ -56,10 +56,10 @@ const enterpriseSaas: Industry = {
   },
   marketStats: [
     {
-      value: "63% reduction in cost per booked sales meeting",
+      value: "83% reduction in cost per booked sales meeting",
       label: "FormX published proof",
       implication:
-        "FormX cut cost per booked sales meeting by 63% on the same budget by rebuilding the funnel, tightening targeting and optimising toward meetings, not form fills. That is what happens when bidding trains on the right conversion event.",
+        "FormX cut cost per booked sales meeting by 83% on the same budget by rebuilding the funnel, tightening targeting and optimising toward meetings, not form fills. That is what happens when bidding trains on the right conversion event.",
     },
     {
       value: "25%+ of enterprise pipeline sourced through Bright Brand",
@@ -254,7 +254,7 @@ const enterpriseSaas: Industry = {
       results: [
         {
           metric: "Cost per booked sales meeting",
-          after: "-63%",
+          after: "-83%",
           window: "published engagement period",
         },
         {

@@ -237,7 +237,7 @@ const residentialHomeBuilders: Industry = {
       results: [
         {
           metric: "Cost per booked sales meeting",
-          after: "-63%",
+          after: "-83%",
           window: "published engagement period",
         },
         {
