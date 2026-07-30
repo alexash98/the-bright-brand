@@ -6,7 +6,6 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import { usePathname } from "next/navigation";
 
@@ -120,12 +119,29 @@ export function SmoothScrollProvider({
 }): React.ReactElement {
   const pathname = usePathname();
   const lenisRef = useRef<LenisInstance | null>(null);
-  const [scrollToSection, setScrollToSection] = useState<ScrollToSection | null>(
-    null,
-  );
-  const [scrollToTopHandler, setScrollToTopHandler] = useState<ScrollToTop | null>(
-    null,
-  );
+
+  const scrollToSection = useCallback((id: string) => {
+    const element = document.getElementById(id);
+
+    if (!element) {
+      return;
+    }
+
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(element, {
+        offset: HEADER_OFFSET,
+        duration: 1.1,
+      });
+      return;
+    }
+
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.scrollBy(0, HEADER_OFFSET);
+  }, []);
+
+  const scrollToTopHandler = useCallback(() => {
+    scrollToTop(lenisRef.current);
+  }, []);
 
   useEffect(() => {
     if ("scrollRestoration" in history) {
@@ -139,7 +155,6 @@ export function SmoothScrollProvider({
     ).matches;
 
     if (prefersReducedMotion) {
-      setScrollToTopHandler(() => () => scrollToTop(null));
       return;
     }
 
@@ -167,21 +182,6 @@ export function SmoothScrollProvider({
       }) as LenisInstance;
 
       lenisRef.current = lenisInstance;
-
-      setScrollToSection(() => (id: string) => {
-        const element = document.getElementById(id);
-
-        if (!element || !lenisRef.current) {
-          return;
-        }
-
-        lenisRef.current.scrollTo(element, {
-          offset: HEADER_OFFSET,
-          duration: 1.1,
-        });
-      });
-
-      setScrollToTopHandler(() => () => scrollToTop(lenisRef.current));
 
       const raf = (time: number): void => {
         lenisRef.current?.raf(time);
@@ -213,8 +213,6 @@ export function SmoothScrollProvider({
       window.cancelAnimationFrame(frameId);
       lenisRef.current?.destroy();
       lenisRef.current = null;
-      setScrollToSection(null);
-      setScrollToTopHandler(() => () => scrollToTop(null));
     };
   }, []);
 

@@ -12,10 +12,6 @@ const jiti = createJiti(join(root, "scripts/expand-wave4-wordcounts.mjs"), {
   alias: { "@": root },
 });
 
-function words(text) {
-  return text.split(/\s+/).filter(Boolean).length;
-}
-
 function writeTool(slug, methodSections) {
   const tool = jiti(join(root, `content/tools/${slug}.ts`));
   const next = { ...tool, methodSections };
@@ -252,20 +248,6 @@ If reservation cost is acceptable but volume is low, the constraint may be sales
 for (const [slug, methodSections] of Object.entries(toolExpansions)) {
   writeTool(slug, methodSections);
 }
-
-// Integration expansions: append unique depth while replacing full section sets for short guides
-const integrationExtra = {
-  "hubspot-ga4-attribution": null,
-};
-
-function longSections(titlePrefix, uniqueParagraphs) {
-  // helper unused - expansions inline below
-  return uniqueParagraphs;
-}
-
-const integrationBodies = {
-  "hubspot-google-ads-offline-conversions": null, // already ok-ish; expand below
-};
 
 function expandGuide(slug, sections) {
   writeIntegration(slug, sections);
