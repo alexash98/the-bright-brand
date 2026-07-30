@@ -96,7 +96,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                     className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-accent"
                     aria-hidden="true"
                   />
-                  Reply from Beth within one business day
+                  Reply within one working day
                 </li>
                 <li className="flex gap-3">
                   <span
