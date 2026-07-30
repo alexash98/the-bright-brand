@@ -4,10 +4,21 @@ export const CONTACT = {
     line2: "London, EC1V 2NX",
   },
   email: "hello@thebrightbrand.com",
-  contactPartnerEmail: "beth@thebrightbrand.com",
-  contactName: "Beth McGlinchey",
-  contactRole: "Client Partner",
-  responseTime: "We reply within one business day",
+  contactPartnerEmail: "alex@thebrightbrand.com",
+  onlineLabel: "Online now",
+  responseTime: "Usually replies within one business day",
+  hosts: [
+    {
+      name: "Alex",
+      avatarSrc: "/team/alex-ashcroft.png",
+      avatarAlt: "Alex at The Bright Brand",
+    },
+    {
+      name: "Ollie",
+      avatarSrc: "/team/ollie.png",
+      avatarAlt: "Ollie at The Bright Brand",
+    },
+  ],
 } as const;
 
 // Discovery call booking link, used on every CTA.

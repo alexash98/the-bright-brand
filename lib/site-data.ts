@@ -1087,7 +1087,7 @@ export const ABOUT_FEATURED_WORK: AboutFeaturedWorkContent = {
   highlight: "measure.",
   intro:
     "The work shows up in revenue, pipeline and efficiency, not slide decks. Here is a sample of what that looks like in practice.",
-  caseStudyIds: ["menzies-law", "britton-and-time", "heat-from-the-spire"],
+  caseStudyIds: ["releaf", "britton-and-time", "formx"],
 };
 
 export const TEAM: TeamMember[] = [

@@ -22,24 +22,25 @@ export function AboutCultureSection({
       <div className="py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45 }}
-              className="text-left lg:col-span-5 lg:sticky lg:top-28"
-            >
-              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
-                {content.eyebrow}
-              </p>
-              <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-                {content.title}{" "}
-                <span className="text-brand-accent">{content.highlight}</span>
-              </h2>
-              <p className="text-lg leading-relaxed text-neutral-600">
-                {content.intro}
-              </p>
-            </motion.div>
+            <div className="self-start text-left lg:col-span-5 lg:sticky lg:top-28 lg:z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45 }}
+              >
+                <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
+                  {content.eyebrow}
+                </p>
+                <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
+                  {content.title}{" "}
+                  <span className="text-brand-accent">{content.highlight}</span>
+                </h2>
+                <p className="text-lg leading-relaxed text-neutral-600">
+                  {content.intro}
+                </p>
+              </motion.div>
+            </div>
 
             <div className="space-y-4 lg:col-span-7">
               {content.pillars.map((pillar, index) => (
