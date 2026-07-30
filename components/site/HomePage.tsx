@@ -11,6 +11,7 @@ import {
   MARQUEE_PLATFORM_LOGOS,
   PLAYBOOK,
   SERVICES,
+  TESTIMONIALS,
 } from "@/lib/site-data";
 import { NAV_ITEMS } from "@/lib/nav";
 
@@ -35,6 +36,12 @@ const HowWeWork = dynamic(
   () =>
     import("@/components/site/HowWeWork").then((mod) => mod.HowWeWork),
   { loading: () => <SectionPlaceholder heightClass="h-[560px]" /> },
+);
+
+const Testimonials = dynamic(
+  () =>
+    import("@/components/site/Testimonials").then((mod) => mod.Testimonials),
+  { loading: () => <SectionPlaceholder heightClass="h-[360px]" /> },
 );
 
 const ClientLogoMarquee = dynamic(
@@ -82,6 +89,7 @@ export function HomePage(): React.ReactElement {
               <PlaybookCallout />
             </div>
             <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
+            <Testimonials testimonials={TESTIMONIALS} />
             <HowWeWork steps={ENGAGEMENT_STEPS} />
             <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />
             <EnquiryForm />

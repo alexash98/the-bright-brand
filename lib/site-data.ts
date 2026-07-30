@@ -755,17 +755,18 @@ export const PLATFORM_LOGOS = [
   { name: "YouTube Ads", key: "youtube" }
 ];
 
-export const TESTIMONIALS: Testimonial[] = SERVICE_HIGHLIGHT_QUOTES.map(
-  (quote) => ({
-    id: quote.id,
-    text: quote.quote,
-    author: quote.author ?? quote.company,
-    role: quote.role ?? "",
-    company: quote.company,
-    imageSrc: quote.imageSrc,
-    imageAlt: quote.imageAlt,
-  }),
-);
+export const TESTIMONIALS: Testimonial[] = [
+  ...SERVICE_HIGHLIGHT_QUOTES,
+  ...SERVICE_HIGHLIGHT_QUOTES_HELD,
+].map((quote) => ({
+  id: quote.id,
+  text: quote.quote,
+  author: quote.author ?? quote.company,
+  role: quote.role ?? "",
+  company: quote.company,
+  imageSrc: quote.imageSrc,
+  imageAlt: quote.imageAlt,
+}));
 
 /** Single featured client quote on the homepage (no carousel). */
 export const HOMEPAGE_FEATURED_QUOTE = [
