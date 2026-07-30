@@ -9,7 +9,6 @@ import {
   HERO_CAROUSEL_CASE_STUDIES,
   ENGAGEMENT_STEPS,
   MARQUEE_PLATFORM_LOGOS,
-  PLAYBOOK,
   SERVICES,
   TESTIMONIALS,
 } from "@/lib/site-data";
@@ -85,7 +84,7 @@ export function HomePage(): React.ReactElement {
         <div className="bg-white text-neutral-900">
           <div className="homepage-below-fold page-below-fold">
             <Services services={SERVICES} />
-            <Playbook rows={PLAYBOOK} />
+            <Playbook />
             <div className="relative z-10 -mt-12 -mb-12 px-4 md:px-8">
               <PlaybookCallout />
             </div>
