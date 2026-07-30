@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { AsSeenInTicker } from "@/components/site/AsSeenInTicker";
 import { AskAiAboutBrand } from "@/components/site/AskAiAboutBrand";
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { ServiceQuoteSlider } from "@/components/site/ServiceQuoteSlider";
 import { SHOW_SERVICE_QUOTE_SLIDER } from "@/lib/feature-flags";
 import { getServiceIcon } from "@/lib/service-icons";
@@ -108,25 +109,25 @@ export const Services: React.FC<ServicesProps> = ({
                 : ""
             }`}
           >
-            <div className="max-w-3xl text-left">
+            <SectionIntro className="max-w-3xl">
               <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
                 Performance marketing built around your{" "}
                 <span className="text-brand-accent">funnel</span>, not our
                 playbook.
               </h2>
-              <p className="text-lg leading-relaxed text-neutral-600">
+              <p className="section-intro-copy text-lg leading-relaxed text-neutral-600">
                 We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
               </p>
               <AskAiAboutBrand className="mt-8" />
-            </div>
+            </SectionIntro>
 
             {SHOW_SERVICE_QUOTE_SLIDER ? (
               <ServiceQuoteSlider quotes={SERVICE_HIGHLIGHT_QUOTES} />
             ) : null}
           </div>
         ) : (
-          <div className="mb-12 max-w-3xl">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+          <SectionIntro className="mb-12 max-w-3xl">
+            <p className="section-intro-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Our approach
             </p>
             <h2 className="mb-5 text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
@@ -134,10 +135,10 @@ export const Services: React.FC<ServicesProps> = ({
               <span className="text-brand-accent">strategy</span> across every
               channel.
             </h2>
-            <p className="text-lg leading-relaxed text-neutral-600">
+            <p className="section-intro-copy text-lg leading-relaxed text-neutral-600">
               We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
             </p>
-          </div>
+          </SectionIntro>
         )}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

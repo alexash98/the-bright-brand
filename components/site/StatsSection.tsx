@@ -3,6 +3,7 @@
 import React from "react";
 import { Clock, Gauge, TrendingUp, Wallet } from "lucide-react";
 import { CaseStudy } from "@/lib/site-types";
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { WhatWeDoBentoGrid } from "@/components/site/WhatWeDoBentoGrid";
 
 const STATS = [
@@ -52,8 +53,8 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
     >
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="max-w-xl text-left">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
+          <SectionIntro className="max-w-xl">
+            <p className="section-intro-eyebrow mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
               What we do
             </p>
             <h2
@@ -66,7 +67,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               channel.
             </h2>
             <p
-              className={`text-base leading-relaxed md:text-lg ${
+              className={`section-intro-copy text-base leading-relaxed md:text-lg ${
                 isLight ? "text-neutral-600" : "text-neutral-400"
               }`}
             >
@@ -74,7 +75,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               across every channel that matters, so nothing&apos;s working in
               isolation.
             </p>
-          </div>
+          </SectionIntro>
 
           <div
             className={`overflow-hidden rounded-2xl border ${
