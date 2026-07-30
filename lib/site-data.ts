@@ -1,4 +1,4 @@
-import { CaseStudy, ClientLogo, QuotePartnerLogo, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, PlaybookRow, EngagementStep, AboutComparisonSection, AboutCultureContent, AboutFeaturedWorkContent, AboutHeroHighlight } from "@/lib/site-types";
+import { CaseStudy, ClientLogo, QuotePartnerLogo, ServiceCard, ServiceHighlightQuote, Testimonial, TeamMember, EngagementStep, AboutComparisonSection, AboutCultureContent, AboutFeaturedWorkContent, AboutHeroHighlight } from "@/lib/site-types";
 
 function capitalizeFirst(text: string): string {
   if (!text) {
@@ -1000,14 +1000,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     imageUrl: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?auto=format&fit=crop&w=800&q=80"
   }
-];
-
-export const PLAYBOOK: PlaybookRow[] = [
-  { from: "Middlemen and hand-offs between teams", to: "Direct ownership from day one" },
-  { from: "Channels managed in silos", to: "One integrated growth plan" },
-  { from: "Reports full of vanity metrics", to: "Reporting tied to revenue and pipeline" },
-  { from: "Bloated retainers and lock-ins", to: "Flexible terms that follow progress" },
-  { from: "Strategy before anyone sees your data", to: "Plans built from your analytics" },
 ];
 
 export const ABOUT_HERO_HIGHLIGHTS: AboutHeroHighlight[] = [

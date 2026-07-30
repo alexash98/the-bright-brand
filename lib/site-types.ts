@@ -185,11 +185,6 @@ export interface TeamMember {
   hobbies: string[];
 }
 
-export interface PlaybookRow {
-  from: string;
-  to: string;
-}
-
 export interface AboutWorkPillar {
   title: string;
   body: string;
