@@ -45,7 +45,7 @@ export function PortfolioCard({
     <article className="group relative min-h-[320px] overflow-hidden rounded-2xl border border-neutral-200/80 sm:min-h-[350px]">
       <Image
         src={study.imageUrl}
-        alt={study.clientName}
+        alt={study.imageAlt ?? study.clientName}
         fill
         sizes="(max-width: 768px) 100vw, 33vw"
         loading="lazy"

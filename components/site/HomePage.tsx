@@ -89,7 +89,11 @@ export function HomePage(): React.ReactElement {
               <PlaybookCallout />
             </div>
             <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
-            <Testimonials testimonials={TESTIMONIALS} />
+            <Testimonials
+              testimonials={TESTIMONIALS}
+              layout="rotate"
+              autoAdvanceMs={3500}
+            />
             <HowWeWork steps={ENGAGEMENT_STEPS} />
             {SHOW_PLATFORM_LOGO_MARQUEE ? (
               <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />

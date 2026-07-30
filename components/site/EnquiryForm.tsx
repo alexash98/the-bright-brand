@@ -69,8 +69,10 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
         {showSpotlight ? (
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-14">
             <SectionIntro className="max-w-xl lg:sticky lg:top-28 lg:pt-2">
-              <LiveStatus label="Open for new briefs" />
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
+              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent-dark">
+                Open for new briefs
+              </p>
+              <h2 className="text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
                 Tell us where{" "}
                 <span className="text-brand-accent">you</span> want to go.
               </h2>

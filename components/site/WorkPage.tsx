@@ -6,7 +6,7 @@ import { Header } from "@/components/site/Header";
 import { MarketingHero } from "@/components/site/MarketingHero";
 import { SectionPlaceholder } from "@/components/site/SectionPlaceholder";
 import { NAV_ITEMS } from "@/lib/nav";
-import { WORK_PAGE_CASE_STUDIES } from "@/lib/site-data";
+import { TESTIMONIALS, WORK_PAGE_CASE_STUDIES } from "@/lib/site-data";
 
 const CaseStudiesPortfolioGrid = dynamic(
   () =>
@@ -14,6 +14,12 @@ const CaseStudiesPortfolioGrid = dynamic(
       (mod) => mod.CaseStudiesPortfolioGrid,
     ),
   { loading: () => <SectionPlaceholder heightClass="h-[1200px]" /> },
+);
+
+const Testimonials = dynamic(
+  () =>
+    import("@/components/site/Testimonials").then((mod) => mod.Testimonials),
+  { loading: () => <SectionPlaceholder heightClass="h-[360px]" /> },
 );
 
 export function WorkPage(): React.ReactElement {
@@ -40,8 +46,9 @@ export function WorkPage(): React.ReactElement {
       </MarketingHero>
 
       <main>
-        <div className="page-below-fold">
+        <div className="page-below-fold bg-white text-neutral-900">
           <CaseStudiesPortfolioGrid caseStudies={WORK_PAGE_CASE_STUDIES} />
+          <Testimonials testimonials={TESTIMONIALS} />
         </div>
         <Footer />
       </main>

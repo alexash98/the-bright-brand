@@ -200,7 +200,7 @@ displayName: FormX
 | Metric | Value | Notes |
 |--------|-------|-------|
 | Pre-seed raise referenced | $4.5M | Context only |
-| CPA on booked sales meetings | -63% | From published quote (Shay Hasson) |
+| CPA on booked sales meetings | -83% | From published quote (Shay Hasson) |
 | Engagement stage | Early / attribution audit | Do not invent closed revenue |
 
 ### Quote
@@ -212,7 +212,7 @@ role: Co-Founder FormX. Serial Entrepreneur
 exactWording: >
   We've been with Bright Brand for a while now, and it still feels like they're
   in the business with us. They rebuilt the funnel, tightened the targeting,
-  and cut our cost per booked sales meeting by 63%. Same budget, far more of
+  and cut our cost per booked sales meeting by 83%. Same budget, far more of
   the right conversations.
 ```
 

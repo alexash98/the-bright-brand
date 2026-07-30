@@ -266,7 +266,7 @@ const travelTourOperators: Industry = {
           metric: "Revenue",
           before: "$6M",
           after: "$10M",
-          window: "year on year (+67%)",
+          window: "year on year (+74%)",
         },
       ],
       signedOff: true,

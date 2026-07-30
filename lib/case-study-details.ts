@@ -17,7 +17,7 @@ export const CASE_STUDY_DETAILS: CaseStudyDetail[] = [
     heroStats: [
       { stat: "$300K", label: "Wasted ad spend recovered" },
       { stat: "-50%", label: "Meta cost per acquisition" },
-      { stat: "+67%", label: "Revenue growth year on year" },
+      { stat: "+74%", label: "Revenue growth year on year" },
       { stat: "$10M", label: "Revenue this year, up from $6M" },
     ],
     imageUrl: "/carousel/anywhere-travel.webp",
@@ -31,7 +31,7 @@ export const CASE_STUDY_DETAILS: CaseStudyDetail[] = [
       "We're working closely with Anthony Landis, one of the founders, who had already built a highly advanced attribution system. His main frustration with previous agencies was their inability to align with his data or properly understand what was required to scale the business. From the outset, it's been genuinely refreshing to work with someone so deeply embedded in the numbers. He has Metabase connected to virtually every data point imaginable and can spin up new tracking environments on demand, a level of sophistication easily beyond what we see in 99 percent of the businesses we work with.",
       "The real issue was not access to platforms like Google Ads or Meta Ads, but the lack of agencies able to connect the dots outside those platforms. Anthony specialises in analysing data across the entire ecosystem, not just within ad dashboards. That is where previous agencies fell short.",
       "By matching him at that data level, we've been able to amalgamate all sources and properly understand the full paid customer journey. When we dug into the numbers, we uncovered a £300K hole in wasted spend from their previous Google Ads agency over several years, identified by pulling data directly from multiple platforms and consolidating it to get a clear view of their core demographics. From there, we stripped out inefficient targeting and re-optimised their campaigns just ahead of peak season, putting the budget back where it actually drove results.",
-      "We've saved them $300K in wasted ad spend, now put to much better use driving top line revenue. On Meta, we halved their cost per acquisition, making campaigns significantly more efficient and allowing them to scale profitably. The business has grown from $6 million in revenue last year to $10 million this year, a 67% increase year on year, putting them in a strong position as they continue to expand into new markets.",
+      "We've saved them $300K in wasted ad spend, now put to much better use driving top line revenue. On Meta, we halved their cost per acquisition, making campaigns significantly more efficient and allowing them to scale profitably. The business has grown from $6 million in revenue last year to $10 million this year, a 74% increase year on year, putting them in a strong position as they continue to expand into new markets.",
     ],
     visualSection: {
       eyebrow: "Performance snapshot",
