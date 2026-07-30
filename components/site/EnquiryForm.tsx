@@ -35,6 +35,9 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
 
   const isContactLayout = formLayout === "contact";
   const isMuted = tone === "muted";
+  // Muted homepage band uses the same white card + bordered fields as Enquire Now,
+  // so inputs keep clear contrast against the card (not white-on-white).
+  const useRaisedCard = isContactLayout || isMuted;
 
   return (
     <section
@@ -50,16 +53,14 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
 
         <div
           className={
-            isContactLayout
+            useRaisedCard
               ? "overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]"
-              : isMuted
-                ? "rounded-2xl border border-neutral-200/80 bg-white shadow-[0_16px_48px_rgba(0,0,0,0.04)]"
-                : "rounded-2xl bg-[#f7f7f5]"
+              : "rounded-2xl bg-[#f7f7f5]"
           }
         >
           <div
             className={
-              isContactLayout
+              useRaisedCard
                 ? "px-6 py-8 md:px-10 md:py-12 lg:px-14 lg:py-14"
                 : "p-6 md:p-8 lg:p-10"
             }
@@ -71,7 +72,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               error={error}
               nameInputRef={nameInputRef}
               fieldClassName={
-                isContactLayout ? CONTACT_FIELD_CLASS : DEFAULT_FIELD_CLASS
+                useRaisedCard ? CONTACT_FIELD_CLASS : DEFAULT_FIELD_CLASS
               }
               onChange={handleChange}
               onSubmit={handleSubmit}
