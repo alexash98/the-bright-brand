@@ -22,6 +22,7 @@ interface EnquiryFormFieldsProps {
   onSubmit: (e: React.FormEvent) => void;
   onReset: () => void;
   layout?: "stacked" | "contact";
+  appearance?: "light" | "dark";
 }
 
 export function EnquiryFormFields({
@@ -35,8 +36,16 @@ export function EnquiryFormFields({
   onSubmit,
   onReset,
   layout = "stacked",
+  appearance = "light",
 }: EnquiryFormFieldsProps): React.ReactElement {
   const isContactLayout = layout === "contact";
+  const isDark = appearance === "dark";
+  const labelClass = isDark
+    ? "text-sm font-medium text-brand-text-pale/75"
+    : "text-sm font-medium text-neutral-700";
+  const optionalClass = isDark
+    ? "font-normal text-white/35"
+    : "font-normal text-neutral-400";
 
   return (
     <AnimatePresence mode="wait">
@@ -50,7 +59,13 @@ export function EnquiryFormFields({
           className="space-y-5 text-left"
         >
           {error ? (
-            <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-600">
+            <div
+              className={
+                isDark
+                  ? "flex items-center gap-3 rounded-xl border border-red-400/30 bg-red-500/10 p-4 text-sm font-semibold text-red-300"
+                  : "flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-semibold text-red-600"
+              }
+            >
               <AlertCircle className="h-5 w-5 shrink-0" />
               <span>{error}</span>
             </div>
@@ -62,10 +77,7 @@ export function EnquiryFormFields({
             }
           >
             <div className="flex flex-col space-y-2">
-              <label
-                className="text-sm font-medium text-neutral-700"
-                htmlFor="form-name"
-              >
+              <label className={labelClass} htmlFor="form-name">
                 Your name <span className="text-brand-accent">*</span>
               </label>
               <input
@@ -83,10 +95,7 @@ export function EnquiryFormFields({
             </div>
 
             <div className="flex flex-col space-y-2">
-              <label
-                className="text-sm font-medium text-neutral-700"
-                htmlFor="form-email"
-              >
+              <label className={labelClass} htmlFor="form-email">
                 Work email <span className="text-brand-accent">*</span>
               </label>
               <input
@@ -104,10 +113,7 @@ export function EnquiryFormFields({
           </div>
 
           <div className="flex flex-col space-y-2">
-            <label
-              className="text-sm font-medium text-neutral-700"
-              htmlFor="form-website"
-            >
+            <label className={labelClass} htmlFor="form-website">
               Company website <span className="text-brand-accent">*</span>
             </label>
             <input
@@ -124,12 +130,9 @@ export function EnquiryFormFields({
           </div>
 
           <div className="flex flex-col space-y-2">
-            <label
-              className="text-sm font-medium text-neutral-700"
-              htmlFor="form-message"
-            >
+            <label className={labelClass} htmlFor="form-message">
               What are you looking to improve?{" "}
-              <span className="font-normal text-neutral-400">(optional)</span>
+              <span className={optionalClass}>(optional)</span>
             </label>
             <textarea
               id="form-message"
@@ -175,10 +178,18 @@ export function EnquiryFormFields({
             <CheckCircle2 className="h-10 w-10 animate-bounce" />
           </div>
           <div className="max-w-md space-y-2">
-            <h3 className="text-2xl font-semibold text-neutral-900">
+            <h3
+              className={`text-2xl font-semibold ${
+                isDark ? "text-white" : "text-neutral-900"
+              }`}
+            >
               Enquiry received
             </h3>
-            <p className="text-sm font-normal leading-relaxed text-neutral-600">
+            <p
+              className={`text-sm font-normal leading-relaxed ${
+                isDark ? "text-brand-text-pale/70" : "text-neutral-600"
+              }`}
+            >
               Thanks{" "}
               <span className="font-bold text-brand-accent">{formData.name}</span>.
               Our Client Partner,{" "}
@@ -187,14 +198,24 @@ export function EnquiryFormFields({
                 {formData.website}
               </span>{" "}
               and email you at{" "}
-              <span className="font-bold text-neutral-900">{formData.email}</span>{" "}
+              <span
+                className={`font-bold ${
+                  isDark ? "text-white" : "text-neutral-900"
+                }`}
+              >
+                {formData.email}
+              </span>{" "}
               within one business day.
             </p>
           </div>
           <button
             type="button"
             onClick={onReset}
-            className="rounded-full border border-neutral-200 bg-white px-6 py-2.5 text-xs font-bold text-neutral-600 transition-all hover:bg-neutral-50 hover:text-neutral-900"
+            className={
+              isDark
+                ? "rounded-full border border-white/15 bg-white/5 px-6 py-2.5 text-xs font-bold text-brand-text-pale/80 transition-all hover:bg-white/10 hover:text-white"
+                : "rounded-full border border-neutral-200 bg-white px-6 py-2.5 text-xs font-bold text-neutral-600 transition-all hover:bg-neutral-50 hover:text-neutral-900"
+            }
           >
             Send another enquiry
           </button>

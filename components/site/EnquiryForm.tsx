@@ -14,8 +14,11 @@ const CONTACT_FIELD_CLASS =
 interface EnquiryFormProps {
   showHeading?: boolean;
   formLayout?: "stacked" | "contact";
-  /** Section band colour. `muted` separates from a white section above without going dark before the footer. */
-  tone?: "white" | "muted";
+  /**
+   * `spotlight` = homepage two-column CTA (white band, light Enquire Now form).
+   * `muted` kept as an alias for spotlight so existing callers keep working.
+   */
+  tone?: "white" | "muted" | "spotlight";
 }
 
 function LiveStatus({
@@ -53,32 +56,15 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
   } = useEnquiryForm();
 
   const isContactLayout = formLayout === "contact";
-  const isMuted = tone === "muted";
-  // Muted homepage band uses the same white card + bordered fields as Enquire Now,
-  // so inputs keep clear contrast against the card (not white-on-white).
-  const useRaisedCard = isContactLayout || isMuted;
-  const showSpotlight = isMuted && showHeading;
+  const showSpotlight =
+    showHeading && (tone === "muted" || tone === "spotlight");
+  const useRaisedCard = isContactLayout || showSpotlight;
 
   return (
     <section
       id="enquire"
-      className={`relative overflow-hidden py-20 sm:py-24 ${
-        isMuted ? "bg-[#f7f7f5]" : "bg-white"
-      }`}
+      className="relative overflow-hidden border-t border-neutral-200 bg-[#ffffff] py-20 sm:py-24"
     >
-      {showSpotlight ? (
-        <>
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-brand-accent/10 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-16 bottom-0 h-80 w-80 rounded-full bg-neutral-900/[0.04] blur-3xl"
-          />
-        </>
-      ) : null}
-
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         {showSpotlight ? (
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-14">
@@ -117,7 +103,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
               </ul>
             </SectionIntro>
 
-            <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]">
+            <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-[#ffffff] shadow-[0_24px_80px_rgba(0,0,0,0.07)]">
               <div
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-accent via-brand-accent/70 to-transparent"
@@ -157,8 +143,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             <div
               className={
                 useRaisedCard
-                  ? "relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]"
-                  : "rounded-2xl bg-[#f7f7f5]"
+                  ? "relative overflow-hidden rounded-2xl border border-neutral-200 bg-[#ffffff] shadow-[0_24px_80px_rgba(0,0,0,0.07)]"
+                  : "rounded-2xl bg-neutral-50"
               }
             >
               {useRaisedCard ? (

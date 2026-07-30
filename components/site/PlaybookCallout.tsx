@@ -34,7 +34,7 @@ export function PlaybookCallout({
           isDark ? "text-brand-text-pale/75" : "text-neutral-600"
         }`}
       >
-        Flexible engagements, clear accountability, and plans built from your data.
+        Solutions shaped to your accounts / Fees tied to results, not hours / Terms that flex as you grow / No cost to get your plan
       </p>
       {href ? (
         <Link href={href} className={buttonClassName}>
