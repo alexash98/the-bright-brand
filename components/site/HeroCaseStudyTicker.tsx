@@ -2,7 +2,6 @@
 
 import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { isPreoptimizedLocalImage } from "@/lib/image";
 import { CaseStudy } from "@/lib/site-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
@@ -163,32 +162,24 @@ function ScrollingColumn({
     );
   }
 
-  const startY = direction === "down" ? -scrollDistance : 0;
+  const animName = direction === "up" ? "ticker-scroll-y-up" : "ticker-scroll-y-down";
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
-      <motion.div
-        className="flex flex-col will-change-transform"
-        style={{ gap: COPY_GAP_PX }}
-        initial={{ y: startY }}
-        animate={{
-          y:
-            direction === "up"
-              ? [0, -scrollDistance]
-              : [-scrollDistance, 0],
-        }}
-        transition={{
-          y: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration,
-            ease: "linear",
-          },
-        }}
+      <div
+        className="flex flex-col will-change-transform [backface-visibility:hidden]"
+        style={
+          {
+            gap: COPY_GAP_PX,
+            "--ticker-dist": `-${scrollDistance}px`,
+            animation: `${animName} ${duration}s linear infinite`,
+            ...(direction === "down" ? { transform: `translate3d(0, -${scrollDistance}px, 0)` } : {}),
+          } as React.CSSProperties
+        }
       >
         <CaseStudyCopy items={items} copyRef={copyRef} eagerFirst />
         <CaseStudyCopy items={items} ariaHidden />
-      </motion.div>
+      </div>
     </div>
   );
 }

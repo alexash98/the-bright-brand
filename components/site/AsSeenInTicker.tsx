@@ -2,7 +2,6 @@
 
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { PressPublication } from "@/lib/site-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -96,6 +95,8 @@ function ScrollingTrack({
     [publications, tileRounds],
   );
 
+  const durationSec = Math.max(50, tiledPublications.length * 3.5);
+
   useLayoutEffect(() => {
     const measure = (): void => {
       if (!copyRef.current?.parentElement || !containerRef.current) {
@@ -146,24 +147,20 @@ function ScrollingTrack({
     };
   }, [publications, tileRounds, tiledPublications]);
 
+  const shouldAnimate = scrollDistance != null && !prefersReducedMotion;
+
   return (
     <div ref={containerRef} className="relative overflow-hidden">
-      <motion.div
-        className={`flex w-max ${LOGO_GAP_CLASS}`}
-        initial={{ x: 0 }}
-        animate={
-          scrollDistance && !prefersReducedMotion
-            ? { x: [0, -scrollDistance] }
-            : { x: 0 }
+      <div
+        className={`flex w-max ${LOGO_GAP_CLASS} will-change-transform [backface-visibility:hidden]`}
+        style={
+          shouldAnimate
+            ? ({
+                "--ticker-dist": `-${scrollDistance}px`,
+                animation: `ticker-scroll-x ${durationSec}s linear infinite`,
+              } as React.CSSProperties)
+            : undefined
         }
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: Math.max(50, tiledPublications.length * 3.5),
-            ease: "linear",
-          },
-        }}
       >
         <PublicationCopy
           publications={tiledPublications}
@@ -175,7 +172,7 @@ function ScrollingTrack({
           copyKey="b"
           ariaHidden
         />
-      </motion.div>
+      </div>
     </div>
   );
 }
