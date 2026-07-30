@@ -22,14 +22,14 @@ export const HowWeWork: React.FC<HowWeWorkProps> = ({ steps }) => {
     <section id="how-we-work" className="relative border-t border-neutral-200 bg-white py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <SectionIntro className="max-w-2xl">
-          <p className="section-intro-eyebrow mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent-dark">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent-dark">
             How We Work
           </p>
           <h2 className="mb-5 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
             What the first{" "}
             <span className="text-brand-accent">90 days</span> look like.
           </h2>
-          <p className="section-intro-copy text-lg leading-relaxed text-neutral-600">
+          <p className="text-lg leading-relaxed text-neutral-600">
             Most agencies spend months on process before anything moves. We get
             into your accounts fast, fix what is broken, and build momentum you
             can measure.

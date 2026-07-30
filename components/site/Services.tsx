@@ -115,7 +115,7 @@ export const Services: React.FC<ServicesProps> = ({
                 <span className="text-brand-accent">funnel</span>, not our
                 playbook.
               </h2>
-              <p className="section-intro-copy text-lg leading-relaxed text-neutral-600">
+              <p className="text-lg leading-relaxed text-neutral-600">
                 We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
               </p>
               <AskAiAboutBrand className="mt-8" />
@@ -127,7 +127,7 @@ export const Services: React.FC<ServicesProps> = ({
           </div>
         ) : (
           <SectionIntro className="mb-12 max-w-3xl">
-            <p className="section-intro-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
               Our approach
             </p>
             <h2 className="mb-5 text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
@@ -135,7 +135,7 @@ export const Services: React.FC<ServicesProps> = ({
               <span className="text-brand-accent">strategy</span> across every
               channel.
             </h2>
-            <p className="section-intro-copy text-lg leading-relaxed text-neutral-600">
+            <p className="text-lg leading-relaxed text-neutral-600">
               We integrate organic search, high-volume paid media, and conversion rate optimisation under a single data-aligned strategy, with attribution built in to prove what drives revenue.
             </p>
           </SectionIntro>

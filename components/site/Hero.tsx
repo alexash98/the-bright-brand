@@ -77,7 +77,7 @@ export const Hero: React.FC<HeroProps> = ({
               </span>
             </h1>
 
-            <p className="section-intro-copy mb-7 max-w-xl text-lg leading-relaxed text-brand-text-pale/90 md:text-xl lg:mb-8 xl:text-lg">
+            <p className="mb-7 max-w-xl text-lg leading-relaxed text-brand-text-pale/90 md:text-xl lg:mb-8 xl:text-lg">
               {description}
             </p>
           </SectionIntro>

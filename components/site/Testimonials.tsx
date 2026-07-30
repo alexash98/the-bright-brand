@@ -185,7 +185,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
             Straight from the{" "}
             <span className="text-brand-accent">people</span> we work with.
           </h2>
-          <p className="section-intro-copy mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
             Founders and operators on the accounts we run, in their words, not
             ours.
           </p>

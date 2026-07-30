@@ -17,7 +17,7 @@ export function ContactTestimonialsSection(): React.ReactElement | null {
     >
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <SectionIntro className="max-w-2xl">
-          <p className="section-intro-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
             Client stories
           </p>
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
