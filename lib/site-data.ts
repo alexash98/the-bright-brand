@@ -181,7 +181,7 @@ export const SERVICES: ServiceCard[] = [
     id: "seo",
     title: "Organic Search (SEO)",
     description:
-      "Sustainable traffic growth through technical SEO, content strategy, and smart link building.",
+      "Long-term organic growth through technical fixes, content that ranks, and authority-building outreach.",
     iconName: "Search",
     linkUrl: "/services/seo",
   },
@@ -189,7 +189,7 @@ export const SERVICES: ServiceCard[] = [
     id: "ppc",
     title: "Paid Search (PPC)",
     description:
-      "Maximise ROI across Google and Microsoft with data-led paid search campaigns.",
+      "Tighter targeting and lower CPCs across Google and Microsoft, backed by campaign data at every decision.",
     iconName: "MousePointerClick",
     linkUrl: "/services/ppc",
   },
@@ -197,7 +197,7 @@ export const SERVICES: ServiceCard[] = [
     id: "social",
     title: "Paid Social",
     description:
-      "Build demand across Meta, TikTok and Pinterest with creative that actually converts.",
+      "Demand generation across Meta, TikTok and Pinterest, built on creative tested to drive real conversions.",
     iconName: "Megaphone",
     linkUrl: "/services/social",
   },
@@ -205,7 +205,7 @@ export const SERVICES: ServiceCard[] = [
     id: "attribution",
     title: "Attribution Systems",
     description:
-      "Custom CRM dashboards and attribution that show exactly what every channel is worth.",
+      "Bespoke CRM dashboards that trace every pound spent back to the revenue it produced.",
     iconName: "Network",
     linkUrl: "/services/attribution",
   },
@@ -213,7 +213,7 @@ export const SERVICES: ServiceCard[] = [
     id: "creative",
     title: "Creative Strategy",
     description:
-      "Scroll-stopping creative that drives engagement and measurable performance.",
+      "Creative built to stop the scroll and back it up with numbers that hold up in reporting.",
     iconName: "Sparkles",
     linkUrl: "/services/creative",
   },
@@ -221,7 +221,7 @@ export const SERVICES: ServiceCard[] = [
     id: "analytics",
     title: "Data & Analytics",
     description:
-      "Robust tracking, dashboards, and attribution that turn raw data into better decisions.",
+      "Clean tracking and clear dashboards that turn every metric into a decision you can act on.",
     iconName: "BarChart3",
     linkUrl: "/services/analytics",
   },

@@ -94,7 +94,7 @@ export function HomePage(): React.ReactElement {
             {SHOW_PLATFORM_LOGO_MARQUEE ? (
               <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />
             ) : null}
-            <EnquiryForm tone="muted" formLayout="contact" />
+            <EnquiryForm tone="spotlight" formLayout="contact" />
           </div>
           <Footer />
         </div>
