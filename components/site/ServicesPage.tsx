@@ -56,7 +56,7 @@ export function ServicesPage(): React.ReactElement {
             theme="light"
             bentoLayout="featured"
           />
-          <EnquiryForm />
+          <EnquiryForm tone="spotlight" formLayout="contact" />
         </div>
         <Footer />
       </main>
