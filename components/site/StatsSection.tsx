@@ -54,7 +54,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <SectionIntro className="max-w-xl">
-            <p className="section-intro-eyebrow mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-brand-accent">
               What we do
             </p>
             <h2
@@ -67,7 +67,7 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
               channel.
             </h2>
             <p
-              className={`section-intro-copy text-base leading-relaxed md:text-lg ${
+              className={`text-base leading-relaxed md:text-lg ${
                 isLight ? "text-neutral-600" : "text-neutral-400"
               }`}
             >

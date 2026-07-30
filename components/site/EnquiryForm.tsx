@@ -88,7 +88,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 Tell us where{" "}
                 <span className="text-brand-accent">you</span> want to go.
               </h2>
-              <p className="section-intro-copy mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
                 Share the commercial problem. We will come back with a clear next
                 step, not a deck full of filler.
               </p>

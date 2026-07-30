@@ -19,7 +19,7 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
               The agency model, rebuilt around your{" "}
               <span className="text-brand-accent">outcomes</span>.
             </h2>
-            <p className="section-intro-copy text-lg font-normal leading-relaxed text-neutral-600">
+            <p className="text-lg font-normal leading-relaxed text-neutral-600">
               Most agencies optimise for retainers and billable hours. We work as an extension of your team, with direct ownership, flexible terms, and reporting tied to revenue.
             </p>
           </SectionIntro>
