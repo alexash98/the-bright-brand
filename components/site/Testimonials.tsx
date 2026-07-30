@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { motion } from "motion/react";
 import { Testimonial } from "@/lib/site-types";
 import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { SectionIntro } from "@/components/site/SectionIntro";
@@ -77,6 +76,8 @@ export function TestimonialTrack({
     [testimonials, tileRounds],
   );
 
+  const durationSec = Math.max(80, tiledTestimonials.length * 8);
+
   useLayoutEffect(() => {
     const measure = (): void => {
       if (!copyRef.current?.parentElement || !containerRef.current) {
@@ -131,24 +132,20 @@ export function TestimonialTrack({
     };
   }, [testimonials, tileRounds, tiledTestimonials]);
 
+  const shouldAnimate = scrollDistance != null && !prefersReducedMotion;
+
   return (
     <div ref={containerRef} className="relative overflow-hidden">
-      <motion.div
-        className={`flex w-max ${CARD_GAP_CLASS}`}
-        initial={{ x: 0 }}
-        animate={
-          scrollDistance && !prefersReducedMotion
-            ? { x: [0, -scrollDistance] }
-            : { x: 0 }
+      <div
+        className={`flex w-max ${CARD_GAP_CLASS} will-change-transform [backface-visibility:hidden]`}
+        style={
+          shouldAnimate
+            ? ({
+                "--ticker-dist": `-${scrollDistance}px`,
+                animation: `ticker-scroll-x ${durationSec}s linear infinite`,
+              } as React.CSSProperties)
+            : undefined
         }
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: Math.max(80, tiledTestimonials.length * 8),
-            ease: "linear",
-          },
-        }}
       >
         <TestimonialCopy
           testimonials={tiledTestimonials}
@@ -156,7 +153,7 @@ export function TestimonialTrack({
           copyRef={copyRef}
         />
         <TestimonialCopy testimonials={tiledTestimonials} copyKey="b" ariaHidden />
-      </motion.div>
+      </div>
     </div>
   );
 }
