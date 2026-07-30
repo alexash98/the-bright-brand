@@ -25,7 +25,8 @@ export const HowWeWork: React.FC<HowWeWorkProps> = ({ steps }) => {
             How We Work
           </p>
           <h2 className="mb-5 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-            What the first 90 days look like.
+            What the first{" "}
+            <span className="text-brand-accent">90 days</span> look like.
           </h2>
           <p className="text-lg leading-relaxed text-neutral-600">
             Most agencies spend months on process before anything moves. We get

@@ -181,10 +181,11 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         <header className="max-w-3xl text-left">
           <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
-            Straight from the people we work with.
+            Straight from the{" "}
+            <span className="text-brand-accent">people</span> we work with.
           </h2>
           <p className="mt-4 text-base leading-relaxed tracking-tight text-neutral-600 md:text-lg">
-            Founders and operators on the accounts we run — in their words, not
+            Founders and operators on the accounts we run, in their words, not
             ours.
           </p>
         </header>

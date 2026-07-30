@@ -19,7 +19,8 @@ export function ContactTestimonialsSection(): React.ReactElement | null {
           Client stories
         </p>
         <h2 className="max-w-2xl text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
-          Straight from the people we work with.
+          Straight from the{" "}
+          <span className="text-brand-accent">people</span> we work with.
         </h2>
       </div>
 

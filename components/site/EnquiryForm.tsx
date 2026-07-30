@@ -84,7 +84,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
             <div className="max-w-xl text-left lg:sticky lg:top-28 lg:pt-2">
               <LiveStatus label="Open for new briefs" />
               <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
-                Tell us where you want to go.
+                Tell us where{" "}
+                <span className="text-brand-accent">you</span> want to go.
               </h2>
               <p className="mt-4 text-base leading-relaxed tracking-tight text-neutral-600 md:text-lg">
                 Share the commercial problem. We will come back with a clear next
@@ -143,7 +144,8 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           <>
             {showHeading ? (
               <h2 className="mb-8 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:mb-10 lg:text-[2.75rem] lg:leading-[1.15]">
-                Tell us where you want to go.
+                Tell us where{" "}
+                <span className="text-brand-accent">you</span> want to go.
               </h2>
             ) : (
               <div className="mb-6">

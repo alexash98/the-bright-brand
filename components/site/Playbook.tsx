@@ -15,7 +15,8 @@ export const Playbook: React.FC<PlaybookProps> = ({ rows }) => {
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="text-left lg:sticky lg:top-24 lg:col-span-5">
             <h2 className="mb-6 text-3xl font-semibold tracking-tight text-neutral-900 md:text-5xl">
-              The agency model, rebuilt around your outcomes.
+              The agency model, rebuilt around your{" "}
+              <span className="text-brand-accent">outcomes</span>.
             </h2>
             <p className="text-lg font-normal leading-relaxed text-neutral-600">
               Most agencies optimise for retainers and billable hours. We work as an extension of your team, with direct ownership, flexible terms, and reporting tied to revenue.
