@@ -2,6 +2,7 @@
 
 import React from "react";
 import { EnquiryFormFields } from "@/components/site/EnquiryFormFields";
+import { EnquiryHostBadge } from "@/components/site/EnquiryHostBadge";
 import { SectionIntro } from "@/components/site/SectionIntro";
 import { useEnquiryForm } from "@/components/site/useEnquiryForm";
 
@@ -19,24 +20,6 @@ interface EnquiryFormProps {
    * `muted` kept as an alias for spotlight so existing callers keep working.
    */
   tone?: "white" | "muted" | "spotlight";
-}
-
-function LiveStatus({
-  label,
-}: {
-  label: string;
-}): React.ReactElement {
-  return (
-    <div className="inline-flex items-center gap-2.5 rounded-full border border-brand-accent/25 bg-brand-accent/10 px-3.5 py-1.5">
-      <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-        <span className="absolute inset-0 rounded-full bg-brand-accent motion-safe:animate-[status-pulse-ring_1.8s_ease-out_infinite] motion-reduce:animate-none" />
-        <span className="relative h-2 w-2 rounded-full bg-brand-accent" />
-      </span>
-      <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-accent-dark">
-        {label}
-      </span>
-    </div>
-  );
 }
 
 export const EnquiryForm: React.FC<EnquiryFormProps> = ({
@@ -111,6 +94,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-accent via-brand-accent/70 to-transparent"
               />
               <div className="px-6 py-8 md:px-10 md:py-12 lg:px-12 lg:py-14">
+                <EnquiryHostBadge className="mb-7" />
                 <p className="mb-6 text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
                   Start the conversation
                 </p>
@@ -136,11 +120,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                 Tell us where{" "}
                 <span className="text-brand-accent">you</span> want to go.
               </h2>
-            ) : (
-              <div className="mb-6">
-                <LiveStatus label="Usually replies in one business day" />
-              </div>
-            )}
+            ) : null}
 
             <div
               className={
@@ -162,6 +142,9 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                     : "p-6 md:p-8 lg:p-10"
                 }
               >
+                {!showHeading ? (
+                  <EnquiryHostBadge className="mb-7" />
+                ) : null}
                 <EnquiryFormFields
                   formData={formData}
                   loading={loading}

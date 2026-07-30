@@ -1,14 +1,7 @@
 'use client';
 
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { AnimatePresence, motion } from "motion/react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { motion } from "motion/react";
 import { Testimonial } from "@/lib/site-types";
 import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { SectionIntro } from "@/components/site/SectionIntro";
@@ -17,14 +10,8 @@ import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface TestimonialsProps {
   testimonials: Testimonial[];
-  /**
-   * `marquee` — horizontal ticker (case studies page).
-   * `featured` — single static card.
-   * `rotate` — one card at a time, auto-advancing (homepage).
-   */
-  layout?: "marquee" | "featured" | "rotate";
-  /** Auto-advance interval for `rotate` layout. Defaults to 2000ms. */
-  autoAdvanceMs?: number;
+  /** Static centred card instead of horizontal marquee. */
+  layout?: "marquee" | "featured";
 }
 
 interface TiledTestimonial extends Testimonial {
@@ -33,7 +20,6 @@ interface TiledTestimonial extends Testimonial {
 
 const CARD_GAP_CLASS = "gap-4";
 const MIN_TILE_ROUNDS = 2;
-const DEFAULT_ROTATE_MS = 3500;
 
 function buildTiledTestimonials(
   testimonials: Testimonial[],
@@ -175,146 +161,9 @@ export function TestimonialTrack({
   );
 }
 
-function RotatingTestimonials({
-  testimonials,
-  autoAdvanceMs,
-}: {
-  testimonials: Testimonial[];
-  autoAdvanceMs: number;
-}): React.ReactElement {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const wasInViewRef = useRef(false);
-
-  const goTo = useCallback(
-    (index: number) => {
-      setActiveIndex((index + testimonials.length) % testimonials.length);
-    },
-    [testimonials.length],
-  );
-
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const visible = Boolean(entry?.isIntersecting);
-        if (visible && !wasInViewRef.current) {
-          setActiveIndex(0);
-        }
-        wasInViewRef.current = visible;
-        setIsInView(visible);
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (
-      testimonials.length <= 1 ||
-      !isInView ||
-      isPaused ||
-      prefersReducedMotion
-    ) {
-      return;
-    }
-
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % testimonials.length);
-    }, autoAdvanceMs);
-
-    return () => window.clearInterval(timer);
-  }, [
-    testimonials.length,
-    isInView,
-    isPaused,
-    prefersReducedMotion,
-    autoAdvanceMs,
-  ]);
-
-  const active = testimonials[activeIndex];
-
-  if (!active) {
-    return <></>;
-  }
-
-  return (
-    <div
-      ref={sectionRef}
-      className="relative z-10 mx-auto mt-12 max-w-7xl px-4 md:px-8"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      <div className="relative mx-auto max-w-2xl">
-        <div className="grid invisible" aria-hidden>
-          {testimonials.map((testimonial) => (
-            <div key={`sizer-${testimonial.id}`} className="col-start-1 row-start-1">
-              <TestimonialCard testimonial={testimonial} />
-            </div>
-          ))}
-        </div>
-
-        <div className="absolute inset-0 overflow-hidden">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={active.id}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={prefersReducedMotion ? undefined : { opacity: 0, y: -12 }}
-              transition={{
-                duration: prefersReducedMotion ? 0.15 : 0.4,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="absolute inset-0"
-            >
-              <TestimonialCard testimonial={active} className="h-full" />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {testimonials.length > 1 ? (
-        <div
-          className="mt-6 flex items-center justify-center gap-2"
-          role="tablist"
-          aria-label="Client testimonials"
-        >
-          {testimonials.map((testimonial, index) => {
-            const isActive = index === activeIndex;
-
-            return (
-              <button
-                key={testimonial.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-label={`Show testimonial from ${testimonial.company}`}
-                onClick={() => goTo(index)}
-                className={`rounded-full transition-all duration-500 ease-in-out ${
-                  isActive
-                    ? "h-2 w-8 bg-neutral-800"
-                    : "h-2 w-2 bg-neutral-300 hover:bg-neutral-400"
-                }`}
-              />
-            );
-          })}
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
 export const Testimonials: React.FC<TestimonialsProps> = ({
   testimonials,
   layout = "marquee",
-  autoAdvanceMs = DEFAULT_ROTATE_MS,
 }) => {
   if (!SHOW_TESTIMONIALS_SECTION) {
     return null;
@@ -326,7 +175,6 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
 
   const featured =
     layout === "featured" || (layout === "marquee" && testimonials.length === 1);
-  const rotate = layout === "rotate";
   const featuredTestimonial = testimonials[0];
 
   return (
@@ -344,12 +192,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
         </SectionIntro>
       </div>
 
-      {rotate ? (
-        <RotatingTestimonials
-          testimonials={testimonials}
-          autoAdvanceMs={autoAdvanceMs}
-        />
-      ) : featured && featuredTestimonial ? (
+      {featured && featuredTestimonial ? (
         <div className="relative z-10 mx-auto mt-12 max-w-7xl px-4 md:px-8">
           <TestimonialCard
             testimonial={featuredTestimonial}

@@ -12,6 +12,7 @@ import {
   ABOUT_FEATURED_WORK,
   ABOUT_HERO_HIGHLIGHTS,
   ABOUT_WHY_DIFFERENT,
+  TESTIMONIALS,
   WORK_PAGE_CASE_STUDIES,
 } from "@/lib/site-data";
 
@@ -39,13 +40,19 @@ const AboutFeaturedWorkSection = dynamic(
   { loading: () => <SectionPlaceholder heightClass="h-[720px]" /> },
 );
 
+const Testimonials = dynamic(
+  () =>
+    import("@/components/site/Testimonials").then((mod) => mod.Testimonials),
+  { loading: () => <SectionPlaceholder heightClass="h-[360px]" /> },
+);
+
 const ABOUT_FEATURED_CASE_STUDIES = ABOUT_FEATURED_WORK.caseStudyIds
   .map((id) => WORK_PAGE_CASE_STUDIES.find((study) => study.id === id))
   .filter((study): study is NonNullable<typeof study> => study !== undefined);
 
 export function AboutPage(): React.ReactElement {
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-gray-100 antialiased selection:bg-brand-accent selection:text-black">
+    <div className="relative min-h-screen overflow-x-clip text-gray-100 antialiased selection:bg-brand-accent selection:text-black">
       <Header navItems={NAV_ITEMS} />
 
       <MarketingHero aside={<AboutHeroAside highlights={ABOUT_HERO_HIGHLIGHTS} />}>
@@ -68,13 +75,14 @@ export function AboutPage(): React.ReactElement {
       </MarketingHero>
 
       <main>
-        <div className="page-below-fold">
+        <div className="page-below-fold bg-white text-neutral-900">
           <AboutWhyDifferentSection content={ABOUT_WHY_DIFFERENT} />
           <AboutCultureSection content={ABOUT_CULTURE} />
           <AboutFeaturedWorkSection
             content={ABOUT_FEATURED_WORK}
             caseStudies={ABOUT_FEATURED_CASE_STUDIES}
           />
+          <Testimonials testimonials={TESTIMONIALS} />
         </div>
         <Footer />
       </main>
