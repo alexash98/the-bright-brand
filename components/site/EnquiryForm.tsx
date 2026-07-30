@@ -13,11 +13,14 @@ const CONTACT_FIELD_CLASS =
 interface EnquiryFormProps {
   showHeading?: boolean;
   formLayout?: "stacked" | "contact";
+  /** Section band colour. `muted` separates from a white section above without going dark before the footer. */
+  tone?: "white" | "muted";
 }
 
 export const EnquiryForm: React.FC<EnquiryFormProps> = ({
   showHeading = true,
   formLayout = "stacked",
+  tone = "white",
 }) => {
   const {
     nameInputRef,
@@ -31,9 +34,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
   } = useEnquiryForm();
 
   const isContactLayout = formLayout === "contact";
+  const isMuted = tone === "muted";
 
   return (
-    <section id="enquire" className="relative bg-white py-20 sm:py-24">
+    <section
+      id="enquire"
+      className={`relative py-20 sm:py-24 ${isMuted ? "bg-[#f7f7f5]" : "bg-white"}`}
+    >
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         {showHeading ? (
           <h2 className="mb-8 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:mb-10 lg:text-[2.75rem] lg:leading-[1.15]">
@@ -45,7 +52,9 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
           className={
             isContactLayout
               ? "overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]"
-              : "rounded-2xl bg-[#f7f7f5]"
+              : isMuted
+                ? "rounded-2xl border border-neutral-200/80 bg-white shadow-[0_16px_48px_rgba(0,0,0,0.04)]"
+                : "rounded-2xl bg-[#f7f7f5]"
           }
         >
           <div

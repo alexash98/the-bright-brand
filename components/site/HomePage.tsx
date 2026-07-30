@@ -13,6 +13,7 @@ import {
   SERVICES,
   TESTIMONIALS,
 } from "@/lib/site-data";
+import { SHOW_PLATFORM_LOGO_MARQUEE } from "@/lib/feature-flags";
 import { NAV_ITEMS } from "@/lib/nav";
 
 const Services = dynamic(
@@ -91,8 +92,10 @@ export function HomePage(): React.ReactElement {
             <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />
             <Testimonials testimonials={TESTIMONIALS} />
             <HowWeWork steps={ENGAGEMENT_STEPS} />
-            <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />
-            <EnquiryForm />
+            {SHOW_PLATFORM_LOGO_MARQUEE ? (
+              <ClientLogoMarquee logos={MARQUEE_PLATFORM_LOGOS} />
+            ) : null}
+            <EnquiryForm tone="muted" />
           </div>
           <Footer />
         </div>
