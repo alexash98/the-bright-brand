@@ -179,15 +179,15 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#f7f7f5] py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
-        <div className="max-w-3xl text-left">
+        <header className="max-w-3xl text-left">
           <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
-            Trusted by brands that don&apos;t settle.
+            Straight from the people we work with.
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-            Numbers tell one story. Here&apos;s what our clients say about getting
-            there.
+          <p className="mt-4 text-base leading-relaxed tracking-tight text-neutral-600 md:text-lg">
+            Founders and operators on the accounts we run — in their words, not
+            ours.
           </p>
-        </div>
+        </header>
       </div>
 
       {featured && featuredTestimonial ? (
