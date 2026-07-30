@@ -86,7 +86,7 @@ export function HomePage(): React.ReactElement {
           <div className="homepage-below-fold page-below-fold">
             <Services services={SERVICES} />
             <Playbook rows={PLAYBOOK} />
-            <div className="relative z-10 -mt-12 -mb-12 px-4 md:px-6">
+            <div className="relative z-10 -mt-12 -mb-12 px-4 md:px-8">
               <PlaybookCallout />
             </div>
             <StatsSection caseStudies={HERO_CAROUSEL_CASE_STUDIES} />

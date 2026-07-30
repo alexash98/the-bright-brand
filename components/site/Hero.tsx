@@ -7,6 +7,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { HeroCaseStudyTicker } from "@/components/site/HeroCaseStudyTicker";
 import { HeroLogoTicker } from "@/components/site/HeroLogoTicker";
 import { PartnerBadges } from "@/components/site/PartnerBadges";
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { useScrollToSection } from "@/components/site/SmoothScrollProvider";
 import { CaseStudy, ClientLogo } from "@/lib/site-types";
 
@@ -51,33 +52,35 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* No opacity fade on LCP text; Motion initial opacity:0 was delaying LCP */}
-          <h1 className="mb-6 text-[33px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[2.875rem] md:text-[3.75rem] lg:mb-7 lg:text-[3.5rem] lg:leading-[1.22] xl:text-[3.875rem]">
-            <span className="block">We help you win on</span>
-            <span className="relative block h-[1.2em] text-brand-accent">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={rotatingWords[index]}
-                  initial={{ y: 16, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -16, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 140, damping: 18 }}
-                  className="absolute left-0 top-0 block font-semibold tracking-tight drop-shadow-[0_2px_10px_rgba(232,184,75,0.2)] whitespace-nowrap"
+          <SectionIntro>
+            <h1 className="mb-6 text-[33px] font-semibold leading-[1.2] tracking-tight text-white sm:text-[2.875rem] md:text-[3.75rem] lg:mb-7 lg:text-[3.5rem] lg:leading-[1.22] xl:text-[3.875rem]">
+              <span className="block">We help you win on</span>
+              <span className="relative block h-[1.2em] text-brand-accent">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={rotatingWords[index]}
+                    initial={{ y: 16, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -16, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 140, damping: 18 }}
+                    className="absolute left-0 top-0 block font-semibold tracking-tight drop-shadow-[0_2px_10px_rgba(232,184,75,0.2)] whitespace-nowrap"
+                  >
+                    {rotatingWords[index]}.
+                  </motion.span>
+                </AnimatePresence>
+                <span
+                  className="invisible block font-semibold tracking-tight whitespace-nowrap"
+                  aria-hidden="true"
                 >
-                  {rotatingWords[index]}.
-                </motion.span>
-              </AnimatePresence>
-              <span
-                className="invisible block font-semibold tracking-tight whitespace-nowrap"
-                aria-hidden="true"
-              >
-                lead generation.
+                  lead generation.
+                </span>
               </span>
-            </span>
-          </h1>
+            </h1>
 
-          <p className="mb-7 max-w-xl text-lg leading-relaxed text-brand-text-pale/90 md:text-xl lg:mb-8 xl:text-lg">
-            {description}
-          </p>
+            <p className="section-intro-copy mb-7 max-w-xl text-lg leading-relaxed text-brand-text-pale/90 md:text-xl lg:mb-8 xl:text-lg">
+              {description}
+            </p>
+          </SectionIntro>
 
           <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4 lg:gap-3">
             <button

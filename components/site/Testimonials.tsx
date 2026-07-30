@@ -4,6 +4,7 @@ import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Testimonial } from "@/lib/site-types";
 import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { TestimonialCard } from "@/components/site/TestimonialCard";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -179,16 +180,16 @@ export const Testimonials: React.FC<TestimonialsProps> = ({
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#f7f7f5] py-20 sm:py-24">
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
-        <header className="max-w-3xl text-left">
+        <SectionIntro className="max-w-3xl">
           <h2 className="text-3xl font-semibold tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.15]">
             Straight from the{" "}
             <span className="text-brand-accent">people</span> we work with.
           </h2>
-          <p className="mt-4 text-base leading-relaxed tracking-tight text-neutral-600 md:text-lg">
+          <p className="section-intro-copy mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
             Founders and operators on the accounts we run, in their words, not
             ours.
           </p>
-        </header>
+        </SectionIntro>
       </div>
 
       {featured && featuredTestimonial ? (

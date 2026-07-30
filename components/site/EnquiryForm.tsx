@@ -2,6 +2,7 @@
 
 import React from "react";
 import { EnquiryFormFields } from "@/components/site/EnquiryFormFields";
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { useEnquiryForm } from "@/components/site/useEnquiryForm";
 
 const DEFAULT_FIELD_CLASS =
@@ -81,13 +82,13 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
         {showSpotlight ? (
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)] lg:gap-14">
-            <div className="max-w-xl text-left lg:sticky lg:top-28 lg:pt-2">
+            <SectionIntro className="max-w-xl lg:sticky lg:top-28 lg:pt-2">
               <LiveStatus label="Open for new briefs" />
               <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-neutral-900 md:text-4xl lg:text-[2.75rem] lg:leading-[1.12]">
                 Tell us where{" "}
                 <span className="text-brand-accent">you</span> want to go.
               </h2>
-              <p className="mt-4 text-base leading-relaxed tracking-tight text-neutral-600 md:text-lg">
+              <p className="section-intro-copy mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
                 Share the commercial problem. We will come back with a clear next
                 step, not a deck full of filler.
               </p>
@@ -114,7 +115,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({
                   No retainer pitch until we have seen the accounts
                 </li>
               </ul>
-            </div>
+            </SectionIntro>
 
             <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]">
               <div

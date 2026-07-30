@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionIntro } from "@/components/site/SectionIntro";
 import { TestimonialTrack } from "@/components/site/Testimonials";
 import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { TESTIMONIALS } from "@/lib/site-data";
@@ -15,13 +16,15 @@ export function ContactTestimonialsSection(): React.ReactElement | null {
       className="relative overflow-hidden border-t border-neutral-200 bg-[#f7f7f5] py-14 md:py-16"
     >
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
-          Client stories
-        </p>
-        <h2 className="max-w-2xl text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
-          Straight from the{" "}
-          <span className="text-brand-accent">people</span> we work with.
-        </h2>
+        <SectionIntro className="max-w-2xl">
+          <p className="section-intro-eyebrow mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
+            Client stories
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
+            Straight from the{" "}
+            <span className="text-brand-accent">people</span> we work with.
+          </h2>
+        </SectionIntro>
       </div>
 
       <div className="relative mt-10 overflow-hidden md:mt-12">

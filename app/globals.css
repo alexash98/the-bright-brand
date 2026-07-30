@@ -104,6 +104,29 @@ p {
   line-height: 1.6;
 }
 
+/*
+ * Homepage / section intros mix Outfit (h2) with Instrument Sans (p).
+ * Outfit’s left sidebearing at display sizes sits further right than body
+ * copy, so headings look indented. Pull titles back to the shared ink edge.
+ */
+.section-intro {
+  text-align: left;
+}
+
+.section-intro > :is(h1, h2, h3) {
+  margin-inline-start: -0.06em;
+}
+
+.section-intro > p,
+.section-intro .section-intro-copy {
+  margin-inline-start: 0;
+  letter-spacing: -0.025em;
+}
+
+.section-intro > .section-intro-eyebrow {
+  margin-inline-start: -0.03em;
+}
+
 @keyframes industry-bar-grow {
   from {
     transform: scaleX(0);
