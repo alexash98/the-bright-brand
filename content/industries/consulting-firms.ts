@@ -47,6 +47,7 @@ const consultingFirms: Industry = {
   servicesIntro:
     "Start with the bottleneck: practice-area CRM, named-account outbound into enterprise buying committees, thought leadership tied to pipeline, or the offline loop that ties signed engagement value back into bidding. We scope that against your practice areas in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your BD team",
     heading: "How we work with your BD team, not around them",

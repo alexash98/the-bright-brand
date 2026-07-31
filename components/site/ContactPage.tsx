@@ -50,7 +50,7 @@ export function ContactPage(): React.ReactElement {
       </MarketingHero>
 
       <main className="bg-white">
-        <EnquiryForm showHeading={false} formLayout="contact" />
+        <EnquiryForm showHeading={false} />
         <ContactTestimonialsSection />
         <Footer />
       </main>

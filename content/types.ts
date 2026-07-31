@@ -164,6 +164,8 @@ export interface Industry {
   servicesIntro?: string;
   /** Override "Open build" CTA on service cards. Set null to suppress label. */
   serviceCardCtaLabel?: string | null;
+  /** When false, hide the "What we build for you" service-card section. */
+  showServicesSection?: boolean;
   /** Optional right-rail visual for the hero (stats only; charts ignored). */
   heroVisual?: IndustryHeroVisual;
   /** Optional below-fold insight panels (age mix, close rates, payback). */

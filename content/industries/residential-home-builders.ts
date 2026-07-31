@@ -47,6 +47,7 @@ const residentialHomeBuilders: Industry = {
   servicesIntro:
     "Start with the bottleneck: development-level Google Ads, call tracking per site, reservation-aware CRM stages, or the offline loop that ties reservations back into bidding. We scope that against your outlet list in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your sales team",
     heading: "How we work with your sales team, not around them",

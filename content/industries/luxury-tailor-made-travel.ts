@@ -44,6 +44,7 @@ const luxuryTailorMadeTravel: Industry = {
   servicesIntro:
     "Usually the leak is one of three places: destination intent that never qualifies, missing phone capture on the designer desk, or deposit and margin values that never retrain the channels. We map that against your tools before any budget move.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your directors, not around them",

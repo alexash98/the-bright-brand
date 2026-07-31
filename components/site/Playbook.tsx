@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { SectionIntro } from "@/components/site/SectionIntro";
 
@@ -28,6 +28,46 @@ const items: { outcome: string; objection: string }[] = [
 ];
 
 export const Playbook: React.FC = () => {
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const [scrollActive, setScrollActive] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const activeIndex = hoveredIndex ?? scrollActive;
+
+  useEffect(() => {
+    let frame = 0;
+
+    const updateActive = (): void => {
+      frame = 0;
+      const line = window.innerHeight * 0.42;
+      let next = 0;
+
+      itemRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const top = el.getBoundingClientRect().top;
+        if (top <= line) {
+          next = i;
+        }
+      });
+
+      setScrollActive((current) => (current === next ? current : next));
+    };
+
+    const onScrollOrResize = (): void => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateActive);
+    };
+
+    updateActive();
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
+
+    return () => {
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <section
       id="playbook"
@@ -68,39 +108,54 @@ export const Playbook: React.FC = () => {
                 className="absolute bottom-3 left-[5px] top-3 w-px bg-gradient-to-b from-brand-accent via-brand-accent/35 to-neutral-200"
               />
 
-              {items.map((item, i) => (
-                <motion.li
-                  key={item.outcome}
-                  initial={{ opacity: 0, x: 8 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{
-                    duration: 0.35,
-                    delay: i * 0.06,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className="group relative flex gap-4 border-b border-neutral-100 py-4 last:border-b-0 last:pb-0 first:pt-0 md:gap-5 md:py-5 md:last:pb-0 md:first:pt-0"
-                >
-                  <div className="relative z-10 mt-1.5 flex h-3 w-3 shrink-0 items-center justify-center">
-                    <span
-                      className={`block rounded-full ring-[5px] ring-white transition-colors duration-300 ${
-                        i === 0
-                          ? "h-2.5 w-2.5 bg-brand-accent"
-                          : "h-2 w-2 bg-neutral-300 group-hover:bg-brand-accent"
-                      }`}
-                    />
-                  </div>
+              {items.map((item, i) => {
+                const isActive = i === activeIndex;
 
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[16px] font-medium leading-snug tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-brand-accent-dark md:text-[17px]">
-                      {item.outcome}
-                    </p>
-                    <p className="mt-1 text-[13px] font-normal leading-relaxed text-neutral-500">
-                      {item.objection}
-                    </p>
-                  </div>
-                </motion.li>
-              ))}
+                return (
+                  <motion.li
+                    key={item.outcome}
+                    ref={(el) => {
+                      itemRefs.current[i] = el;
+                    }}
+                    initial={{ opacity: 0, x: 8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{
+                      duration: 0.35,
+                      delay: i * 0.06,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    onMouseEnter={() => setHoveredIndex(i)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    className="group relative flex gap-4 border-b border-neutral-100 py-4 last:border-b-0 last:pb-0 first:pt-0 md:gap-5 md:py-5 md:last:pb-0 md:first:pt-0"
+                  >
+                    <div className="relative z-10 mt-1.5 flex h-3 w-3 shrink-0 items-center justify-center">
+                      <span
+                        className={`block rounded-full ring-[5px] ring-white transition-all duration-300 ${
+                          isActive
+                            ? "h-2.5 w-2.5 bg-brand-accent"
+                            : "h-2 w-2 bg-neutral-300"
+                        }`}
+                      />
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className={`text-[16px] font-medium leading-snug tracking-tight transition-colors duration-300 md:text-[17px] ${
+                          isActive
+                            ? "text-brand-accent-dark"
+                            : "text-neutral-900"
+                        }`}
+                      >
+                        {item.outcome}
+                      </p>
+                      <p className="mt-1 text-[13px] font-normal leading-relaxed text-neutral-500">
+                        {item.objection}
+                      </p>
+                    </div>
+                  </motion.li>
+                );
+              })}
             </ol>
           </motion.div>
         </div>

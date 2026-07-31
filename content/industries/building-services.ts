@@ -46,6 +46,7 @@ const buildingServices: Industry = {
   servicesIntro:
     "Start with the bottleneck: named-account outbound, package stages in CRM, LinkedIn on the right titles, or the offline loop that ties awarded value back into bidding. We scope that against your list in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",

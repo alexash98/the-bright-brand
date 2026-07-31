@@ -52,6 +52,7 @@ const facilitiesManagement: Industry = {
   servicesIntro:
     "Start with the bottleneck: dual-motion CRM for tenders and reactive, call tracking on service lines, named-account outbound for estates and procurement, or the offline loop that ties won contract value back into bidding. We scope that against your service lines in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",

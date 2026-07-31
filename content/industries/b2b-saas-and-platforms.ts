@@ -45,6 +45,7 @@ const b2bSaasAndPlatforms: Industry = {
   servicesIntro:
     "Start with the bottleneck: HubSpot stage design, named-account outbound, LinkedIn into buying committees, or the offline loop that ties closed ARR back into bidding. Open the sector page that matches how you sell.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your GTM team",
     heading: "How we work with your sales team, not around them",

@@ -44,6 +44,7 @@ const cruiseOperators: Industry = {
   servicesIntro:
     "Start with the bottleneck: paid media, audience building, phone capture on the desk, or the offline loop that ties deposits back into bidding. We scope that against your stack in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your directors, not around them",

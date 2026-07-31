@@ -52,6 +52,7 @@ const commercialFitOut: Industry = {
   servicesIntro:
     "Start with the bottleneck: tender-stage CRM with five-role hierarchies, named-account outbound, LinkedIn on workplace and QS titles, or the offline loop that ties awarded package value back into bidding. We scope that against your list in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",
