@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { PressPublication } from "@/lib/site-types";
+import { buildTickerKeyframes } from "@/lib/ticker-animation";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface AsSeenInTickerProps {
@@ -148,17 +149,23 @@ function ScrollingTrack({
   }, [publications, tileRounds, tiledPublications]);
 
   const shouldAnimate = scrollDistance != null && !prefersReducedMotion;
+  const keyframes =
+    shouldAnimate && scrollDistance != null
+      ? buildTickerKeyframes("asseenin", "x", scrollDistance)
+      : null;
 
   return (
     <div ref={containerRef} className="relative overflow-hidden">
+      {keyframes ? (
+        <style dangerouslySetInnerHTML={{ __html: keyframes.css }} />
+      ) : null}
       <div
         className={`flex w-max ${LOGO_GAP_CLASS} will-change-transform [backface-visibility:hidden]`}
         style={
-          shouldAnimate
-            ? ({
-                "--ticker-dist": `-${scrollDistance}px`,
-                animation: `ticker-scroll-x ${durationSec}s linear infinite`,
-              } as React.CSSProperties)
+          keyframes
+            ? {
+                animation: `${keyframes.name} ${durationSec}s linear infinite`,
+              }
             : undefined
         }
       >

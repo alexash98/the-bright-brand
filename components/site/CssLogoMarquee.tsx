@@ -100,8 +100,10 @@ export function CssLogoMarquee({
   return (
     <div className={`relative overflow-hidden select-none ${className ?? ""}`}>
       <div
-        className="flex w-max will-change-transform [backface-visibility:hidden] motion-safe:animate-[logo-marquee_60s_linear_infinite] motion-reduce:animate-none"
-        style={{ animationDuration: `${durationSec}s` }}
+        className="flex w-max will-change-transform [backface-visibility:hidden] motion-reduce:!animate-none"
+        style={{
+          animation: `logo-marquee ${durationSec}s linear infinite`,
+        }}
       >
         <div className={`flex shrink-0 items-center ${gapClass} ${padClass}`}>
           {logos.map((logo) => (

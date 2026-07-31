@@ -211,6 +211,8 @@ export const industrySchema = z.object({
   servicesIntro: z.string().min(1).max(320).optional(),
   /** null = hide service-card CTA label; omit = default "Open build". */
   serviceCardCtaLabel: z.string().min(1).max(40).nullable().optional(),
+  /** false = hide the "What we build for you" section entirely. */
+  showServicesSection: z.boolean().optional(),
   heroVisual: heroVisualSchema.optional(),
   insightCharts: z.array(insightChartSchema).max(4).optional(),
   marketStats: z.array(marketStatSchema).max(6).optional(),

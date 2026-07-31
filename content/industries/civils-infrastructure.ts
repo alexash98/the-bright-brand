@@ -49,6 +49,7 @@ const civilsInfrastructure: Industry = {
   servicesIntro:
     "Start with the bottleneck: framework-stage CRM, named-account outbound timed to PQQ windows, LinkedIn on the right titles, or the offline loop that ties awarded programme value back into bidding. We scope that against your list in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",

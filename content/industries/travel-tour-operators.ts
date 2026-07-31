@@ -45,6 +45,7 @@ const travelTourOperators: Industry = {
   servicesIntro:
     "Start with the bottleneck: paid media, phone capture on the desk, destination audiences, or the offline loop that ties deposits and margin back into bidding. Open the sector page that matches your product.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your directors, not around them",

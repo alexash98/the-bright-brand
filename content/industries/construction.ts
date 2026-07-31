@@ -46,6 +46,7 @@ const construction: Industry = {
   servicesIntro:
     "Start with the bottleneck: tender-stage CRM, housebuilder reservation tracking, LinkedIn into named accounts, or the offline loop that ties awards and reserved plots back into bidding. Open the sector page that matches how you sell.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",

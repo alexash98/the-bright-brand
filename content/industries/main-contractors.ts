@@ -52,6 +52,7 @@ const mainContractors: Industry = {
   servicesIntro:
     "Start with the bottleneck: tender-stage CRM with multi-stakeholder hierarchies, named-account outbound timed to framework windows, LinkedIn on procurement and QS titles, or the offline loop that ties awarded programme value back into bidding. We scope that against your named universe in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your commercial team",
     heading: "How we work with your commercial team, not around them",

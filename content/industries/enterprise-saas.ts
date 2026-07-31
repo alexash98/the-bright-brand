@@ -46,6 +46,7 @@ const enterpriseSaas: Industry = {
   servicesIntro:
     "Start with the bottleneck: ICP-matched outbound and LinkedIn, committee-aware CRM stages with security gates, or the offline loop that ties closed ARR back into bidding. We scope that against your ICP in week one.",
   serviceCardCtaLabel: null,
+  showServicesSection: false,
   briefing: {
     eyebrow: "Built with your growth team",
     heading: "How we work with your growth team, not around them",

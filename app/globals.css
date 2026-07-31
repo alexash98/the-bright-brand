@@ -133,34 +133,6 @@ p {
   }
 }
 
-/* GPU-only ticker — distance injected via --ticker-dist CSS var. */
-@keyframes ticker-scroll-x {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(var(--ticker-dist), 0, 0);
-  }
-}
-
-@keyframes ticker-scroll-y-up {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, var(--ticker-dist), 0);
-  }
-}
-
-@keyframes ticker-scroll-y-down {
-  from {
-    transform: translate3d(0, var(--ticker-dist), 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 /* Soft live-status ring for enquiry CTAs. */
 @keyframes status-pulse-ring {
   0% {

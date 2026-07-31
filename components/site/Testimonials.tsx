@@ -5,6 +5,7 @@ import { Testimonial } from "@/lib/site-types";
 import { SHOW_TESTIMONIALS_SECTION } from "@/lib/feature-flags";
 import { SectionIntro } from "@/components/site/SectionIntro";
 import { TestimonialCard } from "@/components/site/TestimonialCard";
+import { buildTickerKeyframes } from "@/lib/ticker-animation";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface TestimonialsProps {
@@ -133,17 +134,23 @@ export function TestimonialTrack({
   }, [testimonials, tileRounds, tiledTestimonials]);
 
   const shouldAnimate = scrollDistance != null && !prefersReducedMotion;
+  const keyframes =
+    shouldAnimate && scrollDistance != null
+      ? buildTickerKeyframes("testimonials", "x", scrollDistance)
+      : null;
 
   return (
     <div ref={containerRef} className="relative overflow-hidden">
+      {keyframes ? (
+        <style dangerouslySetInnerHTML={{ __html: keyframes.css }} />
+      ) : null}
       <div
         className={`flex w-max ${CARD_GAP_CLASS} will-change-transform [backface-visibility:hidden]`}
         style={
-          shouldAnimate
-            ? ({
-                "--ticker-dist": `-${scrollDistance}px`,
-                animation: `ticker-scroll-x ${durationSec}s linear infinite`,
-              } as React.CSSProperties)
+          keyframes
+            ? {
+                animation: `${keyframes.name} ${durationSec}s linear infinite`,
+              }
             : undefined
         }
       >

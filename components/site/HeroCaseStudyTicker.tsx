@@ -3,6 +3,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { isPreoptimizedLocalImage } from "@/lib/image";
+import { buildTickerKeyframes } from "@/lib/ticker-animation";
 import { CaseStudy } from "@/lib/site-types";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -162,20 +163,22 @@ function ScrollingColumn({
     );
   }
 
-  const animName = direction === "up" ? "ticker-scroll-y-up" : "ticker-scroll-y-down";
+  const keyframes = buildTickerKeyframes(
+    direction,
+    "y",
+    scrollDistance,
+    direction === "up" ? "forward" : "reverse",
+  );
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden">
+      <style dangerouslySetInnerHTML={{ __html: keyframes.css }} />
       <div
         className="flex flex-col will-change-transform [backface-visibility:hidden]"
-        style={
-          {
-            gap: COPY_GAP_PX,
-            "--ticker-dist": `-${scrollDistance}px`,
-            animation: `${animName} ${duration}s linear infinite`,
-            ...(direction === "down" ? { transform: `translate3d(0, -${scrollDistance}px, 0)` } : {}),
-          } as React.CSSProperties
-        }
+        style={{
+          gap: COPY_GAP_PX,
+          animation: `${keyframes.name} ${duration}s linear infinite`,
+        }}
       >
         <CaseStudyCopy items={items} copyRef={copyRef} eagerFirst />
         <CaseStudyCopy items={items} ariaHidden />

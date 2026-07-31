@@ -197,6 +197,9 @@ export function IndustryPillar({
     };
   });
 
+  const showServicesSection =
+    industry.showServicesSection !== false && serviceCards.length > 0;
+
   const childCards = childLinks.map((link) => ({
     href: link.href,
     title: link.title,
@@ -368,7 +371,7 @@ export function IndustryPillar({
 
       <IndustryMarketPanel industry={industry} surface="muted" />
 
-      {serviceCards.length > 0 ? (
+      {showServicesSection ? (
         <section className="bg-white px-4 py-16 md:px-8 md:py-20">
           <div className="mx-auto max-w-7xl">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">
@@ -389,7 +392,7 @@ export function IndustryPillar({
 
       <section
         className={`px-4 py-16 md:px-8 md:py-20 ${
-          serviceCards.length > 0 ? "bg-[#f7f7f5]" : "bg-white"
+          showServicesSection ? "bg-[#f7f7f5]" : "bg-white"
         }`}
       >
         <div className="mx-auto max-w-7xl">
@@ -426,7 +429,7 @@ export function IndustryPillar({
           eyebrow="Related"
           heading="Nearby industries we also work in"
           links={compactRelated}
-          surface={serviceCards.length > 0 ? "plain" : "muted"}
+          surface={showServicesSection ? "plain" : "muted"}
         />
       ) : null}
 
@@ -438,7 +441,7 @@ export function IndustryPillar({
         variant={industry.faqVariant ?? "default"}
         surface={
           compactRelated.length > 0
-            ? serviceCards.length > 0
+            ? showServicesSection
               ? "muted"
               : "plain"
             : "muted"
