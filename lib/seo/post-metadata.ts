@@ -9,8 +9,8 @@ import {
   TWITTER_CARD,
 } from "@/lib/seo/site";
 
-// Blog posts live at /brightbrand/{slug} (the live Framer CMS collection path).
-export const POSTS_BASE_PATH = "/brightbrand";
+// Blog posts live at /blogs/{slug}. Legacy /brightbrand/{slug} 301s across.
+export const POSTS_BASE_PATH = "/blogs";
 
 export function postCanonicalPath(slug: string): string {
   return `${POSTS_BASE_PATH}/${slug}`;

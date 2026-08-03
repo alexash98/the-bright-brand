@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "@/app/blog-content.css";
 import { JsonLd } from "@/components/JsonLd";
@@ -14,7 +14,10 @@ import {
   faqPage,
   videoObject,
 } from "@/lib/schema";
-import { postMetadata } from "@/lib/seo/post-metadata";
+import {
+  postCanonicalPath,
+  postMetadata,
+} from "@/lib/seo/post-metadata";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -65,7 +68,7 @@ export default async function Page({
     breadcrumbList([
       { name: "Home", path: "/" },
       { name: "Blog", path: "/blog" },
-      { name: post.title, path: `/brightbrand/${post.slug}` },
+      { name: post.title, path: postCanonicalPath(post.slug) },
     ]),
   ];
 

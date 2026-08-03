@@ -9,7 +9,7 @@ export interface PostAuthor {
 
 export interface Post {
   title: string;
-  // Slug is the live, indexed slug. Posts live at /brightbrand/{slug}.
+  // Slug is the live, indexed slug. Posts live at /blogs/{slug}.
   slug: string;
   // ISO date (yyyy-mm-dd), rendered as "Mar 27, 2026" in the UI.
   date: string;
