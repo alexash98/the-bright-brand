@@ -68,7 +68,7 @@
 .bb-article__body .bb-quote__name {
   font-size: 0.875rem;
   font-weight: 600;
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: var(--color-brand-accent, #e8b84b);
 }
 
 /* Stat grid (light cards by default) */
@@ -94,7 +94,7 @@
   font-size: 1.85rem;
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: var(--bb-heading);
 }
 
 .bb-article__body .bb-stat__num em {
@@ -144,7 +144,7 @@
 
 .bb-article__body .bb-insight__num em {
   font-style: normal;
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: inherit;
 }
 
 .bb-article__body .bb-insight__label {
@@ -190,11 +190,11 @@
 .bb-article__body .bb-bar__val {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: var(--color-brand-accent, #e8b84b);
 }
 
 .bb-article__body .bb-bar__row--accent .bb-bar__val {
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: var(--color-brand-accent, #e8b84b);
 }
 
 .bb-article__body .bb-bar__track {
@@ -448,7 +448,7 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-brand-accent-dark, #9a7324);
+  color: var(--color-brand-accent, #e8b84b);
 }
 
 .bb-article__body .bb-data__source {

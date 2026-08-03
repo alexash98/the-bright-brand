@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
                 <button
                   type="button"
                   onClick={() => handleScrollTo("enquire")}
-                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
+                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-black shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
                 >
                   Enquire Now
                   <ArrowUpRight className="h-4.5 w-4.5" />
@@ -109,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               ) : (
                 <Link
                   href={enquireHref}
-                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-brand-bg-darker shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
+                  className="inline-flex h-10 transform items-center gap-2 rounded-full bg-brand-accent px-5 text-[15px] font-bold text-black shadow-lg shadow-brand-accent/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-accent-hover active:translate-y-0"
                 >
                   Enquire Now
                   <ArrowUpRight className="h-4.5 w-4.5" />
@@ -147,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               <button
                 type="button"
                 onClick={() => handleScrollTo("enquire")}
-                className="w-full rounded-full bg-brand-accent py-3 text-center text-sm font-bold text-brand-bg-darker transition-all active:scale-[0.98]"
+                className="w-full rounded-full bg-brand-accent py-3 text-center text-sm font-bold text-black transition-all active:scale-[0.98]"
               >
                 Enquire Now
               </button>
@@ -155,7 +155,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems }) => {
               <Link
                 href={enquireHref}
                 onClick={() => setIsOpen(false)}
-                className="w-full rounded-full bg-brand-accent py-3 text-center text-sm font-bold text-brand-bg-darker transition-all active:scale-[0.98]"
+                className="w-full rounded-full bg-brand-accent py-3 text-center text-sm font-bold text-black transition-all active:scale-[0.98]"
               >
                 Enquire Now
               </Link>
