@@ -1,4 +1,5 @@
 import type { Post } from "@/lib/posts/types";
+import { postCanonicalPath } from "@/lib/seo/post-metadata";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo/site";
 import {
   ORGANIZATION_ID,
@@ -96,7 +97,7 @@ export function blogPosting(
     readTimeMinutes?: number;
   },
 ): BlogPostingSchema {
-  const pageUrl = `${SITE_URL}/brightbrand/${post.slug}`;
+  const pageUrl = `${SITE_URL}${postCanonicalPath(post.slug)}`;
   const dateModified = post.updatedAt
     ? post.updatedAt.slice(0, 10)
     : post.date;

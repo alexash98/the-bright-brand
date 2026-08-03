@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getResource } from "@/content/resources";
 import type { Industry } from "@/content/types";
 import { getPostsByTags } from "@/lib/posts";
+import { postCanonicalPath } from "@/lib/seo/post-metadata";
 
 interface IndustryHubExtrasProps {
   industry: Industry;
@@ -87,7 +88,7 @@ export async function IndustryHubExtras({
                   style={{ animationDelay: `${index * 55}ms` }}
                 >
                   <Link
-                    href={`/brightbrand/${post.slug}`}
+                    href={postCanonicalPath(post.slug)}
                     className="group block h-full rounded-3xl border border-neutral-200 bg-[#f7f7f5] p-8 transition-colors hover:border-brand-accent hover:bg-white"
                   >
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brand-accent">

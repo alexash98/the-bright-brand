@@ -29,14 +29,15 @@ interface PostDetailPageProps {
 }
 
 const PROSE_CLASS =
-  "max-w-none text-base leading-relaxed text-neutral-700 md:text-lg " +
-  "[&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:scroll-mt-28 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-neutral-900 " +
-  "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-neutral-900 " +
-  "[&_h4]:mt-6 [&_h4]:mb-2 [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:text-neutral-900 " +
+  "max-w-none font-sans text-base font-normal leading-relaxed text-neutral-600 md:text-lg " +
+  "[&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:scroll-mt-28 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:tracking-tight [&_h2]:text-[#232327] " +
+  "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-medium [&_h3]:tracking-tight [&_h3]:text-[#232327] " +
+  "[&_h4]:mt-6 [&_h4]:mb-2 [&_h4]:font-display [&_h4]:text-lg [&_h4]:font-medium [&_h4]:text-[#232327] " +
   "[&_p]:mb-5 [&_ul]:mb-5 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-5 [&_ol]:list-decimal [&_ol]:pl-6 " +
-  "[&_li]:mb-2 [&_a]:font-medium [&_a]:text-brand-accent [&_a]:underline [&_strong]:font-semibold [&_strong]:text-neutral-900 " +
+  "[&_li]:mb-2 [&_a]:font-normal [&_a]:text-[#232327] [&_a]:underline [&_a]:decoration-brand-accent [&_a]:underline-offset-2 [&_strong]:font-medium [&_strong]:text-neutral-700 " +
   "[&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-neutral-200 [&_blockquote]:pl-4 [&_blockquote]:italic " +
-  "[&_img]:my-6 [&_img]:rounded-xl [&_table]:my-6 [&_table]:w-full [&_th]:text-left [&_th]:font-semibold [&_td]:align-top " +
+  "[&_img]:my-6 [&_img]:rounded-xl [&_table]:my-6 [&_table]:w-full [&_th]:text-left [&_th]:font-medium [&_td]:align-top " +
+  "[&_code]:rounded [&_code]:bg-[#f7f7f5] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.9em] " +
   "[&_.related-guides]:hidden";
 
 export async function PostDetailPage({
@@ -52,9 +53,10 @@ export async function PostDetailPage({
   const readTime =
     post.readTime ??
     (post.body ? estimateReadTimeMinutes(post.body) : undefined);
-  const video = post.featuredVideo
-    ? parseYouTubeVideo(post.featuredVideo)
-    : null;
+  const video =
+    parseYouTubeVideo(
+      post.featuredVideo ?? "https://www.youtube.com/watch?v=-aZDbrbbXTE",
+    ) ?? null;
   const latestPosts = allPosts
     .filter((item) => item.slug !== post.slug)
     .slice(0, 5)
@@ -215,7 +217,9 @@ export async function PostDetailPage({
                 html={post.body}
                 className={PROSE_CLASS}
                 video={video}
-                videoTitle={post.videoHeading || "Watch the video"}
+                videoTitle={
+                  post.videoHeading || "Watch the related video"
+                }
                 latestPosts={latestPosts}
               >
                 <AuthorBioCard author={author} articles={authorArticles} />

@@ -11,7 +11,7 @@ export const FIXTURE_BODY = `
 <p>This fixture walks through the measurement components we use when we compare match rates across verticals. Treat every figure as an illustrative example for layout and spacing, not as a published study.</p>
 
 <h2>Where match rates usually land</h2>
-<p>Most accounts we audit sit between a thin first upload and a usable feedback loop. The gap is rarely the ad platform. It is missing click IDs on phone-led enquiries, CRM stages that skip the commercial event, or an upload window that expires before the deal closes. Read the <a href="https://www.thebrightbrand.com/brightbrand/how-to-set-up-meta-offline-conversion-tracking-in-2026">Meta offline conversion guide</a> if you need the implementation path, then come back to the comparison below.</p>
+<p>Most accounts we audit sit between a thin first upload and a usable feedback loop. The gap is rarely the ad platform. It is missing click IDs on phone-led enquiries, CRM stages that skip the commercial event, or an upload window that expires before the deal closes. Read the <a href="https://www.thebrightbrand.com/blogs/how-to-set-up-meta-offline-conversion-tracking-in-2026">Meta offline conversion guide</a> if you need the implementation path, then come back to the comparison below.</p>
 <p>When the loop is wired, <strong>closed revenue</strong> becomes the optimisation event and vanity form fills stop quietly winning the auction. That shift is <em>operational</em> before it is creative.</p>
 
 <div class="bb-stats">
@@ -27,9 +27,30 @@ export const FIXTURE_BODY = `
     <span class="bb-stat__num">61<em>%</em></span>
     <span class="bb-stat__label">Illustrative SaaS opportunity match rate</span>
   </div>
-  <div class="bb-stat bb-stat--soft">
+  <div class="bb-stat">
     <span class="bb-stat__num">21<em>d</em></span>
     <span class="bb-stat__label">Illustrative median enquiry to close</span>
+  </div>
+</div>
+
+<h2>Research lifts as an insight grid</h2>
+<p>Use <code>bb-insights</code> when you want four equal metric cards without dark panels.</p>
+<div class="bb-insights">
+  <div class="bb-insight">
+    <span class="bb-insight__num">38<em>%</em></span>
+    <span class="bb-insight__label">Illustrative legal match rate</span>
+  </div>
+  <div class="bb-insight">
+    <span class="bb-insight__num">52<em>%</em></span>
+    <span class="bb-insight__label">Illustrative private medical match rate</span>
+  </div>
+  <div class="bb-insight">
+    <span class="bb-insight__num">61<em>%</em></span>
+    <span class="bb-insight__label">Illustrative SaaS opportunity match rate</span>
+  </div>
+  <div class="bb-insight">
+    <span class="bb-insight__num">21<em>d</em></span>
+    <span class="bb-insight__label">Illustrative median enquiry to close</span>
   </div>
 </div>
 
@@ -52,7 +73,7 @@ export const FIXTURE_BODY = `
   </div>
   <div class="bb-bar__row bb-bar__row--accent">
     <div class="bb-bar__head">
-      <span class="bb-bar__label">Legal / solicitors</span>
+      <span class="bb-bar__label">Legal / solicitors (accent row)</span>
       <span class="bb-bar__val">38%</span>
     </div>
     <div class="bb-bar__track"><span class="bb-bar__fill" style="--v: 38%"></span></div>
@@ -80,9 +101,35 @@ export const FIXTURE_BODY = `
   </div>
 </div>
 
+<h2>When to escalate the measurement fix</h2>
+<p>Status rows use <code>bb-status-list</code> with <code>bb-status--soft</code>, <code>bb-status--mid</code> and <code>bb-status--strong</code>. Badge labels are free text.</p>
+<div class="bb-status-list">
+  <div class="bb-status bb-status--soft">
+    <span class="bb-status__badge">Monitor</span>
+    <div class="bb-status__body">
+      <p class="bb-status__title">Match rate is climbing but still thin</p>
+      <p class="bb-status__text">Keep uploading. Bid on a qualified stage until weekly closed matches can move delivery.</p>
+    </div>
+  </div>
+  <div class="bb-status bb-status--mid">
+    <span class="bb-status__badge">Schedule</span>
+    <div class="bb-status__body">
+      <p class="bb-status__title">Click IDs missing on phone-led enquiries</p>
+      <p class="bb-status__text">Book call-tracking and CRM stitch work in the next sprint. Form coverage alone will not save legal or medical accounts.</p>
+    </div>
+  </div>
+  <div class="bb-status bb-status--strong">
+    <span class="bb-status__badge">Urgent</span>
+    <div class="bb-status__body">
+      <p class="bb-status__title">Bidding on form fills with no closed event</p>
+      <p class="bb-status__text">Pause value optimisation on enquiry volume. Wire the commercial upload before you spend into Q4 peaks.</p>
+    </div>
+  </div>
+</div>
+
 <h2>Upload quality checklist by channel</h2>
 <div class="bb-data">
-  <p class="bb-data__cap">Illustrative upload quality grid</p>
+  <p class="bb-data__cap">Illustrative upload quality grid (light table)</p>
   <div class="bb-table">
     <div class="bb-table__scroll">
       <table>
@@ -137,51 +184,53 @@ export const FIXTURE_BODY = `
             <td>33%</td>
             <td>Broker portal handoff</td>
           </tr>
-          <tr>
-            <td>Wealth</td>
-            <td>AUM onboarded</td>
-            <td>Partial</td>
-            <td>180 days</td>
-            <td>29%</td>
-            <td>Long advice cycle</td>
-          </tr>
-          <tr>
-            <td>Recruitment</td>
-            <td>Placement</td>
-            <td>Strong</td>
-            <td>90 days</td>
-            <td>47%</td>
-            <td>Job board noise</td>
-          </tr>
-          <tr>
-            <td>Dental implants</td>
-            <td>Treatment start</td>
-            <td>Mixed</td>
-            <td>90 days</td>
-            <td>41%</td>
-            <td>Consult no-shows</td>
-          </tr>
-          <tr>
-            <td>Ecommerce</td>
-            <td>First purchase</td>
-            <td>Strong</td>
-            <td>30 days</td>
-            <td>72%</td>
-            <td>Offline returns lag</td>
-          </tr>
-          <tr>
-            <td>Energy</td>
-            <td>Contract live</td>
-            <td>Partial</td>
-            <td>120 days</td>
-            <td>36%</td>
-            <td>Field sales CRM gap</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
   <p class="bb-data__source">Source: illustrative fixture values for template QA only. Not research, not client results, not benchmarks to quote.</p>
+</div>
+
+<h2>Platform comparison panel table</h2>
+<p>Dark header variant uses <code>bb-table bb-table--panel</code>.</p>
+<div class="bb-data">
+  <p class="bb-data__cap">Illustrative channel comparison</p>
+  <div class="bb-table bb-table--panel">
+    <div class="bb-table__scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Cause</th>
+            <th>Key signs</th>
+            <th>Typical duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Missing click IDs</td>
+            <td>Phone leads with blank gclid / fbclid fields</td>
+            <td>Until call stitch ships</td>
+          </tr>
+          <tr>
+            <td>Wrong upload event</td>
+            <td>Form fills train bidding; revenue never returns</td>
+            <td>Ongoing until remapped</td>
+          </tr>
+          <tr>
+            <td>Short conversion window</td>
+            <td>Deals close after the upload expires</td>
+            <td>Sales-cycle dependent</td>
+          </tr>
+          <tr>
+            <td>CRM stage gaps</td>
+            <td>Enquiry jumps straight to won</td>
+            <td>Until stages mirror sales</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="bb-data__source">Illustrative layout only.</p>
 </div>
 
 <h2>How a usable offline loop is staged</h2>

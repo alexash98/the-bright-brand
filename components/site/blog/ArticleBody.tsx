@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, MonitorPlay } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { YouTubeFacade } from "@/components/site/blog/YouTubeFacade";
 import type { YouTubeVideo } from "@/lib/blog/youtube";
 import { postCanonicalPath } from "@/lib/seo/post-metadata";
@@ -170,39 +170,17 @@ export function ArticleBody({
 
           {video ? (
             <div className="hidden rounded-2xl bg-[#f7f7f5] p-5 md:p-6 min-[900px]:block">
-              <div className="mb-3 flex items-start justify-between gap-3">
-                <p className="font-display text-base font-semibold leading-snug tracking-tight text-[#232327]">
-                  {videoTitle}
-                </p>
-                <MonitorPlay
-                  className="mt-0.5 h-4 w-4 shrink-0 text-[#232327]/70"
-                  aria-hidden
-                />
-              </div>
+              <p className="mb-4 font-display text-base font-medium leading-snug tracking-tight text-[#232327]">
+                {videoTitle}
+              </p>
               <YouTubeFacade
                 video={video}
                 title={videoTitle}
                 compact
+                popOut
               />
             </div>
           ) : null}
-
-          <div className="rounded-2xl bg-brand-bg p-5 text-brand-text-pale md:p-6">
-            <p className="font-display text-lg font-semibold tracking-tight">
-              Book an audit
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-brand-text-pale/75">
-              We will map where paid media and closed revenue diverge, then what
-              to fix first.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg"
-            >
-              Book an audit
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
 
           {latestPosts.length > 0 ? (
             <div className="rounded-2xl bg-[#f7f7f5] p-5 md:p-6">
@@ -239,11 +217,11 @@ export function ArticleBody({
 
         <div className="order-1 min-w-0 min-[900px]:order-2">
           {video ? (
-            <div className="mb-10 min-[900px]:hidden">
-              <p className="mb-3 font-display text-lg font-semibold tracking-tight text-[#232327]">
+            <div className="mb-10 rounded-2xl bg-[#f7f7f5] p-5 min-[900px]:hidden md:p-6">
+              <p className="mb-4 font-display text-lg font-medium leading-snug tracking-tight text-[#232327]">
                 {videoTitle}
               </p>
-              <YouTubeFacade video={video} title={videoTitle} />
+              <YouTubeFacade video={video} title={videoTitle} popOut />
             </div>
           ) : null}
 

@@ -9,6 +9,7 @@ import {
   stripDuplicateTitleHeading,
 } from "@/lib/posts/sanitize";
 import { getSupabaseServerClient, hasSupabaseConfig } from "@/lib/supabase/server";
+import { postCanonicalPath } from "@/lib/seo/post-metadata";
 import { SITE_URL } from "@/lib/site";
 
 export const runtime = "nodejs";
@@ -148,14 +149,15 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
 
+    const path = postCanonicalPath(data.slug);
     revalidatePath("/blog");
-    revalidatePath(`/brightbrand/${data.slug}`);
+    revalidatePath(path);
     revalidatePath("/sitemap.xml");
 
     return NextResponse.json({
       ok: true,
       slug: data.slug,
-      url: `${SITE_URL}/brightbrand/${data.slug}`,
+      url: `${SITE_URL}${path}`,
       action,
     });
   } catch (error) {

@@ -1,4 +1,5 @@
 import { POST_BODIES } from "@/lib/posts/bodies.generated";
+import { POST_BODY_OVERRIDES } from "@/lib/posts/body-overrides";
 import { FIXTURE_POST } from "@/lib/posts/fixtures/component-kitchen-sink";
 import HERO_IMAGES from "@/lib/posts/hero-images.generated.json";
 import {
@@ -62,6 +63,8 @@ const POST_FRONTMATTER: Post[] = [
     author: AUTHOR,
     body: null,
     tags: ["google-ads", "meta-ads"],
+    featuredVideo: "https://www.youtube.com/watch?v=-aZDbrbbXTE",
+    videoHeading: "YouTube Shorts holiday ads: what changed",
   },
   {
     title: "Facebook's 2026 Ad Revolution: Why Marketers Must Adapt",
@@ -252,7 +255,8 @@ const POST_FRONTMATTER: Post[] = [
 // Merge imported bodies onto the frontmatter, then inject curated internal
 // links (phrase wrap only; prose is never rewritten).
 const LIVE_REPO_POSTS: Post[] = POST_FRONTMATTER.map((post) => {
-  const raw = POST_BODIES[post.slug] ?? post.body;
+  const raw =
+    POST_BODY_OVERRIDES[post.slug] ?? POST_BODIES[post.slug] ?? post.body;
   const withoutDupTitle = raw
     ? stripDuplicateTitleHeading(raw, post.title, post.slug)
     : raw;

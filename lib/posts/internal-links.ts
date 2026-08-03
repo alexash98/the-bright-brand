@@ -10,7 +10,9 @@ export interface InternalLinkTarget {
 }
 
 function postHref(slug: string): string {
-  return `/brightbrand/${slug}`;
+  // Keep in sync with POSTS_BASE_PATH in lib/seo/post-metadata.ts.
+  // Do not import that module here: posts -> internal-links would cycle.
+  return `/blogs/${slug}`;
 }
 
 // Curated topic-cluster links. Live slugs always. Do not fuzzy-match titles.

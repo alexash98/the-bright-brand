@@ -23,11 +23,15 @@ const nextConfig: NextConfig = {
         destination: "/case-studies",
         statusCode: 301,
       },
-      // Blog posts live at /brightbrand/{slug} (live CMS collection path).
-      // Anything left at the old /blog/{slug} pattern 301s across.
+      // Blog posts live at /blogs/{slug}. Legacy Framer and /blog/{slug} paths 301.
+      {
+        source: "/brightbrand/:slug",
+        destination: "/blogs/:slug",
+        statusCode: 301,
+      },
       {
         source: "/blog/:slug",
-        destination: "/brightbrand/:slug",
+        destination: "/blogs/:slug",
         statusCode: 301,
       },
       // M&E hub renamed: keep equity from /industries/building-services-me.

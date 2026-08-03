@@ -7,6 +7,7 @@ import { getAllCaseStudySlugs } from "@/lib/case-study-details";
 import { getAllPosts, hasBody, isPublicPost } from "@/lib/posts";
 import { isHiddenIndustry } from "@/lib/seo/hidden-industries";
 import { PAGE_SEO } from "@/lib/seo/pages";
+import { postCanonicalPath } from "@/lib/seo/post-metadata";
 import { getAllServiceSlugs } from "@/lib/service-details";
 import { SITE_URL } from "@/lib/site";
 
@@ -54,7 +55,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const post of await getAllPosts()) {
     if (!hasBody(post) || !isPublicPost(post)) continue;
-    add(`/brightbrand/${post.slug}`, new Date(`${post.date}T00:00:00Z`));
+    add(postCanonicalPath(post.slug), new Date(`${post.date}T00:00:00Z`));
   }
 
   add("/integrations", buildTime);
