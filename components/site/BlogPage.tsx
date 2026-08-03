@@ -8,8 +8,8 @@ import { PostGrid } from "@/components/site/PostGrid";
 import { getAllPosts } from "@/lib/posts";
 import { NAV_ITEMS } from "@/lib/nav";
 
-export function BlogPage(): React.ReactElement {
-  const posts = getAllPosts();
+export async function BlogPage(): Promise<React.ReactElement> {
+  const posts = await getAllPosts();
 
   return (
     <div className="relative min-h-screen overflow-x-hidden text-gray-100 antialiased selection:bg-brand-accent selection:text-black">

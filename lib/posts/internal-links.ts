@@ -342,18 +342,8 @@ export function applyInternalLinks(
       result.slice(index + matched.length);
   }
 
-  const relatedItems = targets
-    .filter((target) => target.slug !== currentSlug)
-    .map(
-      (target) =>
-        `<li><a href="${postHref(target.slug)}">${target.anchor}</a></li>`,
-    )
-    .join("");
-
-  if (relatedItems) {
-    result += `\n\n<aside class="related-guides"><h2>Related guides</h2><ul>${relatedItems}</ul></aside>`;
-  }
-
+  // Related guides box removed from article bodies. Related reading lives in
+  // the "What to read next" section on the post template instead.
   return result;
 }
 

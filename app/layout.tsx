@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Outfit } from "next/font/google";
+import { Instrument_Sans, JetBrains_Mono, Outfit } from "next/font/google";
 import { GoogleTagManager } from "@/components/analytics/GoogleTagManager";
 import { GtmRouteListener } from "@/components/analytics/GtmRouteListener";
 import { OdalTracker } from "@/components/analytics/OdalTracker";
@@ -23,6 +23,14 @@ const outfit = Outfit({
   variable: "--font-outfit",
   display: "swap",
   preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-jetbrains",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -57,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-GB"
-      className={`${instrumentSans.variable} ${outfit.variable} h-full antialiased`}
+      className={`${instrumentSans.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="brand-grid min-h-full">
         <JsonLd data={[organization(), website()]} />

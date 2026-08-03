@@ -71,7 +71,14 @@ body {
   font-weight: 400;
   background-color: #1b1b1f;
   color: #e2eae9;
-  overflow-x: hidden;
+  /* clip avoids horizontal scroll without creating a containing block that
+     kills position: sticky in article sidebars (hidden does). */
+  overflow-x: clip;
+}
+
+/* Lenis disables iframe pointer events site-wide; keep blog video playable. */
+.lenis.lenis-smooth .bb-article-layout iframe {
+  pointer-events: auto;
 }
 
 h1,

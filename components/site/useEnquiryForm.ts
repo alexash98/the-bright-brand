@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from "react";
+import { pushSignupEvent } from "@/lib/analytics/form-events";
 
 export interface EnquiryFormData {
   name: string;
@@ -49,10 +50,48 @@ export function useEnquiryForm() {
 
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-    }, 1800);
+    void (async () => {
+      try {
+        const response = await fetch("/api/enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            website: formData.website.trim(),
+            message: formData.message.trim(),
+            pageUrl: window.location.href,
+          }),
+        });
+
+        const payload = (await response.json().catch(() => ({}))) as {
+          error?: string;
+        };
+
+        if (!response.ok) {
+          setError(
+            payload.error ??
+              "We could not send your enquiry. Email alex@thebrightbrand.com or try again in a moment.",
+          );
+          return;
+        }
+
+        pushSignupEvent({
+          formName: "brightbrand_enquiry",
+          email: formData.email.trim(),
+          firstName: formData.name.trim(),
+          companyWebsite: formData.website.trim(),
+          message: formData.message.trim(),
+        });
+        setSuccess(true);
+      } catch {
+        setError(
+          "Network error while sending your enquiry. Check your connection and try again, or email alex@thebrightbrand.com.",
+        );
+      } finally {
+        setLoading(false);
+      }
+    })();
   };
 
   const resetForm = () => {

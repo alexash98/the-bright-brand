@@ -27,4 +27,21 @@ export interface Post {
   body: string | null;
   /** Topic tags for taxonomy → /industries and /services linking. */
   tags?: string[];
+  /** Optional SEO title override from the database. */
+  metaTitle?: string;
+  /** ISO timestamp for dateModified in BlogPosting. */
+  updatedAt?: string;
+  heroImageUrl?: string;
+  heroImageAlt?: string;
+  featuredVideo?: string;
+  videoHeading?: string;
+  videoDate?: string;
+  readTime?: number;
+  excerpt?: string;
+  source?: "repo" | "n8n";
+  /**
+   * QA / styling harness. Routable at its slug, but excluded from every
+   * public list by getAllPosts (blog index, related, pager, sitemap feeders).
+   */
+  isFixture?: boolean;
 }

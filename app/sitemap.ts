@@ -4,7 +4,7 @@ import { getAllIntegrationSlugs } from "@/content/integrations";
 import { getAllResourceSlugs } from "@/content/resources";
 import { getAllServiceCatalogueSlugs } from "@/content/services";
 import { getAllCaseStudySlugs } from "@/lib/case-study-details";
-import { getAllPosts, hasBody } from "@/lib/posts";
+import { getAllPosts, hasBody, isPublicPost } from "@/lib/posts";
 import { isHiddenIndustry } from "@/lib/seo/hidden-industries";
 import { PAGE_SEO } from "@/lib/seo/pages";
 import { getAllServiceSlugs } from "@/lib/service-details";
@@ -16,7 +16,7 @@ function absolute(path: string): string {
 
 // Fully derived from the data layer. Example industry fixtures (_*.ts) are
 // excluded via getAllIndustries defaults.
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const buildTime = new Date();
   const entries = new Map<string, MetadataRoute.Sitemap[number]>();
 
@@ -52,8 +52,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     add(`/industries/${industry.slug}`, buildTime);
   }
 
-  for (const post of getAllPosts()) {
-    if (!hasBody(post)) continue;
+  for (const post of await getAllPosts()) {
+    if (!hasBody(post) || !isPublicPost(post)) continue;
     add(`/brightbrand/${post.slug}`, new Date(`${post.date}T00:00:00Z`));
   }
 

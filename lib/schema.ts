@@ -10,12 +10,14 @@ import {
   review,
   softwareApplication,
   serviceSchema as serviceSchemaWithUrl,
+  videoObject,
   type BreadcrumbListSchema,
   type FaqPageSchema,
   type OrganizationSchema,
   type ReviewSchema,
   type ServiceSchema,
   type SoftwareApplicationSchema,
+  type VideoObjectSchema,
   type WebSiteSchema,
 } from "@/lib/seo/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -30,12 +32,14 @@ export {
   faqPage,
   review,
   softwareApplication,
+  videoObject,
   type BreadcrumbListSchema,
   type FaqPageSchema,
   type OrganizationSchema,
   type ReviewSchema,
   type ServiceSchema,
   type SoftwareApplicationSchema,
+  type VideoObjectSchema,
   type WebSiteSchema,
 };
 
@@ -79,10 +83,25 @@ export interface BlogPostingSchema {
     "@type": "WebPage";
     "@id": string;
   };
+  wordCount?: number;
+  timeRequired?: string;
+  articleSection?: string;
+  keywords?: string;
 }
 
-export function blogPosting(post: Post): BlogPostingSchema {
+export function blogPosting(
+  post: Post,
+  extras?: {
+    wordCount?: number;
+    readTimeMinutes?: number;
+  },
+): BlogPostingSchema {
   const pageUrl = `${SITE_URL}/brightbrand/${post.slug}`;
+  const dateModified = post.updatedAt
+    ? post.updatedAt.slice(0, 10)
+    : post.date;
+  const readTime = extras?.readTimeMinutes ?? post.readTime;
+  const image = post.ogImage ?? post.heroImageUrl ?? DEFAULT_OG_IMAGE.url;
 
   return {
     "@context": "https://schema.org",
@@ -91,7 +110,7 @@ export function blogPosting(post: Post): BlogPostingSchema {
     description: post.metaDescription,
     url: pageUrl,
     datePublished: post.date,
-    dateModified: post.date,
+    dateModified,
     author: {
       "@type": "Person",
       name: post.author.name,
@@ -104,10 +123,16 @@ export function blogPosting(post: Post): BlogPostingSchema {
         url: LOGO_URL,
       },
     },
-    image: [post.ogImage ?? DEFAULT_OG_IMAGE.url],
+    image: [image],
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": pageUrl,
     },
+    ...(extras?.wordCount ? { wordCount: extras.wordCount } : {}),
+    ...(readTime ? { timeRequired: `PT${readTime}M` } : {}),
+    articleSection: post.category,
+    ...((post.tags?.length ?? 0) > 0
+      ? { keywords: (post.tags ?? []).join(", ") }
+      : {}),
   };
 }
