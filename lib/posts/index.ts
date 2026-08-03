@@ -1,9 +1,31 @@
 import { POST_BODIES } from "@/lib/posts/bodies.generated";
+import { FIXTURE_POST } from "@/lib/posts/fixtures/component-kitchen-sink";
+import HERO_IMAGES from "@/lib/posts/hero-images.generated.json";
 import {
   applyInternalLinks,
   getFurtherReading,
 } from "@/lib/posts/internal-links";
+import { stripDuplicateTitleHeading } from "@/lib/posts/strip-title-heading";
 import type { Post, PostAuthor } from "@/lib/posts/types";
+
+export { FIXTURE_SLUG } from "@/lib/posts/fixtures/component-kitchen-sink";
+
+type HeroImageEntry = {
+  heroImageUrl: string;
+  heroImageAlt: string;
+};
+
+const HERO_BY_SLUG = HERO_IMAGES as Record<string, HeroImageEntry>;
+
+function withHeroImage(post: Post): Post {
+  const hero = HERO_BY_SLUG[post.slug];
+  if (!hero) return post;
+  return {
+    ...post,
+    heroImageUrl: post.heroImageUrl ?? hero.heroImageUrl,
+    heroImageAlt: post.heroImageAlt ?? hero.heroImageAlt,
+  };
+}
 
 // Every live post is authored by Alex Ashcroft, Founder.
 const AUTHOR: PostAuthor = {
@@ -229,33 +251,109 @@ const POST_FRONTMATTER: Post[] = [
 
 // Merge imported bodies onto the frontmatter, then inject curated internal
 // links (phrase wrap only; prose is never rewritten).
-export const POSTS: Post[] = POST_FRONTMATTER.map((post) => {
+const LIVE_REPO_POSTS: Post[] = POST_FRONTMATTER.map((post) => {
   const raw = POST_BODIES[post.slug] ?? post.body;
-  return {
+  const withoutDupTitle = raw
+    ? stripDuplicateTitleHeading(raw, post.title, post.slug)
+    : raw;
+  return withHeroImage({
     ...post,
-    body: raw ? applyInternalLinks(raw, post.slug) : raw,
-  };
+    source: "repo" as const,
+    body: withoutDupTitle
+      ? applyInternalLinks(withoutDupTitle, post.slug)
+      : withoutDupTitle,
+  });
 });
 
-const POSTS_BY_SLUG = new Map(POSTS.map((post) => [post.slug, post]));
+/**
+ * Styling harness plus live repo posts.
+ * Fixture body is left untouched: applyInternalLinks would inject phrase wraps
+ * that look like unexplained markup while styling components.
+ */
+export const REPO_POSTS: Post[] = [
+  withHeroImage(FIXTURE_POST),
+  ...LIVE_REPO_POSTS,
+];
 
-// Newest first by date. Ties keep source order (stable sort).
-export function getAllPosts(): Post[] {
-  return [...POSTS].sort(
+/** @deprecated Prefer REPO_POSTS. Kept so older imports keep working. */
+export const POSTS = REPO_POSTS;
+
+const REPO_POSTS_BY_SLUG = new Map(REPO_POSTS.map((post) => [post.slug, post]));
+
+function sortByDateDesc(posts: Post[]): Post[] {
+  return [...posts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 }
 
-export function getAllPostSlugs(): string[] {
-  return POSTS.map((post) => post.slug);
+function withoutFixtures(posts: Post[]): Post[] {
+  return posts.filter((post) => !post.isFixture);
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return POSTS_BY_SLUG.get(slug);
+/** Union repo posts with published database posts. Repo wins on slug clash. */
+async function getMergedPosts(): Promise<Post[]> {
+  const { getDbPosts } = await import("@/lib/posts/db");
+  const dbPosts = await getDbPosts();
+  const bySlug = new Map<string, Post>();
+
+  for (const post of dbPosts) {
+    bySlug.set(post.slug, post);
+  }
+  for (const post of REPO_POSTS) {
+    bySlug.set(post.slug, post);
+  }
+
+  return sortByDateDesc([...bySlug.values()]);
+}
+
+/**
+ * Public posts only, newest first. Fixture / QA harness posts are excluded
+ * here so every list consumer (blog index, related, pager, API list) stays clean.
+ * Detail routes still resolve fixtures via getPostBySlug.
+ */
+export async function getAllPosts(): Promise<Post[]> {
+  try {
+    return withoutFixtures(await getMergedPosts());
+  } catch (error) {
+    console.error("[lib/posts] getAllPosts failed, falling back to repo:", error);
+    return withoutFixtures(sortByDateDesc(REPO_POSTS));
+  }
+}
+
+export async function getAllPostSlugs(): Promise<string[]> {
+  try {
+    // Include fixtures so generateStaticParams can pre-render the harness.
+    return (await getMergedPosts()).map((post) => post.slug);
+  } catch (error) {
+    console.error("[lib/posts] getAllPostSlugs failed, falling back to repo:", error);
+    return REPO_POSTS.map((post) => post.slug);
+  }
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | undefined> {
+  const repo = REPO_POSTS_BY_SLUG.get(slug);
+  if (repo) return repo;
+
+  try {
+    const posts = await getMergedPosts();
+    return posts.find((post) => post.slug === slug);
+  } catch (error) {
+    console.error("[lib/posts] getPostBySlug failed, falling back to repo:", error);
+    return REPO_POSTS_BY_SLUG.get(slug);
+  }
 }
 
 export function hasBody(post: Post): boolean {
   return post.body != null && post.body.trim().length > 0;
+}
+
+/** False for fixture / QA posts (noindex + sitemap exclusion). */
+export function isPublicPost(post: Post): boolean {
+  return !post.isFixture;
+}
+
+export function isRepoPostSlug(slug: string): boolean {
+  return REPO_POSTS_BY_SLUG.has(slug);
 }
 
 // "Mar 27, 2026" style, matching the live Framer format. Parsed as UTC so the
@@ -270,35 +368,62 @@ export function formatPostDate(date: string): string {
 }
 
 /** Posts matching any of the given tags, newest first. */
-export function getPostsByTags(tags: string[], limit = 3): Post[] {
+export async function getPostsByTags(tags: string[], limit = 3): Promise<Post[]> {
   if (tags.length === 0) return [];
   const tagSet = new Set(tags.map((tag) => tag.toLowerCase()));
-  return getAllPosts()
+  const posts = await getAllPosts();
+  return posts
     .filter((post) =>
       (post.tags ?? []).some((tag) => tagSet.has(tag.toLowerCase())),
     )
     .slice(0, limit);
 }
 
-// Related posts: curated internal-link graph first, then same-category fill.
-export function getRelatedPosts(slug: string, limit = 3): Post[] {
-  const current = getPostBySlug(slug);
-  const curated = current
-    ? getFurtherReading(current, POSTS_BY_SLUG)
-    : [];
+/**
+ * Related posts: shared tags first, then recency.
+ * Repo posts still prefer curated further-reading links when present.
+ */
+export async function getRelatedPosts(slug: string, limit = 3): Promise<Post[]> {
+  const all = await getAllPosts();
+  const current = all.find((post) => post.slug === slug);
+  if (!current) return [];
+
+  const curated = getFurtherReading(current, REPO_POSTS_BY_SLUG).filter(
+    (post) => !post.isFixture,
+  );
   if (curated.length >= limit) {
     return curated.slice(0, limit);
   }
 
-  const others = getAllPosts().filter((post) => post.slug !== slug);
+  const currentTags = new Set(
+    (current.tags ?? []).map((tag) => tag.toLowerCase()),
+  );
+  const others = all.filter((post) => post.slug !== slug);
   const seen = new Set(curated.map((post) => post.slug));
-  const fill = (current
-    ? [
-        ...others.filter((post) => post.category === current.category),
-        ...others.filter((post) => post.category !== current.category),
-      ]
-    : others
-  ).filter((post) => !seen.has(post.slug));
 
-  return [...curated, ...fill].slice(0, limit);
+  const bySharedTag = others.filter(
+    (post) =>
+      !seen.has(post.slug) &&
+      (post.tags ?? []).some((tag) => currentTags.has(tag.toLowerCase())),
+  );
+  for (const post of bySharedTag) seen.add(post.slug);
+
+  const byRecency = others.filter((post) => !seen.has(post.slug));
+
+  return [...curated, ...bySharedTag, ...byRecency].slice(0, limit);
+}
+
+export async function getAdjacentPosts(
+  slug: string,
+): Promise<{ previous: Post | null; next: Post | null }> {
+  const all = await getAllPosts();
+  const index = all.findIndex((post) => post.slug === slug);
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+  // Sorted newest-first: next = newer, previous = older.
+  return {
+    next: index > 0 ? (all[index - 1] ?? null) : null,
+    previous: index < all.length - 1 ? (all[index + 1] ?? null) : null,
+  };
 }

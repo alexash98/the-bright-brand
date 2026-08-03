@@ -1,10 +1,11 @@
 import Script from "next/script";
+import {
+  ODAL_API_URL,
+  ODAL_SCRIPT_SRC,
+  ODAL_WORKSPACE_ID,
+} from "@/lib/odal/config";
 
-// Live Framer site loads Odal with these exact attributes. Preserve them
-// verbatim so form/ingest tracking continues after cutover.
-export const ODAL_WORKSPACE_ID = "25f28148-c6fb-454d-8b84-8355f53a0dfa";
-export const ODAL_API_URL = "https://odal.io/api/ingest/form";
-export const ODAL_SCRIPT_SRC = "https://odal.io/tracker.js";
+export { ODAL_API_URL, ODAL_SCRIPT_SRC, ODAL_WORKSPACE_ID };
 
 export function OdalTracker(): React.ReactElement {
   return (

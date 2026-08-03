@@ -1,18 +1,28 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Globe } from "lucide-react";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { MarketingHero } from "@/components/site/MarketingHero";
-import { RelatedServices } from "@/components/site/RelatedServices";
-import { CALENDLY_URL } from "@/lib/contact";
+import { ArticleBody } from "@/components/site/blog/ArticleBody";
+import { AuthorBioCard } from "@/components/site/blog/AuthorBioCard";
+import { BlogAuditBand } from "@/components/site/blog/BlogAuditBand";
+import { ShareButtons } from "@/components/site/blog/ShareButtons";
+import { resolveAuthor } from "@/lib/authors";
+import { parseYouTubeVideo } from "@/lib/blog/youtube";
+import {
+  estimateReadTimeMinutes,
+} from "@/lib/posts/sanitize";
 import {
   formatPostDate,
+  getAllPosts,
   getRelatedPosts,
 } from "@/lib/posts";
 import type { Post } from "@/lib/posts/types";
 import { NAV_ITEMS } from "@/lib/nav";
 import { postCanonicalPath } from "@/lib/seo/post-metadata";
+import { SITE_URL } from "@/lib/site";
 
 interface PostDetailPageProps {
   post: Post;
@@ -20,26 +30,95 @@ interface PostDetailPageProps {
 
 const PROSE_CLASS =
   "max-w-none text-base leading-relaxed text-neutral-700 md:text-lg " +
-  "[&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-neutral-900 " +
+  "[&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:scroll-mt-28 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-neutral-900 " +
   "[&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-neutral-900 " +
   "[&_h4]:mt-6 [&_h4]:mb-2 [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:text-neutral-900 " +
   "[&_p]:mb-5 [&_ul]:mb-5 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-5 [&_ol]:list-decimal [&_ol]:pl-6 " +
   "[&_li]:mb-2 [&_a]:font-medium [&_a]:text-brand-accent [&_a]:underline [&_strong]:font-semibold [&_strong]:text-neutral-900 " +
   "[&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-neutral-200 [&_blockquote]:pl-4 [&_blockquote]:italic " +
   "[&_img]:my-6 [&_img]:rounded-xl [&_table]:my-6 [&_table]:w-full [&_th]:text-left [&_th]:font-semibold [&_td]:align-top " +
-  "[&_.related-guides]:mt-12 [&_.related-guides]:rounded-2xl [&_.related-guides]:border [&_.related-guides]:border-neutral-200 [&_.related-guides]:bg-[#f7f7f5] [&_.related-guides]:p-6 " +
-  "[&_.related-guides_h2]:mt-0 [&_.related-guides_h2]:mb-4 [&_.related-guides_h2]:text-xl " +
-  "[&_.related-guides_ul]:mb-0 [&_.related-guides_ul]:list-none [&_.related-guides_ul]:pl-0 " +
-  "[&_.related-guides_li]:mb-3 [&_.related-guides_li]:pl-0";
+  "[&_.related-guides]:hidden";
 
-export function PostDetailPage({ post }: PostDetailPageProps): React.ReactElement {
-  const related = getRelatedPosts(post.slug);
+export async function PostDetailPage({
+  post,
+}: PostDetailPageProps): Promise<React.ReactElement> {
+  const [related, allPosts] = await Promise.all([
+    getRelatedPosts(post.slug),
+    getAllPosts(),
+  ]);
+
+  const pageUrl = `${SITE_URL}${postCanonicalPath(post.slug)}`;
+  const author = resolveAuthor(post.author.name);
+  const readTime =
+    post.readTime ??
+    (post.body ? estimateReadTimeMinutes(post.body) : undefined);
+  const video = post.featuredVideo
+    ? parseYouTubeVideo(post.featuredVideo)
+    : null;
+  const latestPosts = allPosts
+    .filter((item) => item.slug !== post.slug)
+    .slice(0, 5)
+    .map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      category: item.category,
+    }));
+  const authorArticles = allPosts
+    .filter(
+      (item) =>
+        item.slug !== post.slug &&
+        item.author.name.toLowerCase() === author.name.toLowerCase(),
+    )
+    .slice(0, 5)
+    .map((item) => ({
+      slug: item.slug,
+      title: item.title,
+    }));
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-gray-100 antialiased selection:bg-brand-accent selection:text-black">
+    <div className="relative min-h-screen text-gray-100 antialiased selection:bg-brand-accent selection:text-black">
       <Header navItems={NAV_ITEMS} />
 
-      <MarketingHero>
+      <MarketingHero
+        asideAlign="center"
+        aside={
+          post.heroImageUrl ? (
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-md overflow-hidden rounded-2xl bg-[#232327] lg:max-w-none">
+              <Image
+                src={post.heroImageUrl}
+                alt={post.heroImageAlt || post.title}
+                fill
+                priority
+                quality={90}
+                sizes="(max-width: 1024px) 90vw, 480px"
+                className="object-cover"
+              />
+            </div>
+          ) : null
+        }
+      >
+        <nav aria-label="Breadcrumb" className="mb-8">
+          <ol className="flex flex-wrap items-center gap-2 text-sm text-brand-text-pale/70">
+            <li>
+              <Link href="/" className="transition-colors hover:text-brand-accent">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li>
+              <Link
+                href="/blog"
+                className="transition-colors hover:text-brand-accent"
+              >
+                Blog
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li className="max-w-[18rem] truncate text-brand-text-pale/90 md:max-w-md">
+              {post.title}
+            </li>
+          </ol>
+        </nav>
         <Link
           href="/blog"
           className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-text-pale/70 transition-colors hover:text-brand-accent"
@@ -60,32 +139,101 @@ export function PostDetailPage({ post }: PostDetailPageProps): React.ReactElemen
 
       <main className="bg-white text-neutral-900">
         <article className="page-below-fold px-4 py-16 md:px-8 md:py-20">
-          <div className="mx-auto max-w-3xl">
-            <div className="mb-10 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-neutral-200 pb-8 text-sm text-neutral-500">
-              <span>
-                By{" "}
-                <span className="font-semibold text-neutral-900">
-                  {post.author.name}
-                </span>
-                , {post.author.position}
-              </span>
-              <span>{formatPostDate(post.date)}</span>
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-10 flex flex-wrap items-center justify-between gap-4 border-b border-neutral-200 pb-8">
+              <div className="flex items-center gap-4">
+                <a
+                  href={author.linkedInUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full ring-2 ring-brand-accent/35 transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 sm:h-14 sm:w-14"
+                >
+                  <Image
+                    src={author.photoSrc}
+                    alt={author.photoAlt}
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-cover"
+                  />
+                </a>
+                <div className="min-w-0">
+                  <p className="text-sm text-neutral-500">
+                    Written by{" "}
+                    <a
+                      href={author.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-[#232327] underline decoration-brand-accent underline-offset-4 transition-colors hover:text-brand-accent-dark"
+                    >
+                      {author.name}
+                    </a>
+                  </p>
+                  <p className="mt-0.5 text-sm text-neutral-500">
+                    {author.role}
+                    <span className="mx-2 text-neutral-300" aria-hidden>
+                      ·
+                    </span>
+                    {formatPostDate(post.date)}
+                    {readTime ? (
+                      <>
+                        <span className="mx-2 text-neutral-300" aria-hidden>
+                          ·
+                        </span>
+                        {readTime} min read
+                      </>
+                    ) : null}
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <a
+                      href={author.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${author.name} on LinkedIn`}
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#232327] text-[11px] font-bold text-brand-text-pale transition-colors hover:bg-brand-accent hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
+                    >
+                      in
+                    </a>
+                    {author.websiteUrl ? (
+                      <a
+                        href={author.websiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${author.name} website`}
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-neutral-200 text-neutral-600 transition-colors hover:border-brand-accent hover:text-brand-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
+                      >
+                        <Globe className="h-3.5 w-3.5" aria-hidden />
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+              <ShareButtons url={pageUrl} title={post.title} />
             </div>
 
             {post.body ? (
-              <div
+              <ArticleBody
+                html={post.body}
                 className={PROSE_CLASS}
-                dangerouslySetInnerHTML={{ __html: post.body }}
-              />
+                video={video}
+                videoTitle={post.videoHeading || "Watch the video"}
+                latestPosts={latestPosts}
+              >
+                <AuthorBioCard author={author} articles={authorArticles} />
+                <BlogAuditBand compact />
+              </ArticleBody>
             ) : (
-              <p className="text-lg text-neutral-500">
-                This article is being prepared and will be published shortly.
-              </p>
+              <>
+                <p className="text-lg text-neutral-500">
+                  This article is being prepared and will be published shortly.
+                </p>
+                <div className="mx-auto mt-14 max-w-3xl space-y-6">
+                  <AuthorBioCard author={author} articles={authorArticles} />
+                  <BlogAuditBand compact />
+                </div>
+              </>
             )}
           </div>
         </article>
-
-        <RelatedServices tags={post.tags} />
 
         {related.length > 0 ? (
           <section className="border-t border-neutral-200 bg-[#f7f7f5] px-4 py-16 md:px-8 md:py-20">
@@ -107,17 +255,31 @@ export function PostDetailPage({ post }: PostDetailPageProps): React.ReactElemen
                   <li key={item.slug} className="h-full">
                     <Link
                       href={postCanonicalPath(item.slug)}
-                      className="group flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-6 transition-colors hover:border-neutral-300"
+                      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition-colors hover:border-neutral-300"
                     >
-                      <span className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
-                        {item.category}
-                      </span>
-                      <span className="text-lg font-semibold tracking-tight text-neutral-900 transition-colors group-hover:text-brand-accent">
-                        {item.title}
-                      </span>
-                      <span className="mt-3 flex-1 text-sm leading-relaxed text-neutral-600">
-                        {item.subtitle}
-                      </span>
+                      {item.heroImageUrl ? (
+                        <div className="relative aspect-[16/10] w-full bg-neutral-100">
+                          <Image
+                            src={item.heroImageUrl}
+                            alt={item.heroImageAlt || item.title}
+                            fill
+                            quality={85}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : null}
+                      <div className="flex flex-1 flex-col p-6">
+                        <span className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">
+                          {item.category}
+                        </span>
+                        <span className="text-lg font-semibold tracking-tight text-neutral-900 transition-colors group-hover:text-brand-accent">
+                          {item.title}
+                        </span>
+                        <span className="mt-3 flex-1 text-sm leading-relaxed text-neutral-600">
+                          {item.subtitle}
+                        </span>
+                      </div>
                     </Link>
                   </li>
                 ))}
@@ -125,27 +287,6 @@ export function PostDetailPage({ post }: PostDetailPageProps): React.ReactElemen
             </div>
           </section>
         ) : null}
-
-        <section className="border-t border-neutral-200 bg-white px-4 py-16 text-center md:px-8 md:py-20">
-          <div className="mx-auto max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl">
-              Ready to grow with a team that owns the numbers?
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-neutral-600 md:text-lg">
-              Book a discovery call and we will map where your next chunk of
-              growth comes from.
-            </p>
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
-            >
-              Book a discovery call
-              <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-        </section>
 
         <Footer />
       </main>

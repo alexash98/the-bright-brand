@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { hasBody } from "@/lib/posts";
+import { hasBody, isPublicPost } from "@/lib/posts";
 import type { Post } from "@/lib/posts/types";
 import {
   DEFAULT_OG_IMAGE,
@@ -19,11 +19,13 @@ export function postCanonicalPath(slug: string): string {
 // Builds a parity-correct Metadata object for a blog post. Title uses the
 // post suffix (" | Bright Brand™"). A post with no body yet is noindexed so we
 // never ship an indexable empty page; it flips to index once a body lands.
+// Fixture / QA posts stay noindexed even when they have a full body.
 export function postMetadata(post: Post): Metadata {
   const title = `${post.title}${POST_TITLE_SUFFIX}`;
   const path = postCanonicalPath(post.slug);
   const url = `${SITE_URL}${path}`;
-  const ogImage = post.ogImage ?? DEFAULT_OG_IMAGE.url;
+  const ogImage = post.ogImage ?? post.heroImageUrl ?? DEFAULT_OG_IMAGE.url;
+  const indexable = hasBody(post) && isPublicPost(post);
 
   return {
     title: { absolute: title },
@@ -48,7 +50,7 @@ export function postMetadata(post: Post): Metadata {
       description: post.metaDescription,
       images: [ogImage],
     },
-    robots: hasBody(post)
+    robots: indexable
       ? { index: true, follow: true, "max-image-preview": "large" }
       : { index: false, follow: true },
   };

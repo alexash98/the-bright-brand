@@ -50,3 +50,7 @@ next-env.d.ts
 
 # Generated SEO review PDFs (regenerate with npm run seo:pdfs)
 /docs/seo/page-pdfs/
+
+# Supabase CLI local state
+supabase/.temp/
+

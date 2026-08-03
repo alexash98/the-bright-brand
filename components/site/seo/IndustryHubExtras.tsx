@@ -7,14 +7,14 @@ interface IndustryHubExtrasProps {
   industry: Industry;
 }
 
-export function IndustryHubExtras({
+export async function IndustryHubExtras({
   industry,
-}: IndustryHubExtrasProps): React.ReactElement | null {
+}: IndustryHubExtrasProps): Promise<React.ReactElement | null> {
   const resources = (industry.resourceSlugs ?? [])
     .map((slug) => getResource(slug))
     .filter((resource): resource is NonNullable<typeof resource> => Boolean(resource));
 
-  const posts = getPostsByTags(industry.blogTags ?? [], 3);
+  const posts = await getPostsByTags(industry.blogTags ?? [], 3);
 
   if (resources.length === 0 && posts.length === 0) {
     return null;

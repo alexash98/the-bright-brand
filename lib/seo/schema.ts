@@ -313,4 +313,35 @@ export function softwareApplication(input: {
   };
 }
 
+export interface VideoObjectSchema {
+  "@context": "https://schema.org";
+  "@type": "VideoObject";
+  name: string;
+  description: string;
+  thumbnailUrl: string[];
+  uploadDate: string;
+  contentUrl: string;
+  embedUrl: string;
+}
+
+export function videoObject(input: {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  contentUrl: string;
+  embedUrl: string;
+}): VideoObjectSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: input.name,
+    description: input.description,
+    thumbnailUrl: [input.thumbnailUrl],
+    uploadDate: input.uploadDate,
+    contentUrl: input.contentUrl,
+    embedUrl: input.embedUrl,
+  };
+}
+
 export { DEFAULT_OG_IMAGE, LOGO_URL };
