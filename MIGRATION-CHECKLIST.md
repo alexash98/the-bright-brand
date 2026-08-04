@@ -6,14 +6,15 @@ Ordered cutover runbook for `www.thebrightbrand.com`. Tick items in sequence. Do
 
 - [ ] `npx tsx scripts/verify-parity.ts <VERCEL_PREVIEW_URL>` — must print **GO**. Not localhost.
 - [ ] Human eyeball of the 4 apostrophe meta descriptions in the **deployed** HTML (View Source, not DevTools React tree):
-  - `/brightbrand/facebook-s-2026-ad-revolution-why-marketers-must-adapt`
-  - `/brightbrand/how-to-set-up-meta-offline-conversion-tracking-in-2026`
-  - `/brightbrand/linkedin-s-360brew-algorithm-what-you-need-to-know-for-2026`
-  - `/brightbrand/youtube-shorts-holiday-ads-3-game-changers-for-2026`
+  - `/blogs/facebook-s-2026-ad-revolution-why-marketers-must-adapt`
+  - `/blogs/how-to-set-up-meta-offline-conversion-tracking-in-2026`
+  - `/blogs/linkedin-s-360brew-algorithm-what-you-need-to-know-for-2026`
+  - `/blogs/youtube-shorts-holiday-ads-3-game-changers-for-2026`
+- [ ] Confirm legacy post paths single-hop 301 to `/blogs/{slug}`: `/blog/{slug}` and `/brightbrand/{slug}` (listing `/blog` stays 200).
 - [ ] Diff generated `/sitemap.xml` vs live Framer sitemap: every live URL present (expect 35 on the new site once all 6 case studies + net-new `/about` + 6 service details are live; live Framer has 30).
 - [ ] Full crawl of the preview (Screaming Frog or similar): zero 4xx/5xx, zero redirect chains, zero orphans, no duplicate titles.
 - [ ] `public/og-default.png` (1200×630) live and rendering in [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) + [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/).
-- [ ] Core Web Vitals on preview ≥ Framer on `/` and one `/brightbrand/{slug}` post (LCP especially).
+- [ ] Core Web Vitals on preview ≥ Framer on `/` and one `/blogs/{slug}` post (LCP especially).
 - [ ] `/robots.txt` and `/sitemap.xml` both return 200 on preview.
 - [ ] Confirm GTM-5GVVCCDR loads on hard load **and** a soft nav pushes `page_view` to `dataLayer` (Tag Assistant / `window.dataLayer` in console after clicking Blog → a post).
 - [ ] Confirm Calendly CTA still points at `https://calendly.com/alex-thebrightbrand/growth-strategy-call`.
