@@ -27,12 +27,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Offline conversion design and upload loops",
       },
       {
-        href: "/services/crm-implementation",
+        href: "/services/attribution",
         anchor: "CRM implementation",
         description: "Stage models that carry click IDs to close",
       },
@@ -54,12 +54,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/google-ads-management",
+        href: "/services/ppc",
         anchor: "Google Ads management",
         description: "Account architecture tied to pipeline",
       },
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Measurement behind efficient bidding",
       },
@@ -81,12 +81,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Offline events and CRM-backed values",
       },
       {
-        href: "/services/landing-pages-cro",
+        href: "/services/creative",
         anchor: "Landing pages and CRO",
         description: "Pages that match ad promise to enquiry",
       },
@@ -103,12 +103,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/google-ads-management",
+        href: "/services/ppc",
         anchor: "Google Ads management",
         description: "Seasonal and destination structure",
       },
       {
-        href: "/services/call-tracking",
+        href: "/services/attribution",
         anchor: "Call tracking",
         description: "Bookings that complete on the phone",
       },
@@ -125,12 +125,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/google-ads-management",
+        href: "/services/ppc",
         anchor: "Google Ads management",
         description: "Restricted and high-intent search",
       },
       {
-        href: "/services/landing-pages-cro",
+        href: "/services/creative",
         anchor: "Landing pages and CRO",
         description: "Enquiry pages that survive compliance review",
       },
@@ -152,12 +152,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/linkedin-b2b-advertising",
+        href: "/services/social",
         anchor: "LinkedIn B2B advertising",
         description: "Paid social for long B2B cycles",
       },
       {
-        href: "/services/outbound-lead-generation",
+        href: "/services/social",
         anchor: "Outbound lead generation",
         description: "Cold email alongside paid social",
       },
@@ -174,12 +174,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/marketing-automation",
+        href: "/services/analytics",
         anchor: "Marketing automation",
         description: "Lifecycle and n8n workflow builds",
       },
       {
-        href: "/services/crm-implementation",
+        href: "/services/attribution",
         anchor: "CRM implementation",
         description: "The object model automation sits on",
       },
@@ -201,12 +201,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Server-side and offline measurement",
       },
       {
-        href: "/services/reporting-dashboards",
+        href: "/services/analytics",
         anchor: "Reporting dashboards",
         description: "Board views beyond last-click",
       },
@@ -228,12 +228,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/call-tracking",
+        href: "/services/attribution",
         anchor: "Call tracking",
         description: "DNI into CRM and ad platforms",
       },
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Upload qualified call outcomes",
       },
@@ -255,12 +255,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/crm-implementation",
+        href: "/services/attribution",
         anchor: "CRM implementation",
         description: "HubSpot, Salesforce and Pipedrive builds",
       },
       {
-        href: "/services/marketing-automation",
+        href: "/services/analytics",
         anchor: "Marketing automation",
         description: "Lifecycle on a clean CRM",
       },
@@ -277,7 +277,7 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Consent Mode and server-side tagging",
       },
@@ -294,12 +294,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/marketing-automation",
+        href: "/services/analytics",
         anchor: "Marketing automation",
         description: "Workflows that absorb AI copilots safely",
       },
       {
-        href: "/services/reporting-dashboards",
+        href: "/services/analytics",
         anchor: "Reporting dashboards",
         description: "Human-readable performance layers",
       },
@@ -316,12 +316,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     ],
     services: [
       {
-        href: "/services/landing-pages-cro",
+        href: "/services/creative",
         anchor: "Landing pages and CRO",
         description: "Post-click conversion paths",
       },
       {
-        href: "/services/conversion-tracking-attribution",
+        href: "/services/attribution",
         anchor: "Conversion tracking and attribution",
         description: "Measurement beyond platform pixels",
       },
@@ -332,12 +332,12 @@ export const TAXONOMY: TaxonomyMapping[] = [
     industries: [],
     services: [
       {
-        href: "/services/landing-pages-cro",
+        href: "/services/creative",
         anchor: "Landing pages and CRO",
         description: "Pages structured for extraction and conversion",
       },
       {
-        href: "/services/reporting-dashboards",
+        href: "/services/analytics",
         anchor: "Reporting dashboards",
         description: "Organic and paid in one commercial view",
       },

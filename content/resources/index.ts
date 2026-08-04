@@ -1,19 +1,12 @@
 import type { ResourcePage } from "@/content/resources/types";
-import tenderHubspotDealPipeline from "@/content/resources/tender-hubspot-deal-pipeline";
-import ga4EnquiryEventSchema from "@/content/resources/ga4-enquiry-event-schema";
-import googleAdsHousebuilderAccountStructure from "@/content/resources/google-ads-housebuilder-account-structure";
-import negativeKeywordStarterLists from "@/content/resources/negative-keyword-starter-lists";
-import offlineConversionUploadTemplate from "@/content/resources/offline-conversion-upload-template";
-import attributionHealthCheck from "@/content/resources/attribution-health-check";
 
-const RESOURCES: ResourcePage[] = [
-  tenderHubspotDealPipeline,
-  ga4EnquiryEventSchema,
-  googleAdsHousebuilderAccountStructure,
-  negativeKeywordStarterLists,
-  offlineConversionUploadTemplate,
-  attributionHealthCheck,
-];
+/**
+ * Resources (templates/downloads) section was retired (Aug 2026). /resources
+ * and /resources/{slug} 301 to /blog (next.config.ts). Individual resource
+ * source files remain under content/resources/*.ts but are no longer
+ * registered or routed.
+ */
+const RESOURCES: ResourcePage[] = [];
 
 const BY_SLUG = new Map(RESOURCES.map((resource) => [resource.slug, resource]));
 

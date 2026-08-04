@@ -1,5 +1,4 @@
 import {
-  getAllServiceCatalogueSlugs,
   getServiceCatalogueEntry,
 } from "@/content/services";
 import type { Industry } from "@/content/types";
@@ -8,6 +7,7 @@ import {
   getIndustryForRoute,
 } from "@/content/registry";
 import { isHiddenIndustry } from "@/lib/seo/hidden-industries";
+import { getAllServiceSlugs, getServiceDetailBySlug } from "@/lib/service-details";
 
 /** In-body unique internal link budget enforced by content-lint. */
 const HUB_LINK_BUDGET = 12;
@@ -107,14 +107,17 @@ export function buildIndustryHubLinkSets(industry: Industry): {
   const relatedLinks = allRelated.slice(0, Math.max(0, remaining));
   remaining -= relatedLinks.length;
 
-  const genericLinks = getAllServiceCatalogueSlugs().flatMap((slug) => {
-    const catalogue = getServiceCatalogueEntry(slug);
-    if (!catalogue) return [];
+  // SEO-wave catalogue is retired (Aug 2026); fill remaining budget with the
+  // kept product pillars (seo, ppc, social, attribution, creative, analytics)
+  // instead of linking removed /services/{slug} pages.
+  const genericLinks = getAllServiceSlugs().flatMap((slug) => {
+    const detail = getServiceDetailBySlug(slug);
+    if (!detail) return [];
     return [
       {
         href: `/services/${slug}`,
-        title: catalogue.name,
-        description: catalogue.intro.slice(0, 160),
+        title: detail.title,
+        description: detail.metaDescription.slice(0, 160),
       },
     ];
   });
