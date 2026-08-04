@@ -14,7 +14,6 @@ const PAGE_ROUTES = new Set([
   "/case-studies",
   "/about",
   "/blog",
-  "/resources",
 ]);
 
 export function getNavHref(item: NavItem): string {

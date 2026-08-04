@@ -34,6 +34,17 @@ const nextConfig: NextConfig = {
         destination: "/blogs/:slug",
         statusCode: 301,
       },
+      // Pulled mistaken n8n ingest posts (Aug 2026).
+      {
+        source: "/blogs/google-ads-offline-conversion-tracking-legal",
+        destination: "/blog",
+        statusCode: 301,
+      },
+      {
+        source: "/blogs/cocker-spaniel-health-problems-prevention",
+        destination: "/blog",
+        statusCode: 301,
+      },
       // M&E hub renamed: keep equity from /industries/building-services-me.
       {
         source: "/industries/building-services-me",
@@ -103,6 +114,81 @@ const nextConfig: NextConfig = {
       {
         source: "/tools/:slug",
         destination: "/industries",
+        statusCode: 301,
+      },
+      // SEO-wave service pillars retired (Aug 2026). Each 301s to the
+      // closest kept product pillar (seo, ppc, social, attribution,
+      // creative, analytics — see lib/service-details.ts).
+      {
+        source: "/services/google-ads-management",
+        destination: "/services/ppc",
+        statusCode: 301,
+      },
+      {
+        source: "/services/linkedin-b2b-advertising",
+        destination: "/services/social",
+        statusCode: 301,
+      },
+      {
+        source: "/services/outbound-lead-generation",
+        destination: "/services/social",
+        statusCode: 301,
+      },
+      {
+        source: "/services/crm-implementation",
+        destination: "/services/attribution",
+        statusCode: 301,
+      },
+      {
+        source: "/services/conversion-tracking-attribution",
+        destination: "/services/attribution",
+        statusCode: 301,
+      },
+      {
+        source: "/services/call-tracking",
+        destination: "/services/attribution",
+        statusCode: 301,
+      },
+      {
+        source: "/services/landing-pages-cro",
+        destination: "/services/creative",
+        statusCode: 301,
+      },
+      {
+        source: "/services/marketing-automation",
+        destination: "/services/analytics",
+        statusCode: 301,
+      },
+      {
+        source: "/services/reporting-dashboards",
+        destination: "/services/analytics",
+        statusCode: 301,
+      },
+      // Case study detail pages retired (Aug 2026). Index stays live.
+      {
+        source: "/case-studies/:slug",
+        destination: "/case-studies",
+        statusCode: 301,
+      },
+      // Integrations and resources sections retired (Aug 2026).
+      {
+        source: "/integrations",
+        destination: "/services",
+        statusCode: 301,
+      },
+      {
+        source: "/integrations/:slug",
+        destination: "/services",
+        statusCode: 301,
+      },
+      {
+        source: "/resources",
+        destination: "/blog",
+        statusCode: 301,
+      },
+      {
+        source: "/resources/:slug",
+        destination: "/blog",
         statusCode: 301,
       },
     ];

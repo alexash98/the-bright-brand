@@ -1,9 +1,5 @@
 import type { MetadataRoute } from "next";
 import { getAllIndustries } from "@/content/registry";
-import { getAllIntegrationSlugs } from "@/content/integrations";
-import { getAllResourceSlugs } from "@/content/resources";
-import { getAllServiceCatalogueSlugs } from "@/content/services";
-import { getAllCaseStudySlugs } from "@/lib/case-study-details";
 import { getAllPosts, hasBody, isPublicPost } from "@/lib/posts";
 import { isHiddenIndustry } from "@/lib/seo/hidden-industries";
 import { PAGE_SEO } from "@/lib/seo/pages";
@@ -16,7 +12,9 @@ function absolute(path: string): string {
 }
 
 // Fully derived from the data layer. Example industry fixtures (_*.ts) are
-// excluded via getAllIndustries defaults.
+// excluded via getAllIndustries defaults. Service catalogue, case study
+// detail, integrations and resources routes were retired (Aug 2026) and no
+// longer contribute entries; their old URLs 301 (see next.config.ts).
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const buildTime = new Date();
   const entries = new Map<string, MetadataRoute.Sitemap[number]>();
@@ -30,19 +28,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const route of Object.keys(PAGE_SEO)) {
     if (route === "/404") continue;
-    if (route.startsWith("/case-studies/")) continue;
     add(route, buildTime);
   }
 
-  for (const slug of getAllCaseStudySlugs()) {
-    add(`/case-studies/${slug}`, buildTime);
-  }
-
   for (const slug of getAllServiceSlugs()) {
-    add(`/services/${slug}`, buildTime);
-  }
-
-  for (const slug of getAllServiceCatalogueSlugs()) {
     add(`/services/${slug}`, buildTime);
   }
 
@@ -56,16 +45,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const post of await getAllPosts()) {
     if (!hasBody(post) || !isPublicPost(post)) continue;
     add(postCanonicalPath(post.slug), new Date(`${post.date}T00:00:00Z`));
-  }
-
-  add("/integrations", buildTime);
-  for (const slug of getAllIntegrationSlugs()) {
-    add(`/integrations/${slug}`, buildTime);
-  }
-
-  add("/resources", buildTime);
-  for (const slug of getAllResourceSlugs()) {
-    add(`/resources/${slug}`, buildTime);
   }
 
   return [...entries.values()];

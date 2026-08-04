@@ -31,41 +31,8 @@ export const PAGE_SEO = {
     description:
       "Explore performance marketing case studies from The Bright Brand. Real results across paid media, PPC, CRO, and cold email outreach for scaling brands.",
   },
-  // Case-study detail pages. Titles and descriptions pulled verbatim from the
-  // live site (www.thebrightbrand.com/case-studies/{slug}). Only /anywhere
-  // currently exists in the repo; the other five 404 until their content is
-  // built (see report). Metadata is pre-staged here so it is correct the
-  // moment each page lands.
-  "/case-studies/anywhere": {
-    title: "Road to 10M ARR | The Bright Brand",
-    description:
-      "How Bright Brand saved Anywhere.com $300K in wasted ad spend and helped grow their revenue from $6M to $10M, representing a 74% increase year on year",
-  },
-  "/case-studies/formx": {
-    title: "4.5M Pre Seed Growth Mission | The Bright Brand",
-    description:
-      "How Bright Brand is helping FormX, A $4.5M pre-seed modular building startup build their paid acquisition strategy across Meta, Google, LinkedIn and email",
-  },
-  "/case-studies/brittontime": {
-    title: "What Drove Real Revenue in 30 Days | The Bright Brand",
-    description:
-      "How Bright Brand built a custom attribution system for award-winning law firm Britton & Time, generating 150+ leads/month across Google, Microsoft Ads and LinkedIn",
-  },
-  "/case-studies/canopy": {
-    title: "Adding 85k To the Pipeline in 30 Days | The Bright Brand",
-    description:
-      "How Bright Brand added £85,000 in pipeline for Canopy in 30 days; And built an annualised pipeline of £850,000 through email and LinkedIn outbound.",
-  },
-  "/case-studies/enexus": {
-    title: "Achieving 15% Cheaper Acquisition | The Bright Brand",
-    description:
-      "How Bright Brand built a custom lead acquisition system for Enexus Energy; Delivering 65 qualified prospects in the first 2 months and 30+ new leads every month",
-  },
-  "/case-studies/menzies": {
-    title: "Growing MRR by 17% | The Bright Brand",
-    description:
-      "How Bright Brand grew monthly revenue by 17% for Menzies Law; driving 30+ new consultations every month through data-driven Google Ads and CallRail attribution",
-  },
+  // Case-study detail pages were retired (Aug 2026). /case-studies/{slug}
+  // 301s to /case-studies (next.config.ts); no metadata needed here.
   "/contact": {
     title: "Get in Touch | The Bright Brand",
     description:
